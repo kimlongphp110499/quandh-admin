@@ -1,22 +1,22 @@
-name: 'Core - Organization'
+name: 'Core - Role'
 description: |-
 
-  Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+  Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/organizations/export
+    uri: api/roles/export
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xuất danh sách organization'
+      title: 'Xuất danh sách role'
       description: 'Áp dụng cùng bộ lọc với index. Trả về file Excel.'
       authenticated: true
       deprecated: false
@@ -30,18 +30,7 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (name, slug).'
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Lọc theo trạng thái: active, inactive.'
+        description: 'Từ khóa tìm kiếm (name, guard_name).'
         required: false
         example: architecto
         type: string
@@ -74,7 +63,7 @@ endpoints:
       sort_by:
         custom: []
         name: sort_by
-        description: 'Sắp xếp theo: id, name, slug, status, created_at, updated_at.'
+        description: 'Sắp xếp theo: id, name, guard_name, created_at, updated_at.'
         required: false
         example: architecto
         type: string
@@ -95,7 +84,6 @@ endpoints:
         deprecated: false
     cleanQueryParameters:
       search: architecto
-      status: architecto
       from_date: architecto
       to_date: architecto
       sort_by: architecto
@@ -128,7 +116,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:02'
+        example: '2026-02-23T13:24:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -139,7 +127,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -183,8 +171,8 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:02'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:31'
+      to_date: '2052-03-18'
       sort_by: 'n'
       sort_order: desc
       limit: 7
@@ -211,16 +199,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/organizations/import
+    uri: api/roles/import
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Nhập danh sách organization'
+      title: 'Nhập danh sách role'
       description: ''
       authenticated: true
       deprecated: false
@@ -236,7 +224,7 @@ endpoints:
       file:
         custom: []
         name: file
-        description: 'File excel (xlsx, xls, csv). Cột: name, slug, description, status.'
+        description: 'File excel (xlsx, xls, csv). Cột: name, guard_name, organization_id.'
         required: true
         example: null
         type: file
@@ -251,7 +239,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Import organization thành công."}'
+        content: '{"success": true, "message": "Import vai trò thành công."}'
         headers: []
         description: ''
     responseFields: []
@@ -266,16 +254,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/organizations/bulk-delete
+    uri: api/roles/bulk-delete
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa hàng loạt organization'
+      title: 'Xóa hàng loạt role'
       description: ''
       authenticated: true
       deprecated: false
@@ -312,80 +300,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Đã xóa thành công các organization được chọn!"}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - PATCH
-    uri: api/organizations/bulk-status
-    metadata:
-      custom: []
-      groupName: 'Core - Organization'
-      groupDescription: |-
-
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Cập nhật trạng thái organization hàng loạt'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      ids:
-        custom: []
-        name: ids
-        description: 'Danh sách ID.'
-        required: true
-        example:
-          - 1
-          - 2
-          - 3
-        type: 'string[]'
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Trạng thái: active, inactive.'
-        required: true
-        example: active
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      ids:
-        - 1
-        - 2
-        - 3
-      status: active
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"success": true, "message": "Cập nhật trạng thái organization thành công."}'
+        content: '{"success": true, "message": "Đã xóa thành công các vai trò được chọn!"}'
         headers: []
         description: ''
     responseFields: []
@@ -400,17 +315,17 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/organizations/stats
+    uri: api/roles/stats
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Thống kê organization'
-      description: 'Tổng số, đang kích hoạt (active), không kích hoạt (inactive). Áp dụng cùng bộ lọc với index.'
+      title: 'Thống kê role'
+      description: 'Tổng số bản ghi (áp dụng cùng bộ lọc với index). Role không có cột status (chuẩn Spatie).'
       authenticated: true
       deprecated: false
     headers:
@@ -423,23 +338,12 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (name, slug).'
+        description: 'Từ khóa tìm kiếm (name, guard_name).'
         required: false
-        example: cong-ty
+        example: admin
         type: string
         enumValues: []
         exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Lọc theo trạng thái: active, inactive.'
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
         nullable: false
         deprecated: false
       from_date:
@@ -467,7 +371,7 @@ endpoints:
       sort_by:
         custom: []
         name: sort_by
-        description: 'Sắp xếp theo: id, name, slug, status, created_at, updated_at.'
+        description: 'Sắp xếp theo: id, name, guard_name, created_at, updated_at.'
         required: false
         example: created_at
         type: string
@@ -498,8 +402,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      search: cong-ty
-      status: architecto
+      search: admin
       from_date: '2026-02-01'
       to_date: '2026-02-17'
       sort_by: created_at
@@ -533,7 +436,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:02'
+        example: '2026-02-23T13:24:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -544,275 +447,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      sort_by:
-        custom: []
-        name: sort_by
-        description: 'Must not be greater than 50 characters.'
-        required: false
-        example: 'n'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      sort_order:
-        custom: []
-        name: sort_order
-        description: ''
-        required: false
-        example: desc
-        type: string
-        enumValues:
-          - asc
-          - desc
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      limit:
-        custom: []
-        name: limit
-        description: 'Must be at least 1. Must not be greater than 100.'
-        required: false
-        example: 7
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-    cleanBodyParameters:
-      search: b
-      status: architecto
-      from_date: '2026-02-21T14:45:02'
-      to_date: '2052-03-16'
-      sort_by: 'n'
-      sort_order: desc
-      limit: 7
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"success": true, "data": {"total": 10, "active": 5, "inactive": 5}}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: api/organizations/tree
-    metadata:
-      custom: []
-      groupName: 'Core - Organization'
-      groupDescription: |-
-
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Cây organization (toàn bộ cây, không phân trang). Cấu trúc parent_id.'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      status:
-        custom: []
-        name: status
-        description: 'Lọc theo trạng thái: active, inactive.'
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      status: architecto
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"success": true, "data": [{"id": 1, "name": "Công ty A", "slug": "cong-ty-a", "status": "active", "parent_id": null, "children": []}]}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: api/organizations
-    metadata:
-      custom: []
-      groupName: 'Core - Organization'
-      groupDescription: |-
-
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Danh sách organization'
-      description: 'Lấy danh sách có phân trang, lọc và sắp xếp.'
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      search:
-        custom: []
-        name: search
-        description: 'Từ khóa tìm kiếm (name, slug).'
-        required: false
-        example: cong-ty
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Lọc theo trạng thái: active, inactive.'
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      from_date:
-        custom: []
-        name: from_date
-        description: 'date Lọc từ ngày tạo (created_at) (Y-m-d).'
-        required: false
-        example: '2026-02-01'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      to_date:
-        custom: []
-        name: to_date
-        description: 'date Lọc đến ngày tạo (created_at) (Y-m-d).'
-        required: false
-        example: '2026-02-17'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_by:
-        custom: []
-        name: sort_by
-        description: 'Sắp xếp theo: id, name, slug, status, created_at, updated_at.'
-        required: false
-        example: id
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      sort_order:
-        custom: []
-        name: sort_order
-        description: 'Thứ tự: asc, desc.'
-        required: false
-        example: desc
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      limit:
-        custom: []
-        name: limit
-        description: 'Số bản ghi mỗi trang (1-100).'
-        required: false
-        example: 10
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      search: cong-ty
-      status: architecto
-      from_date: '2026-02-01'
-      to_date: '2026-02-17'
-      sort_by: id
-      sort_order: desc
-      limit: 10
-    bodyParameters:
-      search:
-        custom: []
-        name: search
-        description: 'Must not be greater than 100 characters.'
-        required: false
-        example: b
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: ''
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      from_date:
-        custom: []
-        name: from_date
-        description: 'Must be a valid date.'
-        required: false
-        example: '2026-02-21T14:45:02'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        deprecated: false
-      to_date:
-        custom: []
-        name: to_date
-        description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
-        required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -856,8 +491,8 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:02'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:31'
+      to_date: '2052-03-18'
       sort_by: 'n'
       sort_order: asc
       limit: 7
@@ -866,7 +501,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026"},{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        content: '{"success": true, "data": {"total": 5}}'
         headers: []
         description: ''
     responseFields: []
@@ -881,16 +516,217 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/organizations/{organization_id}'
+    uri: api/roles
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Chi tiết organization'
+      title: 'Danh sách role'
+      description: 'Lấy danh sách có phân trang, lọc và sắp xếp. Có kèm organization và permissions.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      search:
+        custom: []
+        name: search
+        description: 'Từ khóa tìm kiếm (name, guard_name).'
+        required: false
+        example: admin
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      from_date:
+        custom: []
+        name: from_date
+        description: 'date Lọc từ ngày tạo (created_at) (Y-m-d).'
+        required: false
+        example: '2026-02-01'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      to_date:
+        custom: []
+        name: to_date
+        description: 'date Lọc đến ngày tạo (created_at) (Y-m-d).'
+        required: false
+        example: '2026-02-17'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sort_by:
+        custom: []
+        name: sort_by
+        description: 'Sắp xếp theo: id, name, guard_name, created_at, updated_at.'
+        required: false
+        example: id
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sort_order:
+        custom: []
+        name: sort_order
+        description: 'Thứ tự: asc, desc.'
+        required: false
+        example: desc
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      limit:
+        custom: []
+        name: limit
+        description: 'Số bản ghi mỗi trang (1-100).'
+        required: false
+        example: 10
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      search: admin
+      from_date: '2026-02-01'
+      to_date: '2026-02-17'
+      sort_by: id
+      sort_order: desc
+      limit: 10
+    bodyParameters:
+      search:
+        custom: []
+        name: search
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      from_date:
+        custom: []
+        name: from_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-02-23T13:24:31'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      to_date:
+        custom: []
+        name: to_date
+        description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
+        required: false
+        example: '2052-03-18'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sort_by:
+        custom: []
+        name: sort_by
+        description: 'Must not be greater than 50 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sort_order:
+        custom: []
+        name: sort_order
+        description: ''
+        required: false
+        example: asc
+        type: string
+        enumValues:
+          - asc
+          - desc
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      limit:
+        custom: []
+        name: limit
+        description: 'Must be at least 1. Must not be greater than 100.'
+        required: false
+        example: 7
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      search: b
+      status: architecto
+      from_date: '2026-02-23T13:24:31'
+      to_date: '2052-03-18'
+      sort_by: 'n'
+      sort_order: asc
+      limit: 7
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"created_at":"12:47:29 23\/02\/2026","updated_at":"12:47:29 23\/02\/2026"},{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"created_at":"12:47:29 23\/02\/2026","updated_at":"12:47:29 23\/02\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/roles/{role_id}'
+    metadata:
+      custom: []
+      groupName: 'Core - Role'
+      groupDescription: |-
+
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Chi tiết role'
       description: ''
       authenticated: true
       deprecated: false
@@ -899,10 +735,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      organization_id:
+      role_id:
         custom: []
-        name: organization_id
-        description: 'The ID of the organization.'
+        name: role_id
+        description: 'The ID of the role.'
         required: true
         example: 1
         type: integer
@@ -910,10 +746,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      organization:
+      role:
         custom: []
-        name: organization
-        description: 'ID organization.'
+        name: role
+        description: 'ID role.'
         required: true
         example: 1
         type: integer
@@ -922,8 +758,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      organization_id: 1
-      organization: 1
+      role_id: 1
+      role: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -933,7 +769,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026","parent":null,"children":[]},"success":"true"}'
+        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"organization":{"id":1,"name":"Default"},"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import","settings.index","settings.show","settings.update"],"created_at":"12:47:29 23\/02\/2026","updated_at":"12:47:29 23\/02\/2026"},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -948,16 +784,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/organizations
+    uri: api/roles
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Tạo organization mới'
+      title: 'Tạo role mới'
       description: ''
       authenticated: true
       deprecated: false
@@ -973,82 +809,64 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Tên organization.'
+        description: 'Tên role.'
         required: true
-        example: 'Công ty A'
+        example: admin
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      slug:
+      guard_name:
         custom: []
-        name: slug
-        description: 'Slug (nếu không gửi sẽ tự sinh từ name).'
+        name: guard_name
+        description: 'Guard name (mặc định web).'
         required: false
-        example: cong-ty-a
+        example: web
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      description:
+      organization_id:
         custom: []
-        name: description
-        description: 'Mô tả.'
+        name: organization_id
+        description: 'ID organization (nullable).'
         required: false
-        example: 'Tổ chức quản trị'
-        type: string
+        example: 1
+        type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      status:
+      permission_ids:
         custom: []
-        name: status
-        description: 'Trạng thái: active, inactive.'
-        required: true
-        example: active
-        type: string
+        name: permission_ids
+        description: 'Danh sách ID permission để sync.'
+        required: false
+        example:
+          - 1
+          - 2
+          - 3
+        type: 'string[]'
         enumValues: []
         exampleWasSpecified: true
         nullable: false
-        deprecated: false
-      parent_id:
-        custom: []
-        name: parent_id
-        description: 'ID organization cha (null = gốc).'
-        required: false
-        example: null
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      sort_order:
-        custom: []
-        name: sort_order
-        description: 'Thứ tự.'
-        required: false
-        example: 0
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: 'Công ty A'
-      slug: cong-ty-a
-      description: 'Tổ chức quản trị'
-      status: active
-      parent_id: null
-      sort_order: 0
+      name: admin
+      guard_name: web
+      organization_id: 1
+      permission_ids:
+        - 1
+        - 2
+        - 3
     fileParameters: []
     responses:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026"},"success":"true","message":"Organization \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import","settings.index","settings.show","settings.update"],"created_at":"12:47:29 23\/02\/2026","updated_at":"12:47:29 23\/02\/2026"},"success":"true","message":"Vai tr\u00f2 \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1063,16 +881,16 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/organizations/{organization_id}'
+    uri: 'api/roles/{role_id}'
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật organization'
+      title: 'Cập nhật role'
       description: ''
       authenticated: true
       deprecated: false
@@ -1081,10 +899,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      organization_id:
+      role_id:
         custom: []
-        name: organization_id
-        description: 'The ID of the organization.'
+        name: role_id
+        description: 'The ID of the role.'
         required: true
         example: 1
         type: integer
@@ -1092,10 +910,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      organization:
+      role:
         custom: []
-        name: organization
-        description: 'ID organization.'
+        name: role
+        description: 'ID role.'
         required: true
         example: 1
         type: integer
@@ -1104,90 +922,70 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      organization_id: 1
-      organization: 1
+      role_id: 1
+      role: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên organization.'
+        description: 'Tên role.'
         required: false
-        example: 'Công ty A'
+        example: editor
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      slug:
+      guard_name:
         custom: []
-        name: slug
-        description: Slug.
+        name: guard_name
+        description: 'Guard name.'
         required: false
-        example: cong-ty-a
+        example: web
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      description:
+      organization_id:
         custom: []
-        name: description
-        description: 'Mô tả.'
+        name: organization_id
+        description: 'ID organization (nullable).'
         required: false
-        example: 'Tổ chức quản trị'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Trạng thái: active, inactive.'
-        required: false
-        example: inactive
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      parent_id:
-        custom: []
-        name: parent_id
-        description: 'ID organization cha (null = gốc).'
-        required: false
-        example: null
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      sort_order:
+      permission_ids:
         custom: []
-        name: sort_order
-        description: 'Thứ tự.'
+        name: permission_ids
+        description: 'Danh sách ID permission để sync (gửi mảng rỗng để bỏ hết).'
         required: false
-        example: 0
-        type: integer
+        example:
+          - 1
+          - 2
+        type: 'string[]'
         enumValues: []
         exampleWasSpecified: true
-        nullable: true
+        nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: 'Công ty A'
-      slug: cong-ty-a
-      description: 'Tổ chức quản trị'
-      status: inactive
-      parent_id: null
-      sort_order: 0
+      name: editor
+      guard_name: web
+      organization_id: 1
+      permission_ids:
+        - 1
+        - 2
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026","parent":null,"children":[]},"success":"true","message":"Organization \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import","settings.index","settings.show","settings.update"],"created_at":"12:47:29 23\/02\/2026","updated_at":"12:47:29 23\/02\/2026"},"success":"true","message":"Vai tr\u00f2 \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1202,16 +1000,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/organizations/{organization_id}'
+    uri: 'api/roles/{role_id}'
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật organization'
+      title: 'Cập nhật role'
       description: ''
       authenticated: true
       deprecated: false
@@ -1220,10 +1018,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      organization_id:
+      role_id:
         custom: []
-        name: organization_id
-        description: 'The ID of the organization.'
+        name: role_id
+        description: 'The ID of the role.'
         required: true
         example: 1
         type: integer
@@ -1231,10 +1029,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      organization:
+      role:
         custom: []
-        name: organization
-        description: 'ID organization.'
+        name: role
+        description: 'ID role.'
         required: true
         example: 1
         type: integer
@@ -1243,90 +1041,70 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      organization_id: 1
-      organization: 1
+      role_id: 1
+      role: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên organization.'
+        description: 'Tên role.'
         required: false
-        example: 'Công ty A'
+        example: editor
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      slug:
+      guard_name:
         custom: []
-        name: slug
-        description: Slug.
+        name: guard_name
+        description: 'Guard name.'
         required: false
-        example: cong-ty-a
+        example: web
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      description:
+      organization_id:
         custom: []
-        name: description
-        description: 'Mô tả.'
+        name: organization_id
+        description: 'ID organization (nullable).'
         required: false
-        example: 'Tổ chức quản trị'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      status:
-        custom: []
-        name: status
-        description: 'Trạng thái: active, inactive.'
-        required: false
-        example: inactive
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      parent_id:
-        custom: []
-        name: parent_id
-        description: 'ID organization cha (null = gốc).'
-        required: false
-        example: null
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      sort_order:
+      permission_ids:
         custom: []
-        name: sort_order
-        description: 'Thứ tự.'
+        name: permission_ids
+        description: 'Danh sách ID permission để sync (gửi mảng rỗng để bỏ hết).'
         required: false
-        example: 0
-        type: integer
+        example:
+          - 1
+          - 2
+        type: 'string[]'
         enumValues: []
         exampleWasSpecified: true
-        nullable: true
+        nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: 'Công ty A'
-      slug: cong-ty-a
-      description: 'Tổ chức quản trị'
-      status: inactive
-      parent_id: null
-      sort_order: 0
+      name: editor
+      guard_name: web
+      organization_id: 1
+      permission_ids:
+        - 1
+        - 2
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026","parent":null,"children":[]},"success":"true","message":"Organization \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import","settings.index","settings.show","settings.update"],"created_at":"12:47:29 23\/02\/2026","updated_at":"12:47:29 23\/02\/2026"},"success":"true","message":"Vai tr\u00f2 \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1341,16 +1119,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/organizations/{organization_id}'
+    uri: 'api/roles/{role_id}'
     metadata:
       custom: []
-      groupName: 'Core - Organization'
+      groupName: 'Core - Role'
       groupDescription: |-
 
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
+        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa organization'
+      title: 'Xóa role'
       description: ''
       authenticated: true
       deprecated: false
@@ -1359,10 +1137,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      organization_id:
+      role_id:
         custom: []
-        name: organization_id
-        description: 'The ID of the organization.'
+        name: role_id
+        description: 'The ID of the role.'
         required: true
         example: 1
         type: integer
@@ -1370,10 +1148,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      organization:
+      role:
         custom: []
-        name: organization
-        description: 'ID organization.'
+        name: role
+        description: 'ID role.'
         required: true
         example: 1
         type: integer
@@ -1382,8 +1160,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      organization_id: 1
-      organization: 1
+      role_id: 1
+      role: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1393,86 +1171,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Organization đã được xóa!"}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - PATCH
-    uri: 'api/organizations/{organization_id}/status'
-    metadata:
-      custom: []
-      groupName: 'Core - Organization'
-      groupDescription: |-
-
-        Quản lý tổ chức (organization): stats, index, show, store, update, destroy, bulk delete, bulk status, change status, export, import.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Thay đổi trạng thái organization'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      organization_id:
-        custom: []
-        name: organization_id
-        description: 'The ID of the organization.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      organization:
-        custom: []
-        name: organization
-        description: 'ID organization.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      organization_id: 1
-      organization: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      status:
-        custom: []
-        name: status
-        description: 'Trạng thái mới: active, inactive.'
-        required: true
-        example: inactive
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      status: inactive
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"data":{"id":1,"name":"Default","slug":"default","description":"Organization m\u1eb7c \u0111\u1ecbnh c\u1ee7a h\u1ec7 th\u1ed1ng","status":"active","parent_id":null,"sort_order":0,"depth":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"14:05:25 21\/02\/2026","updated_at":"14:05:25 21\/02\/2026","parent":null,"children":[]},"success":"true","message":"C\u1eadp nh\u1eadt tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
+        content: '{"success": true, "message": "Vai trò đã được xóa!"}'
         headers: []
         description: ''
     responseFields: []

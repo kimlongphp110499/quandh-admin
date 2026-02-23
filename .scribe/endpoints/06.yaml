@@ -1,22 +1,22 @@
-name: 'Core - Role'
+name: 'Core - Permission'
 description: |-
 
-  Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+  Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/roles/export
+    uri: api/permissions/export
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xuất danh sách role'
+      title: 'Xuất danh sách permission'
       description: 'Áp dụng cùng bộ lọc với index. Trả về file Excel.'
       authenticated: true
       deprecated: false
@@ -116,7 +116,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:02'
+        example: '2026-02-23T13:24:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -127,7 +127,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -149,7 +149,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -171,10 +171,10 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:02'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:31'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
@@ -199,16 +199,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/roles/import
+    uri: api/permissions/import
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Nhập danh sách role'
+      title: 'Nhập danh sách permission'
       description: ''
       authenticated: true
       deprecated: false
@@ -224,7 +224,7 @@ endpoints:
       file:
         custom: []
         name: file
-        description: 'File excel (xlsx, xls, csv). Cột: name, guard_name, organization_id.'
+        description: 'File excel (xlsx, xls, csv). Cột: name, guard_name, description, sort_order, parent_id.'
         required: true
         example: null
         type: file
@@ -239,7 +239,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Import vai trò thành công."}'
+        content: '{"success": true, "message": "Import quyền thành công."}'
         headers: []
         description: ''
     responseFields: []
@@ -254,16 +254,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/roles/bulk-delete
+    uri: api/permissions/bulk-delete
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa hàng loạt role'
+      title: 'Xóa hàng loạt permission'
       description: ''
       authenticated: true
       deprecated: false
@@ -300,7 +300,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Đã xóa thành công các vai trò được chọn!"}'
+        content: '{"success": true, "message": "Đã xóa thành công các quyền được chọn!"}'
         headers: []
         description: ''
     responseFields: []
@@ -315,17 +315,17 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/roles/stats
+    uri: api/permissions/stats
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Thống kê role'
-      description: 'Tổng số bản ghi (áp dụng cùng bộ lọc với index). Role không có cột status (chuẩn Spatie).'
+      title: 'Thống kê permission'
+      description: 'Tổng số bản ghi sau khi áp dụng bộ lọc.'
       authenticated: true
       deprecated: false
     headers:
@@ -338,9 +338,9 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (name, guard_name).'
+        description: 'Từ khóa tìm kiếm (name, guard_name, description).'
         required: false
-        example: admin
+        example: posts
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -402,7 +402,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      search: admin
+      search: posts
       from_date: '2026-02-01'
       to_date: '2026-02-17'
       sort_by: created_at
@@ -436,7 +436,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:02'
+        example: '2026-02-23T13:24:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -447,7 +447,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -491,8 +491,8 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:02'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:31'
+      to_date: '2052-03-18'
       sort_by: 'n'
       sort_order: asc
       limit: 7
@@ -501,7 +501,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "data": {"total": 5}}'
+        content: '{"success": true, "data": {"total": 20}}'
         headers: []
         description: ''
     responseFields: []
@@ -516,17 +516,72 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/roles
+    uri: api/permissions/tree
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Danh sách role'
-      description: 'Lấy danh sách có phân trang, lọc và sắp xếp. Có kèm organization và permissions.'
+      title: 'Cây permission (toàn bộ cây, không phân trang). Để hiển thị nhóm quyền trên frontend.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Lọc theo parent_id (null = gốc).'
+        required: false
+        example: null
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      parent_id: null
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "data": [{"id": 1, "name": "posts", "guard_name": "web", "description": "Quản lý bài viết", "sort_order": 0, "parent_id": null, "children": []}]}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/permissions
+    metadata:
+      custom: []
+      groupName: 'Core - Permission'
+      groupDescription: |-
+
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Danh sách permission'
+      description: 'Lấy danh sách có phân trang, lọc và sắp xếp.'
       authenticated: true
       deprecated: false
     headers:
@@ -539,9 +594,9 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (name, guard_name).'
+        description: 'Từ khóa tìm kiếm (name, guard_name, description).'
         required: false
-        example: admin
+        example: posts
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -572,9 +627,9 @@ endpoints:
       sort_by:
         custom: []
         name: sort_by
-        description: 'Sắp xếp theo: id, name, guard_name, created_at, updated_at.'
+        description: 'Sắp xếp theo: id, name, guard_name, description, sort_order, parent_id, created_at, updated_at.'
         required: false
-        example: id
+        example: sort_order
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -585,7 +640,7 @@ endpoints:
         name: sort_order
         description: 'Thứ tự: asc, desc.'
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -603,11 +658,11 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      search: admin
+      search: posts
       from_date: '2026-02-01'
       to_date: '2026-02-17'
-      sort_by: id
-      sort_order: desc
+      sort_by: sort_order
+      sort_order: asc
       limit: 10
     bodyParameters:
       search:
@@ -637,7 +692,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:02'
+        example: '2026-02-23T13:24:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -648,7 +703,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -670,7 +725,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -692,17 +747,17 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:02'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:31'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"created_at":"14:05:28 21\/02\/2026","updated_at":"14:05:28 21\/02\/2026"},{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"created_at":"14:05:28 21\/02\/2026","updated_at":"14:05:28 21\/02\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        content: '{"data":[{"id":1,"name":"group:users","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng","sort_order":0,"parent_id":null,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":1,"name":"group:users","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng","sort_order":0,"parent_id":null,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -717,16 +772,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/roles/{role_id}'
+    uri: 'api/permissions/{permission_id}'
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Chi tiết role'
+      title: 'Chi tiết permission'
       description: ''
       authenticated: true
       deprecated: false
@@ -735,10 +790,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      role_id:
+      permission_id:
         custom: []
-        name: role_id
-        description: 'The ID of the role.'
+        name: permission_id
+        description: 'The ID of the permission.'
         required: true
         example: 1
         type: integer
@@ -746,10 +801,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      role:
+      permission:
         custom: []
-        name: role
-        description: 'ID role.'
+        name: permission
+        description: 'ID permission.'
         required: true
         example: 1
         type: integer
@@ -758,8 +813,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      role_id: 1
-      role: 1
+      permission_id: 1
+      permission: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -769,7 +824,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"organization":{"id":1,"name":"Default"},"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import"],"created_at":"14:05:28 21\/02\/2026","updated_at":"14:05:28 21\/02\/2026"},"success":"true"}'
+        content: '{"data":{"id":1,"name":"group:users","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng","sort_order":0,"parent_id":null,"parent":null,"children":[{"id":2,"name":"users.stats","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - Th\u1ed1ng k\u00ea","sort_order":0,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":3,"name":"users.index","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - Danh s\u00e1ch","sort_order":1,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":4,"name":"users.show","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - Chi ti\u1ebft","sort_order":2,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":5,"name":"users.store","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - T\u1ea1o m\u1edbi","sort_order":3,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":6,"name":"users.update","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - C\u1eadp nh\u1eadt","sort_order":4,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":7,"name":"users.destroy","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - X\u00f3a","sort_order":5,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":8,"name":"users.bulkDestroy","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - X\u00f3a h\u00e0ng lo\u1ea1t","sort_order":6,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":9,"name":"users.bulkUpdateStatus","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - C\u1eadp nh\u1eadt tr\u1ea1ng th\u00e1i h\u00e0ng lo\u1ea1t","sort_order":7,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":10,"name":"users.changeStatus","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - \u0110\u1ed5i tr\u1ea1ng th\u00e1i","sort_order":8,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":11,"name":"users.export","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - Xu\u1ea5t Excel","sort_order":9,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},{"id":12,"name":"users.import","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng - Nh\u1eadp Excel","sort_order":10,"parent_id":1,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"}],"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -784,16 +839,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/roles
+    uri: api/permissions
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Tạo role mới'
+      title: 'Tạo permission mới'
       description: ''
       authenticated: true
       deprecated: false
@@ -809,9 +864,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Tên role.'
+        description: 'Tên permission.'
         required: true
-        example: admin
+        example: posts.create
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -828,45 +883,51 @@ endpoints:
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      organization_id:
+      description:
         custom: []
-        name: organization_id
-        description: 'ID organization (nullable).'
+        name: description
+        description: 'Mô tả hiển thị trên frontend.'
         required: false
-        example: 1
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sort_order:
+        custom: []
+        name: sort_order
+        description: 'Thứ tự sắp xếp.'
+        required: false
+        example: 0
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      permission_ids:
+      parent_id:
         custom: []
-        name: permission_ids
-        description: 'Danh sách ID permission để sync.'
+        name: parent_id
+        description: 'ID permission cha (null = gốc/nhóm).'
         required: false
-        example:
-          - 1
-          - 2
-          - 3
-        type: 'string[]'
+        example: 16
+        type: integer
         enumValues: []
-        exampleWasSpecified: true
-        nullable: false
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: admin
+      name: posts.create
       guard_name: web
-      organization_id: 1
-      permission_ids:
-        - 1
-        - 2
-        - 3
+      description: 'Eius et animi quos velit et.'
+      sort_order: 0
+      parent_id: 16
     fileParameters: []
     responses:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import"],"created_at":"14:05:28 21\/02\/2026","updated_at":"14:05:28 21\/02\/2026"},"success":"true","message":"Vai tr\u00f2 \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":1,"name":"group:users","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng","sort_order":0,"parent_id":null,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -881,16 +942,16 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/roles/{role_id}'
+    uri: 'api/permissions/{permission_id}'
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật role'
+      title: 'Cập nhật permission'
       description: ''
       authenticated: true
       deprecated: false
@@ -899,10 +960,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      role_id:
+      permission_id:
         custom: []
-        name: role_id
-        description: 'The ID of the role.'
+        name: permission_id
+        description: 'The ID of the permission.'
         required: true
         example: 1
         type: integer
@@ -910,10 +971,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      role:
+      permission:
         custom: []
-        name: role
-        description: 'ID role.'
+        name: permission
+        description: 'ID permission.'
         required: true
         example: 1
         type: integer
@@ -922,17 +983,17 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      role_id: 1
-      role: 1
+      permission_id: 1
+      permission: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên role.'
+        description: 'Tên permission.'
         required: false
-        example: editor
+        example: posts.update
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -949,43 +1010,51 @@ endpoints:
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      organization_id:
+      description:
         custom: []
-        name: organization_id
-        description: 'ID organization (nullable).'
+        name: description
+        description: 'Mô tả.'
         required: false
-        example: 1
-        type: integer
+        example: 'Eius et animi quos velit et.'
+        type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
-      permission_ids:
+      sort_order:
         custom: []
-        name: permission_ids
-        description: 'Danh sách ID permission để sync (gửi mảng rỗng để bỏ hết).'
+        name: sort_order
+        description: 'Thứ tự sắp xếp.'
         required: false
-        example:
-          - 1
-          - 2
-        type: 'string[]'
+        example: 16
+        type: integer
         enumValues: []
-        exampleWasSpecified: true
-        nullable: false
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'ID permission cha (null = gốc).'
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: editor
+      name: posts.update
       guard_name: web
-      organization_id: 1
-      permission_ids:
-        - 1
-        - 2
+      description: 'Eius et animi quos velit et.'
+      sort_order: 16
+      parent_id: 16
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import"],"created_at":"14:05:28 21\/02\/2026","updated_at":"14:05:28 21\/02\/2026"},"success":"true","message":"Vai tr\u00f2 \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":1,"name":"group:users","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng","sort_order":0,"parent_id":null,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1000,16 +1069,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/roles/{role_id}'
+    uri: 'api/permissions/{permission_id}'
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật role'
+      title: 'Cập nhật permission'
       description: ''
       authenticated: true
       deprecated: false
@@ -1018,10 +1087,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      role_id:
+      permission_id:
         custom: []
-        name: role_id
-        description: 'The ID of the role.'
+        name: permission_id
+        description: 'The ID of the permission.'
         required: true
         example: 1
         type: integer
@@ -1029,10 +1098,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      role:
+      permission:
         custom: []
-        name: role
-        description: 'ID role.'
+        name: permission
+        description: 'ID permission.'
         required: true
         example: 1
         type: integer
@@ -1041,17 +1110,17 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      role_id: 1
-      role: 1
+      permission_id: 1
+      permission: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên role.'
+        description: 'Tên permission.'
         required: false
-        example: editor
+        example: posts.update
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -1068,43 +1137,51 @@ endpoints:
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      organization_id:
+      description:
         custom: []
-        name: organization_id
-        description: 'ID organization (nullable).'
+        name: description
+        description: 'Mô tả.'
         required: false
-        example: 1
-        type: integer
+        example: 'Eius et animi quos velit et.'
+        type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
-      permission_ids:
+      sort_order:
         custom: []
-        name: permission_ids
-        description: 'Danh sách ID permission để sync (gửi mảng rỗng để bỏ hết).'
+        name: sort_order
+        description: 'Thứ tự sắp xếp.'
         required: false
-        example:
-          - 1
-          - 2
-        type: 'string[]'
+        example: 16
+        type: integer
         enumValues: []
-        exampleWasSpecified: true
-        nullable: false
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'ID permission cha (null = gốc).'
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: editor
+      name: posts.update
       guard_name: web
-      organization_id: 1
-      permission_ids:
-        - 1
-        - 2
+      description: 'Eius et animi quos velit et.'
+      sort_order: 16
+      parent_id: 16
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Super Admin","guard_name":"web","organization_id":1,"permissions":["users.stats","users.index","users.show","users.store","users.update","users.destroy","users.bulkDestroy","users.bulkUpdateStatus","users.changeStatus","users.export","users.import","permissions.stats","permissions.index","permissions.tree","permissions.show","permissions.store","permissions.update","permissions.destroy","permissions.bulkDestroy","permissions.export","permissions.import","roles.stats","roles.index","roles.show","roles.store","roles.update","roles.destroy","roles.bulkDestroy","roles.export","roles.import","organizations.stats","organizations.index","organizations.tree","organizations.show","organizations.store","organizations.update","organizations.destroy","organizations.bulkDestroy","organizations.bulkUpdateStatus","organizations.changeStatus","organizations.export","organizations.import","posts.stats","posts.index","posts.show","posts.store","posts.update","posts.destroy","posts.bulkDestroy","posts.bulkUpdateStatus","posts.changeStatus","posts.export","posts.import","posts.incrementView","post-categories.stats","post-categories.index","post-categories.tree","post-categories.show","post-categories.store","post-categories.update","post-categories.destroy","post-categories.bulkDestroy","post-categories.bulkUpdateStatus","post-categories.changeStatus","post-categories.export","post-categories.import","log-activities.stats","log-activities.index","log-activities.show","log-activities.export","log-activities.destroy","log-activities.bulkDestroy","log-activities.destroyByDate","log-activities.destroyAll","documents.stats","documents.index","documents.show","documents.store","documents.update","documents.destroy","documents.bulkDestroy","documents.bulkUpdateStatus","documents.changeStatus","documents.export","documents.import","document-types.stats","document-types.index","document-types.show","document-types.store","document-types.update","document-types.destroy","document-types.bulkDestroy","document-types.bulkUpdateStatus","document-types.changeStatus","document-types.export","document-types.import","issuing-agencies.stats","issuing-agencies.index","issuing-agencies.show","issuing-agencies.store","issuing-agencies.update","issuing-agencies.destroy","issuing-agencies.bulkDestroy","issuing-agencies.bulkUpdateStatus","issuing-agencies.changeStatus","issuing-agencies.export","issuing-agencies.import","issuing-levels.stats","issuing-levels.index","issuing-levels.show","issuing-levels.store","issuing-levels.update","issuing-levels.destroy","issuing-levels.bulkDestroy","issuing-levels.bulkUpdateStatus","issuing-levels.changeStatus","issuing-levels.export","issuing-levels.import","document-signers.stats","document-signers.index","document-signers.show","document-signers.store","document-signers.update","document-signers.destroy","document-signers.bulkDestroy","document-signers.bulkUpdateStatus","document-signers.changeStatus","document-signers.export","document-signers.import","document-fields.stats","document-fields.index","document-fields.show","document-fields.store","document-fields.update","document-fields.destroy","document-fields.bulkDestroy","document-fields.bulkUpdateStatus","document-fields.changeStatus","document-fields.export","document-fields.import"],"created_at":"14:05:28 21\/02\/2026","updated_at":"14:05:28 21\/02\/2026"},"success":"true","message":"Vai tr\u00f2 \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":1,"name":"group:users","guard_name":"web","description":"Ng\u01b0\u1eddi d\u00f9ng","sort_order":0,"parent_id":null,"created_at":"12:47:27 23\/02\/2026","updated_at":"12:47:27 23\/02\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1119,16 +1196,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/roles/{role_id}'
+    uri: 'api/permissions/{permission_id}'
     metadata:
       custom: []
-      groupName: 'Core - Role'
+      groupName: 'Core - Permission'
       groupDescription: |-
 
-        Quản lý vai trò (role) theo Spatie: stats, index, show, store, update, destroy, bulk delete, export, import.
+        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa role'
+      title: 'Xóa permission'
       description: ''
       authenticated: true
       deprecated: false
@@ -1137,10 +1214,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      role_id:
+      permission_id:
         custom: []
-        name: role_id
-        description: 'The ID of the role.'
+        name: permission_id
+        description: 'The ID of the permission.'
         required: true
         example: 1
         type: integer
@@ -1148,10 +1225,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      role:
+      permission:
         custom: []
-        name: role
-        description: 'ID role.'
+        name: permission
+        description: 'ID permission.'
         required: true
         example: 1
         type: integer
@@ -1160,8 +1237,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      role_id: 1
-      role: 1
+      permission_id: 1
+      permission: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1171,7 +1248,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Vai trò đã được xóa!"}'
+        content: '{"success": true, "message": "Quyền đã được xóa!"}'
         headers: []
         description: ''
     responseFields: []

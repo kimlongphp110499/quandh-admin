@@ -1,22 +1,22 @@
-name: 'Post - Post'
+name: 'Core - User'
 description: |-
 
-  Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+  Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/posts/export
+    uri: api/users/export
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xuất danh sách bài viết'
+      title: 'Xuất danh sách người dùng'
       description: 'Áp dụng cùng bộ lọc với index. Trả về file Excel.'
       authenticated: true
       deprecated: false
@@ -30,7 +30,7 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (tiêu đề).'
+        description: 'Từ khóa tìm kiếm (name, email).'
         required: false
         example: architecto
         type: string
@@ -41,7 +41,7 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Lọc theo trạng thái: draft, published, archived.'
+        description: 'Lọc theo trạng thái: active, inactive, banned.'
         required: false
         example: architecto
         type: string
@@ -49,21 +49,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category_id:
-        custom: []
-        name: category_id
-        description: 'Lọc bài viết thuộc danh mục (ID).'
-        required: false
-        example: 16
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
       sort_by:
         custom: []
         name: sort_by
-        description: 'Sắp xếp theo: id, title, created_at, view_count.'
+        description: 'Sắp xếp theo: id, name, email, created_at.'
         required: false
         example: architecto
         type: string
@@ -82,12 +71,23 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      limit:
+        custom: []
+        name: limit
+        description: 'Số bản ghi (1-100).'
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
     cleanQueryParameters:
       search: architecto
       status: architecto
-      category_id: 16
       sort_by: architecto
       sort_order: architecto
+      limit: 16
     bodyParameters:
       search:
         custom: []
@@ -116,7 +116,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:01'
+        example: '2026-02-23T13:24:30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -127,7 +127,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -149,7 +149,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -171,10 +171,10 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:01'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:30'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
@@ -199,16 +199,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/posts/import
+    uri: api/users/import
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Nhập danh sách bài viết'
+      title: 'Nhập danh sách người dùng'
       description: ''
       authenticated: true
       deprecated: false
@@ -224,7 +224,7 @@ endpoints:
       file:
         custom: []
         name: file
-        description: 'File Excel (xlsx, xls, csv). Cột theo chuẩn export.'
+        description: 'File excel (xlsx, xls, csv). Cột: name, email, password, status.'
         required: true
         example: null
         type: file
@@ -239,7 +239,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Import bài viết thành công."}'
+        content: '{"success": true, "message": "Import người dùng thành công."}'
         headers: []
         description: ''
     responseFields: []
@@ -254,16 +254,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/posts/bulk-delete
+    uri: api/users/bulk-delete
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa hàng loạt bài viết'
+      title: 'Xóa hàng loạt người dùng'
       description: ''
       authenticated: true
       deprecated: false
@@ -300,7 +300,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Đã xóa thành công các bài viết được chọn!"}'
+        content: '{"success": true, "message": "Đã xóa thành công các tài khoản được chọn!"}'
         headers: []
         description: ''
     responseFields: []
@@ -315,16 +315,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: api/posts/bulk-status
+    uri: api/users/bulk-status
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật trạng thái hàng loạt bài viết'
+      title: 'Cập nhật trạng thái hàng loạt'
       description: ''
       authenticated: true
       deprecated: false
@@ -354,9 +354,9 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Trạng thái: draft, published, archived.'
+        description: 'Trạng thái: active, inactive, banned.'
         required: true
-        example: published
+        example: active
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -367,13 +367,13 @@ endpoints:
         - 1
         - 2
         - 3
-      status: published
+      status: active
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Cập nhật trạng thái thành công các bài viết được chọn!"}'
+        content: '{"success": true, "message": "Cập nhật trạng thái thành công."}'
         headers: []
         description: ''
     responseFields: []
@@ -388,17 +388,17 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/posts/stats
+    uri: api/users/stats
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Thống kê bài viết'
-      description: 'Tổng số, đang xuất bản (published), không xuất bản (draft, archived). Áp dụng cùng bộ lọc với index.'
+      title: 'Thống kê người dùng'
+      description: 'Tổng số, đang kích hoạt (active), không kích hoạt (inactive, banned). Áp dụng cùng bộ lọc với index.'
       authenticated: true
       deprecated: false
     headers:
@@ -411,9 +411,9 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (tiêu đề).'
+        description: 'Từ khóa tìm kiếm (name, email, user_name).'
         required: false
-        example: hello
+        example: john
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -422,7 +422,7 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Lọc theo trạng thái: draft, published, archived.'
+        description: 'Lọc theo trạng thái: active, inactive, banned.'
         required: false
         example: architecto
         type: string
@@ -430,21 +430,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category_id:
-        custom: []
-        name: category_id
-        description: 'Lọc bài viết thuộc danh mục (ID).'
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
       sort_by:
         custom: []
         name: sort_by
-        description: 'Sắp xếp theo: id, title, created_at, view_count.'
+        description: 'Sắp xếp theo: id, name, email, user_name, created_at.'
         required: false
         example: created_at
         type: string
@@ -475,9 +464,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      search: hello
+      search: john
       status: architecto
-      category_id: 1
       sort_by: created_at
       sort_order: desc
       limit: 10
@@ -509,7 +497,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:01'
+        example: '2026-02-23T13:24:30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -520,7 +508,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -542,7 +530,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -564,10 +552,10 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:01'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:30'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
@@ -589,16 +577,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/posts
+    uri: api/users
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Danh sách bài viết'
+      title: 'Danh sách người dùng'
       description: 'Lấy danh sách có phân trang, lọc và sắp xếp.'
       authenticated: true
       deprecated: false
@@ -612,9 +600,9 @@ endpoints:
       search:
         custom: []
         name: search
-        description: 'Từ khóa tìm kiếm (tiêu đề).'
+        description: 'Từ khóa tìm kiếm (name, email, user_name).'
         required: false
-        example: hello
+        example: john
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -623,7 +611,7 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Lọc theo trạng thái: draft, published, archived.'
+        description: 'Lọc theo trạng thái: active, inactive, banned.'
         required: false
         example: architecto
         type: string
@@ -631,21 +619,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category_id:
-        custom: []
-        name: category_id
-        description: 'Lọc bài viết thuộc danh mục (ID).'
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
       sort_by:
         custom: []
         name: sort_by
-        description: 'Sắp xếp theo: id, title, created_at, view_count.'
+        description: 'Sắp xếp theo: id, name, email, user_name, created_at.'
         required: false
         example: created_at
         type: string
@@ -676,9 +653,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      search: hello
+      search: john
       status: architecto
-      category_id: 1
       sort_by: created_at
       sort_order: desc
       limit: 10
@@ -710,7 +686,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:01'
+        example: '2026-02-23T13:24:30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -721,7 +697,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -743,7 +719,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -765,17 +741,17 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:01'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:30'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":29,"title":"Quos velit et fugiat sunt nihil accusantium harum.","slug":"quos-velit-et-fugiat-sunt-nihil-accusantium-harum","content":"Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.\n\nEt consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum. Id aut libero aliquam veniam. Dolorem mollitia deleniti nemo.\n\nOfficia est dignissimos neque blanditiis odio veritatis excepturi. Delectus fugit qui repudiandae laboriosam. Alias tenetur ratione nemo voluptate accusamus ut et.","status":"published","view_count":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"21\/02\/2026 14:45:01","updated_at":"21\/02\/2026 14:45:01"},{"id":30,"title":"Rerum ex repellendus assumenda et.","slug":"rerum-ex-repellendus-assumenda-et","content":"Reiciendis quia perspiciatis deserunt ducimus corrupti et. Quia maiores assumenda odit. Repellat officiis corporis nesciunt ut. Iure impedit molestiae ut rem est esse sint.\n\nSunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.\n\nEa ut aut deserunt sint quis. Quod id aspernatur consectetur id a consectetur assumenda. Neque sit sunt nihil accusantium odit ut perspiciatis.","status":"draft","view_count":0,"created_by":"N\/A","updated_by":"N\/A","created_at":"21\/02\/2026 14:45:01","updated_at":"21\/02\/2026 14:45:01"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        content: '{"data":[{"id":20,"name":"Macey Rempel PhD","email":"justina.gaylord@example.org","user_name":"cecil42","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"},{"id":21,"name":"Haven Romaguera","email":"antonio24@example.net","user_name":"dare.emelie","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -790,16 +766,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/posts/{post_id}'
+    uri: 'api/users/{user_id}'
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Chi tiết bài viết'
+      title: 'Chi tiết người dùng'
       description: ''
       authenticated: true
       deprecated: false
@@ -808,10 +784,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      post_id:
+      user_id:
         custom: []
-        name: post_id
-        description: 'The ID of the post.'
+        name: user_id
+        description: 'The ID of the user.'
         required: true
         example: 1
         type: integer
@@ -819,10 +795,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      post:
+      user:
         custom: []
-        name: post
-        description: 'ID bài viết.'
+        name: user
+        description: 'ID người dùng.'
         required: true
         example: 1
         type: integer
@@ -831,8 +807,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      post_id: 1
-      post: 1
+      user_id: 1
+      user: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -842,7 +818,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"title":"Ut dolorem ab repudiandae velit.","slug":"ut-dolorem-ab-repudiandae-velit","content":"Velit ut exercitationem itaque. Consectetur assumenda ducimus et quis fugiat maiores voluptatum.\n\nSed et ut odit repellendus explicabo. Quos nostrum corrupti corporis eaque. Assumenda unde quis non eos. Tempora quis rerum minus ad.\n\nDoloribus consequuntur sunt non molestias. Est qui praesentium culpa voluptatibus. Illum iste nulla exercitationem quas. Rerum veritatis vel aut consequuntur reiciendis.","status":"archived","view_count":0,"categories":[{"id":14,"name":"Gi\u1ea3i tr\u00ed - nisi","slug":"giai-tri-fuga-6999bba404a28","description":null,"status":"active","sort_order":2,"parent_id":4,"depth":1,"created_by":"Ms. Verona Hagenes I","updated_by":"Ms. Verona Hagenes I","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"}],"attachments":[],"created_by":"Jerald Bernhard","updated_by":"Willis Kuhn","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"},"success":"true"}'
+        content: '{"data":{"id":22,"name":"Morgan Hirthe","email":"dare.emelie@example.com","user_name":"imclaughlin","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -857,112 +833,67 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: 'api/posts/{post_id}/view'
+    uri: api/users
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Tăng lượt xem bài viết (gọi khi người dùng xem chi tiết).'
+      title: 'Tạo người dùng mới'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
       Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      post_id:
-        custom: []
-        name: post_id
-        description: 'The ID of the post.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      post:
-        custom: []
-        name: post
-        description: 'ID bài viết.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      post_id: 1
-      post: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"success": true, "data": {"view_count": 1}, "message": "Đã cập nhật lượt xem."}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/posts
-    metadata:
-      custom: []
-      groupName: 'Post - Post'
-      groupDescription: |-
-
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Tạo bài viết mới'
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
+      name:
         custom: []
-        name: title
-        description: 'Tiêu đề (duy nhất).'
+        name: name
+        description: 'Tên người dùng.'
         required: true
-        example: 'Bài viết mẫu'
+        example: 'Nguyễn Văn A'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      content:
+      email:
         custom: []
-        name: content
-        description: 'Nội dung (tối thiểu 10 ký tự).'
+        name: email
+        description: 'Email (duy nhất).'
         required: true
-        example: 'Nội dung bài viết...'
+        example: user@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      user_name:
+        custom: []
+        name: user_name
+        description: 'Must match the regex /^[a-zA-Z0-9._-]*$/. Must not be greater than 100 characters.'
+        required: false
+        example: i
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Mật khẩu (tối thiểu 6 ký tự).'
+        required: true
+        example: password123
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -971,66 +902,38 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Trạng thái: draft, published, archived.'
-        required: true
-        example: draft
+        description: 'Trạng thái: active, inactive, banned.'
+        required: false
+        example: active
         type: string
         enumValues: []
         exampleWasSpecified: true
-        nullable: false
+        nullable: true
         deprecated: false
-      category_ids:
+      password_confirmation:
         custom: []
-        name: category_ids
-        description: 'Mảng ID danh mục (tối đa 20).'
-        required: false
-        example:
-          - 1
-          - 2
-        type: 'string[]'
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      images:
-        custom: []
-        name: images
-        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
-        required: false
-        example:
-          - null
-        type: 'file[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      'images[]':
-        custom: []
-        name: 'images[]'
-        description: 'Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB).'
-        required: false
-        example: null
-        type: file
+        name: password_confirmation
+        description: 'Xác nhận mật khẩu.'
+        required: true
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: 'Bài viết mẫu'
-      content: 'Nội dung bài viết...'
-      status: draft
-      category_ids:
-        - 1
-        - 2
-    fileParameters:
-      images:
-        - null
-      'images[]': null
+      name: 'Nguyễn Văn A'
+      email: user@example.com
+      user_name: i
+      password: password123
+      status: active
+      password_confirmation: architecto
+    fileParameters: []
     responses:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":1,"title":"Ut dolorem ab repudiandae velit.","slug":"ut-dolorem-ab-repudiandae-velit","content":"Velit ut exercitationem itaque. Consectetur assumenda ducimus et quis fugiat maiores voluptatum.\n\nSed et ut odit repellendus explicabo. Quos nostrum corrupti corporis eaque. Assumenda unde quis non eos. Tempora quis rerum minus ad.\n\nDoloribus consequuntur sunt non molestias. Est qui praesentium culpa voluptatibus. Illum iste nulla exercitationem quas. Rerum veritatis vel aut consequuntur reiciendis.","status":"archived","view_count":0,"categories":[{"id":14,"name":"Gi\u1ea3i tr\u00ed - nisi","slug":"giai-tri-fuga-6999bba404a28","description":null,"status":"active","sort_order":2,"parent_id":4,"depth":1,"created_by":"Ms. Verona Hagenes I","updated_by":"Ms. Verona Hagenes I","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"}],"attachments":[],"created_by":"Jerald Bernhard","updated_by":"Willis Kuhn","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"},"success":"true","message":"B\u00e0i vi\u1ebft \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":23,"name":"Ms. Elisabeth Okuneva","email":"gulgowski.asia@example.com","user_name":"idickens","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"},"success":"true","message":"T\u00e0i kho\u1ea3n \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1045,28 +948,28 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/posts/{post_id}'
+    uri: 'api/users/{user_id}'
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật bài viết'
+      title: 'Cập nhật người dùng'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: multipart/form-data
+      Content-Type: application/json
       Accept: application/json
     urlParameters:
-      post_id:
+      user_id:
         custom: []
-        name: post_id
-        description: 'The ID of the post.'
+        name: user_id
+        description: 'The ID of the user.'
         required: true
         example: 1
         type: integer
@@ -1074,10 +977,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      post:
+      user:
         custom: []
-        name: post
-        description: 'ID bài viết.'
+        name: user
+        description: 'ID người dùng.'
         required: true
         example: 1
         type: integer
@@ -1086,15 +989,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      post_id: 1
-      post: 1
+      user_id: 1
+      user: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
+      name:
         custom: []
-        name: title
-        description: 'Tiêu đề (duy nhất).'
+        name: name
+        description: 'Tên người dùng.'
         required: false
         example: architecto
         type: string
@@ -1102,12 +1005,34 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      content:
+      email:
         custom: []
-        name: content
-        description: 'Nội dung (tối thiểu 10 ký tự).'
+        name: email
+        description: 'Email (duy nhất).'
         required: false
-        example: architecto
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      user_name:
+        custom: []
+        name: user_name
+        description: 'Must match the regex /^[a-zA-Z0-9._-]*$/. Must not be greater than 100 characters.'
+        required: false
+        example: i
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Mật khẩu mới (nếu muốn đổi).'
+        required: false
+        example: '|]|{+-'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1116,7 +1041,7 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Trạng thái: draft, published, archived.'
+        description: 'Trạng thái: active, inactive, banned.'
         required: false
         example: architecto
         type: string
@@ -1124,70 +1049,30 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category_ids:
+      password_confirmation:
         custom: []
-        name: category_ids
-        description: 'Mảng ID danh mục (ghi đè danh sách hiện tại).'
+        name: password_confirmation
+        description: 'Xác nhận mật khẩu.'
         required: false
-        example:
-          - architecto
-        type: 'string[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      images:
-        custom: []
-        name: images
-        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
-        required: false
-        example:
-          - null
-        type: 'file[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      remove_attachment_ids:
-        custom: []
-        name: remove_attachment_ids
-        description: 'Mảng ID đính kèm cần xóa.'
-        required: false
-        example:
-          - architecto
-        type: 'string[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      'images[]':
-        custom: []
-        name: 'images[]'
-        description: 'Ảnh mới (append).'
-        required: false
-        example: null
-        type: file
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: architecto
-      content: architecto
+      name: architecto
+      email: gbailey@example.net
+      user_name: i
+      password: '|]|{+-'
       status: architecto
-      category_ids:
-        - architecto
-      remove_attachment_ids:
-        - architecto
-    fileParameters:
-      images:
-        - null
-      'images[]': null
+      password_confirmation: architecto
+    fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"title":"Ut dolorem ab repudiandae velit.","slug":"ut-dolorem-ab-repudiandae-velit","content":"Velit ut exercitationem itaque. Consectetur assumenda ducimus et quis fugiat maiores voluptatum.\n\nSed et ut odit repellendus explicabo. Quos nostrum corrupti corporis eaque. Assumenda unde quis non eos. Tempora quis rerum minus ad.\n\nDoloribus consequuntur sunt non molestias. Est qui praesentium culpa voluptatibus. Illum iste nulla exercitationem quas. Rerum veritatis vel aut consequuntur reiciendis.","status":"archived","view_count":0,"categories":[{"id":14,"name":"Gi\u1ea3i tr\u00ed - nisi","slug":"giai-tri-fuga-6999bba404a28","description":null,"status":"active","sort_order":2,"parent_id":4,"depth":1,"created_by":"Ms. Verona Hagenes I","updated_by":"Ms. Verona Hagenes I","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"}],"attachments":[],"created_by":"Jerald Bernhard","updated_by":"Willis Kuhn","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"},"success":"true","message":"B\u00e0i vi\u1ebft \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":24,"name":"Ms. Elisabeth Okuneva","email":"idickens@example.org","user_name":"aschuster","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"},"success":"true","message":"T\u00e0i kho\u1ea3n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1202,28 +1087,28 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/posts/{post_id}'
+    uri: 'api/users/{user_id}'
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật bài viết'
+      title: 'Cập nhật người dùng'
       description: ''
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
-      Content-Type: multipart/form-data
+      Content-Type: application/json
       Accept: application/json
     urlParameters:
-      post_id:
+      user_id:
         custom: []
-        name: post_id
-        description: 'The ID of the post.'
+        name: user_id
+        description: 'The ID of the user.'
         required: true
         example: 1
         type: integer
@@ -1231,10 +1116,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      post:
+      user:
         custom: []
-        name: post
-        description: 'ID bài viết.'
+        name: user
+        description: 'ID người dùng.'
         required: true
         example: 1
         type: integer
@@ -1243,15 +1128,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      post_id: 1
-      post: 1
+      user_id: 1
+      user: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
+      name:
         custom: []
-        name: title
-        description: 'Tiêu đề (duy nhất).'
+        name: name
+        description: 'Tên người dùng.'
         required: false
         example: architecto
         type: string
@@ -1259,12 +1144,34 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      content:
+      email:
         custom: []
-        name: content
-        description: 'Nội dung (tối thiểu 10 ký tự).'
+        name: email
+        description: 'Email (duy nhất).'
         required: false
-        example: architecto
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      user_name:
+        custom: []
+        name: user_name
+        description: 'Must match the regex /^[a-zA-Z0-9._-]*$/. Must not be greater than 100 characters.'
+        required: false
+        example: i
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Mật khẩu mới (nếu muốn đổi).'
+        required: false
+        example: '|]|{+-'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1273,7 +1180,7 @@ endpoints:
       status:
         custom: []
         name: status
-        description: 'Trạng thái: draft, published, archived.'
+        description: 'Trạng thái: active, inactive, banned.'
         required: false
         example: architecto
         type: string
@@ -1281,70 +1188,30 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category_ids:
+      password_confirmation:
         custom: []
-        name: category_ids
-        description: 'Mảng ID danh mục (ghi đè danh sách hiện tại).'
+        name: password_confirmation
+        description: 'Xác nhận mật khẩu.'
         required: false
-        example:
-          - architecto
-        type: 'string[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      images:
-        custom: []
-        name: images
-        description: 'Must be an image. Must not be greater than 5120 kilobytes.'
-        required: false
-        example:
-          - null
-        type: 'file[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      remove_attachment_ids:
-        custom: []
-        name: remove_attachment_ids
-        description: 'Mảng ID đính kèm cần xóa.'
-        required: false
-        example:
-          - architecto
-        type: 'string[]'
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      'images[]':
-        custom: []
-        name: 'images[]'
-        description: 'Ảnh mới (append).'
-        required: false
-        example: null
-        type: file
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: architecto
-      content: architecto
+      name: architecto
+      email: gbailey@example.net
+      user_name: i
+      password: '|]|{+-'
       status: architecto
-      category_ids:
-        - architecto
-      remove_attachment_ids:
-        - architecto
-    fileParameters:
-      images:
-        - null
-      'images[]': null
+      password_confirmation: architecto
+    fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"title":"Ut dolorem ab repudiandae velit.","slug":"ut-dolorem-ab-repudiandae-velit","content":"Velit ut exercitationem itaque. Consectetur assumenda ducimus et quis fugiat maiores voluptatum.\n\nSed et ut odit repellendus explicabo. Quos nostrum corrupti corporis eaque. Assumenda unde quis non eos. Tempora quis rerum minus ad.\n\nDoloribus consequuntur sunt non molestias. Est qui praesentium culpa voluptatibus. Illum iste nulla exercitationem quas. Rerum veritatis vel aut consequuntur reiciendis.","status":"archived","view_count":0,"categories":[{"id":14,"name":"Gi\u1ea3i tr\u00ed - nisi","slug":"giai-tri-fuga-6999bba404a28","description":null,"status":"active","sort_order":2,"parent_id":4,"depth":1,"created_by":"Ms. Verona Hagenes I","updated_by":"Ms. Verona Hagenes I","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"}],"attachments":[],"created_by":"Jerald Bernhard","updated_by":"Willis Kuhn","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"},"success":"true","message":"B\u00e0i vi\u1ebft \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":25,"name":"Ms. Elisabeth Okuneva","email":"aschuster@example.com","user_name":"gilbert32","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"},"success":"true","message":"T\u00e0i kho\u1ea3n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1359,16 +1226,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/posts/{post_id}'
+    uri: 'api/users/{user_id}'
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa bài viết'
+      title: 'Xóa người dùng'
       description: ''
       authenticated: true
       deprecated: false
@@ -1377,10 +1244,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      post_id:
+      user_id:
         custom: []
-        name: post_id
-        description: 'The ID of the post.'
+        name: user_id
+        description: 'The ID of the user.'
         required: true
         example: 1
         type: integer
@@ -1388,10 +1255,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      post:
+      user:
         custom: []
-        name: post
-        description: 'ID bài viết.'
+        name: user
+        description: 'ID người dùng.'
         required: true
         example: 1
         type: integer
@@ -1400,8 +1267,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      post_id: 1
-      post: 1
+      user_id: 1
+      user: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1411,7 +1278,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Bài viết đã được xóa thành công!"}'
+        content: '{"success": true, "message": "Tài khoản đã được xóa thành công!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1426,16 +1293,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/posts/{post_id}/status'
+    uri: 'api/users/{user_id}/status'
     metadata:
       custom: []
-      groupName: 'Post - Post'
+      groupName: 'Core - User'
       groupDescription: |-
 
-        Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
+        Quản lý người dùng: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập Excel, đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Thay đổi trạng thái bài viết'
+      title: 'Thay đổi trạng thái người dùng'
       description: ''
       authenticated: true
       deprecated: false
@@ -1444,10 +1311,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      post_id:
+      user_id:
         custom: []
-        name: post_id
-        description: 'The ID of the post.'
+        name: user_id
+        description: 'The ID of the user.'
         required: true
         example: 1
         type: integer
@@ -1455,10 +1322,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      post:
+      user:
         custom: []
-        name: post
-        description: 'ID bài viết.'
+        name: user
+        description: 'ID người dùng.'
         required: true
         example: 1
         type: integer
@@ -1467,30 +1334,30 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      post_id: 1
-      post: 1
+      user_id: 1
+      user: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       status:
         custom: []
         name: status
-        description: 'Trạng thái mới: draft, published, archived.'
+        description: 'Trạng thái mới: active, inactive, banned.'
         required: true
-        example: published
+        example: active
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      status: published
+      status: active
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"title":"Ut dolorem ab repudiandae velit.","slug":"ut-dolorem-ab-repudiandae-velit","content":"Velit ut exercitationem itaque. Consectetur assumenda ducimus et quis fugiat maiores voluptatum.\n\nSed et ut odit repellendus explicabo. Quos nostrum corrupti corporis eaque. Assumenda unde quis non eos. Tempora quis rerum minus ad.\n\nDoloribus consequuntur sunt non molestias. Est qui praesentium culpa voluptatibus. Illum iste nulla exercitationem quas. Rerum veritatis vel aut consequuntur reiciendis.","status":"archived","view_count":0,"categories":[{"id":14,"name":"Gi\u1ea3i tr\u00ed - nisi","slug":"giai-tri-fuga-6999bba404a28","description":null,"status":"active","sort_order":2,"parent_id":4,"depth":1,"created_by":"Ms. Verona Hagenes I","updated_by":"Ms. Verona Hagenes I","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"}],"created_by":"Jerald Bernhard","updated_by":"Willis Kuhn","created_at":"21\/02\/2026 14:05:24","updated_at":"21\/02\/2026 14:05:24"},"success":"true","message":"C\u1eadp nh\u1eadt tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":26,"name":"Morgan Hirthe","email":"imclaughlin@example.org","user_name":"okeefe.isidro","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"23\/02\/2026 13:24:30","updated_at":"23\/02\/2026 13:24:30"},"success":"true","message":"C\u1eadp nh\u1eadt tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []

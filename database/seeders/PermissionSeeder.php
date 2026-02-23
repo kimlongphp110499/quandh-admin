@@ -92,6 +92,10 @@ class PermissionSeeder extends Seeder
             'stats', 'index', 'show', 'store', 'update', 'destroy',
             'bulkDestroy', 'bulkUpdateStatus', 'changeStatus', 'export', 'import',
         ],
+        // Core - Cấu hình hệ thống
+        'settings' => [
+            'index', 'show', 'update',
+        ],
     ];
 
     public function run(): void
@@ -140,6 +144,7 @@ class PermissionSeeder extends Seeder
         'issuing-levels'  => 'Cấp ban hành',
         'document-signers'=> 'Người ký',
         'document-fields' => 'Lĩnh vực',
+        'settings'        => 'Cấu hình hệ thống',
     ];
 
     /** Nhãn action (để description). */

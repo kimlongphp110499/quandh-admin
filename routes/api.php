@@ -7,6 +7,9 @@ Route::prefix('auth')->middleware('log.activity')->group(function () {
     require base_path('app/Modules/Auth/Routes/auth.php');
 });
 
+// Cấu hình công khai - không cần xác thực
+Route::get('/settings/public', [\App\Modules\Core\SettingController::class, 'public'])->middleware('log.activity');
+
 // Route yêu cầu đăng nhập (Bearer token) và đặt ngữ cảnh team cho Spatie Permission
 Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->group(function () {
     Route::get('/user', fn (\Illuminate\Http\Request $request) => $request->user());
@@ -49,5 +52,8 @@ Route::middleware(['auth:sanctum', 'set.permissions.team', 'log.activity'])->gro
     });
     Route::prefix('document-fields')->group(function () {
         require base_path('app/Modules/Document/Routes/document_field.php');
+    });
+    Route::prefix('settings')->group(function () {
+        require base_path('app/Modules/Core/Routes/setting.php');
     });
 });

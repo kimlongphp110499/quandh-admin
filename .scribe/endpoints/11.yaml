@@ -1,22 +1,22 @@
-name: 'Document - Cơ quan ban hành'
+name: 'Document - Loại văn bản'
 description: |-
 
-  Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+  Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/issuing-agencies/export
+    uri: api/document-types/export
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xuất Excel cơ quan ban hành'
+      title: 'Xuất Excel loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -80,7 +80,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:03'
+        example: '2026-02-23T13:24:32'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -91,7 +91,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -113,7 +113,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -135,10 +135,10 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:03'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:32'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
@@ -163,16 +163,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/issuing-agencies/import
+    uri: api/document-types/import
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Import cơ quan ban hành'
+      title: 'Import loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -203,7 +203,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Import cơ quan ban hành thành công."}'
+        content: '{"success": true, "message": "Import loại văn bản thành công."}'
         headers: []
         description: ''
     responseFields: []
@@ -218,16 +218,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/issuing-agencies/bulk-delete
+    uri: api/document-types/bulk-delete
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa hàng loạt cơ quan ban hành'
+      title: 'Xóa hàng loạt loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -279,16 +279,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: api/issuing-agencies/bulk-status
+    uri: api/document-types/bulk-status
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật trạng thái hàng loạt cơ quan ban hành'
+      title: 'Cập nhật trạng thái hàng loạt loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -352,16 +352,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/issuing-agencies/stats
+    uri: api/document-types/stats
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Thống kê cơ quan ban hành'
+      title: 'Thống kê loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -485,7 +485,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:03'
+        example: '2026-02-23T13:24:32'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -496,7 +496,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -540,8 +540,8 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:03'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:32'
+      to_date: '2052-03-18'
       sort_by: 'n'
       sort_order: desc
       limit: 7
@@ -565,16 +565,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/issuing-agencies
+    uri: api/document-types
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Danh sách cơ quan ban hành'
+      title: 'Danh sách loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -698,7 +698,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:03'
+        example: '2026-02-23T13:24:32'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -709,7 +709,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -731,7 +731,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: desc
+        example: asc
         type: string
         enumValues:
           - asc
@@ -753,10 +753,10 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:03'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:32'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: desc
+      sort_order: asc
       limit: 7
     fileParameters: []
     responses:
@@ -778,16 +778,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/issuing-agencies/{issuingAgency_id}'
+    uri: 'api/document-types/{documentType_id}'
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Chi tiết cơ quan ban hành'
+      title: 'Chi tiết loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -796,10 +796,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      issuingAgency_id:
+      documentType_id:
         custom: []
-        name: issuingAgency_id
-        description: 'The ID of the issuingAgency.'
+        name: documentType_id
+        description: 'The ID of the documentType.'
         required: true
         example: 16
         type: integer
@@ -807,10 +807,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      issuingAgency:
+      documentType:
         custom: []
-        name: issuingAgency
-        description: 'ID cơ quan ban hành.'
+        name: documentType
+        description: 'ID loại văn bản.'
         required: true
         example: 1
         type: integer
@@ -819,8 +819,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      issuingAgency_id: 16
-      issuingAgency: 1
+      documentType_id: 16
+      documentType: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -845,16 +845,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/issuing-agencies
+    uri: api/document-types
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Tạo cơ quan ban hành'
+      title: 'Tạo loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -870,9 +870,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Tên cơ quan ban hành.'
+        description: 'Tên loại văn bản.'
         required: true
-        example: 'Bộ Tài chính'
+        example: 'Nghị định'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -901,7 +901,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: 'Bộ Tài chính'
+      name: 'Nghị định'
       description: 'Eius et animi quos velit et.'
       status: active
     fileParameters: []
@@ -909,7 +909,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"T\u1ea1o c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"T\u1ea1o lo\u1ea1i v\u0103n b\u1ea3n th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -924,16 +924,16 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/issuing-agencies/{issuingAgency_id}'
+    uri: 'api/document-types/{documentType_id}'
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật cơ quan ban hành'
+      title: 'Cập nhật loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -942,10 +942,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      issuingAgency_id:
+      documentType_id:
         custom: []
-        name: issuingAgency_id
-        description: 'The ID of the issuingAgency.'
+        name: documentType_id
+        description: 'The ID of the documentType.'
         required: true
         example: 16
         type: integer
@@ -953,10 +953,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      issuingAgency:
+      documentType:
         custom: []
-        name: issuingAgency
-        description: 'ID cơ quan ban hành.'
+        name: documentType
+        description: 'ID loại văn bản.'
         required: true
         example: 1
         type: integer
@@ -965,15 +965,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      issuingAgency_id: 16
-      issuingAgency: 1
+      documentType_id: 16
+      documentType: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên cơ quan ban hành.'
+        description: 'Tên loại văn bản.'
         required: false
         example: architecto
         type: string
@@ -1012,7 +1012,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt lo\u1ea1i v\u0103n b\u1ea3n th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1027,16 +1027,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/issuing-agencies/{issuingAgency_id}'
+    uri: 'api/document-types/{documentType_id}'
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật cơ quan ban hành'
+      title: 'Cập nhật loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -1045,10 +1045,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      issuingAgency_id:
+      documentType_id:
         custom: []
-        name: issuingAgency_id
-        description: 'The ID of the issuingAgency.'
+        name: documentType_id
+        description: 'The ID of the documentType.'
         required: true
         example: 16
         type: integer
@@ -1056,10 +1056,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      issuingAgency:
+      documentType:
         custom: []
-        name: issuingAgency
-        description: 'ID cơ quan ban hành.'
+        name: documentType
+        description: 'ID loại văn bản.'
         required: true
         example: 1
         type: integer
@@ -1068,15 +1068,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      issuingAgency_id: 16
-      issuingAgency: 1
+      documentType_id: 16
+      documentType: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên cơ quan ban hành.'
+        description: 'Tên loại văn bản.'
         required: false
         example: architecto
         type: string
@@ -1115,7 +1115,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt lo\u1ea1i v\u0103n b\u1ea3n th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1130,16 +1130,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/issuing-agencies/{issuingAgency_id}'
+    uri: 'api/document-types/{documentType_id}'
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa cơ quan ban hành'
+      title: 'Xóa loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -1148,10 +1148,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      issuingAgency_id:
+      documentType_id:
         custom: []
-        name: issuingAgency_id
-        description: 'The ID of the issuingAgency.'
+        name: documentType_id
+        description: 'The ID of the documentType.'
         required: true
         example: 16
         type: integer
@@ -1159,10 +1159,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      issuingAgency:
+      documentType:
         custom: []
-        name: issuingAgency
-        description: 'ID cơ quan ban hành.'
+        name: documentType
+        description: 'ID loại văn bản.'
         required: true
         example: 1
         type: integer
@@ -1171,8 +1171,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      issuingAgency_id: 16
-      issuingAgency: 1
+      documentType_id: 16
+      documentType: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1182,7 +1182,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Xóa cơ quan ban hành thành công!"}'
+        content: '{"success": true, "message": "Xóa loại văn bản thành công!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1197,16 +1197,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/issuing-agencies/{issuingAgency_id}/status'
+    uri: 'api/document-types/{documentType_id}/status'
     metadata:
       custom: []
-      groupName: 'Document - Cơ quan ban hành'
+      groupName: 'Document - Loại văn bản'
       groupDescription: |-
 
-        Quản lý danh mục cơ quan ban hành: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục loại văn bản: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Đổi trạng thái cơ quan ban hành'
+      title: 'Đổi trạng thái loại văn bản'
       description: ''
       authenticated: true
       deprecated: false
@@ -1215,10 +1215,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      issuingAgency_id:
+      documentType_id:
         custom: []
-        name: issuingAgency_id
-        description: 'The ID of the issuingAgency.'
+        name: documentType_id
+        description: 'The ID of the documentType.'
         required: true
         example: 16
         type: integer
@@ -1226,10 +1226,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      issuingAgency:
+      documentType:
         custom: []
-        name: issuingAgency
-        description: 'ID cơ quan ban hành.'
+        name: documentType
+        description: 'ID loại văn bản.'
         required: true
         example: 1
         type: integer
@@ -1238,8 +1238,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      issuingAgency_id: 16
-      issuingAgency: 1
+      documentType_id: 16
+      documentType: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:

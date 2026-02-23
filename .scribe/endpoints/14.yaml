@@ -1,22 +1,22 @@
-name: 'Document - Lĩnh vực'
+name: 'Document - Người ký'
 description: |-
 
-  Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+  Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/document-fields/export
+    uri: api/document-signers/export
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xuất Excel lĩnh vực'
+      title: 'Xuất Excel người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -80,7 +80,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:03'
+        example: '2026-02-23T13:24:33'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -91,7 +91,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -113,7 +113,7 @@ endpoints:
         name: sort_order
         description: ''
         required: false
-        example: asc
+        example: desc
         type: string
         enumValues:
           - asc
@@ -135,10 +135,10 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:03'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:33'
+      to_date: '2052-03-18'
       sort_by: 'n'
-      sort_order: asc
+      sort_order: desc
       limit: 7
     fileParameters: []
     responses:
@@ -163,16 +163,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/document-fields/import
+    uri: api/document-signers/import
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Import lĩnh vực'
+      title: 'Import người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -203,7 +203,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Import lĩnh vực thành công."}'
+        content: '{"success": true, "message": "Import người ký thành công."}'
         headers: []
         description: ''
     responseFields: []
@@ -218,16 +218,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/document-fields/bulk-delete
+    uri: api/document-signers/bulk-delete
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa hàng loạt lĩnh vực'
+      title: 'Xóa hàng loạt người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -279,16 +279,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: api/document-fields/bulk-status
+    uri: api/document-signers/bulk-status
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật trạng thái hàng loạt lĩnh vực'
+      title: 'Cập nhật trạng thái hàng loạt người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -352,16 +352,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/document-fields/stats
+    uri: api/document-signers/stats
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Thống kê lĩnh vực'
+      title: 'Thống kê người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -485,7 +485,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:03'
+        example: '2026-02-23T13:24:33'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -496,7 +496,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -540,8 +540,8 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:03'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:33'
+      to_date: '2052-03-18'
       sort_by: 'n'
       sort_order: desc
       limit: 7
@@ -565,16 +565,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/document-fields
+    uri: api/document-signers
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Danh sách lĩnh vực'
+      title: 'Danh sách người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -698,7 +698,7 @@ endpoints:
         name: from_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-02-21T14:45:03'
+        example: '2026-02-23T13:24:33'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -709,7 +709,7 @@ endpoints:
         name: to_date
         description: 'Must be a valid date. Must be a date after or equal to <code>from_date</code>.'
         required: false
-        example: '2052-03-16'
+        example: '2052-03-18'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -753,8 +753,8 @@ endpoints:
     cleanBodyParameters:
       search: b
       status: architecto
-      from_date: '2026-02-21T14:45:03'
-      to_date: '2052-03-16'
+      from_date: '2026-02-23T13:24:33'
+      to_date: '2052-03-18'
       sort_by: 'n'
       sort_order: desc
       limit: 7
@@ -778,16 +778,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/document-fields/{documentField_id}'
+    uri: 'api/document-signers/{documentSigner_id}'
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Chi tiết lĩnh vực'
+      title: 'Chi tiết người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -796,10 +796,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      documentField_id:
+      documentSigner_id:
         custom: []
-        name: documentField_id
-        description: 'The ID of the documentField.'
+        name: documentSigner_id
+        description: 'The ID of the documentSigner.'
         required: true
         example: 16
         type: integer
@@ -807,10 +807,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      documentField:
+      documentSigner:
         custom: []
-        name: documentField
-        description: 'ID lĩnh vực.'
+        name: documentSigner
+        description: 'ID người ký.'
         required: true
         example: 1
         type: integer
@@ -819,8 +819,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      documentField_id: 16
-      documentField: 1
+      documentSigner_id: 16
+      documentSigner: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -845,16 +845,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/document-fields
+    uri: api/document-signers
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Tạo lĩnh vực'
+      title: 'Tạo người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -870,9 +870,9 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Tên lĩnh vực.'
+        description: 'Tên người ký.'
         required: true
-        example: 'Tài chính'
+        example: 'Nguyễn Văn A'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -901,7 +901,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: 'Tài chính'
+      name: 'Nguyễn Văn A'
       description: 'Eius et animi quos velit et.'
       status: active
     fileParameters: []
@@ -909,7 +909,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"T\u1ea1o l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"T\u1ea1o ng\u01b0\u1eddi k\u00fd th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -924,16 +924,16 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/document-fields/{documentField_id}'
+    uri: 'api/document-signers/{documentSigner_id}'
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật lĩnh vực'
+      title: 'Cập nhật người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -942,10 +942,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      documentField_id:
+      documentSigner_id:
         custom: []
-        name: documentField_id
-        description: 'The ID of the documentField.'
+        name: documentSigner_id
+        description: 'The ID of the documentSigner.'
         required: true
         example: 16
         type: integer
@@ -953,10 +953,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      documentField:
+      documentSigner:
         custom: []
-        name: documentField
-        description: 'ID lĩnh vực.'
+        name: documentSigner
+        description: 'ID người ký.'
         required: true
         example: 1
         type: integer
@@ -965,15 +965,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      documentField_id: 16
-      documentField: 1
+      documentSigner_id: 16
+      documentSigner: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên lĩnh vực.'
+        description: 'Tên người ký.'
         required: false
         example: architecto
         type: string
@@ -1012,7 +1012,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt ng\u01b0\u1eddi k\u00fd th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1027,16 +1027,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/document-fields/{documentField_id}'
+    uri: 'api/document-signers/{documentSigner_id}'
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Cập nhật lĩnh vực'
+      title: 'Cập nhật người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -1045,10 +1045,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      documentField_id:
+      documentSigner_id:
         custom: []
-        name: documentField_id
-        description: 'The ID of the documentField.'
+        name: documentSigner_id
+        description: 'The ID of the documentSigner.'
         required: true
         example: 16
         type: integer
@@ -1056,10 +1056,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      documentField:
+      documentSigner:
         custom: []
-        name: documentField
-        description: 'ID lĩnh vực.'
+        name: documentSigner
+        description: 'ID người ký.'
         required: true
         example: 1
         type: integer
@@ -1068,15 +1068,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      documentField_id: 16
-      documentField: 1
+      documentSigner_id: 16
+      documentSigner: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
       name:
         custom: []
         name: name
-        description: 'Tên lĩnh vực.'
+        description: 'Tên người ký.'
         required: false
         example: architecto
         type: string
@@ -1115,7 +1115,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":null,"name":null,"description":null,"status":null,"created_by":"N\/A","updated_by":"N\/A","created_at":null,"updated_at":null},"success":"true","message":"C\u1eadp nh\u1eadt ng\u01b0\u1eddi k\u00fd th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1130,16 +1130,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/document-fields/{documentField_id}'
+    uri: 'api/document-signers/{documentSigner_id}'
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Xóa lĩnh vực'
+      title: 'Xóa người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -1148,10 +1148,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      documentField_id:
+      documentSigner_id:
         custom: []
-        name: documentField_id
-        description: 'The ID of the documentField.'
+        name: documentSigner_id
+        description: 'The ID of the documentSigner.'
         required: true
         example: 16
         type: integer
@@ -1159,10 +1159,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      documentField:
+      documentSigner:
         custom: []
-        name: documentField
-        description: 'ID lĩnh vực.'
+        name: documentSigner
+        description: 'ID người ký.'
         required: true
         example: 1
         type: integer
@@ -1171,8 +1171,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      documentField_id: 16
-      documentField: 1
+      documentSigner_id: 16
+      documentSigner: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1182,7 +1182,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success": true, "message": "Xóa lĩnh vực thành công!"}'
+        content: '{"success": true, "message": "Xóa người ký thành công!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1197,16 +1197,16 @@ endpoints:
     custom: []
     httpMethods:
       - PATCH
-    uri: 'api/document-fields/{documentField_id}/status'
+    uri: 'api/document-signers/{documentSigner_id}/status'
     metadata:
       custom: []
-      groupName: 'Document - Lĩnh vực'
+      groupName: 'Document - Người ký'
       groupDescription: |-
 
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+        Quản lý danh mục người ký: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Đổi trạng thái lĩnh vực'
+      title: 'Đổi trạng thái người ký'
       description: ''
       authenticated: true
       deprecated: false
@@ -1215,10 +1215,10 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      documentField_id:
+      documentSigner_id:
         custom: []
-        name: documentField_id
-        description: 'The ID of the documentField.'
+        name: documentSigner_id
+        description: 'The ID of the documentSigner.'
         required: true
         example: 16
         type: integer
@@ -1226,10 +1226,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      documentField:
+      documentSigner:
         custom: []
-        name: documentField
-        description: 'ID lĩnh vực.'
+        name: documentSigner
+        description: 'ID người ký.'
         required: true
         example: 1
         type: integer
@@ -1238,8 +1238,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      documentField_id: 16
-      documentField: 1
+      documentSigner_id: 16
+      documentSigner: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:

@@ -19,7 +19,12 @@ use Symfony\Component\HttpFoundation\Response;
 class LogActivity
 {
     /** Các trường nhạy cảm không lưu vào request_data. */
-    protected static array $excludedRequestKeys = ['password', 'password_confirmation', '_token', 'token'];
+    protected static array $excludedRequestKeys = [
+        'password', 'password_confirmation', '_token', 'token',
+        'email_smtp_password', 'sms_password', 'zalo_password', 'chat_api_key',
+        'api_gemini_token', 'api_deepseek_token', 'api_chatgpt_token',
+        'api_firebase_token', 'api_google_maps_token',
+    ];
 
     /** Đường dẫn không ghi log (vd: health check). */
     protected static array $excludedPaths = ['/up'];
@@ -103,6 +108,11 @@ class LogActivity
             return $authLabels[$sub] ?? "Xác thực: {$sub}";
         }
 
+        // Settings: api/settings/public
+        if ($resource === 'settings' && $sub === 'public') {
+            return 'Xem cấu hình công khai';
+        }
+
         // Action trong path: export, import, stats, bulk-delete, delete-by-date, clear...
         $pathActions = [
             'export'         => 'Xuất dữ liệu',
@@ -156,6 +166,7 @@ class LogActivity
             'incrementView'     => 'Tăng lượt xem',
             'destroyByDate'     => 'Xóa theo khoảng thời gian',
             'destroyAll'        => 'Xóa toàn bộ',
+            'public'            => 'Xem cấu hình công khai',
         ];
 
         $actionLabel = $actionLabels[$action] ?? $action;
@@ -199,6 +210,7 @@ class LogActivity
             'issuing-levels'  => 'cấp ban hành',
             'document-signers'=> 'người ký',
             'document-fields' => 'lĩnh vực',
+            'settings'        => 'cấu hình hệ thống',
         ];
 
         return $labels[$resource] ?? str_replace('-', ' ', $resource);

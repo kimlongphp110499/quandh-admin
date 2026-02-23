@@ -225,6 +225,26 @@ Nhật ký truy cập của người dùng.
 
 **Quan hệ:** belongsTo user, organization. Index: user_id+created_at, organization_id+created_at, created_at.
 
+### `settings`
+Bảng cấu hình hệ thống (key-value): thông tin chung, trang quản trị, trang chọn tổ chức, mạng xã hội, API, nhật ký.
+
+| Cột | Kiểu | Nullable | Mặc định | Ràng buộc / Ghi chú |
+|-----|------|----------|----------|---------------------|
+| id | bigint unsigned | No | — | PK, auto increment |
+| key | varchar(255) | No | — | UNIQUE |
+| value | text | Yes | null | Giá trị cấu hình |
+| group | varchar(100) | No | 'general' | general, admin_page, org_select_page, social, api, email, sms, zalo, chat, log |
+| is_public | boolean | No | true | true = trả về khi gọi API công khai |
+| type | varchar(50) | No | 'string' | string, text, integer, boolean, json |
+| label | varchar(255) | Yes | null | Nhãn hiển thị tiếng Việt |
+| sort_order | int unsigned | No | 0 | Thứ tự hiển thị trong nhóm |
+| created_by | bigint unsigned | Yes | null | FK → users.id |
+| updated_by | bigint unsigned | Yes | null | FK → users.id |
+| created_at | timestamp | Yes | null | |
+| updated_at | timestamp | Yes | null | |
+
+**Quan hệ:** belongsTo creator, editor (User). Chi tiết các key mặc định và API xem `/docs/answer/phan-tich-bang-cau-hinh.md`.
+
 ---
 
 ## 4. Bài viết & Danh mục (Module Post)
