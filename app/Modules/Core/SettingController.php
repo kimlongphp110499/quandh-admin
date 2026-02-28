@@ -14,9 +14,7 @@ use Illuminate\Http\Request;
  */
 class SettingController extends Controller
 {
-    public function __construct(private SettingService $settingService)
-    {
-    }
+    public function __construct(private SettingService $settingService) {}
 
     /**
      * Lấy cấu hình công khai
@@ -24,6 +22,7 @@ class SettingController extends Controller
      * Trả về các key có is_public = true, nhóm theo group. Không cần xác thực.
      *
      * @unauthenticated
+     *
      * @response 200 {"success": true, "data": {"general": {"copyright": "© 2026", "language": "vi"}, "social": {...}}}
      */
     public function public(Request $request)
@@ -49,13 +48,14 @@ class SettingController extends Controller
      * Nếu key public: không cần auth. Nếu key private: cần auth và quyền settings.show.
      *
      * @urlParam key string required Key cấu hình. Example: copyright
+     *
      * @response 200 {"success": true, "data": {"key": "copyright", "value": "© 2026", "group": "general"}}
      */
     public function show(Request $request, string $key)
     {
         $item = $this->settingService->getByKey($key);
 
-        if (!$item) {
+        if (! $item) {
             return $this->notFound('Không tìm thấy cấu hình.');
         }
 
@@ -70,6 +70,7 @@ class SettingController extends Controller
      * @bodyParam copyright string optional Thông tin bản quyền. Example: © 2026 QuânDH
      * @bodyParam language string optional Ngôn ngữ. Example: vi
      * @bodyParam log_retention_days integer optional Số ngày giữ nhật ký. Example: 90
+     *
      * @response 200 {"success": true, "data": {...}, "message": "Cấu hình đã được cập nhật!"}
      */
     public function update(UpdateSettingRequest $request)

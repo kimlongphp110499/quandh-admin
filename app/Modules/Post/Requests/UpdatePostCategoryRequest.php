@@ -3,7 +3,6 @@
 namespace App\Modules\Post\Requests;
 
 use App\Modules\Core\Enums\StatusEnum;
-use App\Modules\Post\Models\PostCategory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -18,13 +17,14 @@ class UpdatePostCategoryRequest extends FormRequest
     {
         $category = $this->route('category');
         $categoryId = is_object($category) ? $category->id : $category;
+
         return [
-            'name'        => 'sometimes|string|max:255',
-            'slug'        => 'sometimes|string|max:255|unique:post_categories,slug,' . $categoryId,
+            'name' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255|unique:post_categories,slug,'.$categoryId,
             'description' => 'nullable|string|max:65535',
-            'status'      => ['sometimes', StatusEnum::rule()],
-            'sort_order'  => 'nullable|integer|min:0',
-            'parent_id'   => [
+            'status' => ['sometimes', StatusEnum::rule()],
+            'sort_order' => 'nullable|integer|min:0',
+            'parent_id' => [
                 'nullable',
                 Rule::notIn([$categoryId]),
                 Rule::when($this->filled('parent_id') && (int) $this->parent_id !== 0, ['exists:post_categories,id']),

@@ -23,19 +23,19 @@ class PostCategoriesExport implements FromCollection, WithHeadings
 
         return $nodes->map(function (PostCategory $category) use ($service) {
             return [
-                'id'          => $category->id,
-                'name'        => $category->name,
-                'slug'        => $category->slug,
+                'id' => $category->id,
+                'name' => $category->name,
+                'slug' => $category->slug,
                 'description' => $category->description,
-                'status'      => $category->status,
-                'sort_order'  => $category->sort_order,
-                'parent_id'   => $category->parent_id,
+                'status' => $category->status,
+                'sort_order' => $category->sort_order,
+                'parent_id' => $category->parent_id,
                 'parent_slug' => $category->parent_id ? (PostCategory::find($category->parent_id)?->slug ?? '') : '',
-                'depth'       => $service->getDepth($category),
-                'created_by'  => $category->creator?->name ?? 'N/A',
-                'updated_by'  => $category->editor?->name ?? 'N/A',
-                'created_at'  => $category->created_at?->format('d/m/Y H:i:s'),
-                'updated_at'  => $category->updated_at?->format('d/m/Y H:i:s'),
+                'depth' => $service->getDepth($category),
+                'created_by' => $category->creator?->name ?? 'N/A',
+                'updated_by' => $category->editor?->name ?? 'N/A',
+                'created_at' => $category->created_at?->format('d/m/Y H:i:s'),
+                'updated_at' => $category->updated_at?->format('d/m/Y H:i:s'),
             ];
         });
     }

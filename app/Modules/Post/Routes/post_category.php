@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Modules\Post\PostCategoryController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [PostCategoryController::class, 'export'])->middleware('permission:post-categories.export,web');
 Route::post('/import', [PostCategoryController::class, 'import'])->middleware('permission:post-categories.import,web');

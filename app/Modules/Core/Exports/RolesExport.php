@@ -15,9 +15,10 @@ class RolesExport implements FromCollection, WithHeadings
     public function collection()
     {
         $items = Role::with('organization')->filter($this->filters)->get();
+
         return $items->map(fn ($r) => [
-            'id'         => $r->id,
-            'name'       => $r->name,
+            'id' => $r->id,
+            'name' => $r->name,
             'guard_name' => $r->guard_name,
             'organization_id' => $r->organization_id,
             'organization_name' => $r->organization?->name ?? 'N/A',

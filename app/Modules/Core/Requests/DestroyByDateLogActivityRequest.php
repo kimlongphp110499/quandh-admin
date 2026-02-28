@@ -15,7 +15,7 @@ class DestroyByDateLogActivityRequest extends FormRequest
     {
         return [
             'from_date' => 'required|date',
-            'to_date'   => 'required|date|after_or_equal:from_date',
+            'to_date' => 'required|date|after_or_equal:from_date',
         ];
     }
 
@@ -23,7 +23,7 @@ class DestroyByDateLogActivityRequest extends FormRequest
     {
         return [
             'from_date.required' => 'Từ ngày không được để trống.',
-            'to_date.required'   => 'Đến ngày không được để trống.',
+            'to_date.required' => 'Đến ngày không được để trống.',
             'to_date.after_or_equal' => 'Đến ngày phải sau hoặc bằng từ ngày.',
         ];
     }

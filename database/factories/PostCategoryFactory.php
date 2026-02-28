@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Modules\Post\Models\PostCategory;
 use App\Modules\Core\Models\User;
+use App\Modules\Post\Models\PostCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

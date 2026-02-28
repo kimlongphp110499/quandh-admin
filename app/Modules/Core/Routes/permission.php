@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Modules\Core\PermissionController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [PermissionController::class, 'export'])->middleware('permission:permissions.export,web');
 Route::post('/import', [PermissionController::class, 'import'])->middleware('permission:permissions.import,web');

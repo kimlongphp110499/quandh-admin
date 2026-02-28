@@ -2,7 +2,6 @@
 
 namespace App\Modules\Core\Services;
 
-use App\Modules\Core\Enums\SettingGroupEnum;
 use App\Modules\Core\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +52,7 @@ class SettingService
     {
         $setting = Setting::where('key', $key)->first();
 
-        if (!$setting) {
+        if (! $setting) {
             return null;
         }
 
@@ -75,12 +74,12 @@ class SettingService
 
         DB::transaction(function () use ($data, $validKeys) {
             foreach ($data as $key => $value) {
-                if (!isset($validKeys[$key])) {
+                if (! isset($validKeys[$key])) {
                     continue;
                 }
 
                 $setting = Setting::find($validKeys[$key]);
-                if (!$setting) {
+                if (! $setting) {
                     continue;
                 }
 

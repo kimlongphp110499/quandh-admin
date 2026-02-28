@@ -26,7 +26,7 @@ trait RespondsWithJson
         $payload = array_filter([
             'success' => true,
             'message' => $message,
-            'data'    => $data,
+            'data' => $data,
         ], fn ($v) => $v !== null);
 
         return response()->json($payload, $statusCode);
@@ -77,8 +77,8 @@ trait RespondsWithJson
         $payload = array_filter([
             'success' => false,
             'message' => $message,
-            'errors'  => $errors,
-            'code'    => $code,
+            'errors' => $errors,
+            'code' => $code,
         ], fn ($v) => $v !== null);
 
         return response()->json($payload, $statusCode);

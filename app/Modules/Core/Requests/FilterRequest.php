@@ -17,27 +17,27 @@ class FilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search'     => 'nullable|string|max:100',
-            'status'     => 'nullable|string',
-            'from_date'  => 'nullable|date',
-            'to_date'    => 'nullable|date|after_or_equal:from_date',
-            'sort_by'    => 'nullable|string|max:50',
+            'search' => 'nullable|string|max:100',
+            'status' => 'nullable|string',
+            'from_date' => 'nullable|date',
+            'to_date' => 'nullable|date|after_or_equal:from_date',
+            'sort_by' => 'nullable|string|max:50',
             'sort_order' => 'nullable|in:asc,desc',
-            'limit'      => 'nullable|integer|min:1|max:100',
+            'limit' => 'nullable|integer|min:1|max:100',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'search.string'    => 'Từ khóa tìm kiếm phải là một chuỗi ký tự.',
-            'search.max'       => 'Từ khóa tìm kiếm không được vượt quá 100 ký tự.',
-            'status.string'    => 'Trạng thái phải là một chuỗi ký tự.',
-            'sort_by.in'       => 'Trường sắp xếp không hợp lệ.',
-            'sort_order.in'    => 'Thứ tự sắp xếp không hợp lệ.',
-            'limit.integer'    => 'Số lượng phải là một số nguyên.',
-            'limit.min'        => 'Số lượng phải lớn hơn 0.',
-            'limit.max'        => 'Số lượng phải nhỏ hơn 100.',
+            'search.string' => 'Từ khóa tìm kiếm phải là một chuỗi ký tự.',
+            'search.max' => 'Từ khóa tìm kiếm không được vượt quá 100 ký tự.',
+            'status.string' => 'Trạng thái phải là một chuỗi ký tự.',
+            'sort_by.in' => 'Trường sắp xếp không hợp lệ.',
+            'sort_order.in' => 'Thứ tự sắp xếp không hợp lệ.',
+            'limit.integer' => 'Số lượng phải là một số nguyên.',
+            'limit.min' => 'Số lượng phải lớn hơn 0.',
+            'limit.max' => 'Số lượng phải nhỏ hơn 100.',
         ];
     }
 

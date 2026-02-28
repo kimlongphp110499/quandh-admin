@@ -14,7 +14,7 @@ class BulkDestroyLogActivityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids'   => 'required|array|min:1',
+            'ids' => 'required|array|min:1',
             'ids.*' => 'exists:log_activities,id',
         ];
     }
@@ -23,8 +23,8 @@ class BulkDestroyLogActivityRequest extends FormRequest
     {
         return [
             'ids.required' => 'Danh sách nhật ký không được để trống.',
-            'ids.array'    => 'Danh sách nhật ký phải là một mảng.',
-            'ids.min'      => 'Danh sách nhật ký phải có ít nhất 1 bản ghi.',
+            'ids.array' => 'Danh sách nhật ký phải là một mảng.',
+            'ids.min' => 'Danh sách nhật ký phải có ít nhất 1 bản ghi.',
         ];
     }
 

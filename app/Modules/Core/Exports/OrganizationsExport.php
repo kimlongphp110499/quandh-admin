@@ -19,15 +19,15 @@ class OrganizationsExport implements FromCollection, WithHeadings
         $items = $service->getFlatTreeOrdered($this->filters);
 
         return $items->map(fn ($o) => [
-            'id'         => $o->id,
-            'name'       => $o->name,
-            'slug'       => $o->slug,
+            'id' => $o->id,
+            'name' => $o->name,
+            'slug' => $o->slug,
             'description' => $o->description,
-            'status'     => $o->status,
-            'parent_id'  => $o->parent_id,
+            'status' => $o->status,
+            'parent_id' => $o->parent_id,
             'parent_slug' => $o->parent_id ? (Organization::find($o->parent_id)?->slug ?? '') : '',
             'sort_order' => $o->sort_order,
-            'depth'      => $service->getDepth($o),
+            'depth' => $service->getDepth($o),
             'created_by' => $o->creator?->name ?? 'N/A',
             'updated_by' => $o->editor?->name ?? 'N/A',
             'created_at' => $o->created_at?->format('H:i:s d/m/Y'),

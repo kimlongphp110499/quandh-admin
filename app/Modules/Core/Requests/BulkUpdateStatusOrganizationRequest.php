@@ -15,8 +15,8 @@ class BulkUpdateStatusOrganizationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids'    => 'required|array|min:1',
-            'ids.*'  => 'exists:organizations,id',
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'exists:organizations,id',
             'status' => ['required', StatusEnum::rule()],
         ];
     }

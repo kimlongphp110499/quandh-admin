@@ -3,9 +3,9 @@
 namespace App\Modules\Core\Services;
 
 use App\Modules\Core\Enums\StatusEnum;
-use App\Modules\Core\Models\Organization;
 use App\Modules\Core\Exports\OrganizationsExport;
 use App\Modules\Core\Imports\OrganizationsImport;
+use App\Modules\Core\Models\Organization;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -132,7 +132,7 @@ class OrganizationService
 
     public function import($file): void
     {
-        Excel::import(new OrganizationsImport(), $file);
+        Excel::import(new OrganizationsImport, $file);
     }
 
     public function getFlatTreeOrdered(array $filters = []): Collection
@@ -181,7 +181,7 @@ class OrganizationService
 
         $index = 0;
         while ($query->exists()) {
-            $slug = $base . '-' . (++$index);
+            $slug = $base.'-'.(++$index);
             $query = Organization::where('slug', $slug);
             if ($excludeId !== null) {
                 $query->where('id', '!=', $excludeId);

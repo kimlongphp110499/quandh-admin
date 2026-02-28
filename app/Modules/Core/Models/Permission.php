@@ -46,9 +46,9 @@ class Permission extends SpatiePermission
     {
         $query->when($filters['search'] ?? null, function ($q, $search) {
             $q->where(function ($q2) use ($search) {
-                $q2->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('guard_name', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%');
+                $q2->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('guard_name', 'like', '%'.$search.'%')
+                    ->orWhere('description', 'like', '%'.$search.'%');
             });
         })->when(isset($filters['from_date']) && $filters['from_date'], function ($q, $v) use ($filters) {
             $q->whereDate('created_at', '>=', $filters['from_date']);
@@ -59,6 +59,7 @@ class Permission extends SpatiePermission
             $column = in_array($sortBy, $allowed) ? $sortBy : 'sort_order';
             $q->orderBy($column, $filters['sort_order'] ?? 'asc');
         });
+
         return $query;
     }
 
@@ -67,5 +68,4 @@ class Permission extends SpatiePermission
     {
         return $query->orderByRaw('COALESCE(parent_id, 0), sort_order, id');
     }
-
 }

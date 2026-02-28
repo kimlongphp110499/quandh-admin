@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DocumentService
 {
-    public function __construct(private MediaService $mediaService)
-    {
-    }
+    public function __construct(private MediaService $mediaService) {}
 
     public function stats(array $filters): array
     {
@@ -128,6 +126,6 @@ class DocumentService
 
     public function import($file): void
     {
-        Excel::import(new DocumentsImport(), $file);
+        Excel::import(new DocumentsImport, $file);
     }
 }

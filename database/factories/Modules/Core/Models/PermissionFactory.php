@@ -18,7 +18,7 @@ class PermissionFactory extends Factory
         $action = fake()->randomElement(['index', 'show', 'store', 'update', 'destroy', 'stats']);
 
         return [
-            'name' => $resource . '.' . $action . '.' . fake()->unique()->numberBetween(1, 9999),
+            'name' => $resource.'.'.$action.'.'.fake()->unique()->numberBetween(1, 9999),
             'guard_name' => 'web',
             'description' => fake()->optional()->sentence(),
             'sort_order' => fake()->numberBetween(0, 100),

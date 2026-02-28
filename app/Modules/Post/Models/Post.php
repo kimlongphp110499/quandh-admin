@@ -65,14 +65,12 @@ class Post extends Model implements HasMedia
         $this->addMediaCollection('post-attachments');
     }
 
-    public function registerMediaConversions(?Media $media = null): void
-    {
-    }
+    public function registerMediaConversions(?Media $media = null): void {}
 
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where('title', 'like', '%' . $search . '%');
+            $query->where('title', 'like', '%'.$search.'%');
         })->when($filters['status'] ?? null, function ($query, $status) {
             $query->where('status', $status);
         })->when($filters['category_id'] ?? null, function ($query, $categoryId) {

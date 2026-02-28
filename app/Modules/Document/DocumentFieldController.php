@@ -4,6 +4,7 @@ namespace App\Modules\Document;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Core\Requests\FilterRequest;
+use App\Modules\Core\Resources\PublicOptionResource;
 use App\Modules\Document\Models\DocumentField;
 use App\Modules\Document\Requests\BulkDestroyCatalogRequest;
 use App\Modules\Document\Requests\BulkUpdateStatusCatalogRequest;
@@ -14,7 +15,6 @@ use App\Modules\Document\Requests\UpdateCatalogRequest;
 use App\Modules\Document\Resources\CatalogCollection;
 use App\Modules\Document\Resources\CatalogResource;
 use App\Modules\Document\Services\CatalogService;
-use App\Modules\Core\Resources\PublicOptionResource;
 
 /**
  * @group Document - Lĩnh vực
@@ -23,9 +23,7 @@ use App\Modules\Core\Resources\PublicOptionResource;
  */
 class DocumentFieldController extends Controller
 {
-    public function __construct(private CatalogService $catalogService)
-    {
-    }
+    public function __construct(private CatalogService $catalogService) {}
 
     /**
      * Danh sách lĩnh vực công khai
@@ -33,16 +31,21 @@ class DocumentFieldController extends Controller
      * Trả về danh sách lĩnh vực đang hoạt động để hiển thị cho các chức năng công khai.
      *
      * @unauthenticated
+     *
      * @queryParam search string Từ khóa tìm kiếm theo tên.
      * @queryParam sort_by string Sắp xếp theo: id, name, created_at, updated_at. Example: name
      * @queryParam sort_order string Thứ tự: asc, desc. Example: asc
+     *
      * @apiResourceCollection App\Modules\Document\Resources\CatalogCollection
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField
+     *
      * @apiResourceAdditional success=true
      */
     public function public(FilterRequest $request)
     {
         $items = $this->catalogService->publicCatalog(DocumentField::class, $request->all());
+
         return $this->successCollection(new CatalogCollection($items));
     }
 
@@ -52,16 +55,21 @@ class DocumentFieldController extends Controller
      * Trả về dữ liệu tối giản chỉ gồm id, name, description để tối ưu payload cho dropdown.
      *
      * @unauthenticated
+     *
      * @queryParam search string Từ khóa tìm kiếm theo tên.
      * @queryParam sort_by string Sắp xếp theo: id, name, created_at, updated_at. Example: name
      * @queryParam sort_order string Thứ tự: asc, desc. Example: asc
+     *
      * @apiResourceCollection App\Modules\Core\Resources\PublicOptionResource
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField
+     *
      * @apiResourceAdditional success=true
      */
     public function publicOptions(FilterRequest $request)
     {
         $items = $this->catalogService->publicOptions(DocumentField::class, $request->all());
+
         return $this->successCollection(PublicOptionResource::collection($items));
     }
 
@@ -75,6 +83,7 @@ class DocumentFieldController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, name, created_at, updated_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
      * @response 200 {"success": true, "data": {"total": 10, "active": 8, "inactive": 2}}
      */
     public function stats(FilterRequest $request)
@@ -92,13 +101,17 @@ class DocumentFieldController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, name, created_at, updated_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
      * @apiResourceCollection App\Modules\Document\Resources\CatalogCollection
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField paginate=10
+     *
      * @apiResourceAdditional success=true
      */
     public function index(FilterRequest $request)
     {
         $items = $this->catalogService->index(DocumentField::class, $request->all(), (int) ($request->limit ?? 10));
+
         return $this->successCollection(new CatalogCollection($items));
     }
 
@@ -106,8 +119,11 @@ class DocumentFieldController extends Controller
      * Chi tiết lĩnh vực
      *
      * @urlParam documentField integer required ID lĩnh vực. Example: 1
+     *
      * @apiResource App\Modules\Document\Resources\CatalogResource
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField
+     *
      * @apiResourceAdditional success=true
      */
     public function show(DocumentField $documentField)
@@ -121,13 +137,17 @@ class DocumentFieldController extends Controller
      * @bodyParam name string required Tên lĩnh vực. Example: Tài chính
      * @bodyParam description string Mô tả.
      * @bodyParam status string required Trạng thái: active, inactive. Example: active
+     *
      * @apiResource App\Modules\Document\Resources\CatalogResource status=201
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField
+     *
      * @apiResourceAdditional success=true message="Tạo lĩnh vực thành công!"
      */
     public function store(StoreCatalogRequest $request)
     {
         $item = $this->catalogService->store(DocumentField::class, $request->validated());
+
         return $this->successResource(new CatalogResource($item), 'Tạo lĩnh vực thành công!', 201);
     }
 
@@ -135,16 +155,21 @@ class DocumentFieldController extends Controller
      * Cập nhật lĩnh vực
      *
      * @urlParam documentField integer required ID lĩnh vực. Example: 1
+     *
      * @bodyParam name string Tên lĩnh vực.
      * @bodyParam description string Mô tả.
      * @bodyParam status string Trạng thái: active, inactive.
+     *
      * @apiResource App\Modules\Document\Resources\CatalogResource
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField
+     *
      * @apiResourceAdditional success=true message="Cập nhật lĩnh vực thành công!"
      */
     public function update(UpdateCatalogRequest $request, DocumentField $documentField)
     {
         $item = $this->catalogService->update($documentField, $request->validated());
+
         return $this->successResource(new CatalogResource($item), 'Cập nhật lĩnh vực thành công!');
     }
 
@@ -152,11 +177,13 @@ class DocumentFieldController extends Controller
      * Xóa lĩnh vực
      *
      * @urlParam documentField integer required ID lĩnh vực. Example: 1
+     *
      * @response 200 {"success": true, "message": "Xóa lĩnh vực thành công!"}
      */
     public function destroy(DocumentField $documentField)
     {
         $this->catalogService->destroy($documentField);
+
         return $this->success(null, 'Xóa lĩnh vực thành công!');
     }
 
@@ -164,11 +191,13 @@ class DocumentFieldController extends Controller
      * Xóa hàng loạt lĩnh vực
      *
      * @bodyParam ids array required Danh sách ID. Example: [1,2,3]
+     *
      * @response 200 {"success": true, "message": "Xóa hàng loạt thành công!"}
      */
     public function bulkDestroy(BulkDestroyCatalogRequest $request)
     {
         $this->catalogService->bulkDestroy(DocumentField::class, $request->ids);
+
         return $this->success(null, 'Xóa hàng loạt thành công!');
     }
 
@@ -177,11 +206,13 @@ class DocumentFieldController extends Controller
      *
      * @bodyParam ids array required Danh sách ID. Example: [1,2,3]
      * @bodyParam status string required Trạng thái mới: active, inactive. Example: inactive
+     *
      * @response 200 {"success": true, "message": "Cập nhật trạng thái hàng loạt thành công!"}
      */
     public function bulkUpdateStatus(BulkUpdateStatusCatalogRequest $request)
     {
         $this->catalogService->bulkUpdateStatus(DocumentField::class, $request->ids, $request->status);
+
         return $this->success(null, 'Cập nhật trạng thái hàng loạt thành công!');
     }
 
@@ -189,14 +220,19 @@ class DocumentFieldController extends Controller
      * Đổi trạng thái lĩnh vực
      *
      * @urlParam documentField integer required ID lĩnh vực. Example: 1
+     *
      * @bodyParam status string required Trạng thái mới: active, inactive. Example: active
+     *
      * @apiResource App\Modules\Document\Resources\CatalogResource
+     *
      * @apiResourceModel App\Modules\Document\Models\DocumentField
+     *
      * @apiResourceAdditional success=true message="Đổi trạng thái thành công!"
      */
     public function changeStatus(ChangeStatusCatalogRequest $request, DocumentField $documentField)
     {
         $item = $this->catalogService->changeStatus($documentField, $request->status);
+
         return $this->successResource(new CatalogResource($item), 'Đổi trạng thái thành công!');
     }
 
@@ -215,11 +251,13 @@ class DocumentFieldController extends Controller
      * Import lĩnh vực
      *
      * @bodyParam file file required File Excel (xlsx, xls, csv).
+     *
      * @response 200 {"success": true, "message": "Import lĩnh vực thành công."}
      */
     public function import(ImportCatalogRequest $request)
     {
         $this->catalogService->import(DocumentField::class, $request->file('file'));
+
         return $this->success(null, 'Import lĩnh vực thành công.');
     }
 }

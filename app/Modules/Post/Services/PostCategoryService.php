@@ -138,7 +138,7 @@ class PostCategoryService
 
     public function import($file): void
     {
-        Excel::import(new PostCategoriesImport(), $file);
+        Excel::import(new PostCategoriesImport, $file);
     }
 
     public function changeStatus(PostCategory $category, string $status): PostCategory
@@ -194,7 +194,7 @@ class PostCategoryService
 
         $index = 0;
         while ($query->exists()) {
-            $slug = $base . '-' . (++$index);
+            $slug = $base.'-'.(++$index);
             $query = PostCategory::where('slug', $slug);
             if ($excludeId !== null) {
                 $query->where('id', '!=', $excludeId);

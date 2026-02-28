@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Modules\Core\Models\Permission;
-use App\Modules\Core\Models\Role;
 use App\Modules\Core\Enums\StatusEnum;
 use App\Modules\Core\Models\Organization;
+use App\Modules\Core\Models\Permission;
+use App\Modules\Core\Models\Role;
 use App\Modules\Core\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -122,48 +122,48 @@ class PermissionSeeder extends Seeder
         Organization::firstOrCreate(
             ['slug' => 'default'],
             [
-                'name'        => 'Default',
+                'name' => 'Default',
                 'description' => 'Organization mặc định của hệ thống',
-                'status'      => StatusEnum::Active->value,
+                'status' => StatusEnum::Active->value,
             ]
         );
     }
 
     /** Nhãn nhóm permission theo resource (để description). */
     protected static array $RESOURCE_LABELS = [
-        'users'           => 'Người dùng',
-        'permissions'     => 'Quyền',
-        'roles'           => 'Vai trò',
-        'organizations'   => 'Tổ chức',
-        'posts'           => 'Bài viết',
+        'users' => 'Người dùng',
+        'permissions' => 'Quyền',
+        'roles' => 'Vai trò',
+        'organizations' => 'Tổ chức',
+        'posts' => 'Bài viết',
         'post-categories' => 'Danh mục bài viết',
-        'log-activities'  => 'Nhật ký truy cập',
-        'documents'       => 'Văn bản',
-        'document-types'  => 'Loại văn bản',
-        'issuing-agencies'=> 'Cơ quan ban hành',
-        'issuing-levels'  => 'Cấp ban hành',
-        'document-signers'=> 'Người ký',
+        'log-activities' => 'Nhật ký truy cập',
+        'documents' => 'Văn bản',
+        'document-types' => 'Loại văn bản',
+        'issuing-agencies' => 'Cơ quan ban hành',
+        'issuing-levels' => 'Cấp ban hành',
+        'document-signers' => 'Người ký',
         'document-fields' => 'Lĩnh vực',
-        'settings'        => 'Cấu hình hệ thống',
+        'settings' => 'Cấu hình hệ thống',
     ];
 
     /** Nhãn action (để description). */
     protected static array $ACTION_LABELS = [
-        'stats'            => 'Thống kê',
-        'index'            => 'Danh sách',
-        'tree'             => 'Cây',
-        'show'             => 'Chi tiết',
-        'store'            => 'Tạo mới',
-        'update'           => 'Cập nhật',
-        'destroy'          => 'Xóa',
-        'bulkDestroy'      => 'Xóa hàng loạt',
+        'stats' => 'Thống kê',
+        'index' => 'Danh sách',
+        'tree' => 'Cây',
+        'show' => 'Chi tiết',
+        'store' => 'Tạo mới',
+        'update' => 'Cập nhật',
+        'destroy' => 'Xóa',
+        'bulkDestroy' => 'Xóa hàng loạt',
         'bulkUpdateStatus' => 'Cập nhật trạng thái hàng loạt',
-        'changeStatus'     => 'Đổi trạng thái',
-        'export'           => 'Xuất Excel',
-        'import'           => 'Nhập Excel',
-        'incrementView'    => 'Tăng lượt xem',
-        'destroyByDate'    => 'Xóa theo khoảng thời gian',
-        'destroyAll'       => 'Xóa toàn bộ',
+        'changeStatus' => 'Đổi trạng thái',
+        'export' => 'Xuất Excel',
+        'import' => 'Nhập Excel',
+        'incrementView' => 'Tăng lượt xem',
+        'destroyByDate' => 'Xóa theo khoảng thời gian',
+        'destroyAll' => 'Xóa toàn bộ',
     ];
 
     /** Tạo đầy đủ permission từ danh sách PERMISSIONS (kèm description, sort_order, parent_id). */
@@ -184,7 +184,7 @@ class PermissionSeeder extends Seeder
             foreach ($actions as $idx => $action) {
                 $name = "{$resource}.{$action}";
                 $actionLabel = self::$ACTION_LABELS[$action] ?? $action;
-                $desc = ($groupLabel ?? '') . ' - ' . $actionLabel;
+                $desc = ($groupLabel ?? '').' - '.$actionLabel;
                 Permission::updateOrCreate(
                     ['name' => $name, 'guard_name' => self::GUARD],
                     ['description' => $desc, 'sort_order' => $idx, 'parent_id' => $group->id]
@@ -311,6 +311,7 @@ class PermissionSeeder extends Seeder
                 $names[] = "{$resource}.{$action}";
             }
         }
+
         return $names;
     }
 
@@ -323,6 +324,7 @@ class PermissionSeeder extends Seeder
                 $names[] = "{$resource}.{$action}";
             }
         }
+
         return $names;
     }
 

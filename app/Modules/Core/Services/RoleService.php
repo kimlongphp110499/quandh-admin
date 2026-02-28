@@ -2,9 +2,9 @@
 
 namespace App\Modules\Core\Services;
 
-use App\Modules\Core\Models\Role;
 use App\Modules\Core\Exports\RolesExport;
 use App\Modules\Core\Imports\RolesImport;
+use App\Modules\Core\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -82,6 +82,6 @@ class RoleService
 
     public function import($file): void
     {
-        Excel::import(new RolesImport(), $file);
+        Excel::import(new RolesImport, $file);
     }
 }

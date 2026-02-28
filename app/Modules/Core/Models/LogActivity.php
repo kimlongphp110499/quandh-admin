@@ -35,7 +35,7 @@ class LogActivity extends Model
 
     protected $casts = [
         'request_data' => 'array',
-        'status_code'  => 'integer',
+        'status_code' => 'integer',
     ];
 
     public function user()
@@ -52,11 +52,11 @@ class LogActivity extends Model
     {
         $query->when($filters['search'] ?? null, function ($q, $search) {
             $q->where(function ($q2) use ($search) {
-                $q2->where('description', 'like', '%' . $search . '%')
-                    ->orWhere('route', 'like', '%' . $search . '%')
-                    ->orWhere('ip_address', 'like', '%' . $search . '%')
-                    ->orWhere('country', 'like', '%' . $search . '%')
-                    ->orWhere('user_type', 'like', '%' . $search . '%');
+                $q2->where('description', 'like', '%'.$search.'%')
+                    ->orWhere('route', 'like', '%'.$search.'%')
+                    ->orWhere('ip_address', 'like', '%'.$search.'%')
+                    ->orWhere('country', 'like', '%'.$search.'%')
+                    ->orWhere('user_type', 'like', '%'.$search.'%');
             });
         });
         $query->when(isset($filters['from_date']) && $filters['from_date'], fn ($q) => $q->whereDate('created_at', '>=', $filters['from_date']));
@@ -68,6 +68,7 @@ class LogActivity extends Model
             $column = in_array($sortBy, $allowed) ? $sortBy : 'id';
             $q->orderBy($column, $filters['sort_order'] ?? 'desc');
         });
+
         return $query;
     }
 }

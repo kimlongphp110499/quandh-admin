@@ -33,6 +33,7 @@ class Setting extends Model
     public const CACHE_TTL = 3600;
 
     public const CACHE_KEY_PUBLIC = 'settings.public';
+
     public const CACHE_KEY_ALL = 'settings.all';
 
     public function creator()
@@ -73,7 +74,7 @@ class Setting extends Model
     {
         $setting = self::where('key', $key)->first();
 
-        if (!$setting) {
+        if (! $setting) {
             return $default;
         }
 

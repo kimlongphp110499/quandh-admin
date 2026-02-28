@@ -12,12 +12,13 @@ class PermissionsImport implements ToModel, WithHeadingRow
     {
         $guard = $row['guard_name'] ?? config('auth.defaults.guard', 'web');
         $parentId = isset($row['parent_id']) && $row['parent_id'] !== '' ? (int) $row['parent_id'] : null;
+
         return new Permission([
-            'name'        => $row['name'] ?? $row['name_'] ?? '',
-            'guard_name'  => $guard,
+            'name' => $row['name'] ?? $row['name_'] ?? '',
+            'guard_name' => $guard,
             'description' => $row['description'] ?? null,
-            'sort_order'  => isset($row['sort_order']) ? (int) $row['sort_order'] : 0,
-            'parent_id'   => $parentId,
+            'sort_order' => isset($row['sort_order']) ? (int) $row['sort_order'] : 0,
+            'parent_id' => $parentId,
         ]);
     }
 }

@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PostService
 {
-    public function __construct(private MediaService $mediaService)
-    {
-    }
+    public function __construct(private MediaService $mediaService) {}
 
     public function stats(array $filters): array
     {
@@ -109,7 +107,7 @@ class PostService
 
     public function import($file): void
     {
-        Excel::import(new PostsImport(), $file);
+        Excel::import(new PostsImport, $file);
     }
 
     public function changeStatus(Post $post, string $status): Post

@@ -83,8 +83,8 @@ class Organization extends Model
     {
         $query->when($filters['search'] ?? null, function ($q, $search) {
             $q->where(function ($q2) use ($search) {
-                $q2->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('slug', 'like', '%' . $search . '%');
+                $q2->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('slug', 'like', '%'.$search.'%');
             });
         })->when($filters['status'] ?? null, function ($q, $status) {
             $q->where('status', $status);

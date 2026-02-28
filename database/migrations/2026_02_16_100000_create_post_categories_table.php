@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
- * Run the migrations.
- * Danh mục tin tức phân cấp theo parent_id.
+     * Run the migrations.
+     * Danh mục tin tức phân cấp theo parent_id.
      */
     public function up(): void
     {

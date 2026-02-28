@@ -22,7 +22,7 @@ class ImportPostCategoryRequest extends FormRequest
     {
         return [
             'file.required' => 'Vui lòng chọn file để nhập liệu.',
-            'file.mimes'    => 'File phải có định dạng xlsx, xls hoặc csv.',
+            'file.mimes' => 'File phải có định dạng xlsx, xls hoặc csv.',
         ];
     }
 

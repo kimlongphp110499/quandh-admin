@@ -36,7 +36,7 @@ return new class extends Migration
         $duplicateIds = [];
 
         foreach ($roles as $role) {
-            $key = $role->name . '|' . $role->guard_name;
+            $key = $role->name.'|'.$role->guard_name;
             if (! isset($canonicalByKey[$key])) {
                 $canonicalByKey[$key] = (int) $role->id;
             }

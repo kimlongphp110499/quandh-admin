@@ -33,7 +33,7 @@ class LogActivity
     {
         $response = $next($request);
 
-        if (!$this->shouldLog($request)) {
+        if (! $this->shouldLog($request)) {
             return $response;
         }
 
@@ -49,6 +49,7 @@ class LogActivity
                 return false;
             }
         }
+
         return true;
     }
 
@@ -61,17 +62,17 @@ class LogActivity
             $organizationId = function_exists('getPermissionsTeamId') ? getPermissionsTeamId() : null;
 
             LogActivityModel::create([
-                'description'      => $this->buildDescription($request),
-                'user_type'       => $userType,
-                'user_id'         => $userId,
+                'description' => $this->buildDescription($request),
+                'user_type' => $userType,
+                'user_id' => $userId,
                 'organization_id' => $organizationId,
-                'route'           => $request->fullUrl(),
-                'method_type'     => $request->method(),
-                'status_code'     => $statusCode,
-                'ip_address'      => $request->ip() ?? '0.0.0.0',
-                'country'         => $this->resolveCountry($request),
-                'user_agent'      => $request->userAgent(),
-                'request_data'    => $this->sanitizeRequestData($request),
+                'route' => $request->fullUrl(),
+                'method_type' => $request->method(),
+                'status_code' => $statusCode,
+                'ip_address' => $request->ip() ?? '0.0.0.0',
+                'country' => $this->resolveCountry($request),
+                'user_agent' => $request->userAgent(),
+                'request_data' => $this->sanitizeRequestData($request),
             ]);
         } catch (\Throwable $e) {
             report($e);
@@ -105,6 +106,7 @@ class LogActivity
         // Auth: api/auth/login, api/auth/forgot-password...
         if ($resource === 'auth') {
             $authLabels = ['login' => 'Đăng nhập', 'logout' => 'Đăng xuất', 'forgot-password' => 'Quên mật khẩu', 'reset-password' => 'Đặt lại mật khẩu'];
+
             return $authLabels[$sub] ?? "Xác thực: {$sub}";
         }
 
@@ -115,29 +117,29 @@ class LogActivity
 
         // Action trong path: export, import, stats, bulk-delete, delete-by-date, clear...
         $pathActions = [
-            'export'         => 'Xuất dữ liệu',
-            'import'         => 'Nhập dữ liệu',
-            'stats'          => 'Xem thống kê',
-            'public'         => 'Xem dữ liệu công khai',
+            'export' => 'Xuất dữ liệu',
+            'import' => 'Nhập dữ liệu',
+            'stats' => 'Xem thống kê',
+            'public' => 'Xem dữ liệu công khai',
             'public-options' => 'Xem dữ liệu dropdown công khai',
-            'bulk-delete'    => 'Xóa hàng loạt',
-            'bulk-status'    => 'Cập nhật trạng thái hàng loạt',
-            'tree'           => 'Xem cây',
+            'bulk-delete' => 'Xóa hàng loạt',
+            'bulk-status' => 'Cập nhật trạng thái hàng loạt',
+            'tree' => 'Xem cây',
             'delete-by-date' => 'Xóa theo khoảng thời gian',
-            'clear'          => 'Xóa toàn bộ',
+            'clear' => 'Xóa toàn bộ',
         ];
         if ($sub && isset($pathActions[$sub])) {
-            return $pathActions[$sub] . ' ' . $this->resourceLabel(str_replace('-', '_', $resource));
+            return $pathActions[$sub].' '.$this->resourceLabel(str_replace('-', '_', $resource));
         }
 
         $resourceLabel = $this->resourceLabel(str_replace('-', '_', $resource));
         $id = $sub && is_numeric($sub) ? $sub : null;
 
         $labels = [
-            'GET'    => $id ? 'Xem chi tiết' : 'Truy cập danh sách',
-            'POST'   => 'Tạo mới',
-            'PUT'    => 'Cập nhật',
-            'PATCH'  => 'Cập nhật',
+            'GET' => $id ? 'Xem chi tiết' : 'Truy cập danh sách',
+            'POST' => 'Tạo mới',
+            'PUT' => 'Cập nhật',
+            'PATCH' => 'Cập nhật',
             'DELETE' => 'Xóa',
         ];
         $actionLabel = $labels[$method] ?? $method;
@@ -153,22 +155,22 @@ class LogActivity
         $action = $parts[1] ?? 'access';
 
         $actionLabels = [
-            'index'             => 'Truy cập danh sách',
-            'show'              => 'Xem chi tiết',
-            'store'             => 'Tạo mới',
-            'update'            => 'Cập nhật',
-            'destroy'           => 'Xóa',
-            'stats'             => 'Xem thống kê',
-            'tree'              => 'Xem cây',
-            'export'            => 'Xuất dữ liệu',
-            'import'            => 'Nhập dữ liệu',
-            'changeStatus'      => 'Đổi trạng thái',
-            'bulkDestroy'       => 'Xóa hàng loạt',
-            'bulkUpdateStatus'  => 'Cập nhật trạng thái hàng loạt',
-            'incrementView'     => 'Tăng lượt xem',
-            'destroyByDate'     => 'Xóa theo khoảng thời gian',
-            'destroyAll'        => 'Xóa toàn bộ',
-            'public'            => 'Xem dữ liệu công khai',
+            'index' => 'Truy cập danh sách',
+            'show' => 'Xem chi tiết',
+            'store' => 'Tạo mới',
+            'update' => 'Cập nhật',
+            'destroy' => 'Xóa',
+            'stats' => 'Xem thống kê',
+            'tree' => 'Xem cây',
+            'export' => 'Xuất dữ liệu',
+            'import' => 'Nhập dữ liệu',
+            'changeStatus' => 'Đổi trạng thái',
+            'bulkDestroy' => 'Xóa hàng loạt',
+            'bulkUpdateStatus' => 'Cập nhật trạng thái hàng loạt',
+            'incrementView' => 'Tăng lượt xem',
+            'destroyByDate' => 'Xóa theo khoảng thời gian',
+            'destroyAll' => 'Xóa toàn bộ',
+            'public' => 'Xem dữ liệu công khai',
         ];
 
         $actionLabel = $actionLabels[$action] ?? $action;
@@ -189,7 +191,7 @@ class LogActivity
             ?? $params['documentField']
             ?? $params['id']
             ?? null;
-        $suffix = $id ? ' #' . (is_object($id) ? $id->getKey() : $id) : '';
+        $suffix = $id ? ' #'.(is_object($id) ? $id->getKey() : $id) : '';
 
         return trim("{$actionLabel} {$resourceLabel}{$suffix}");
     }
@@ -198,21 +200,21 @@ class LogActivity
     {
         $resource = str_replace('_', '-', $resource);
         $labels = [
-            'users'           => 'người dùng',
-            'posts'           => 'bài viết',
+            'users' => 'người dùng',
+            'posts' => 'bài viết',
             'post-categories' => 'danh mục bài viết',
-            'permissions'     => 'quyền',
-            'roles'           => 'vai trò',
-            'organizations'   => 'tổ chức',
-            'auth'            => 'xác thực',
-            'log-activities'  => 'nhật ký truy cập',
-            'documents'       => 'văn bản',
-            'document-types'  => 'loại văn bản',
-            'issuing-agencies'=> 'cơ quan ban hành',
-            'issuing-levels'  => 'cấp ban hành',
-            'document-signers'=> 'người ký',
+            'permissions' => 'quyền',
+            'roles' => 'vai trò',
+            'organizations' => 'tổ chức',
+            'auth' => 'xác thực',
+            'log-activities' => 'nhật ký truy cập',
+            'documents' => 'văn bản',
+            'document-types' => 'loại văn bản',
+            'issuing-agencies' => 'cơ quan ban hành',
+            'issuing-levels' => 'cấp ban hành',
+            'document-signers' => 'người ký',
             'document-fields' => 'lĩnh vực',
-            'settings'        => 'cấu hình hệ thống',
+            'settings' => 'cấu hình hệ thống',
         ];
 
         return $labels[$resource] ?? str_replace('-', ' ', $resource);
@@ -221,15 +223,17 @@ class LogActivity
     protected function resolveCountry(Request $request): ?string
     {
         $ip = $request->ip();
-        if (!$ip || in_array($ip, ['127.0.0.1', '::1'], true)) {
+        if (! $ip || in_array($ip, ['127.0.0.1', '::1'], true)) {
             return null;
         }
 
         try {
             $position = Location::get($ip);
+
             return $position?->countryName;
         } catch (\Throwable $e) {
             report($e);
+
             return null;
         }
     }

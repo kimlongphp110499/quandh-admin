@@ -6,9 +6,9 @@ use App\Modules\Core\Enums\UserStatusEnum;
 use App\Modules\Core\Models\Organization;
 use App\Modules\Core\Models\User;
 use App\Modules\Core\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\DB;
 
 class AuthService
 {

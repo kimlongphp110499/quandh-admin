@@ -3,17 +3,17 @@
 namespace App\Modules\Core;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Models\Permission;
+use App\Modules\Core\Requests\BulkDestroyPermissionRequest;
+use App\Modules\Core\Requests\FilterRequest;
+use App\Modules\Core\Requests\ImportPermissionRequest;
 use App\Modules\Core\Requests\StorePermissionRequest;
 use App\Modules\Core\Requests\UpdatePermissionRequest;
-use App\Modules\Core\Requests\BulkDestroyPermissionRequest;
-use App\Modules\Core\Requests\ImportPermissionRequest;
-use App\Modules\Core\Resources\PermissionResource;
 use App\Modules\Core\Resources\PermissionCollection;
+use App\Modules\Core\Resources\PermissionResource;
 use App\Modules\Core\Resources\PermissionTreeResource;
-use Illuminate\Http\Request;
 use App\Modules\Core\Services\PermissionService;
+use Illuminate\Http\Request;
 
 /**
  * @group Core - Permission
@@ -22,9 +22,7 @@ use App\Modules\Core\Services\PermissionService;
  */
 class PermissionController extends Controller
 {
-    public function __construct(private PermissionService $permissionService)
-    {
-    }
+    public function __construct(private PermissionService $permissionService) {}
 
     /**
      * Thống kê permission
@@ -37,6 +35,7 @@ class PermissionController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, name, guard_name, created_at, updated_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
      * @response 200 {"success": true, "data": {"total": 20}}
      */
     public function stats(FilterRequest $request)
@@ -55,13 +54,17 @@ class PermissionController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, name, guard_name, description, sort_order, parent_id, created_at, updated_at. Example: sort_order
      * @queryParam sort_order string Thứ tự: asc, desc. Example: asc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
      * @apiResourceCollection App\Modules\Core\Resources\PermissionCollection
+     *
      * @apiResourceModel App\Modules\Core\Models\Permission paginate=10
+     *
      * @apiResourceAdditional success=true
      */
     public function index(FilterRequest $request)
     {
         $items = $this->permissionService->index($request->all(), (int) ($request->limit ?? 10));
+
         return $this->successCollection(new PermissionCollection($items));
     }
 
@@ -69,11 +72,13 @@ class PermissionController extends Controller
      * Cây permission (toàn bộ cây, không phân trang). Để hiển thị nhóm quyền trên frontend.
      *
      * @queryParam parent_id integer Lọc theo parent_id (null = gốc). Example: null
+     *
      * @response 200 {"success": true, "data": [{"id": 1, "name": "posts", "guard_name": "web", "description": "Quản lý bài viết", "sort_order": 0, "parent_id": null, "children": []}]}
      */
     public function tree(Request $request)
     {
         $tree = $this->permissionService->tree($request->has('parent_id'), $request->parent_id);
+
         return $this->successCollection(PermissionTreeResource::collection($tree));
     }
 
@@ -81,13 +86,17 @@ class PermissionController extends Controller
      * Chi tiết permission
      *
      * @urlParam permission integer required ID permission. Example: 1
+     *
      * @apiResource App\Modules\Core\Resources\PermissionResource
+     *
      * @apiResourceModel App\Modules\Core\Models\Permission with=parent,children
+     *
      * @apiResourceAdditional success=true
      */
     public function show(Permission $permission)
     {
         $permission = $this->permissionService->show($permission);
+
         return $this->successResource(new PermissionResource($permission));
     }
 
@@ -99,13 +108,17 @@ class PermissionController extends Controller
      * @bodyParam description string Mô tả hiển thị trên frontend.
      * @bodyParam sort_order integer Thứ tự sắp xếp. Example: 0
      * @bodyParam parent_id integer ID permission cha (null = gốc/nhóm).
+     *
      * @apiResource App\Modules\Core\Resources\PermissionResource status=201
+     *
      * @apiResourceModel App\Modules\Core\Models\Permission
+     *
      * @apiResourceAdditional success=true message="Quyền đã được tạo thành công!"
      */
     public function store(StorePermissionRequest $request)
     {
         $permission = $this->permissionService->store($request->validated());
+
         return $this->successResource(new PermissionResource($permission), 'Quyền đã được tạo thành công!', 201);
     }
 
@@ -113,18 +126,23 @@ class PermissionController extends Controller
      * Cập nhật permission
      *
      * @urlParam permission integer required ID permission. Example: 1
+     *
      * @bodyParam name string Tên permission. Example: posts.update
      * @bodyParam guard_name string Guard name. Example: web
      * @bodyParam description string Mô tả.
      * @bodyParam sort_order integer Thứ tự sắp xếp.
      * @bodyParam parent_id integer ID permission cha (null = gốc).
+     *
      * @apiResource App\Modules\Core\Resources\PermissionResource
+     *
      * @apiResourceModel App\Modules\Core\Models\Permission
+     *
      * @apiResourceAdditional success=true message="Quyền đã được cập nhật!"
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
         $permission = $this->permissionService->update($permission, $request->validated());
+
         return $this->successResource(new PermissionResource($permission), 'Quyền đã được cập nhật!');
     }
 
@@ -132,11 +150,13 @@ class PermissionController extends Controller
      * Xóa permission
      *
      * @urlParam permission integer required ID permission. Example: 1
+     *
      * @response 200 {"success": true, "message": "Quyền đã được xóa!"}
      */
     public function destroy(Permission $permission)
     {
         $this->permissionService->destroy($permission);
+
         return $this->success(null, 'Quyền đã được xóa!');
     }
 
@@ -144,11 +164,13 @@ class PermissionController extends Controller
      * Xóa hàng loạt permission
      *
      * @bodyParam ids array required Danh sách ID. Example: [1, 2, 3]
+     *
      * @response 200 {"success": true, "message": "Đã xóa thành công các quyền được chọn!"}
      */
     public function bulkDestroy(BulkDestroyPermissionRequest $request)
     {
         $this->permissionService->bulkDestroy($request->ids);
+
         return $this->success(null, 'Đã xóa thành công các quyền được chọn!');
     }
 
@@ -172,11 +194,13 @@ class PermissionController extends Controller
      * Nhập danh sách permission
      *
      * @bodyParam file file required File excel (xlsx, xls, csv). Cột: name, guard_name, description, sort_order, parent_id.
+     *
      * @response 200 {"success": true, "message": "Import quyền thành công."}
      */
     public function import(ImportPermissionRequest $request)
     {
         $this->permissionService->import($request->file('file'));
+
         return $this->success(null, 'Import quyền thành công.');
     }
 }

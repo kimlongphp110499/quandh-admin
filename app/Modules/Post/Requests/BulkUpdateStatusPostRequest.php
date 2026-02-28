@@ -15,8 +15,8 @@ class BulkUpdateStatusPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids'    => 'required|array|min:1',
-            'ids.*'  => 'exists:posts,id',
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'exists:posts,id',
             'status' => ['required', PostStatusEnum::rule()],
         ];
     }
@@ -24,10 +24,10 @@ class BulkUpdateStatusPostRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'ids.required'    => 'Bạn chưa chọn bài viết nào.',
-            'ids.*.exists'    => 'Một trong các bài viết không tồn tại.',
+            'ids.required' => 'Bạn chưa chọn bài viết nào.',
+            'ids.*.exists' => 'Một trong các bài viết không tồn tại.',
             'status.required' => 'Trạng thái không được để trống.',
-            'status.in'       => 'Trạng thái không hợp lệ.',
+            'status.in' => 'Trạng thái không hợp lệ.',
         ];
     }
 

@@ -20,16 +20,16 @@ enum PostStatusEnum: string
     /** Rule validation: in:draft,published,archived */
     public static function rule(): string
     {
-        return 'in:' . implode(',', self::values());
+        return 'in:'.implode(',', self::values());
     }
 
     /** Nhãn tiếng Việt. */
     public function label(): string
     {
         return match ($this) {
-            self::Draft     => 'Bản nháp',
+            self::Draft => 'Bản nháp',
             self::Published => 'Đã xuất bản',
-            self::Archived  => 'Lưu trữ',
+            self::Archived => 'Lưu trữ',
         };
     }
 }

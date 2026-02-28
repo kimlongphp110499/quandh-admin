@@ -17,12 +17,13 @@ class UsersExport implements FromCollection, WithHeadings
         $users = User::with(['creator', 'editor'])
             ->filter($this->filters)
             ->get();
+
         return $users->map(fn ($user) => [
-            'id'         => $user->id,
-            'name'       => $user->name,
-            'email'      => $user->email,
-            'user_name'  => $user->user_name,
-            'status'     => $user->status,
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'user_name' => $user->user_name,
+            'status' => $user->status,
             'created_by' => $user->creator?->name ?? 'N/A',
             'updated_by' => $user->editor?->name ?? 'N/A',
             'created_at' => $user->created_at?->format('d/m/Y H:i:s'),

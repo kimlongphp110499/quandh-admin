@@ -22,9 +22,7 @@ use App\Modules\Document\Services\DocumentService;
  */
 class DocumentController extends Controller
 {
-    public function __construct(private DocumentService $documentService)
-    {
-    }
+    public function __construct(private DocumentService $documentService) {}
 
     /**
      * Thống kê văn bản
@@ -40,6 +38,7 @@ class DocumentController extends Controller
      * @queryParam signer_id integer Lọc theo người ký. Example: 1
      * @queryParam from_date date Lọc từ ngày tạo (Y-m-d). Example: 2026-01-01
      * @queryParam to_date date Lọc đến ngày tạo (Y-m-d). Example: 2026-12-31
+     *
      * @response 200 {"success": true, "data": {"total": 10, "active": 7, "inactive": 3}}
      */
     public function stats(FilterRequest $request)
@@ -60,13 +59,17 @@ class DocumentController extends Controller
      * @queryParam sort_by string Sắp xếp theo id, so_ky_hieu, ten_van_ban, ngay_ban_hanh, created_at, updated_at.
      * @queryParam sort_order string asc|desc.
      * @queryParam limit integer Số lượng mỗi trang.
+     *
      * @apiResourceCollection App\Modules\Document\Resources\DocumentCollection
+     *
      * @apiResourceModel App\Modules\Document\Models\Document paginate=10
+     *
      * @apiResourceAdditional success=true
      */
     public function index(FilterRequest $request)
     {
         $documents = $this->documentService->index($request->all(), (int) ($request->limit ?? 10));
+
         return $this->successCollection(new DocumentCollection($documents));
     }
 
@@ -74,13 +77,17 @@ class DocumentController extends Controller
      * Chi tiết văn bản
      *
      * @urlParam document integer required ID văn bản.
+     *
      * @apiResource App\Modules\Document\Resources\DocumentResource
+     *
      * @apiResourceModel App\Modules\Document\Models\Document with=issuingAgency,issuingLevel,signer,types,fields
+     *
      * @apiResourceAdditional success=true
      */
     public function show(Document $document)
     {
         $document = $this->documentService->show($document);
+
         return $this->successResource(new DocumentResource($document));
     }
 
@@ -101,13 +108,17 @@ class DocumentController extends Controller
      * @bodyParam ngay_het_hieu_luc date Ngày hết hiệu lực.
      * @bodyParam status string required active|inactive.
      * @bodyParam attachments[] file Nhiều file đính kèm.
+     *
      * @apiResource App\Modules\Document\Resources\DocumentResource status=201
+     *
      * @apiResourceModel App\Modules\Document\Models\Document with=issuingAgency,issuingLevel,signer,types,fields
+     *
      * @apiResourceAdditional success=true message="Tạo văn bản thành công!"
      */
     public function store(StoreDocumentRequest $request)
     {
         $document = $this->documentService->store($request->validated(), $request->file('attachments', []));
+
         return $this->successResource(new DocumentResource($document), 'Tạo văn bản thành công!', 201);
     }
 
@@ -115,6 +126,7 @@ class DocumentController extends Controller
      * Cập nhật văn bản
      *
      * @urlParam document integer required ID văn bản.
+     *
      * @bodyParam so_ky_hieu string Số ký hiệu văn bản.
      * @bodyParam ten_van_ban string Tên văn bản.
      * @bodyParam noi_dung string Nội dung văn bản.
@@ -130,13 +142,17 @@ class DocumentController extends Controller
      * @bodyParam status string Trạng thái: active, inactive.
      * @bodyParam attachments[] file Nhiều file đính kèm (append).
      * @bodyParam remove_attachment_ids array Danh sách media id cần xóa.
+     *
      * @apiResource App\Modules\Document\Resources\DocumentResource
+     *
      * @apiResourceModel App\Modules\Document\Models\Document with=issuingAgency,issuingLevel,signer,types,fields
+     *
      * @apiResourceAdditional success=true message="Cập nhật văn bản thành công!"
      */
     public function update(UpdateDocumentRequest $request, Document $document)
     {
         $document = $this->documentService->update($document, $request->validated(), $request->file('attachments', []));
+
         return $this->successResource(new DocumentResource($document), 'Cập nhật văn bản thành công!');
     }
 
@@ -144,11 +160,13 @@ class DocumentController extends Controller
      * Xóa văn bản
      *
      * @urlParam document integer required ID văn bản. Example: 1
+     *
      * @response 200 {"success": true, "message": "Xóa văn bản thành công!"}
      */
     public function destroy(Document $document)
     {
         $this->documentService->destroy($document);
+
         return $this->success(null, 'Xóa văn bản thành công!');
     }
 
@@ -156,11 +174,13 @@ class DocumentController extends Controller
      * Xóa hàng loạt văn bản
      *
      * @bodyParam ids array required Danh sách ID văn bản. Example: [1,2,3]
+     *
      * @response 200 {"success": true, "message": "Xóa hàng loạt văn bản thành công!"}
      */
     public function bulkDestroy(BulkDestroyDocumentRequest $request)
     {
         $this->documentService->bulkDestroy($request->ids);
+
         return $this->success(null, 'Xóa hàng loạt văn bản thành công!');
     }
 
@@ -169,11 +189,13 @@ class DocumentController extends Controller
      *
      * @bodyParam ids array required Danh sách ID văn bản. Example: [1,2,3]
      * @bodyParam status string required Trạng thái mới: active, inactive. Example: inactive
+     *
      * @response 200 {"success": true, "message": "Cập nhật trạng thái hàng loạt thành công!"}
      */
     public function bulkUpdateStatus(BulkUpdateStatusDocumentRequest $request)
     {
         $this->documentService->bulkUpdateStatus($request->ids, $request->status);
+
         return $this->success(null, 'Cập nhật trạng thái hàng loạt thành công!');
     }
 
@@ -181,14 +203,19 @@ class DocumentController extends Controller
      * Đổi trạng thái văn bản
      *
      * @urlParam document integer required ID văn bản. Example: 1
+     *
      * @bodyParam status string required Trạng thái mới: active, inactive. Example: active
+     *
      * @apiResource App\Modules\Document\Resources\DocumentResource
+     *
      * @apiResourceModel App\Modules\Document\Models\Document with=issuingAgency,issuingLevel,signer,types,fields
+     *
      * @apiResourceAdditional success=true message="Đổi trạng thái văn bản thành công!"
      */
     public function changeStatus(ChangeStatusDocumentRequest $request, Document $document)
     {
         $document = $this->documentService->changeStatus($document, $request->status);
+
         return $this->successResource(new DocumentResource($document), 'Đổi trạng thái văn bản thành công!');
     }
 
@@ -212,11 +239,13 @@ class DocumentController extends Controller
      * Import Excel văn bản
      *
      * @bodyParam file file required File Excel (xlsx, xls, csv).
+     *
      * @response 200 {"success": true, "message": "Import văn bản thành công."}
      */
     public function import(ImportDocumentRequest $request)
     {
         $this->documentService->import($request->file('file'));
+
         return $this->success(null, 'Import văn bản thành công.');
     }
 }

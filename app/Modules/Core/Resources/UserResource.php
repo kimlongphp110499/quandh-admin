@@ -13,11 +13,11 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'email'      => $this->email,
-            'user_name'  => $this->user_name,
-            'status'     => $this->status,
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'user_name' => $this->user_name,
+            'status' => $this->status,
             'created_by' => $this->creator?->name ?? 'N/A',
             'updated_by' => $this->editor?->name ?? 'N/A',
             'assignments' => $this->roleAssignments(),
@@ -38,7 +38,7 @@ class UserResource extends JsonResource
         $rows = DB::table($modelHasRolesTable)
             ->where($modelMorphKey, $this->id)
             ->where('model_type', \App\Modules\Core\Models\User::class)
-            ->select([$teamForeignKey . ' as organization_id', $rolePivotKey . ' as role_id'])
+            ->select([$teamForeignKey.' as organization_id', $rolePivotKey.' as role_id'])
             ->get();
 
         if ($rows->isEmpty()) {

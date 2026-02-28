@@ -99,8 +99,8 @@ class Document extends Model implements HasMedia
     {
         $query->when($filters['search'] ?? null, function ($q, $search) {
             $q->where(function ($sub) use ($search) {
-                $sub->where('ten_van_ban', 'like', '%' . $search . '%')
-                    ->orWhere('so_ky_hieu', 'like', '%' . $search . '%');
+                $sub->where('ten_van_ban', 'like', '%'.$search.'%')
+                    ->orWhere('so_ky_hieu', 'like', '%'.$search.'%');
             });
         })->when($filters['status'] ?? null, function ($q, $status) {
             $q->where('status', $status);

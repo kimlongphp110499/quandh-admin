@@ -26,12 +26,12 @@ class PostCategoriesImport implements ToModel, WithHeadingRow
         $slug = app(PostCategoryService::class)->generateUniqueSlug($slug);
 
         return new PostCategory([
-            'name'        => $row['name'] ?? '',
-            'slug'        => $slug,
+            'name' => $row['name'] ?? '',
+            'slug' => $slug,
             'description' => $row['description'] ?? null,
-            'status'      => $row['status'] ?? StatusEnum::Active->value,
-            'sort_order'  => (int) ($row['sort_order'] ?? 0),
-            'parent_id'   => $parent?->id,
+            'status' => $row['status'] ?? StatusEnum::Active->value,
+            'sort_order' => (int) ($row['sort_order'] ?? 0),
+            'parent_id' => $parent?->id,
         ]);
     }
 }

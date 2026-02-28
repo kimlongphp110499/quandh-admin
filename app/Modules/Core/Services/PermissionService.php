@@ -2,9 +2,9 @@
 
 namespace App\Modules\Core\Services;
 
-use App\Modules\Core\Models\Permission;
 use App\Modules\Core\Exports\PermissionsExport;
 use App\Modules\Core\Imports\PermissionsImport;
+use App\Modules\Core\Models\Permission;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -72,7 +72,7 @@ class PermissionService
 
     public function import($file): void
     {
-        Excel::import(new PermissionsImport(), $file);
+        Excel::import(new PermissionsImport, $file);
     }
 
     public function buildTree(Collection $items): Collection

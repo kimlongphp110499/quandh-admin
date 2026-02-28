@@ -3,12 +3,12 @@
 namespace App\Modules\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Auth\Requests\LoginRequest;
 use App\Modules\Auth\Requests\ForgotPasswordRequest;
+use App\Modules\Auth\Requests\LoginRequest;
 use App\Modules\Auth\Requests\ResetPasswordRequest;
 use App\Modules\Auth\Requests\SwitchOrganizationRequest;
-use Illuminate\Http\Request;
 use App\Modules\Auth\Services\AuthService;
+use Illuminate\Http\Request;
 
 /**
  * @group Auth
@@ -17,9 +17,7 @@ use App\Modules\Auth\Services\AuthService;
  */
 class AuthController extends Controller
 {
-    public function __construct(private AuthService $authService)
-    {
-    }
+    public function __construct(private AuthService $authService) {}
 
     /**
      * Đăng nhập
@@ -27,8 +25,10 @@ class AuthController extends Controller
      * Trả về access_token, thông tin user và danh sách organization user có thể truy cập.
      *
      * @unauthenticated
+     *
      * @bodyParam email string required Email hoặc tên đăng nhập (user_name). Example: admin@example.com
      * @bodyParam password string required Mật khẩu. Example: password
+     *
      * @response 200 {"success": true, "message": "Đăng nhập thành công.", "data": {"access_token": "1|xxx...", "token_type": "Bearer", "user": {"id": 1, "name": "Admin", "email": "admin@example.com", "status": "active"}, "available_organizations": [{"id": 2, "name": "Sở Nội vụ"}], "current_organization_id": 2}}
      */
     public function login(LoginRequest $request)
@@ -56,6 +56,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $this->authService->logout($request->user());
+
         return $this->success(null, 'Đã đăng xuất');
     }
 
@@ -65,6 +66,7 @@ class AuthController extends Controller
      * Chọn organization để frontend gắn vào header `X-Organization-Id` cho các request tiếp theo.
      *
      * @bodyParam organization_id integer required ID tổ chức muốn chuyển. Example: 2
+     *
      * @response 200 {"success": true, "message": "Đã chuyển tổ chức làm việc.", "data": {"current_organization_id": 2, "current_organization": {"id": 2, "name": "Sở Nội vụ"}}}
      */
     public function switchOrganization(SwitchOrganizationRequest $request)
@@ -84,7 +86,9 @@ class AuthController extends Controller
      * Gửi link đặt lại mật khẩu qua email.
      *
      * @unauthenticated
+     *
      * @bodyParam email string required Email tài khoản. Example: user@example.com
+     *
      * @response 200 {"success": true, "message": "Link reset đã được gửi vào Email"}
      */
     public function forgotPassword(ForgotPasswordRequest $request)
@@ -102,10 +106,12 @@ class AuthController extends Controller
      * Đặt mật khẩu mới dùng token từ email reset.
      *
      * @unauthenticated
+     *
      * @bodyParam email string required Email tài khoản. Example: user@example.com
      * @bodyParam password string required Mật khẩu mới (tối thiểu 6 ký tự, có xác nhận). Example: newpassword123
      * @bodyParam password_confirmation string required Xác nhận mật khẩu.
      * @bodyParam token string required Token từ email reset.
+     *
      * @response 200 {"success": true, "message": "Mật khẩu đã được đặt lại"}
      */
     public function resetPassword(ResetPasswordRequest $request)

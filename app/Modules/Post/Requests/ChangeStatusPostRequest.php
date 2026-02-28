@@ -23,7 +23,7 @@ class ChangeStatusPostRequest extends FormRequest
     {
         return [
             'status.required' => 'Vui lòng chọn trạng thái.',
-            'status.in'       => 'Trạng thái không hợp lệ. Chỉ chấp nhận draft, published, archived.',
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận draft, published, archived.',
         ];
     }
 

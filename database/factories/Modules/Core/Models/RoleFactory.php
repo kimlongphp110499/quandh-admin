@@ -15,7 +15,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'role_' . fake()->unique()->bothify('??###'),
+            'name' => 'role_'.fake()->unique()->bothify('??###'),
             'guard_name' => 'web',
             'organization_id' => null,
         ];

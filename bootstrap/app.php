@@ -24,8 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'success' => false,
                     'message' => $e->getMessage(),
-                    'errors'  => $e->errors(),
-                    'code'    => 'VALIDATION_ERROR',
+                    'errors' => $e->errors(),
+                    'code' => 'VALIDATION_ERROR',
                 ], 422);
             }
         });
@@ -34,7 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'success' => false,
                     'message' => $e->getMessage(),
-                    'code'    => 'FORBIDDEN',
+                    'code' => 'FORBIDDEN',
                 ], 403);
             }
         });

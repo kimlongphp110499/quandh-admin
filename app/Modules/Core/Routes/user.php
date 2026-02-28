@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Modules\Core\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [UserController::class, 'export'])->middleware('permission:users.export,web');
 Route::post('/import', [UserController::class, 'import'])->middleware('permission:users.import,web');

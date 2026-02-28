@@ -15,12 +15,12 @@ class StoreOrganizationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => 'required|string|max:255',
-            'slug'        => 'nullable|string|max:255|unique:organizations,slug',
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:organizations,slug',
             'description' => 'nullable|string',
-            'status'      => ['required', StatusEnum::rule()],
-            'parent_id'   => 'nullable|exists:organizations,id',
-            'sort_order'  => 'nullable|integer|min:0',
+            'status' => ['required', StatusEnum::rule()],
+            'parent_id' => 'nullable|exists:organizations,id',
+            'sort_order' => 'nullable|integer|min:0',
         ];
     }
 
@@ -28,8 +28,8 @@ class StoreOrganizationRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên organization không được để trống.',
-            'slug.unique'   => 'Slug organization đã tồn tại.',
-            'status.in'     => 'Trạng thái chỉ chấp nhận active, inactive.',
+            'slug.unique' => 'Slug organization đã tồn tại.',
+            'status.in' => 'Trạng thái chỉ chấp nhận active, inactive.',
         ];
     }
 

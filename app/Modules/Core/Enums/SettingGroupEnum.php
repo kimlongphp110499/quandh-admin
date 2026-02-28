@@ -27,23 +27,23 @@ enum SettingGroupEnum: string
     /** Rule validation. */
     public static function rule(): string
     {
-        return 'in:' . implode(',', self::values());
+        return 'in:'.implode(',', self::values());
     }
 
     /** Nhãn tiếng Việt. */
     public function label(): string
     {
         return match ($this) {
-            self::General       => 'Thông tin chung',
-            self::AdminPage     => 'Trang quản trị',
+            self::General => 'Thông tin chung',
+            self::AdminPage => 'Trang quản trị',
             self::OrgSelectPage => 'Trang chọn tổ chức',
-            self::Social        => 'Mạng xã hội',
-            self::Api           => 'Kết nối API',
-            self::Email         => 'Cấu hình Email',
-            self::Sms           => 'Cấu hình SMS',
-            self::Zalo          => 'Cấu hình Zalo',
-            self::Chat          => 'Chat nội bộ',
-            self::Log           => 'Cấu hình nhật ký',
+            self::Social => 'Mạng xã hội',
+            self::Api => 'Kết nối API',
+            self::Email => 'Cấu hình Email',
+            self::Sms => 'Cấu hình SMS',
+            self::Zalo => 'Cấu hình Zalo',
+            self::Chat => 'Chat nội bộ',
+            self::Log => 'Cấu hình nhật ký',
         };
     }
 }

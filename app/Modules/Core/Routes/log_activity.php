@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Modules\Core\LogActivityController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [LogActivityController::class, 'export'])->middleware('permission:log-activities.export,web');
 Route::get('/stats', [LogActivityController::class, 'stats'])->middleware('permission:log-activities.stats,web');

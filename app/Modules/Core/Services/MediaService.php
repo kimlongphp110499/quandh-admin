@@ -72,7 +72,7 @@ class MediaService
     /**
      * Cleanup file vật lý khi transaction rollback.
      *
-     * @param array<int, array{disk: string, path: string}> $storedFiles
+     * @param  array<int, array{disk: string, path: string}>  $storedFiles
      */
     public function cleanupStoredFiles(array $storedFiles): void
     {

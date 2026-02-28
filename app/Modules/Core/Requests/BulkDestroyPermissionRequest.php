@@ -14,7 +14,7 @@ class BulkDestroyPermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids'   => 'required|array|min:1',
+            'ids' => 'required|array|min:1',
             'ids.*' => 'exists:permissions,id',
         ];
     }

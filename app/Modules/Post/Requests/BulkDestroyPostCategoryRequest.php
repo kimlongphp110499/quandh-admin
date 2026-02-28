@@ -14,7 +14,7 @@ class BulkDestroyPostCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids'   => 'required|array|min:1',
+            'ids' => 'required|array|min:1',
             'ids.*' => 'exists:post_categories,id',
         ];
     }
@@ -23,8 +23,8 @@ class BulkDestroyPostCategoryRequest extends FormRequest
     {
         return [
             'ids.required' => 'Danh sách danh mục không được để trống.',
-            'ids.array'   => 'Danh sách danh mục phải là một mảng.',
-            'ids.min'     => 'Danh sách danh mục phải có ít nhất 1 danh mục.',
+            'ids.array' => 'Danh sách danh mục phải là một mảng.',
+            'ids.min' => 'Danh sách danh mục phải có ít nhất 1 danh mục.',
         ];
     }
 

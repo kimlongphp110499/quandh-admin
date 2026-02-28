@@ -41,7 +41,7 @@ class DocumentField extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['search'] ?? null, fn ($q, $search) => $q->where('name', 'like', '%' . $search . '%'))
+        $query->when($filters['search'] ?? null, fn ($q, $search) => $q->where('name', 'like', '%'.$search.'%'))
             ->when($filters['status'] ?? null, fn ($q, $status) => $q->where('status', $status))
             ->when($filters['from_date'] ?? null, fn ($q, $date) => $q->whereDate('created_at', '>=', $date))
             ->when($filters['to_date'] ?? null, fn ($q, $date) => $q->whereDate('created_at', '<=', $date))

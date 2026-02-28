@@ -20,16 +20,16 @@ enum UserStatusEnum: string
     /** Rule validation: in:active,inactive,banned */
     public static function rule(): string
     {
-        return 'in:' . implode(',', self::values());
+        return 'in:'.implode(',', self::values());
     }
 
     /** Nhãn tiếng Việt. */
     public function label(): string
     {
         return match ($this) {
-            self::Active   => 'Đang hoạt động',
+            self::Active => 'Đang hoạt động',
             self::Inactive => 'Không hoạt động',
-            self::Banned   => 'Bị khóa',
+            self::Banned => 'Bị khóa',
         };
     }
 }

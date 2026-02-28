@@ -18,7 +18,7 @@ class UpdateSettingRequest extends FormRequest
         $rules = [];
 
         foreach ($this->all() as $key => $value) {
-            if (!isset($validKeys[$key])) {
+            if (! isset($validKeys[$key])) {
                 continue;
             }
 

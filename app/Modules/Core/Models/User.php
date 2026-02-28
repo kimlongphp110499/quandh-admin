@@ -10,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /** Spatie luôn dùng guard 'web' cho quyền (dùng chung cho cả web và API Sanctum). */
     protected $guard_name = 'web';
@@ -63,9 +63,9 @@ class User extends Authenticatable
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('user_name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%')
+                    ->orWhere('user_name', 'like', '%'.$search.'%');
             });
         })->when($filters['status'] ?? null, function ($query, $status) {
             $query->where('status', $status);

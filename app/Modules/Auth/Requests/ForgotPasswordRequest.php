@@ -25,7 +25,7 @@ class ForgotPasswordRequest extends FormRequest
     {
         return [
             'email.required' => 'Email không được để trống.',
-            'email.email'    => 'Email không hợp lệ.',
+            'email.email' => 'Email không hợp lệ.',
         ];
     }
 

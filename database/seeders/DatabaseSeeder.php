@@ -61,8 +61,8 @@ class DatabaseSeeder extends Seeder
             $childCount = rand(2, 3);
             for ($i = 0; $i < $childCount; $i++) {
                 PostCategory::factory()->create([
-                    'name' => $root->name . ' - ' . fake()->word(),
-                    'slug' => \Illuminate\Support\Str::slug($root->name . ' ' . fake()->word()) . '-' . uniqid(),
+                    'name' => $root->name.' - '.fake()->word(),
+                    'slug' => \Illuminate\Support\Str::slug($root->name.' '.fake()->word()).'-'.uniqid(),
                     'sort_order' => $i + 1,
                     'parent_id' => $root->id,
                 ]);

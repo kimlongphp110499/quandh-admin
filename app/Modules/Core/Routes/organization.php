@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Modules\Core\OrganizationController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [OrganizationController::class, 'export'])->middleware('permission:organizations.export,web');
 Route::post('/import', [OrganizationController::class, 'import'])->middleware('permission:organizations.import,web');

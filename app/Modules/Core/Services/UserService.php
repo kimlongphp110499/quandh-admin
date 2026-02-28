@@ -3,10 +3,10 @@
 namespace App\Modules\Core\Services;
 
 use App\Modules\Core\Enums\UserStatusEnum;
-use App\Modules\Core\Models\Role;
-use App\Modules\Core\Models\User;
 use App\Modules\Core\Exports\UsersExport;
 use App\Modules\Core\Imports\UsersImport;
+use App\Modules\Core\Models\Role;
+use App\Modules\Core\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -95,7 +95,7 @@ class UserService
 
     public function import($file): void
     {
-        Excel::import(new UsersImport(), $file);
+        Excel::import(new UsersImport, $file);
     }
 
     /**

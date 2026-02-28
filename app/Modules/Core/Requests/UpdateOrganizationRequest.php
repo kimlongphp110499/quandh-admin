@@ -17,17 +17,18 @@ class UpdateOrganizationRequest extends FormRequest
     {
         $organization = $this->route('organization');
         $organizationId = is_object($organization) ? $organization->id : $organization;
+
         return [
-            'name'        => 'sometimes|string|max:255',
-            'slug'        => ['nullable', 'string', 'max:255', Rule::unique('organizations', 'slug')->ignore($organizationId)],
+            'name' => 'sometimes|string|max:255',
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique('organizations', 'slug')->ignore($organizationId)],
             'description' => 'nullable|string',
-            'status'      => ['nullable', StatusEnum::rule()],
-            'parent_id'   => [
+            'status' => ['nullable', StatusEnum::rule()],
+            'parent_id' => [
                 'nullable',
                 Rule::notIn([$organizationId]),
                 Rule::when($this->filled('parent_id') && (int) $this->input('parent_id') !== 0, ['exists:organizations,id']),
             ],
-            'sort_order'  => 'nullable|integer|min:0',
+            'sort_order' => 'nullable|integer|min:0',
         ];
     }
 

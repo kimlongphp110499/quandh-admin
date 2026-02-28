@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Modules\Core\RoleController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [RoleController::class, 'export'])->middleware('permission:roles.export,web');
 Route::post('/import', [RoleController::class, 'import'])->middleware('permission:roles.import,web');

@@ -19,11 +19,11 @@ class OrganizationsImport implements ToModel, WithHeadingRow
         $status = $row['status'] ?? StatusEnum::Active->value;
 
         return new Organization([
-            'name'        => $name,
-            'slug'       => app(OrganizationService::class)->generateUniqueSlug($row['slug'] ?? Str::slug($name)),
+            'name' => $name,
+            'slug' => app(OrganizationService::class)->generateUniqueSlug($row['slug'] ?? Str::slug($name)),
             'description' => $row['description'] ?? null,
-            'status'     => in_array($status, StatusEnum::values()) ? $status : StatusEnum::Active->value,
-            'parent_id'  => $parent?->id,
+            'status' => in_array($status, StatusEnum::values()) ? $status : StatusEnum::Active->value,
+            'parent_id' => $parent?->id,
             'sort_order' => (int) ($row['sort_order'] ?? 0),
         ]);
     }

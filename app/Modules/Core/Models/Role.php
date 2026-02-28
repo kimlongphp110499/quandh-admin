@@ -29,8 +29,8 @@ class Role extends SpatieRole
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($q, $search) {
-            $q->where('name', 'like', '%' . $search . '%')
-                ->orWhere('guard_name', 'like', '%' . $search . '%');
+            $q->where('name', 'like', '%'.$search.'%')
+                ->orWhere('guard_name', 'like', '%'.$search.'%');
         })->when(isset($filters['from_date']) && $filters['from_date'], function ($q) use ($filters) {
             $q->whereDate('created_at', '>=', $filters['from_date']);
         })->when(isset($filters['to_date']) && $filters['to_date'], function ($q) use ($filters) {
@@ -40,6 +40,7 @@ class Role extends SpatieRole
             $column = in_array($sortBy, $allowed) ? $sortBy : 'id';
             $q->orderBy($column, $filters['sort_order'] ?? 'desc');
         });
+
         return $query;
     }
 

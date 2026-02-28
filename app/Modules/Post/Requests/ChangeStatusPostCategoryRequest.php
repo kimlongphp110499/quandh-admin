@@ -23,7 +23,7 @@ class ChangeStatusPostCategoryRequest extends FormRequest
     {
         return [
             'status.required' => 'Vui lòng chọn trạng thái.',
-            'status.in'       => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
+            'status.in' => 'Trạng thái không hợp lệ. Chỉ chấp nhận active, inactive.',
         ];
     }
 

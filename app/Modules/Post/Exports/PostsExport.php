@@ -25,17 +25,17 @@ class PostsExport implements FromCollection, WithHeadings
             ->get();
 
         return $posts->map(fn ($post) => [
-            'id'          => $post->id,
-            'title'       => $post->title,
-            'slug'        => Str::slug($post->title),
-            'content'     => $post->content,
-            'status'      => $post->status,
-            'view_count'  => (int) $post->view_count,
-            'categories'  => $post->categories->pluck('name')->join(', ') ?: 'N/A',
-            'created_by'  => $post->creator?->name ?? 'N/A',
-            'updated_by'  => $post->editor?->name ?? 'N/A',
-            'created_at'  => $post->created_at?->format('d/m/Y H:i:s'),
-            'updated_at'  => $post->updated_at?->format('d/m/Y H:i:s'),
+            'id' => $post->id,
+            'title' => $post->title,
+            'slug' => Str::slug($post->title),
+            'content' => $post->content,
+            'status' => $post->status,
+            'view_count' => (int) $post->view_count,
+            'categories' => $post->categories->pluck('name')->join(', ') ?: 'N/A',
+            'created_by' => $post->creator?->name ?? 'N/A',
+            'updated_by' => $post->editor?->name ?? 'N/A',
+            'created_at' => $post->created_at?->format('d/m/Y H:i:s'),
+            'updated_at' => $post->updated_at?->format('d/m/Y H:i:s'),
         ]);
     }
 

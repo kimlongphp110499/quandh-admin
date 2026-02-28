@@ -14,15 +14,15 @@ class PostCategoryTreeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'slug'        => $this->slug,
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
             'description' => $this->description,
-            'status'      => $this->status,
-            'sort_order'  => $this->sort_order,
-            'parent_id'   => $this->parent_id,
-            'depth'       => $this->depth,
-            'children'    => $this->whenLoaded(
+            'status' => $this->status,
+            'sort_order' => $this->sort_order,
+            'parent_id' => $this->parent_id,
+            'depth' => $this->depth,
+            'children' => $this->whenLoaded(
                 'children',
                 fn () => PostCategoryTreeResource::collection($this->children),
                 []

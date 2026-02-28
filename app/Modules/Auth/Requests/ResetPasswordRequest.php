@@ -17,22 +17,22 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'                 => 'required|email',
-            'password'              => 'required|string|min:6|confirmed',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',
-            'token'                 => 'required',
+            'token' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required'    => 'Email không được để trống.',
-            'email.email'       => 'Email không hợp lệ.',
+            'email.required' => 'Email không được để trống.',
+            'email.email' => 'Email không hợp lệ.',
             'password.required' => 'Mật khẩu không được để trống.',
-            'password.min'      => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
             'password.confirmed' => 'Mật khẩu xác nhận không khớp.',
-            'token.required'    => 'Token đặt lại mật khẩu không được để trống.',
+            'token.required' => 'Token đặt lại mật khẩu không được để trống.',
         ];
     }
 

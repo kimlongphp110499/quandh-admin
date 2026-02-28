@@ -3,16 +3,16 @@
 namespace App\Modules\Core;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Core\Models\User;
-use App\Modules\Core\Requests\StoreUserRequest;
-use App\Modules\Core\Requests\UpdateUserRequest;
 use App\Modules\Core\Requests\BulkDestroyUserRequest;
 use App\Modules\Core\Requests\BulkUpdateStatusUserRequest;
-use App\Modules\Core\Requests\ImportUserRequest;
 use App\Modules\Core\Requests\ChangeStatusUserRequest;
-use App\Modules\Core\Resources\UserResource;
+use App\Modules\Core\Requests\FilterRequest;
+use App\Modules\Core\Requests\ImportUserRequest;
+use App\Modules\Core\Requests\StoreUserRequest;
+use App\Modules\Core\Requests\UpdateUserRequest;
 use App\Modules\Core\Resources\UserCollection;
+use App\Modules\Core\Resources\UserResource;
 use App\Modules\Core\Services\UserService;
 
 /**
@@ -22,9 +22,7 @@ use App\Modules\Core\Services\UserService;
  */
 class UserController extends Controller
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+    public function __construct(private UserService $userService) {}
 
     /**
      * Thống kê người dùng
@@ -36,6 +34,7 @@ class UserController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, name, email, user_name, created_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
      * @response 200 {"success": true, "data": {"total": 10, "active": 5, "inactive": 5}}
      */
     public function stats(FilterRequest $request)
@@ -53,13 +52,17 @@ class UserController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, name, email, user_name, created_at. Example: created_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
      * @apiResourceCollection App\Modules\Core\Resources\UserCollection
+     *
      * @apiResourceModel App\Modules\Core\Models\User paginate=10
+     *
      * @apiResourceAdditional success=true
      */
     public function index(FilterRequest $request)
     {
         $users = $this->userService->index($request->all(), (int) ($request->limit ?? 10));
+
         return $this->successCollection(new UserCollection($users));
     }
 
@@ -67,8 +70,11 @@ class UserController extends Controller
      * Chi tiết người dùng
      *
      * @urlParam user integer required ID người dùng. Example: 1
+     *
      * @apiResource App\Modules\Core\Resources\UserResource
+     *
      * @apiResourceModel App\Modules\Core\Models\User
+     *
      * @apiResourceAdditional success=true
      */
     public function show(User $user)
@@ -85,13 +91,17 @@ class UserController extends Controller
      * @bodyParam password_confirmation string required Xác nhận mật khẩu.
      * @bodyParam status string Trạng thái: active, inactive, banned. Example: active
      * @bodyParam assignments array Danh sách gán vai trò theo tổ chức. Ví dụ: [{"role_id":1,"organization_ids":[2,3]},{"role_id":5,"organization_ids":[9]}]
+     *
      * @apiResource App\Modules\Core\Resources\UserResource status=201
+     *
      * @apiResourceModel App\Modules\Core\Models\User
+     *
      * @apiResourceAdditional success=true message="Tài khoản đã được tạo thành công!"
      */
     public function store(StoreUserRequest $request)
     {
         $user = $this->userService->store($request->validated());
+
         return $this->successResource(new UserResource($user), 'Tài khoản đã được tạo thành công!', 201);
     }
 
@@ -99,19 +109,24 @@ class UserController extends Controller
      * Cập nhật người dùng
      *
      * @urlParam user integer required ID người dùng. Example: 1
+     *
      * @bodyParam name string Tên người dùng.
      * @bodyParam email string Email (duy nhất).
      * @bodyParam password string Mật khẩu mới (nếu muốn đổi).
      * @bodyParam password_confirmation string Xác nhận mật khẩu.
      * @bodyParam status string Trạng thái: active, inactive, banned.
      * @bodyParam assignments array Danh sách gán vai trò theo tổ chức. Khi gửi field này, hệ thống sẽ đồng bộ lại toàn bộ phân quyền của user.
+     *
      * @apiResource App\Modules\Core\Resources\UserResource
+     *
      * @apiResourceModel App\Modules\Core\Models\User
+     *
      * @apiResourceAdditional success=true message="Tài khoản đã được cập nhật!"
      */
     public function update(UpdateUserRequest $request, User $user)
     {
         $user = $this->userService->update($user, $request->validated());
+
         return $this->successResource(new UserResource($user), 'Tài khoản đã được cập nhật!');
     }
 
@@ -119,11 +134,13 @@ class UserController extends Controller
      * Xóa người dùng
      *
      * @urlParam user integer required ID người dùng. Example: 1
+     *
      * @response 200 {"success": true, "message": "Tài khoản đã được xóa thành công!"}
      */
     public function destroy(User $user)
     {
         $this->userService->destroy($user);
+
         return $this->success(null, 'Tài khoản đã được xóa thành công!');
     }
 
@@ -131,11 +148,13 @@ class UserController extends Controller
      * Xóa hàng loạt người dùng
      *
      * @bodyParam ids array required Danh sách ID. Example: [1, 2, 3]
+     *
      * @response 200 {"success": true, "message": "Đã xóa thành công các tài khoản được chọn!"}
      */
     public function bulkDestroy(BulkDestroyUserRequest $request)
     {
         $this->userService->bulkDestroy($request->ids);
+
         return $this->success(null, 'Đã xóa thành công các tài khoản được chọn!');
     }
 
@@ -144,11 +163,13 @@ class UserController extends Controller
      *
      * @bodyParam ids array required Danh sách ID. Example: [1, 2, 3]
      * @bodyParam status string required Trạng thái: active, inactive, banned. Example: active
+     *
      * @response 200 {"success": true, "message": "Cập nhật trạng thái thành công."}
      */
     public function bulkUpdateStatus(BulkUpdateStatusUserRequest $request)
     {
         $this->userService->bulkUpdateStatus($request->ids, $request->status);
+
         return $this->success(null, 'Cập nhật trạng thái thành công.');
     }
 
@@ -172,11 +193,13 @@ class UserController extends Controller
      * Nhập danh sách người dùng
      *
      * @bodyParam file file required File excel (xlsx, xls, csv). Cột: name, email, password, status.
+     *
      * @response 200 {"success": true, "message": "Import người dùng thành công."}
      */
     public function import(ImportUserRequest $request)
     {
         $this->userService->import($request->file('file'));
+
         return $this->success(null, 'Import người dùng thành công.');
     }
 
@@ -184,14 +207,19 @@ class UserController extends Controller
      * Thay đổi trạng thái người dùng
      *
      * @urlParam user integer required ID người dùng. Example: 1
+     *
      * @bodyParam status string required Trạng thái mới: active, inactive, banned. Example: active
+     *
      * @apiResource App\Modules\Core\Resources\UserResource
+     *
      * @apiResourceModel App\Modules\Core\Models\User
+     *
      * @apiResourceAdditional success=true message="Cập nhật trạng thái thành công!"
      */
     public function changeStatus(ChangeStatusUserRequest $request, User $user)
     {
         $user = $this->userService->changeStatus($user, $request->status);
+
         return $this->successResource(new UserResource($user), 'Cập nhật trạng thái thành công!');
     }
 }

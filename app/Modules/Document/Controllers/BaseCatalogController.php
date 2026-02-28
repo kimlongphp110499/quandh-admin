@@ -17,9 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseCatalogController extends Controller
 {
-    public function __construct(protected CatalogService $catalogService)
-    {
-    }
+    public function __construct(protected CatalogService $catalogService) {}
 
     abstract protected function modelClass(): string;
 
@@ -35,48 +33,56 @@ abstract class BaseCatalogController extends Controller
     public function index(FilterRequest $request)
     {
         $items = $this->catalogService->index($this->modelClass(), $request->all(), (int) ($request->limit ?? 10));
+
         return $this->successCollection(new CatalogCollection($items));
     }
 
     public function show(Model $model)
     {
         $model = $this->catalogService->show($model);
+
         return $this->successResource(new CatalogResource($model));
     }
 
     public function store(StoreCatalogRequest $request)
     {
         $model = $this->catalogService->store($this->modelClass(), $request->validated());
-        return $this->successResource(new CatalogResource($model), 'Tạo ' . $this->successLabel() . ' thành công!', 201);
+
+        return $this->successResource(new CatalogResource($model), 'Tạo '.$this->successLabel().' thành công!', 201);
     }
 
     public function update(UpdateCatalogRequest $request, Model $model)
     {
         $model = $this->catalogService->update($model, $request->validated());
-        return $this->successResource(new CatalogResource($model), 'Cập nhật ' . $this->successLabel() . ' thành công!');
+
+        return $this->successResource(new CatalogResource($model), 'Cập nhật '.$this->successLabel().' thành công!');
     }
 
     public function destroy(Model $model)
     {
         $this->catalogService->destroy($model);
-        return $this->success(null, 'Xóa ' . $this->successLabel() . ' thành công!');
+
+        return $this->success(null, 'Xóa '.$this->successLabel().' thành công!');
     }
 
     public function bulkDestroy(BulkDestroyCatalogRequest $request)
     {
         $this->catalogService->bulkDestroy($this->modelClass(), $request->ids);
+
         return $this->success(null, 'Xóa hàng loạt thành công!');
     }
 
     public function bulkUpdateStatus(BulkUpdateStatusCatalogRequest $request)
     {
         $this->catalogService->bulkUpdateStatus($this->modelClass(), $request->ids, $request->status);
+
         return $this->success(null, 'Cập nhật trạng thái hàng loạt thành công!');
     }
 
     public function changeStatus(ChangeStatusCatalogRequest $request, Model $model)
     {
         $model = $this->catalogService->changeStatus($model, $request->status);
+
         return $this->successResource(new CatalogResource($model), 'Đổi trạng thái thành công!');
     }
 
@@ -88,6 +94,7 @@ abstract class BaseCatalogController extends Controller
     public function import(ImportCatalogRequest $request)
     {
         $this->catalogService->import($this->modelClass(), $request->file('file'));
+
         return $this->success(null, 'Import dữ liệu thành công.');
     }
 }
