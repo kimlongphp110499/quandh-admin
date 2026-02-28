@@ -81,3 +81,29 @@
 
 - **LogActivity Middleware (mô tả nhật ký)**:
     - **Bắt buộc**: Khi thêm resource hoặc action mới, cập nhật `app/Modules/Core/Middleware/LogActivity.php`: `resourceLabel()`, `actionLabels`, `pathActions`, route params.
+
+- **Public Catalog APIs (dùng cho dropdown/chức năng công khai)**:
+    - **Bắt buộc**: Với danh mục dùng cho form/chức năng công khai, phải có endpoint public riêng, không yêu cầu auth (đặt ngoài nhóm `auth:sanctum` trong `routes/api.php`).
+    - **Bắt buộc**: Chuẩn endpoint gồm 2 loại:
+        - `GET /api/{resource}/public`: dữ liệu công khai đầy đủ theo resource hiện có.
+        - `GET /api/{resource}/public-options`: dữ liệu tối giản cho dropdown chỉ gồm `id`, `name`, `description`.
+    - **Bắt buộc**: Endpoint `public-options` phải ưu tiên hiệu năng:
+        - Chỉ select các cột cần thiết (`id`, `name`, `description`).
+        - Lọc `status=active`.
+        - Sắp xếp ổn định (`name asc` hoặc theo `tree/sort_order` với dữ liệu phân cấp).
+    - **Khuyến nghị**: Dùng resource dùng chung cho dropdown, ví dụ `App\Modules\Core\Resources\PublicOptionResource`.
+    - **Khuyến nghị**: Giữ backward compatibility: thêm endpoint mới thay vì đổi format endpoint cũ đang được frontend sử dụng.
+
+- **Scribe cho endpoint public**:
+    - **Bắt buộc**: Dự án giữ `config/scribe.php` với `auth.enabled=true` và `auth.default=true`.
+    - **Bắt buộc**: Tất cả method public/public-options phải có `@unauthenticated` trong PHPDoc, nếu không Scribe sẽ hiển thị sai badge `requires authentication`.
+    - **Bắt buộc**: Sau khi chỉnh route/controller/request liên quan API docs, phải chạy `sail artisan scribe:generate` và kiểm tra lại endpoint trong `.scribe/endpoints/*.yaml` có `authenticated: false` với API public.
+
+- **FormRequest cho Scribe (chuẩn tài liệu)**:
+    - **Bắt buộc**: Tất cả `FormRequest` dùng cho endpoint API phải có `bodyParameters()`; với request chỉ dùng query thì có thể trả `[]`.
+    - **Khuyến nghị**: Request lọc chung (ví dụ `FilterRequest`) nên có cả `queryParameters()` để mô tả search/status/from_date/to_date/sort_by/sort_order/limit.
+    - **Bắt buộc**: Khi thêm request mới cho API, cập nhật luôn mô tả tham số để tránh warning `No bodyParameters()/No queryParameters()` khi generate Scribe.
+
+- **Factory phục vụ Scribe model examples**:
+    - **Bắt buộc**: Model dùng `HasFactory` phải có factory tương ứng đúng namespace để Scribe không báo `Couldn't get example model ... via factoryCreate/factoryMake`.
+    - **Bắt buộc**: Với model trong module, namespace factory phải khớp convention Laravel của module model (ví dụ `Database\Factories\Modules\Document\Models\...Factory`).
