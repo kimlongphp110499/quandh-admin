@@ -1,7 +1,5 @@
 name: 'Core - Setting'
-description: |-
-
-  Quản lý cấu hình hệ thống: lấy công khai, lấy toàn bộ (auth), cập nhật.
+description: ''
 endpoints:
   -
     custom: []
@@ -11,9 +9,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Setting'
-      groupDescription: |-
-
-        Quản lý cấu hình hệ thống: lấy công khai, lấy toàn bộ (auth), cập nhật.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Lấy cấu hình công khai'
@@ -21,6 +17,7 @@ endpoints:
       authenticated: false
       deprecated: false
     headers:
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -50,9 +47,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Setting'
-      groupDescription: |-
-
-        Quản lý cấu hình hệ thống: lấy công khai, lấy toàn bộ (auth), cập nhật.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Lấy toàn bộ cấu hình'
@@ -61,6 +56,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -93,9 +89,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Setting'
-      groupDescription: |-
-
-        Quản lý cấu hình hệ thống: lấy công khai, lấy toàn bộ (auth), cập nhật.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Lấy một key'
@@ -104,6 +98,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -149,9 +144,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Setting'
-      groupDescription: |-
-
-        Quản lý cấu hình hệ thống: lấy công khai, lấy toàn bộ (auth), cập nhật.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cập nhật cấu hình'
@@ -160,6 +153,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []

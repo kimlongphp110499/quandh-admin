@@ -18,6 +18,7 @@ use App\Modules\Document\Services\CatalogService;
 
 /**
  * @group Document - Lĩnh vực
+ * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
  *
  * Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
  */

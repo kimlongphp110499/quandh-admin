@@ -1,7 +1,5 @@
 name: 'Core - Permission'
-description: |-
-
-  Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+description: ''
 endpoints:
   -
     custom: []
@@ -11,9 +9,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Xuất danh sách permission'
@@ -22,6 +18,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -141,9 +138,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Nhập danh sách permission'
@@ -152,6 +147,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
@@ -196,9 +192,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Xóa hàng loạt permission'
@@ -207,6 +201,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -257,9 +252,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Thống kê permission'
@@ -268,6 +261,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -384,9 +378,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cây permission (toàn bộ cây, không phân trang). Để hiển thị nhóm quyền trên frontend.'
@@ -395,6 +387,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -439,9 +432,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Danh sách permission'
@@ -450,6 +441,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -547,7 +539,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":158,"name":"users.update.4027","guard_name":"web","description":null,"sort_order":95,"parent_id":null,"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"},{"id":159,"name":"documents.index.6955","guard_name":"web","description":null,"sort_order":39,"parent_id":null,"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        content: '{"data":[{"id":182,"name":"users.update.4027","guard_name":"web","description":null,"sort_order":95,"parent_id":null,"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"},{"id":183,"name":"documents.index.6955","guard_name":"web","description":null,"sort_order":39,"parent_id":null,"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -566,9 +558,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Chi tiết permission'
@@ -577,6 +567,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -614,7 +605,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":161,"name":"users.index.4524","guard_name":"web","description":"Commodi incidunt iure odit.","sort_order":45,"parent_id":160,"parent":{"id":160,"name":"documents.show.967"},"children":[{"id":162,"name":"roles.destroy.1904","guard_name":"web","description":null,"sort_order":93,"parent_id":161,"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"}],"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"},"success":"true"}'
+        content: '{"data":{"id":185,"name":"users.index.4524","guard_name":"web","description":"Commodi incidunt iure odit.","sort_order":45,"parent_id":184,"parent":{"id":184,"name":"documents.show.967"},"children":[{"id":186,"name":"roles.destroy.1904","guard_name":"web","description":null,"sort_order":93,"parent_id":185,"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"}],"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -633,9 +624,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Tạo permission mới'
@@ -644,6 +633,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -717,7 +707,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":163,"name":"roles.index.660","guard_name":"web","description":"Et fugiat sunt nihil accusantium.","sort_order":91,"parent_id":null,"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":187,"name":"roles.index.660","guard_name":"web","description":"Et fugiat sunt nihil accusantium.","sort_order":91,"parent_id":null,"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c t\u1ea1o th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -736,9 +726,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cập nhật permission'
@@ -747,6 +735,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -844,7 +833,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":164,"name":"roles.index.4338","guard_name":"web","description":null,"sort_order":7,"parent_id":null,"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":188,"name":"roles.index.4338","guard_name":"web","description":null,"sort_order":7,"parent_id":null,"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -863,9 +852,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cập nhật permission'
@@ -874,6 +861,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -971,7 +959,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":165,"name":"roles.index.3491","guard_name":"web","description":"Sunt nihil accusantium harum mollitia.","sort_order":86,"parent_id":null,"created_at":"22:44:29 03\/03\/2026","updated_at":"22:44:29 03\/03\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
+        content: '{"data":{"id":189,"name":"roles.index.3491","guard_name":"web","description":"Sunt nihil accusantium harum mollitia.","sort_order":86,"parent_id":null,"created_at":"01:31:25 05\/03\/2026","updated_at":"01:31:25 05\/03\/2026"},"success":"true","message":"Quy\u1ec1n \u0111\u00e3 \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt!"}'
         headers: []
         description: ''
     responseFields: []
@@ -990,9 +978,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Core - Permission'
-      groupDescription: |-
-
-        Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Xóa permission'
@@ -1001,6 +987,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:

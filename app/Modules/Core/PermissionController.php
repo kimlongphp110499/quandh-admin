@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 
 /**
  * @group Core - Permission
+ * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
  *
  * Quản lý quyền (permission): stats, index, show, store, update, destroy, bulk delete, export, import.
  */

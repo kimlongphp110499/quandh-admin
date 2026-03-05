@@ -1,7 +1,5 @@
 name: 'Document - Lĩnh vực'
-description: |-
-
-  Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+description: ''
 endpoints:
   -
     custom: []
@@ -11,9 +9,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Danh sách lĩnh vực công khai'
@@ -21,6 +17,7 @@ endpoints:
       authenticated: false
       deprecated: false
     headers:
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -118,7 +115,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":1,"name":"eius et","description":null,"status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:26 03\/03\/2026","updated_at":"22:44:26 03\/03\/2026"},{"id":2,"name":"velit et","description":"Nihil accusantium harum mollitia modi deserunt.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:26 03\/03\/2026","updated_at":"22:44:26 03\/03\/2026"}],"success":"true"}'
+        content: '{"data":[{"id":33,"name":"eius et","description":null,"status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:22 05\/03\/2026","updated_at":"01:31:22 05\/03\/2026"},{"id":34,"name":"velit et","description":"Nihil accusantium harum mollitia modi deserunt.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:22 05\/03\/2026","updated_at":"01:31:22 05\/03\/2026"}],"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -134,9 +131,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Danh sách lĩnh vực công khai cho dropdown'
@@ -144,6 +139,7 @@ endpoints:
       authenticated: false
       deprecated: false
     headers:
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -241,7 +237,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":3,"name":"animi quos","description":null},{"id":4,"name":"fugiat sunt","description":"Harum mollitia modi deserunt aut ab provident perspiciatis quo."}],"success":"true"}'
+        content: '{"data":[{"id":35,"name":"animi quos","description":null},{"id":36,"name":"fugiat sunt","description":"Harum mollitia modi deserunt aut ab provident perspiciatis quo."}],"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -257,9 +253,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Xuất Excel lĩnh vực'
@@ -268,6 +262,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -389,9 +384,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Import lĩnh vực'
@@ -400,6 +393,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: multipart/form-data
       Accept: application/json
     urlParameters: []
@@ -444,9 +438,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Xóa hàng loạt lĩnh vực'
@@ -455,6 +447,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -505,9 +498,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cập nhật trạng thái hàng loạt lĩnh vực'
@@ -516,6 +507,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -578,9 +570,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Thống kê lĩnh vực'
@@ -589,6 +579,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -705,9 +696,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Danh sách lĩnh vực'
@@ -716,6 +705,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -813,7 +803,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":10,"name":"nemo odit","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:33 03\/03\/2026","updated_at":"22:44:33 03\/03\/2026"},{"id":11,"name":"est dignissimos","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:33 03\/03\/2026","updated_at":"22:44:33 03\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+        content: '{"data":[{"id":42,"name":"nemo odit","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"},{"id":43,"name":"est dignissimos","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -832,9 +822,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Chi tiết lĩnh vực'
@@ -843,6 +831,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -880,7 +869,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":12,"name":"omnis autem","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:33 03\/03\/2026","updated_at":"22:44:33 03\/03\/2026"},"success":"true"}'
+        content: '{"data":{"id":44,"name":"omnis autem","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"},"success":"true"}'
         headers: []
         description: ''
     responseFields: []
@@ -899,9 +888,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Tạo lĩnh vực'
@@ -910,6 +897,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -959,7 +947,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":13,"name":"quia officia","description":"Neque blanditiis odio veritatis excepturi doloribus delectus.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:33 03\/03\/2026","updated_at":"22:44:33 03\/03\/2026"},"success":"true","message":"T\u1ea1o l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":45,"name":"quia officia","description":"Neque blanditiis odio veritatis excepturi doloribus delectus.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"},"success":"true","message":"T\u1ea1o l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -978,9 +966,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cập nhật lĩnh vực'
@@ -989,6 +975,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -1062,7 +1049,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":14,"name":"neque blanditiis","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:34 03\/03\/2026","updated_at":"22:44:34 03\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":46,"name":"neque blanditiis","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1081,9 +1068,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Cập nhật lĩnh vực'
@@ -1092,6 +1077,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -1165,7 +1151,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":15,"name":"odio veritatis","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:34 03\/03\/2026","updated_at":"22:44:34 03\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":47,"name":"odio veritatis","description":null,"status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt l\u0129nh v\u1ef1c th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []
@@ -1184,9 +1170,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Xóa lĩnh vực'
@@ -1195,6 +1179,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -1251,9 +1236,7 @@ endpoints:
     metadata:
       custom: []
       groupName: 'Document - Lĩnh vực'
-      groupDescription: |-
-
-        Quản lý danh mục lĩnh vực: thống kê, danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt, xuất/nhập và đổi trạng thái.
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Đổi trạng thái lĩnh vực'
@@ -1262,6 +1245,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      X-Organization-Id: 'ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -1311,7 +1295,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":16,"name":"aut dolores","description":"Facere tempora ex voluptatem laboriosam.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"22:44:34 03\/03\/2026","updated_at":"22:44:34 03\/03\/2026"},"success":"true","message":"\u0110\u1ed5i tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
+        content: '{"data":{"id":48,"name":"aut dolores","description":"Facere tempora ex voluptatem laboriosam.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"01:31:28 05\/03\/2026","updated_at":"01:31:28 05\/03\/2026"},"success":"true","message":"\u0110\u1ed5i tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
         headers: []
         description: ''
     responseFields: []

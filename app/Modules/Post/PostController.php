@@ -17,6 +17,7 @@ use App\Modules\Post\Services\PostService;
 
 /**
  * @group Post - Post
+ * @header X-Organization-Id ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1
  *
  * Quản lý bài viết: danh sách, chi tiết, tạo, cập nhật, xóa, thao tác hàng loạt
  */
