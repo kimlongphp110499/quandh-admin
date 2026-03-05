@@ -240,6 +240,8 @@ class DocumentFieldController extends Controller
     /**
      * Xuất Excel lĩnh vực
      *
+     * Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.
+     *
      * @queryParam search string Từ khóa tìm kiếm theo tên.
      * @queryParam status string Lọc theo trạng thái: active, inactive.
      */
@@ -251,7 +253,9 @@ class DocumentFieldController extends Controller
     /**
      * Import lĩnh vực
      *
-     * @bodyParam file file required File Excel (xlsx, xls, csv).
+     * Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import lĩnh vực thành công."}
      */

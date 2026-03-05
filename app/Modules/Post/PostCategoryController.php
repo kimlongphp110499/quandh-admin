@@ -245,7 +245,7 @@ class PostCategoryController extends Controller
     /**
      * Xuất danh sách danh mục
      *
-     * Áp dụng cùng bộ lọc với index. Trả về file Excel.
+     * Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, slug, description, status, sort_order, parent_id, parent_slug, depth, created_by, updated_by, created_at, updated_at.
      *
      * @queryParam search string Từ khóa tìm kiếm (name).
      * @queryParam status string Lọc theo trạng thái: active, inactive.
@@ -262,7 +262,9 @@ class PostCategoryController extends Controller
     /**
      * Nhập danh sách danh mục
      *
-     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột: name, slug, description, status, sort_order, parent_slug.
+     * Cột bắt buộc: name. Cột không bắt buộc: slug (tự sinh từ name), description, status (mặc định "active"), sort_order (mặc định 0), parent_slug (slug của danh mục cha).
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import danh mục bài viết thành công."}
      */

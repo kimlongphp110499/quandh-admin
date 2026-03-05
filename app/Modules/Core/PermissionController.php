@@ -178,7 +178,7 @@ class PermissionController extends Controller
     /**
      * Xuất danh sách permission
      *
-     * Áp dụng cùng bộ lọc với index. Trả về file Excel.
+     * Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, guard_name, description, sort_order, parent_id, created_at, updated_at.
      *
      * @queryParam search string Từ khóa tìm kiếm (name, guard_name).
      * @queryParam from_date date Lọc từ ngày tạo (created_at) (Y-m-d).
@@ -194,7 +194,9 @@ class PermissionController extends Controller
     /**
      * Nhập danh sách permission
      *
-     * @bodyParam file file required File excel (xlsx, xls, csv). Cột: name, guard_name, description, sort_order, parent_id.
+     * Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "web"), description, sort_order, parent_id.
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import quyền thành công."}
      */

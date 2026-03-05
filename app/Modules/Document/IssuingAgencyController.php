@@ -240,6 +240,8 @@ class IssuingAgencyController extends Controller
     /**
      * Xuất Excel cơ quan ban hành
      *
+     * Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.
+     *
      * @queryParam search string Từ khóa tìm kiếm theo tên.
      * @queryParam status string Lọc theo trạng thái: active, inactive.
      */
@@ -251,7 +253,9 @@ class IssuingAgencyController extends Controller
     /**
      * Import cơ quan ban hành
      *
-     * @bodyParam file file required File Excel (xlsx, xls, csv).
+     * Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import cơ quan ban hành thành công."}
      */

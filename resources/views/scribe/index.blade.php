@@ -729,7 +729,7 @@
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
-<p>Đăng nhập qua <code>POST /api/auth/login</code> với email và password để nhận <code>access_token</code>. Gửi token trong header <code>Authorization: Bearer {token}</code> cho các endpoint cần xác thực.</p>
+<p>Đăng nhập qua <code>POST /api/auth/login</code> với email và password để nhận <code>access_token</code>. Gửi token trong header <code>Authorization: Bearer {token}</code> cho các endpoint cần xác thực.<br><br><strong>X-Organization-Id (bắt buộc cho hầu hết endpoint yêu cầu auth):</strong> Các endpoint trong nhóm users, roles, permissions, organizations, posts, post-categories, documents, log-activities, settings... cần thêm header <code>X-Organization-Id: {organization_id}</code> để xác định tổ chức làm việc. Các route <code>/api/auth/*</code> (login, logout, switch-organization, forgot-password, reset-password) không cần header này.</p>
 
         <h1 id="auth">Auth</h1>
 
@@ -3123,7 +3123,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 34,
+            &quot;id&quot;: 38,
             &quot;description&quot;: &quot;Et animi quos velit et fugiat.&quot;,
             &quot;user_type&quot;: &quot;User&quot;,
             &quot;user_id&quot;: null,
@@ -3138,27 +3138,27 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;request_data&quot;: {
                 &quot;sample&quot;: &quot;et&quot;
             },
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 35,
-            &quot;description&quot;: &quot;Id non doloribus optio soluta fugiat eligendi omnis.&quot;,
+            &quot;id&quot;: 39,
+            &quot;description&quot;: &quot;Aut dolores enim non facere tempora ex voluptatem.&quot;,
             &quot;user_type&quot;: &quot;User&quot;,
             &quot;user_id&quot;: null,
             &quot;user_name&quot;: &quot;Guest&quot;,
             &quot;organization_id&quot;: null,
-            &quot;route&quot;: &quot;http://www.gutmann.com/deleniti-adipisci-pariatur-fugiat-autem-eius&quot;,
-            &quot;method_type&quot;: &quot;POST&quot;,
+            &quot;route&quot;: &quot;http://raynor.org/molestias-fugit-deleniti-distinctio-eum-doloremque-id&quot;,
+            &quot;method_type&quot;: &quot;PATCH&quot;,
             &quot;status_code&quot;: 201,
-            &quot;ip_address&quot;: &quot;141.15.136.138&quot;,
-            &quot;country&quot;: &quot;Nicaragua&quot;,
-            &quot;user_agent&quot;: &quot;Opera/8.95 (X11; Linux x86_64; en-US) Presto/2.9.161 Version/10.00&quot;,
+            &quot;ip_address&quot;: &quot;239.169.15.174&quot;,
+            &quot;country&quot;: &quot;Turkmenistan&quot;,
+            &quot;user_agent&quot;: &quot;Mozilla/5.0 (Windows 98; Win 9x 4.90) AppleWebKit/533.2 (KHTML, like Gecko) Chrome/86.0.4047.69 Safari/533.2 Edg/86.01025.45&quot;,
             &quot;request_data&quot;: {
-                &quot;sample&quot;: &quot;voluptatibus&quot;
+                &quot;sample&quot;: &quot;accusamus&quot;
             },
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -3472,12 +3472,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 36,
+        &quot;id&quot;: 40,
         &quot;description&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;user_type&quot;: &quot;User&quot;,
-        &quot;user_id&quot;: 76,
+        &quot;user_id&quot;: 84,
         &quot;user_name&quot;: &quot;Bridget Schaden&quot;,
-        &quot;organization_id&quot;: 170,
+        &quot;organization_id&quot;: 191,
         &quot;route&quot;: &quot;https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html&quot;,
         &quot;method_type&quot;: &quot;POST&quot;,
         &quot;status_code&quot;: 401,
@@ -3487,8 +3487,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;request_data&quot;: {
             &quot;sample&quot;: &quot;veniam&quot;
         },
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -3896,7 +3896,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 150,
+            &quot;id&quot;: 171,
             &quot;name&quot;: &quot;Bailey Inc&quot;,
             &quot;slug&quot;: &quot;quos-velit-et-fugiat-sunt-nihil-accusantium-harum&quot;,
             &quot;description&quot;: null,
@@ -3906,11 +3906,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:42 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:42 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:23 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:23 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 151,
+            &quot;id&quot;: 172,
             &quot;name&quot;: &quot;DuBuque Inc&quot;,
             &quot;slug&quot;: &quot;quo-omnis-nostrum-aut-adipisci&quot;,
             &quot;description&quot;: &quot;Qui commodi incidunt iure odit.&quot;,
@@ -3920,8 +3920,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:42 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:42 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:23 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:23 05/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -4184,12 +4184,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 152,
+            &quot;id&quot;: 173,
             &quot;name&quot;: &quot;Okuneva, Rempel and Gulgowski&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 153,
+            &quot;id&quot;: 174,
             &quot;name&quot;: &quot;Cormier Inc&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;
         }
@@ -4376,7 +4376,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Áp dụng cùng bộ lọc với index. Trả về file Excel.</p>
+<p>Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, slug, description, status, parent_id, parent_slug, sort_order, depth, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-organizations-export">
 <blockquote>Example request:</blockquote>
@@ -4655,7 +4655,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: slug, description, status (mặc định &quot;active&quot;), parent_id.</p>
 
 <span id="example-requests-POSTapi-organizations-import">
 <blockquote>Example request:</blockquote>
@@ -4668,7 +4668,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php6t4tmj8ocoorezZYGbH" </code></pre></div>
+    --form "file=@/tmp/phpgb8dlento42ldbNGYa5" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -4708,7 +4708,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php6t4tmj8ocoorezZYGbH', 'r')
+                'contents' =&gt; fopen('/tmp/phpgb8dlento42ldbNGYa5', 'r')
             ],
         ],
     ]
@@ -4836,7 +4836,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, slug, description, status. Example: <code>/tmp/php6t4tmj8ocoorezZYGbH</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpgb8dlento42ldbNGYa5</code></p>
         </div>
         </form>
 
@@ -5830,7 +5830,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 155,
+            &quot;id&quot;: 176,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;slug&quot;: &quot;velit-et-fugiat-sunt-nihil-accusantium&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
@@ -5840,11 +5840,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 156,
+            &quot;id&quot;: 177,
             &quot;name&quot;: &quot;Marquardt Inc&quot;,
             &quot;slug&quot;: &quot;nostrum-qui-commodi-incidunt-iure&quot;,
             &quot;description&quot;: null,
@@ -5854,8 +5854,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -6145,20 +6145,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 158,
+        &quot;id&quot;: 179,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;slug&quot;: &quot;qui-commodi-incidunt-iure-odit&quot;,
         &quot;description&quot;: &quot;Modi ipsum nostrum omnis autem et.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 157,
+        &quot;parent_id&quot;: 178,
         &quot;sort_order&quot;: 84,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 157,
+            &quot;id&quot;: 178,
             &quot;name&quot;: &quot;Stokes and Sons&quot;,
             &quot;slug&quot;: &quot;tempora-ex-voluptatem-laboriosam-praesentium-quis&quot;,
             &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
@@ -6168,23 +6168,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 159,
+                &quot;id&quot;: 180,
                 &quot;name&quot;: &quot;Kutch and Sons&quot;,
                 &quot;slug&quot;: &quot;nemo-odit-quia-officia-est-dignissimos&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 158,
+                &quot;parent_id&quot;: 179,
                 &quot;sort_order&quot;: 6,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
             }
         ]
     },
@@ -6407,7 +6407,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 160,
+        &quot;id&quot;: 181,
         &quot;name&quot;: &quot;Dach-Gaylord&quot;,
         &quot;slug&quot;: &quot;mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo&quot;,
         &quot;description&quot;: null,
@@ -6417,8 +6417,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;depth&quot;: 0,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Organization đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -6688,20 +6688,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 162,
+        &quot;id&quot;: 183,
         &quot;name&quot;: &quot;Tillman-Runte&quot;,
         &quot;slug&quot;: &quot;aut-ab-provident-perspiciatis-quo-omnis-nostrum-aut&quot;,
         &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 161,
+        &quot;parent_id&quot;: 182,
         &quot;sort_order&quot;: 45,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 161,
+            &quot;id&quot;: 182,
             &quot;name&quot;: &quot;Bauch, Fritsch and O&#039;Keefe&quot;,
             &quot;slug&quot;: &quot;autem-et-consequatur-aut-dolores-enim-non-facere-tempora&quot;,
             &quot;description&quot;: &quot;Laboriosam praesentium quis adipisci molestias fugit deleniti distinctio.&quot;,
@@ -6711,23 +6711,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 163,
+                &quot;id&quot;: 184,
                 &quot;name&quot;: &quot;Ankunding PLC&quot;,
                 &quot;slug&quot;: &quot;veniam-corporis-dolorem-mollitia&quot;,
                 &quot;description&quot;: &quot;Odit quia officia est dignissimos neque blanditiis odio.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 162,
+                &quot;parent_id&quot;: 183,
                 &quot;sort_order&quot;: 16,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
             }
         ]
     },
@@ -7024,20 +7024,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 165,
+        &quot;id&quot;: 186,
         &quot;name&quot;: &quot;Schuster Inc&quot;,
         &quot;slug&quot;: &quot;perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui&quot;,
         &quot;description&quot;: &quot;Iure odit et et modi ipsum nostrum omnis.&quot;,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;parent_id&quot;: 164,
+        &quot;parent_id&quot;: 185,
         &quot;sort_order&quot;: 54,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 164,
+            &quot;id&quot;: 185,
             &quot;name&quot;: &quot;Tromp-Leffler&quot;,
             &quot;slug&quot;: &quot;non-facere-tempora-ex-voluptatem-laboriosam-praesentium&quot;,
             &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
@@ -7047,23 +7047,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 166,
+                &quot;id&quot;: 187,
                 &quot;name&quot;: &quot;Batz Inc&quot;,
                 &quot;slug&quot;: &quot;mollitia-deleniti-nemo-odit-quia-officia&quot;,
                 &quot;description&quot;: &quot;Neque blanditiis odio veritatis excepturi doloribus delectus.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 165,
+                &quot;parent_id&quot;: 186,
                 &quot;sort_order&quot;: 22,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
             }
         ]
     },
@@ -7537,20 +7537,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 168,
+        &quot;id&quot;: 189,
         &quot;name&quot;: &quot;Baumbach Ltd&quot;,
         &quot;slug&quot;: &quot;et-modi-ipsum-nostrum-omnis-autem-et-consequatur&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 167,
+        &quot;parent_id&quot;: 188,
         &quot;sort_order&quot;: 62,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 167,
+            &quot;id&quot;: 188,
             &quot;name&quot;: &quot;VonRueden-Leuschke&quot;,
             &quot;slug&quot;: &quot;voluptatem-laboriosam-praesentium-quis-adipisci&quot;,
             &quot;description&quot;: null,
@@ -7560,23 +7560,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 169,
+                &quot;id&quot;: 190,
                 &quot;name&quot;: &quot;Gaylord, Hettinger and Nitzsche&quot;,
                 &quot;slug&quot;: &quot;libero-aliquam-veniam-corporis-dolorem-mollitia-deleniti&quot;,
                 &quot;description&quot;: &quot;Quia officia est dignissimos neque.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 168,
+                &quot;parent_id&quot;: 189,
                 &quot;sort_order&quot;: 6,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
             }
         ]
     },
@@ -7730,7 +7730,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Áp dụng cùng bộ lọc với index. Trả về file Excel.</p>
+<p>Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, guard_name, description, sort_order, parent_id, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-permissions-export">
 <blockquote>Example request:</blockquote>
@@ -8009,7 +8009,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định &quot;web&quot;), description, sort_order, parent_id.</p>
 
 <span id="example-requests-POSTapi-permissions-import">
 <blockquote>Example request:</blockquote>
@@ -8022,7 +8022,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpstnejmp2ebp4cnT1EOF" </code></pre></div>
+    --form "file=@/tmp/phpfqtqkggvlflt6DZ9JRQ" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -8062,7 +8062,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpstnejmp2ebp4cnT1EOF', 'r')
+                'contents' =&gt; fopen('/tmp/phpfqtqkggvlflt6DZ9JRQ', 'r')
             ],
         ],
     ]
@@ -8190,7 +8190,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, guard_name, description, sort_order, parent_id. Example: <code>/tmp/phpstnejmp2ebp4cnT1EOF</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpfqtqkggvlflt6DZ9JRQ</code></p>
         </div>
         </form>
 
@@ -8962,24 +8962,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 242,
+            &quot;id&quot;: 254,
             &quot;name&quot;: &quot;users.update.4027&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;description&quot;: null,
             &quot;sort_order&quot;: 95,
             &quot;parent_id&quot;: null,
-            &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 243,
+            &quot;id&quot;: 255,
             &quot;name&quot;: &quot;documents.index.6955&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;description&quot;: null,
             &quot;sort_order&quot;: 39,
             &quot;parent_id&quot;: null,
-            &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -9269,30 +9269,30 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 245,
+        &quot;id&quot;: 257,
         &quot;name&quot;: &quot;users.index.4524&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;sort_order&quot;: 45,
-        &quot;parent_id&quot;: 244,
+        &quot;parent_id&quot;: 256,
         &quot;parent&quot;: {
-            &quot;id&quot;: 244,
+            &quot;id&quot;: 256,
             &quot;name&quot;: &quot;documents.show.967&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 246,
+                &quot;id&quot;: 258,
                 &quot;name&quot;: &quot;roles.destroy.1904&quot;,
                 &quot;guard_name&quot;: &quot;web&quot;,
                 &quot;description&quot;: null,
                 &quot;sort_order&quot;: 93,
-                &quot;parent_id&quot;: 245,
-                &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+                &quot;parent_id&quot;: 257,
+                &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -9510,14 +9510,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 247,
+        &quot;id&quot;: 259,
         &quot;name&quot;: &quot;roles.index.660&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;sort_order&quot;: 91,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -9772,14 +9772,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 248,
+        &quot;id&quot;: 260,
         &quot;name&quot;: &quot;roles.index.4338&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: null,
         &quot;sort_order&quot;: 7,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được cập nhật!&quot;
@@ -10059,14 +10059,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 249,
+        &quot;id&quot;: 261,
         &quot;name&quot;: &quot;roles.index.3491&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Sunt nihil accusantium harum mollitia.&quot;,
         &quot;sort_order&quot;: 86,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được cập nhật!&quot;
@@ -10458,7 +10458,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Áp dụng cùng bộ lọc với index. Trả về file Excel.</p>
+<p>Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, guard_name, organization_id, organization_name, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-roles-export">
 <blockquote>Example request:</blockquote>
@@ -10737,7 +10737,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định &quot;web&quot;), organization_id.</p>
 
 <span id="example-requests-POSTapi-roles-import">
 <blockquote>Example request:</blockquote>
@@ -10750,7 +10750,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpal5ircc57vqn5iJHNe2" </code></pre></div>
+    --form "file=@/tmp/phpsck7a86dlhrm25jSlJb" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -10790,7 +10790,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpal5ircc57vqn5iJHNe2', 'r')
+                'contents' =&gt; fopen('/tmp/phpsck7a86dlhrm25jSlJb', 'r')
             ],
         ],
     ]
@@ -10918,7 +10918,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, guard_name, organization_id. Example: <code>/tmp/phpal5ircc57vqn5iJHNe2</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpsck7a86dlhrm25jSlJb</code></p>
         </div>
         </form>
 
@@ -11491,20 +11491,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 47,
+            &quot;id&quot;: 53,
             &quot;name&quot;: &quot;role_ng775&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;organization_id&quot;: null,
-            &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 48,
+            &quot;id&quot;: 54,
             &quot;name&quot;: &quot;role_mi365&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;organization_id&quot;: null,
-            &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -11794,19 +11794,19 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 49,
+        &quot;id&quot;: 55,
         &quot;name&quot;: &quot;role_wp680&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
-        &quot;organization_id&quot;: 154,
+        &quot;organization_id&quot;: 175,
         &quot;organization&quot;: {
-            &quot;id&quot;: 154,
+            &quot;id&quot;: 175,
             &quot;name&quot;: &quot;Dare Group&quot;
         },
         &quot;permissions&quot;: [
             &quot;organizations.index.7602&quot;
         ],
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -12030,15 +12030,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 50,
+        &quot;id&quot;: 56,
         &quot;name&quot;: &quot;role_zm806&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;documents.index.5606&quot;
         ],
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -12274,15 +12274,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 51,
+        &quot;id&quot;: 57,
         &quot;name&quot;: &quot;role_yv564&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;users.update.3433&quot;
         ],
-        &quot;created_at&quot;: &quot;08:54:43 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:43 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được cập nhật!&quot;
@@ -12543,15 +12543,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 52,
+        &quot;id&quot;: 58,
         &quot;name&quot;: &quot;role_lj575&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;roles.destroy.6854&quot;
         ],
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được cập nhật!&quot;
@@ -13644,7 +13644,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Áp dụng cùng bộ lọc với index. Trả về file Excel.</p>
+<p>Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, email, user_name, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-users-export">
 <blockquote>Example request:</blockquote>
@@ -13923,7 +13923,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name, email. Cột không bắt buộc: user_name, password (mặc định &quot;password&quot;), status (mặc định &quot;active&quot;).</p>
 
 <span id="example-requests-POSTapi-users-import">
 <blockquote>Example request:</blockquote>
@@ -13936,7 +13936,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpmarrraah46fs6SBWUcV" </code></pre></div>
+    --form "file=@/tmp/phpjm982lun46rq9jKpk6x" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -13976,7 +13976,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpmarrraah46fs6SBWUcV', 'r')
+                'contents' =&gt; fopen('/tmp/phpjm982lun46rq9jKpk6x', 'r')
             ],
         ],
     ]
@@ -14104,7 +14104,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File excel (xlsx, xls, csv). Cột: name, email, password, status. Example: <code>/tmp/phpmarrraah46fs6SBWUcV</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpjm982lun46rq9jKpk6x</code></p>
         </div>
         </form>
 
@@ -14900,7 +14900,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 69,
+            &quot;id&quot;: 77,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
             &quot;user_name&quot;: &quot;idickens&quot;,
@@ -14908,11 +14908,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
             &quot;assignments&quot;: [],
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
         },
         {
-            &quot;id&quot;: 70,
+            &quot;id&quot;: 78,
             &quot;name&quot;: &quot;Mya DuBuque&quot;,
             &quot;email&quot;: &quot;breitenberg.gilbert@example.com&quot;,
             &quot;user_name&quot;: &quot;price.amber&quot;,
@@ -14920,8 +14920,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
             &quot;assignments&quot;: [],
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
         }
     ],
     &quot;links&quot;: {
@@ -15211,7 +15211,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 71,
+        &quot;id&quot;: 79,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
         &quot;user_name&quot;: &quot;imclaughlin&quot;,
@@ -15219,8 +15219,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -15450,7 +15450,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 72,
+        &quot;id&quot;: 80,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;idickens@example.org&quot;,
         &quot;user_name&quot;: &quot;aschuster&quot;,
@@ -15458,8 +15458,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -15776,7 +15776,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 73,
+        &quot;id&quot;: 81,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;aschuster@example.com&quot;,
         &quot;user_name&quot;: &quot;gilbert32&quot;,
@@ -15784,8 +15784,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được cập nhật!&quot;
@@ -16127,7 +16127,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 74,
+        &quot;id&quot;: 82,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;gilbert32@example.com&quot;,
         &quot;user_name&quot;: &quot;hirthe.theo&quot;,
@@ -16135,8 +16135,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được cập nhật!&quot;
@@ -16646,7 +16646,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 75,
+        &quot;id&quot;: 83,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;imclaughlin@example.org&quot;,
         &quot;user_name&quot;: &quot;okeefe.isidro&quot;,
@@ -16654,8 +16654,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -16885,24 +16885,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 113,
+            &quot;id&quot;: 129,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 114,
+            &quot;id&quot;: 130,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -17163,12 +17163,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 115,
+            &quot;id&quot;: 131,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;
         },
         {
-            &quot;id&quot;: 116,
+            &quot;id&quot;: 132,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;
         }
@@ -17353,7 +17353,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-issuing-agencies-export">
 <blockquote>Example request:</blockquote>
@@ -17634,7 +17634,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
 
 <span id="example-requests-POSTapi-issuing-agencies-import">
 <blockquote>Example request:</blockquote>
@@ -17647,7 +17647,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php9t6jlt4uo9q9d01FOGo" </code></pre></div>
+    --form "file=@/tmp/phpb0b2vff1l4au4d33II3" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17687,7 +17687,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php9t6jlt4uo9q9d01FOGo', 'r')
+                'contents' =&gt; fopen('/tmp/phpb0b2vff1l4au4d33II3', 'r')
             ],
         ],
     ]
@@ -17815,7 +17815,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/php9t6jlt4uo9q9d01FOGo</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpb0b2vff1l4au4d33II3</code></p>
         </div>
         </form>
 
@@ -18611,24 +18611,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 122,
+            &quot;id&quot;: 138,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 123,
+            &quot;id&quot;: 139,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -18918,14 +18918,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 124,
+        &quot;id&quot;: 140,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -19137,14 +19137,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 125,
+        &quot;id&quot;: 141,
         &quot;name&quot;: &quot;Ernser Group&quot;,
         &quot;description&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -19369,14 +19369,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 126,
+        &quot;id&quot;: 142,
         &quot;name&quot;: &quot;Bailey Ltd&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -19626,14 +19626,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 127,
+        &quot;id&quot;: 143,
         &quot;name&quot;: &quot;Bailey Ltd&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -20069,14 +20069,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 128,
+        &quot;id&quot;: 144,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -20306,24 +20306,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 113,
+            &quot;id&quot;: 129,
             &quot;name&quot;: &quot;modi deserunt&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 114,
+            &quot;id&quot;: 130,
             &quot;name&quot;: &quot;qui commodi&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -20584,12 +20584,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 115,
+            &quot;id&quot;: 131,
             &quot;name&quot;: &quot;provident perspiciatis&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 116,
+            &quot;id&quot;: 132,
             &quot;name&quot;: &quot;nostrum aut&quot;,
             &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;
         }
@@ -20774,7 +20774,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-issuing-levels-export">
 <blockquote>Example request:</blockquote>
@@ -21055,7 +21055,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
 
 <span id="example-requests-POSTapi-issuing-levels-import">
 <blockquote>Example request:</blockquote>
@@ -21068,7 +21068,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpf8rhovbq2uvi2vQMUV0" </code></pre></div>
+    --form "file=@/tmp/phpci6gih1j79svdRJCXym" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -21108,7 +21108,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpf8rhovbq2uvi2vQMUV0', 'r')
+                'contents' =&gt; fopen('/tmp/phpci6gih1j79svdRJCXym', 'r')
             ],
         ],
     ]
@@ -21236,7 +21236,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpf8rhovbq2uvi2vQMUV0</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpci6gih1j79svdRJCXym</code></p>
         </div>
         </form>
 
@@ -22032,24 +22032,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 122,
+            &quot;id&quot;: 138,
             &quot;name&quot;: &quot;doloremque id&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 123,
+            &quot;id&quot;: 139,
             &quot;name&quot;: &quot;aliquam veniam&quot;,
             &quot;description&quot;: &quot;Mollitia deleniti nemo odit quia officia.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -22339,14 +22339,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 124,
+        &quot;id&quot;: 140,
         &quot;name&quot;: &quot;et modi&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -22558,14 +22558,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 125,
+        &quot;id&quot;: 141,
         &quot;name&quot;: &quot;aut libero&quot;,
         &quot;description&quot;: &quot;Corporis dolorem mollitia deleniti nemo odit quia officia.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -22790,14 +22790,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 126,
+        &quot;id&quot;: 142,
         &quot;name&quot;: &quot;corporis dolorem&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -23047,14 +23047,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 127,
+        &quot;id&quot;: 143,
         &quot;name&quot;: &quot;mollitia deleniti&quot;,
         &quot;description&quot;: &quot;Quia officia est dignissimos neque.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -23490,14 +23490,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 128,
+        &quot;id&quot;: 144,
         &quot;name&quot;: &quot;ipsum nostrum&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -23727,24 +23727,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 113,
+            &quot;id&quot;: 129,
             &quot;name&quot;: &quot;nihil accusantium&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 114,
+            &quot;id&quot;: 130,
             &quot;name&quot;: &quot;omnis nostrum&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -24005,12 +24005,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 115,
+            &quot;id&quot;: 131,
             &quot;name&quot;: &quot;harum mollitia&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 116,
+            &quot;id&quot;: 132,
             &quot;name&quot;: &quot;aut ab&quot;,
             &quot;description&quot;: &quot;Quo omnis nostrum aut adipisci.&quot;
         }
@@ -24195,7 +24195,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-document-types-export">
 <blockquote>Example request:</blockquote>
@@ -24476,7 +24476,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
 
 <span id="example-requests-POSTapi-document-types-import">
 <blockquote>Example request:</blockquote>
@@ -24489,7 +24489,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpjdj2kmve11g67sNyF61" </code></pre></div>
+    --form "file=@/tmp/phpgven0eb8f2hqceERggh" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -24529,7 +24529,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpjdj2kmve11g67sNyF61', 'r')
+                'contents' =&gt; fopen('/tmp/phpgven0eb8f2hqceERggh', 'r')
             ],
         ],
     ]
@@ -24657,7 +24657,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpjdj2kmve11g67sNyF61</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpgven0eb8f2hqceERggh</code></p>
         </div>
         </form>
 
@@ -25453,24 +25453,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 122,
+            &quot;id&quot;: 138,
             &quot;name&quot;: &quot;autem et&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 123,
+            &quot;id&quot;: 139,
             &quot;name&quot;: &quot;tempora ex&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -25760,14 +25760,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 124,
+        &quot;id&quot;: 140,
         &quot;name&quot;: &quot;incidunt iure&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -25979,14 +25979,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 125,
+        &quot;id&quot;: 141,
         &quot;name&quot;: &quot;consequatur aut&quot;,
         &quot;description&quot;: &quot;Non facere tempora ex voluptatem laboriosam praesentium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -26211,14 +26211,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 126,
+        &quot;id&quot;: 142,
         &quot;name&quot;: &quot;voluptatem laboriosam&quot;,
         &quot;description&quot;: &quot;Adipisci molestias fugit deleniti distinctio eum doloremque id.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -26468,14 +26468,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 127,
+        &quot;id&quot;: 143,
         &quot;name&quot;: &quot;praesentium quis&quot;,
         &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -26911,14 +26911,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 128,
+        &quot;id&quot;: 144,
         &quot;name&quot;: &quot;odit et&quot;,
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -27148,24 +27148,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 113,
+            &quot;id&quot;: 129,
             &quot;name&quot;: &quot;eius et&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 114,
+            &quot;id&quot;: 130,
             &quot;name&quot;: &quot;velit et&quot;,
             &quot;description&quot;: &quot;Nihil accusantium harum mollitia modi deserunt.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -27426,12 +27426,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 115,
+            &quot;id&quot;: 131,
             &quot;name&quot;: &quot;animi quos&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 116,
+            &quot;id&quot;: 132,
             &quot;name&quot;: &quot;fugiat sunt&quot;,
             &quot;description&quot;: &quot;Harum mollitia modi deserunt aut ab provident perspiciatis quo.&quot;
         }
@@ -27616,7 +27616,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-document-fields-export">
 <blockquote>Example request:</blockquote>
@@ -27897,7 +27897,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
 
 <span id="example-requests-POSTapi-document-fields-import">
 <blockquote>Example request:</blockquote>
@@ -27910,7 +27910,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpode2oel5klj5dligdYo" </code></pre></div>
+    --form "file=@/tmp/phpqovenbdao2gs8aGCffJ" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -27950,7 +27950,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpode2oel5klj5dligdYo', 'r')
+                'contents' =&gt; fopen('/tmp/phpqovenbdao2gs8aGCffJ', 'r')
             ],
         ],
     ]
@@ -28078,7 +28078,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phpode2oel5klj5dligdYo</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpqovenbdao2gs8aGCffJ</code></p>
         </div>
         </form>
 
@@ -28874,24 +28874,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 122,
+            &quot;id&quot;: 138,
             &quot;name&quot;: &quot;nemo odit&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 123,
+            &quot;id&quot;: 139,
             &quot;name&quot;: &quot;est dignissimos&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -29181,14 +29181,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 124,
+        &quot;id&quot;: 140,
         &quot;name&quot;: &quot;omnis autem&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -29400,14 +29400,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 125,
+        &quot;id&quot;: 141,
         &quot;name&quot;: &quot;quia officia&quot;,
         &quot;description&quot;: &quot;Neque blanditiis odio veritatis excepturi doloribus delectus.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -29632,14 +29632,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 126,
+        &quot;id&quot;: 142,
         &quot;name&quot;: &quot;neque blanditiis&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -29889,14 +29889,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 127,
+        &quot;id&quot;: 143,
         &quot;name&quot;: &quot;odio veritatis&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -30332,14 +30332,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 128,
+        &quot;id&quot;: 144,
         &quot;name&quot;: &quot;aut dolores&quot;,
         &quot;description&quot;: &quot;Facere tempora ex voluptatem laboriosam.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:46 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:46 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -30569,24 +30569,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 113,
+            &quot;id&quot;: 129,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 114,
+            &quot;id&quot;: 130,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:41 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:41 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -30847,12 +30847,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 115,
+            &quot;id&quot;: 131,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 116,
+            &quot;id&quot;: 132,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;
         }
@@ -31037,7 +31037,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Xuất ra các trường: id, name, description, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-document-signers-export">
 <blockquote>Example request:</blockquote>
@@ -31318,7 +31318,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
 
 <span id="example-requests-POSTapi-document-signers-import">
 <blockquote>Example request:</blockquote>
@@ -31331,7 +31331,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phppu5aunuobu84fOI5sEM" </code></pre></div>
+    --form "file=@/tmp/phpvc9pgrodf5kk3TF5031" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -31371,7 +31371,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phppu5aunuobu84fOI5sEM', 'r')
+                'contents' =&gt; fopen('/tmp/phpvc9pgrodf5kk3TF5031', 'r')
             ],
         ],
     ]
@@ -31499,7 +31499,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/phppu5aunuobu84fOI5sEM</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpvc9pgrodf5kk3TF5031</code></p>
         </div>
         </form>
 
@@ -32295,24 +32295,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 122,
+            &quot;id&quot;: 138,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 123,
+            &quot;id&quot;: 139,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -32602,14 +32602,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 124,
+        &quot;id&quot;: 140,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -32821,14 +32821,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 125,
+        &quot;id&quot;: 141,
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -33053,14 +33053,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 126,
+        &quot;id&quot;: 142,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -33310,14 +33310,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 127,
+        &quot;id&quot;: 143,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -33753,14 +33753,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 128,
+        &quot;id&quot;: 144,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:45 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:45 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -33912,7 +33912,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Xuất ra các trường: id, so_ky_hieu, ten_van_ban, noi_dung, loai_van_ban, linh_vuc, co_quan_ban_hanh, cap_ban_hanh, nguoi_ky, ngay_ban_hanh, ngay_xuat_ban, ngay_hieu_luc, ngay_het_hieu_luc, status, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-documents-export">
 <blockquote>Example request:</blockquote>
@@ -34263,7 +34263,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột không bắt buộc: so_ky_hieu, ten_van_ban, noi_dung, status (mặc định &quot;active&quot;). Quan hệ loại/lĩnh vực/cơ quan/cấp/người ký cần cấu hình riêng.</p>
 
 <span id="example-requests-POSTapi-documents-import">
 <blockquote>Example request:</blockquote>
@@ -34276,7 +34276,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/php7cht0lng5foh5wnC8pF" </code></pre></div>
+    --form "file=@/tmp/phpf7bvplhfp68u7F23Th2" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -34316,7 +34316,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/php7cht0lng5foh5wnC8pF', 'r')
+                'contents' =&gt; fopen('/tmp/phpf7bvplhfp68u7F23Th2', 'r')
             ],
         ],
     ]
@@ -34444,7 +34444,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Example: <code>/tmp/php7cht0lng5foh5wnC8pF</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpf7bvplhfp68u7F23Th2</code></p>
         </div>
         </form>
 
@@ -35322,7 +35322,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 57,
             &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
             &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
             &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -35333,11 +35333,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;ngay_het_hieu_luc&quot;: null,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         },
         {
-            &quot;id&quot;: 51,
+            &quot;id&quot;: 58,
             &quot;so_ky_hieu&quot;: &quot;VB-1084/VI&quot;,
             &quot;ten_van_ban&quot;: &quot;Qui repudiandae laboriosam est.&quot;,
             &quot;noi_dung&quot;: null,
@@ -35348,8 +35348,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;ngay_het_hieu_luc&quot;: &quot;30/05/1986&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -35699,7 +35699,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 52,
+        &quot;id&quot;: 59,
         &quot;so_ky_hieu&quot;: &quot;VB-7680/WP&quot;,
         &quot;ten_van_ban&quot;: &quot;Qui commodi incidunt iure.&quot;,
         &quot;noi_dung&quot;: null,
@@ -35709,33 +35709,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 117,
+            &quot;id&quot;: 133,
             &quot;name&quot;: &quot;Smitham-Tromp&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 117,
+            &quot;id&quot;: 133,
             &quot;name&quot;: &quot;adipisci molestias&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 117,
+            &quot;id&quot;: 133,
             &quot;name&quot;: &quot;Cynthia Fahey&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 117,
+                &quot;id&quot;: 133,
                 &quot;name&quot;: &quot;delectus fugit&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 117,
+                &quot;id&quot;: 133,
                 &quot;name&quot;: &quot;voluptate accusamus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -35895,8 +35895,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_hieu_luc=architecto"\
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
-    --form "attachments[]=@/tmp/php25ks03ebcqndfTVxfWr" \
-    --form "attachments[]=@/tmp/php6fc01lm7icap9A7k2yA" </code></pre></div>
+    --form "attachments[]=@/tmp/phps6r8k1ickhp10NRl8f4" \
+    --form "attachments[]=@/tmp/phpv5ijgbmhc7sd0c4CoyK" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -36002,11 +36002,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/php25ks03ebcqndfTVxfWr', 'r')
+                'contents' =&gt; fopen('/tmp/phps6r8k1ickhp10NRl8f4', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/php6fc01lm7icap9A7k2yA', 'r')
+                'contents' =&gt; fopen('/tmp/phpv5ijgbmhc7sd0c4CoyK', 'r')
             ],
         ],
     ]
@@ -36024,7 +36024,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 53,
+        &quot;id&quot;: 60,
         &quot;so_ky_hieu&quot;: &quot;VB-9775/NG&quot;,
         &quot;ten_van_ban&quot;: &quot;Quos velit et fugiat sunt nihil.&quot;,
         &quot;noi_dung&quot;: &quot;Modi deserunt aut ab provident perspiciatis. Omnis nostrum aut adipisci quidem nostrum qui commodi. Iure odit et et modi ipsum nostrum omnis. Et consequatur aut dolores enim.\n\nTempora ex voluptatem laboriosam praesentium quis. Molestias fugit deleniti distinctio eum doloremque id. Libero aliquam veniam corporis dolorem mollitia deleniti.&quot;,
@@ -36034,33 +36034,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: &quot;12/10/1999&quot;,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 118,
+            &quot;id&quot;: 134,
             &quot;name&quot;: &quot;O&#039;Connell, Beier and Bradtke&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 118,
+            &quot;id&quot;: 134,
             &quot;name&quot;: &quot;ratione nemo&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 118,
+            &quot;id&quot;: 134,
             &quot;name&quot;: &quot;Michelle Cassin&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 118,
+                &quot;id&quot;: 134,
                 &quot;name&quot;: &quot;ducimus corrupti&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 118,
+                &quot;id&quot;: 134,
                 &quot;name&quot;: &quot;quia maiores&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -36347,7 +36347,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm. Example: <code>/tmp/php6fc01lm7icap9A7k2yA</code></p>
+<p>Nhiều file đính kèm. Example: <code>/tmp/phpv5ijgbmhc7sd0c4CoyK</code></p>
         </div>
         </form>
 
@@ -36384,8 +36384,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "attachments[]=@/tmp/phpeim4ais9g75r4COLGF7" \
-    --form "attachments[]=@/tmp/phpmsg150ve56t73akTbNe" </code></pre></div>
+    --form "attachments[]=@/tmp/php54haceak8fr93BYsfKS" \
+    --form "attachments[]=@/tmp/phpl40sihac42ii6sVsK59" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -36496,11 +36496,11 @@ $response = $client-&gt;put(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpeim4ais9g75r4COLGF7', 'r')
+                'contents' =&gt; fopen('/tmp/php54haceak8fr93BYsfKS', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpmsg150ve56t73akTbNe', 'r')
+                'contents' =&gt; fopen('/tmp/phpl40sihac42ii6sVsK59', 'r')
             ],
         ],
     ]
@@ -36518,7 +36518,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 54,
+        &quot;id&quot;: 61,
         &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
         &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
         &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -36528,33 +36528,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 119,
+            &quot;id&quot;: 135,
             &quot;name&quot;: &quot;Pagac-Emmerich&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 119,
+            &quot;id&quot;: 135,
             &quot;name&quot;: &quot;ut et&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 119,
+            &quot;id&quot;: 135,
             &quot;name&quot;: &quot;Graham Crist V&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 119,
+                &quot;id&quot;: 135,
                 &quot;name&quot;: &quot;dolores quia&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 119,
+                &quot;id&quot;: 135,
                 &quot;name&quot;: &quot;odit doloribus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -36880,7 +36880,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpmsg150ve56t73akTbNe</code></p>
+<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpl40sihac42ii6sVsK59</code></p>
         </div>
         </form>
 
@@ -36917,8 +36917,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "attachments[]=@/tmp/phpp7io3k7ftkva82MNpwQ" \
-    --form "attachments[]=@/tmp/phpunsova78t9og9e7r8iz" </code></pre></div>
+    --form "attachments[]=@/tmp/php15qs3e2ikad205VaagU" \
+    --form "attachments[]=@/tmp/php65lbjktbulcjduUYfzz" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -37029,11 +37029,11 @@ $response = $client-&gt;patch(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpp7io3k7ftkva82MNpwQ', 'r')
+                'contents' =&gt; fopen('/tmp/php15qs3e2ikad205VaagU', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpunsova78t9og9e7r8iz', 'r')
+                'contents' =&gt; fopen('/tmp/php65lbjktbulcjduUYfzz', 'r')
             ],
         ],
     ]
@@ -37051,7 +37051,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 55,
+        &quot;id&quot;: 62,
         &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
         &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
         &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -37061,33 +37061,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 120,
+            &quot;id&quot;: 136,
             &quot;name&quot;: &quot;Pagac-Emmerich&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 120,
+            &quot;id&quot;: 136,
             &quot;name&quot;: &quot;recusandae modi&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 120,
+            &quot;id&quot;: 136,
             &quot;name&quot;: &quot;Mona Lemke&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 120,
+                &quot;id&quot;: 136,
                 &quot;name&quot;: &quot;maiores assumenda&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 120,
+                &quot;id&quot;: 136,
                 &quot;name&quot;: &quot;iure impedit&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -37413,7 +37413,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpunsova78t9og9e7r8iz</code></p>
+<p>Nhiều file đính kèm (append). Example: <code>/tmp/php65lbjktbulcjduUYfzz</code></p>
         </div>
         </form>
 
@@ -37687,7 +37687,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 56,
+        &quot;id&quot;: 63,
         &quot;so_ky_hieu&quot;: &quot;VB-7680/WP&quot;,
         &quot;ten_van_ban&quot;: &quot;Qui commodi incidunt iure.&quot;,
         &quot;noi_dung&quot;: null,
@@ -37697,33 +37697,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 121,
+            &quot;id&quot;: 137,
             &quot;name&quot;: &quot;Smitham-Tromp&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 121,
+            &quot;id&quot;: 137,
             &quot;name&quot;: &quot;distinctio eum&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 121,
+            &quot;id&quot;: 137,
             &quot;name&quot;: &quot;Mathew Klocko&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 121,
+                &quot;id&quot;: 137,
                 &quot;name&quot;: &quot;dolorem mollitia&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 121,
+                &quot;id&quot;: 137,
                 &quot;name&quot;: &quot;excepturi doloribus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;08:54:44 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;08:54:44 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -37953,7 +37953,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 186,
+            &quot;id&quot;: 210,
             &quot;name&quot;: &quot;Architecto Eius&quot;,
             &quot;slug&quot;: &quot;architecto-eius&quot;,
             &quot;description&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
@@ -37963,11 +37963,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:41&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:41&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
         },
         {
-            &quot;id&quot;: 187,
+            &quot;id&quot;: 211,
             &quot;name&quot;: &quot;Deserunt Aut&quot;,
             &quot;slug&quot;: &quot;deserunt-aut&quot;,
             &quot;description&quot;: null,
@@ -37977,8 +37977,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:41&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:41&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -38241,12 +38241,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 188,
+            &quot;id&quot;: 212,
             &quot;name&quot;: &quot;Et Animi&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;
         },
         {
-            &quot;id&quot;: 189,
+            &quot;id&quot;: 213,
             &quot;name&quot;: &quot;Quo Omnis&quot;,
             &quot;description&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;
         }
@@ -38433,7 +38433,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Áp dụng cùng bộ lọc với index. Trả về file Excel.</p>
+<p>Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, slug, description, status, sort_order, parent_id, parent_slug, depth, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-post-categories-export">
 <blockquote>Example request:</blockquote>
@@ -38712,7 +38712,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: name. Cột không bắt buộc: slug (tự sinh từ name), description, status (mặc định &quot;active&quot;), sort_order (mặc định 0), parent_slug (slug của danh mục cha).</p>
 
 <span id="example-requests-POSTapi-post-categories-import">
 <blockquote>Example request:</blockquote>
@@ -38725,7 +38725,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpar87pudahd6h9yVFY8d" </code></pre></div>
+    --form "file=@/tmp/phpeb7d6t9rua4n4mvQMWL" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -38765,7 +38765,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpar87pudahd6h9yVFY8d', 'r')
+                'contents' =&gt; fopen('/tmp/phpeb7d6t9rua4n4mvQMWL', 'r')
             ],
         ],
     ]
@@ -38893,7 +38893,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột: name, slug, description, status, sort_order, parent_slug. Example: <code>/tmp/phpar87pudahd6h9yVFY8d</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpeb7d6t9rua4n4mvQMWL</code></p>
         </div>
         </form>
 
@@ -39889,7 +39889,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 195,
+            &quot;id&quot;: 219,
             &quot;name&quot;: &quot;Adipisci Quidem&quot;,
             &quot;slug&quot;: &quot;adipisci-quidem&quot;,
             &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
@@ -39899,11 +39899,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         },
         {
-            &quot;id&quot;: 196,
+            &quot;id&quot;: 220,
             &quot;name&quot;: &quot;Modi Ipsum&quot;,
             &quot;slug&quot;: &quot;modi-ipsum&quot;,
             &quot;description&quot;: &quot;Autem et consequatur aut dolores enim non facere tempora.&quot;,
@@ -39913,8 +39913,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         }
     ],
     &quot;links&quot;: {
@@ -40204,20 +40204,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 198,
+        &quot;id&quot;: 222,
         &quot;name&quot;: &quot;Aut Adipisci&quot;,
         &quot;slug&quot;: &quot;aut-adipisci&quot;,
         &quot;description&quot;: &quot;Qui commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;sort_order&quot;: 20,
-        &quot;parent_id&quot;: 197,
+        &quot;parent_id&quot;: 221,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;,
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 197,
+            &quot;id&quot;: 221,
             &quot;name&quot;: &quot;Nostrum Omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;,
             &quot;description&quot;: &quot;Consequatur aut dolores enim non facere tempora.&quot;,
@@ -40227,23 +40227,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 199,
+                &quot;id&quot;: 223,
                 &quot;name&quot;: &quot;Laboriosam Praesentium&quot;,
                 &quot;slug&quot;: &quot;laboriosam-praesentium&quot;,
                 &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
                 &quot;status&quot;: &quot;active&quot;,
                 &quot;sort_order&quot;: 61,
-                &quot;parent_id&quot;: 198,
+                &quot;parent_id&quot;: 222,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ]
     },
@@ -40466,7 +40466,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 200,
+        &quot;id&quot;: 224,
         &quot;name&quot;: &quot;Nostrum Qui&quot;,
         &quot;slug&quot;: &quot;nostrum-qui&quot;,
         &quot;description&quot;: &quot;Iure odit et et modi ipsum nostrum omnis.&quot;,
@@ -40476,8 +40476,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;depth&quot;: 0,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Danh mục đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -40747,20 +40747,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 202,
+        &quot;id&quot;: 226,
         &quot;name&quot;: &quot;Commodi Incidunt&quot;,
         &quot;slug&quot;: &quot;commodi-incidunt&quot;,
         &quot;description&quot;: &quot;Et et modi ipsum nostrum.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;sort_order&quot;: 41,
-        &quot;parent_id&quot;: 201,
+        &quot;parent_id&quot;: 225,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;,
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 201,
+            &quot;id&quot;: 225,
             &quot;name&quot;: &quot;Et Consequatur&quot;,
             &quot;slug&quot;: &quot;et-consequatur&quot;,
             &quot;description&quot;: &quot;Enim non facere tempora ex voluptatem laboriosam praesentium.&quot;,
@@ -40770,23 +40770,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 203,
+                &quot;id&quot;: 227,
                 &quot;name&quot;: &quot;Molestias Fugit&quot;,
                 &quot;slug&quot;: &quot;molestias-fugit&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;inactive&quot;,
                 &quot;sort_order&quot;: 7,
-                &quot;parent_id&quot;: 202,
+                &quot;parent_id&quot;: 226,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ]
     },
@@ -41083,20 +41083,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 205,
+        &quot;id&quot;: 229,
         &quot;name&quot;: &quot;Iure Odit&quot;,
         &quot;slug&quot;: &quot;iure-odit&quot;,
         &quot;description&quot;: &quot;Modi ipsum nostrum omnis autem et.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;sort_order&quot;: 84,
-        &quot;parent_id&quot;: 204,
+        &quot;parent_id&quot;: 228,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;,
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 204,
+            &quot;id&quot;: 228,
             &quot;name&quot;: &quot;Dolores Enim&quot;,
             &quot;slug&quot;: &quot;dolores-enim&quot;,
             &quot;description&quot;: &quot;Tempora ex voluptatem laboriosam praesentium quis.&quot;,
@@ -41106,23 +41106,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 206,
+                &quot;id&quot;: 230,
                 &quot;name&quot;: &quot;Fugit Deleniti&quot;,
                 &quot;slug&quot;: &quot;fugit-deleniti&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;active&quot;,
                 &quot;sort_order&quot;: 35,
-                &quot;parent_id&quot;: 205,
+                &quot;parent_id&quot;: 229,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ]
     },
@@ -41596,20 +41596,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 208,
+        &quot;id&quot;: 232,
         &quot;name&quot;: &quot;Quidem Nostrum&quot;,
         &quot;slug&quot;: &quot;quidem-nostrum&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;sort_order&quot;: 0,
-        &quot;parent_id&quot;: 207,
+        &quot;parent_id&quot;: 231,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;,
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 207,
+            &quot;id&quot;: 231,
             &quot;name&quot;: &quot;Et Et&quot;,
             &quot;slug&quot;: &quot;et-et&quot;,
             &quot;description&quot;: &quot;Nostrum omnis autem et consequatur aut.&quot;,
@@ -41619,23 +41619,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 209,
+                &quot;id&quot;: 233,
                 &quot;name&quot;: &quot;Non Facere&quot;,
                 &quot;slug&quot;: &quot;non-facere&quot;,
                 &quot;description&quot;: &quot;Voluptatem laboriosam praesentium quis adipisci.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
                 &quot;sort_order&quot;: 10,
-                &quot;parent_id&quot;: 208,
+                &quot;parent_id&quot;: 232,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ]
     },
@@ -41789,7 +41789,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Áp dụng cùng bộ lọc với index. Trả về file Excel.</p>
+<p>Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, title, slug, content, status, view_count, categories, created_by, updated_by, created_at, updated_at.</p>
 
 <span id="example-requests-GETapi-posts-export">
 <blockquote>Example request:</blockquote>
@@ -42082,7 +42082,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-
+<p>Cột bắt buộc: title, content. Cột không bắt buộc: status (mặc định &quot;published&quot;), categories (tên nối phẩy).</p>
 
 <span id="example-requests-POSTapi-posts-import">
 <blockquote>Example request:</blockquote>
@@ -42095,7 +42095,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpalno4vtke3da9KCQQlV" </code></pre></div>
+    --form "file=@/tmp/phpfi8ptaqvg8vnbGTvAfu" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -42135,7 +42135,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpalno4vtke3da9KCQQlV', 'r')
+                'contents' =&gt; fopen('/tmp/phpfi8ptaqvg8vnbGTvAfu', 'r')
             ],
         ],
     ]
@@ -42263,7 +42263,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpalno4vtke3da9KCQQlV</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpfi8ptaqvg8vnbGTvAfu</code></p>
         </div>
         </form>
 
@@ -43075,7 +43075,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 70,
+            &quot;id&quot;: 77,
             &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
             &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
             &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -43083,11 +43083,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;view_count&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         },
         {
-            &quot;id&quot;: 71,
+            &quot;id&quot;: 78,
             &quot;title&quot;: &quot;Alias tenetur ratione nemo voluptate accusamus ut et.&quot;,
             &quot;slug&quot;: &quot;alias-tenetur-ratione-nemo-voluptate-accusamus-ut-et&quot;,
             &quot;content&quot;: &quot;Rerum ex repellendus assumenda et. Ab reiciendis quia perspiciatis deserunt ducimus corrupti. Dolores quia maiores assumenda odit doloribus repellat officiis. Nesciunt ut ratione iure impedit molestiae ut rem.\n\nSint aut molestiae sunt suscipit. Fugiat ut aut deserunt et error neque recusandae. Ipsam dolorem et ut dicta vitae assumenda consequatur. Et sunt quisquam sit repellendus ut.\n\nRatione dolores sed rem ea ut. Deserunt sint quis in quod. Aspernatur consectetur id a consectetur assumenda eaque neque.&quot;,
@@ -43095,8 +43095,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;view_count&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
         }
     ],
     &quot;links&quot;: {
@@ -43398,7 +43398,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 72,
+        &quot;id&quot;: 79,
         &quot;title&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
         &quot;content&quot;: &quot;Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.\n\nAlias tenetur ratione nemo voluptate accusamus ut et. Modi rerum ex repellendus assumenda et tenetur.&quot;,
@@ -43406,7 +43406,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 190,
+                &quot;id&quot;: 214,
                 &quot;name&quot;: &quot;Reiciendis Quia&quot;,
                 &quot;slug&quot;: &quot;reiciendis-quia&quot;,
                 &quot;description&quot;: &quot;Ducimus corrupti et dolores quia maiores assumenda.&quot;,
@@ -43416,14 +43416,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -43769,8 +43769,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "content=Nội dung bài viết..."\
     --form "status=draft"\
     --form "category_ids[]=1"\
-    --form "images[]=@/tmp/phpu08f1akgt5i3aQa10xo" \
-    --form "images[]=@/tmp/phpali5d33ktn9gfx0iwqI" </code></pre></div>
+    --form "images[]=@/tmp/phpnej16h80hd7sewuogez" \
+    --form "images[]=@/tmp/phpm1mdmsnks1l1764vdTp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -43831,11 +43831,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpu08f1akgt5i3aQa10xo', 'r')
+                'contents' =&gt; fopen('/tmp/phpnej16h80hd7sewuogez', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpali5d33ktn9gfx0iwqI', 'r')
+                'contents' =&gt; fopen('/tmp/phpm1mdmsnks1l1764vdTp', 'r')
             ],
         ],
     ]
@@ -43853,7 +43853,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 73,
+        &quot;id&quot;: 80,
         &quot;title&quot;: &quot;Eius et animi quos velit et.&quot;,
         &quot;slug&quot;: &quot;eius-et-animi-quos-velit-et&quot;,
         &quot;content&quot;: &quot;Nihil accusantium harum mollitia modi deserunt. Ab provident perspiciatis quo omnis nostrum aut adipisci. Nostrum qui commodi incidunt iure.\n\nEt modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -43861,7 +43861,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 191,
+                &quot;id&quot;: 215,
                 &quot;name&quot;: &quot;Est Alias&quot;,
                 &quot;slug&quot;: &quot;est-alias&quot;,
                 &quot;description&quot;: &quot;Nemo voluptate accusamus ut et.&quot;,
@@ -43871,14 +43871,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -44055,7 +44055,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB). Example: <code>/tmp/phpali5d33ktn9gfx0iwqI</code></p>
+<p>Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB). Example: <code>/tmp/phpm1mdmsnks1l1764vdTp</code></p>
         </div>
         </form>
 
@@ -44083,8 +44083,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "status=architecto"\
     --form "category_ids[]=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "images[]=@/tmp/php8b0n1887rdba6BRyFpp" \
-    --form "images[]=@/tmp/php42pd69oelfk89p4cyBe" </code></pre></div>
+    --form "images[]=@/tmp/phpr7p89qshonpj6VumloN" \
+    --form "images[]=@/tmp/phpb2n3croj5k4aew9EbOZ" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -44150,11 +44150,11 @@ $response = $client-&gt;put(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/php8b0n1887rdba6BRyFpp', 'r')
+                'contents' =&gt; fopen('/tmp/phpr7p89qshonpj6VumloN', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/php42pd69oelfk89p4cyBe', 'r')
+                'contents' =&gt; fopen('/tmp/phpb2n3croj5k4aew9EbOZ', 'r')
             ],
         ],
     ]
@@ -44172,7 +44172,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 74,
+        &quot;id&quot;: 81,
         &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
         &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
         &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -44180,7 +44180,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 192,
+                &quot;id&quot;: 216,
                 &quot;name&quot;: &quot;Tenetur Ratione&quot;,
                 &quot;slug&quot;: &quot;tenetur-ratione&quot;,
                 &quot;description&quot;: null,
@@ -44190,14 +44190,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:42&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:42&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được cập nhật!&quot;
@@ -44413,7 +44413,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh mới (append). Example: <code>/tmp/php42pd69oelfk89p4cyBe</code></p>
+<p>Ảnh mới (append). Example: <code>/tmp/phpb2n3croj5k4aew9EbOZ</code></p>
         </div>
         </form>
 
@@ -44441,8 +44441,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "status=architecto"\
     --form "category_ids[]=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "images[]=@/tmp/phpab20gci22g9mfYaP0tf" \
-    --form "images[]=@/tmp/php98ei4utoabi39TITuK6" </code></pre></div>
+    --form "images[]=@/tmp/phpm3plc7b4dick29CznD2" \
+    --form "images[]=@/tmp/phphuci7nieaf3gaITfctM" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -44508,11 +44508,11 @@ $response = $client-&gt;patch(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpab20gci22g9mfYaP0tf', 'r')
+                'contents' =&gt; fopen('/tmp/phpm3plc7b4dick29CznD2', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/php98ei4utoabi39TITuK6', 'r')
+                'contents' =&gt; fopen('/tmp/phphuci7nieaf3gaITfctM', 'r')
             ],
         ],
     ]
@@ -44530,7 +44530,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 75,
+        &quot;id&quot;: 82,
         &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
         &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
         &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -44538,7 +44538,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 193,
+                &quot;id&quot;: 217,
                 &quot;name&quot;: &quot;Nemo Voluptate&quot;,
                 &quot;slug&quot;: &quot;nemo-voluptate&quot;,
                 &quot;description&quot;: &quot;Et recusandae modi rerum ex repellendus assumenda et.&quot;,
@@ -44548,14 +44548,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được cập nhật!&quot;
@@ -44771,7 +44771,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh mới (append). Example: <code>/tmp/php98ei4utoabi39TITuK6</code></p>
+<p>Ảnh mới (append). Example: <code>/tmp/phphuci7nieaf3gaITfctM</code></p>
         </div>
         </form>
 
@@ -45045,7 +45045,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 76,
+        &quot;id&quot;: 83,
         &quot;title&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
         &quot;content&quot;: &quot;Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.\n\nAlias tenetur ratione nemo voluptate accusamus ut et. Modi rerum ex repellendus assumenda et tenetur.&quot;,
@@ -45053,7 +45053,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 194,
+                &quot;id&quot;: 218,
                 &quot;name&quot;: &quot;Perspiciatis Deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;,
                 &quot;description&quot;: &quot;Et dolores quia maiores.&quot;,
@@ -45063,14 +45063,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 08:54:43&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 08:54:43&quot;
+        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;

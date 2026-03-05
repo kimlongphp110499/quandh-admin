@@ -223,6 +223,8 @@ class DocumentController extends Controller
     /**
      * Xuất Excel danh sách văn bản
      *
+     * Xuất ra các trường: id, so_ky_hieu, ten_van_ban, noi_dung, loai_van_ban, linh_vuc, co_quan_ban_hanh, cap_ban_hanh, nguoi_ky, ngay_ban_hanh, ngay_xuat_ban, ngay_hieu_luc, ngay_het_hieu_luc, status, created_by, updated_by, created_at, updated_at.
+     *
      * @queryParam search string Tìm theo số ký hiệu hoặc tên văn bản.
      * @queryParam status string Trạng thái: active, inactive.
      * @queryParam document_type_id integer Lọc theo loại văn bản.
@@ -239,7 +241,9 @@ class DocumentController extends Controller
     /**
      * Import Excel văn bản
      *
-     * @bodyParam file file required File Excel (xlsx, xls, csv).
+     * Cột không bắt buộc: so_ky_hieu, ten_van_ban, noi_dung, status (mặc định "active"). Quan hệ loại/lĩnh vực/cơ quan/cấp/người ký cần cấu hình riêng.
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import văn bản thành công."}
      */

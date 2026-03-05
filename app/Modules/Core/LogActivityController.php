@@ -79,6 +79,8 @@ class LogActivityController extends Controller
      * @queryParam status_code integer Mã HTTP (200, 400, 500...). Example: 200
      * @queryParam sort_by string id, description, route, method_type, status_code, ip_address, country, created_at.
      * @queryParam sort_order string asc, desc. Example: desc
+     *
+     * Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at.
      */
     public function export(FilterRequest $request)
     {

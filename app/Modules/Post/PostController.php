@@ -180,7 +180,7 @@ class PostController extends Controller
     /**
      * Xuất danh sách bài viết
      *
-     * Áp dụng cùng bộ lọc với index. Trả về file Excel.
+     * Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, title, slug, content, status, view_count, categories, created_by, updated_by, created_at, updated_at.
      *
      * @queryParam search string Từ khóa tìm kiếm (tiêu đề).
      * @queryParam status string Lọc theo trạng thái: draft, published, archived.
@@ -195,6 +195,8 @@ class PostController extends Controller
 
     /**
      * Nhập danh sách bài viết
+     *
+     * Cột bắt buộc: title, content. Cột không bắt buộc: status (mặc định "published"), categories (tên nối phẩy).
      *
      * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *

@@ -267,7 +267,7 @@ class OrganizationController extends Controller
     /**
      * Xuất danh sách organization
      *
-     * Áp dụng cùng bộ lọc với index. Trả về file Excel.
+     * Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, slug, description, status, parent_id, parent_slug, sort_order, depth, created_by, updated_by, created_at, updated_at.
      *
      * @queryParam search string Từ khóa tìm kiếm (name, slug).
      * @queryParam status string Lọc theo trạng thái: active, inactive.
@@ -284,7 +284,9 @@ class OrganizationController extends Controller
     /**
      * Nhập danh sách organization
      *
-     * @bodyParam file file required File excel (xlsx, xls, csv). Cột: name, slug, description, status.
+     * Cột bắt buộc: name. Cột không bắt buộc: slug, description, status (mặc định "active"), parent_id.
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import organization thành công."}
      */

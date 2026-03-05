@@ -16,9 +16,15 @@
     - **Bắt buộc**: Một module mới mặc định phải bao gồm các hàm: `stats`, `index`, `show`, `store`, `update`, `destroy`, `bulk delete`, `bulk update status`, `change status`, `export`, `import`.
     - **Bắt buộc**: Bộ lọc `index` phải có tìm kiếm theo tên (hoặc trường chính), trạng thái (`status`), khoảng ngày tạo (`created_at` từ ngày - đến ngày), và sắp xếp theo `id`, `created_at`, `updated_at` cùng các trường phù hợp (ví dụ: `title`, `sort_order`, `view_count`).
 
-- **Export**:
-    - **Bắt buộc**: Khi export Excel, luôn xuất đầy đủ các trường thông tin giống danh sách index (Resource).
+- **Export (xuất Excel)**:
+    - **Bắt buộc**: Xuất đầy đủ các trường thông tin giống danh sách index (Resource).
     - **Bắt buộc**: Các trường quan hệ (created_by, created_at, updated_by, updated_at, status, categories, ...) phải có trong export tương ứng index.
+    - **Scribe**: PHPDoc action `export` phải có mô tả "Xuất ra các trường: [liệt kê từng trường]".
+
+- **Import (nhập Excel)**:
+    - **Bắt buộc**: FormRequest validate `file` — `required|file|mimes:xlsx,xls,csv|max:10240`.
+    - **Bắt buộc**: Cột file khớp chuẩn Export; trường bắt buộc = required trong StoreRequest, trường không bắt buộc có default.
+    - **Scribe**: PHPDoc action `import` phải có mô tả "Cột bắt buộc: [liệt kê]. Cột không bắt buộc: [liệt kê, ghi rõ giá trị mặc định]".
 
 - **API Response (Trait RespondsWithJson)**:
     - **Bắt buộc**: Dùng trait `App\Modules\Core\Traits\RespondsWithJson` qua Controller base. Chuẩn response: `success` (bool), `message` (optional), `data` (optional).
@@ -69,6 +75,9 @@
         - **Bắt buộc**: `@queryParam` cho tham số query (search, status, sort_by, sort_order, limit, from_date, to_date, ...): ghi rõ kiểu, mô tả, Example nếu cần.
         - **Bắt buộc**: `@urlParam` cho tham số đường dẫn (ví dụ: `{user}`, `{id}`): required/optional, mô tả, Example.
         - **Bắt buộc**: `@bodyParam` cho request body (POST/PUT/PATCH): tên trường, kiểu, required/optional, mô tả, Example.
+        - **Bắt buộc** với action **export**: Ghi rõ "Xuất ra các trường: id, [các trường chính], status, [quan hệ nếu có], created_by, updated_by, created_at, updated_at" (liệt kê đúng Export class).
+        - **Bắt buộc** với action **import**: Ghi rõ "Cột bắt buộc: [name, email, ...]. Cột không bắt buộc: [status mặc định active, password mặc định password, ...]" trong mô tả hoặc @bodyParam file.
+        - **Bắt buộc** với endpoint **yêu cầu X-Organization-Id**: Thêm `@header X-Organization-Id` (required, ID tổ chức làm việc).
         - **Khuyến nghị**: `@response` hoặc `@responseField` khi cần mô tả response mẫu cụ thể.
     - **Bắt buộc**: Đồng bộ chuẩn module, mỗi action (stats, index, show, store, update, destroy, bulkDestroy, bulkUpdateStatus, changeStatus, export, import) phải có block PHPDoc đầy đủ tham số.
     - **Khuyến nghị**: Tham khảo style trong `app/Modules/Post/PostController.php` và `app/Modules/Post/PostCategoryController.php`.

@@ -177,7 +177,7 @@ class UserController extends Controller
     /**
      * Xuất danh sách người dùng
      *
-     * Áp dụng cùng bộ lọc với index. Trả về file Excel.
+     * Áp dụng cùng bộ lọc với index. Xuất ra các trường: id, name, email, user_name, status, created_by, updated_by, created_at, updated_at.
      *
      * @queryParam search string Từ khóa tìm kiếm (name, email).
      * @queryParam status string Lọc theo trạng thái: active, inactive, banned.
@@ -193,7 +193,9 @@ class UserController extends Controller
     /**
      * Nhập danh sách người dùng
      *
-     * @bodyParam file file required File excel (xlsx, xls, csv). Cột: name, email, password, status.
+     * Cột bắt buộc: name, email. Cột không bắt buộc: user_name, password (mặc định "password"), status (mặc định "active").
+     *
+     * @bodyParam file file required File Excel (xlsx, xls, csv). Cột theo chuẩn export.
      *
      * @response 200 {"success": true, "message": "Import người dùng thành công."}
      */
