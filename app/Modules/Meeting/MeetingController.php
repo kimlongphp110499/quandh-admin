@@ -5,7 +5,10 @@ namespace App\Modules\Meeting;
 use App\Http\Controllers\Controller;
 use App\Modules\Core\Requests\FilterRequest;
 use App\Modules\Meeting\Models\Meeting;
+use App\Modules\Meeting\Requests\BulkDestroyMeetingRequest;
+use App\Modules\Meeting\Requests\BulkUpdateStatusMeetingRequest;
 use App\Modules\Meeting\Requests\ChangeMeetingStatusRequest;
+use App\Modules\Meeting\Requests\ImportMeetingRequest;
 use App\Modules\Meeting\Requests\StoreMeetingRequest;
 use App\Modules\Meeting\Requests\UpdateMeetingRequest;
 use App\Modules\Meeting\Resources\MeetingCollection;
@@ -125,4 +128,62 @@ class MeetingController extends Controller
 
         return $this->successResource(new MeetingResource($meeting), 'Trạng thái cuộc họp đã được cập nhật!');
     }
-}
+    /**
+     * Xóa hàng loạt cuộc họ p
+     *
+     * @bodyParam ids array required Danh sách ID cuộc họ p. Example: [1, 2, 3]
+     *
+     * @response 200 {"success": true, "message": "Đã xóa thành công các cuộc họ p được chọ n!"}
+     */
+    public function bulkDestroy(BulkDestroyMeetingRequest $request)
+    {
+        $this->meetingService->bulkDestroy($request->ids);
+
+        return $this->success(null, 'Đã xóa thành công các cuộc họp được chọn!');
+    }
+
+    /**
+     * Cập nhật trạng thái hàng loạt cuộc họp
+     *
+     * @bodyParam ids array required Danh sách ID. Example: [1, 2]
+     * @bodyParam status string required Trạng thái: draft, active, in_progress, ended. Example: active
+     *
+     * @response 200 {"success": true, "message": "Cập nhật trạng thái thành công!"}
+     */
+    public function bulkUpdateStatus(BulkUpdateStatusMeetingRequest $request)
+    {
+        $this->meetingService->bulkUpdateStatus($request->ids, $request->status);
+
+        return $this->success(null, 'Cập nhật trạng thái thành công các cuộc họp được chọn!');
+    }
+
+    /**
+     * Xuất danh sách cuộc họ p
+     *
+     * Áp dụng cùng bộ lọc với index. Xuất ra file meetings.xlsx.
+     *
+     * @queryParam search string Từ khóa tìm kiếm.
+     * @queryParam status string Lọc trạng thái.
+     * @queryParam from_date date Từ ngày.
+     * @queryParam to_date date Đến ngày.
+     */
+    public function export(FilterRequest $request)
+    {
+        return $this->meetingService->export($request->all());
+    }
+
+    /**
+     * Nhập danh sách cuộc họ p
+     *
+     * Cột bắt buộc: title. Cột không bắt buộc: description, location, start_at, end_at, status.
+     *
+     * @bodyParam file file required File xlsx, xls hoặc csv.
+     *
+     * @response 200 {"success": true, "message": "Nhập dữ liệu cuộc họ p thành công!"}
+     */
+    public function import(ImportMeetingRequest $request)
+    {
+        $this->meetingService->import($request->file('file'));
+
+        return $this->success(null, 'Nhập dữ liệu cuộc họ p thành công!');
+    }}

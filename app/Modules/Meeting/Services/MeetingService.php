@@ -3,8 +3,12 @@
 namespace App\Modules\Meeting\Services;
 
 use App\Modules\Meeting\Enums\MeetingStatusEnum;
+use App\Modules\Meeting\Exports\MeetingsExport;
+use App\Modules\Meeting\Imports\MeetingsImport;
 use App\Modules\Meeting\Models\Meeting;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class MeetingService
 {
@@ -56,5 +60,25 @@ class MeetingService
         $meeting->update(['status' => $status]);
 
         return $meeting->fresh();
+    }
+
+    public function bulkDestroy(array $ids): void
+    {
+        Meeting::destroy($ids);
+    }
+
+    public function bulkUpdateStatus(array $ids, string $status): void
+    {
+        Meeting::whereIn('id', $ids)->update(['status' => $status]);
+    }
+
+    public function export(array $filters): BinaryFileResponse
+    {
+        return Excel::download(new MeetingsExport($filters), 'meetings.xlsx');
+    }
+
+    public function import($file): void
+    {
+        Excel::import(new MeetingsImport, $file);
     }
 }
