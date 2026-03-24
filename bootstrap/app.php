@@ -38,4 +38,22 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 403);
             }
         });
+        $exceptions->renderable(function (\Illuminate\Auth\Access\AuthorizationException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'Không có quyền truy cập',
+                    'code' => 'FORBIDDEN',
+                ], 403);
+            }
+        });
+        $exceptions->renderable(function (\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage() ?: 'Không có quyền truy cập',
+                    'code' => 'FORBIDDEN',
+                ], 403);
+            }
+        });
     })->create();

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Modules\Core\Traits\RespondsWithJson;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 abstract class Controller
 {
-    use RespondsWithJson;
+    use AuthorizesRequests, RespondsWithJson;
 }

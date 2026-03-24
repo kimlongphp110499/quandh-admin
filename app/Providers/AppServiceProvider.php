@@ -2,10 +2,20 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Modules\Meeting\Models\PersonalNote;
+use App\Modules\Meeting\Policies\PersonalNotePolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider extends AuthServiceProvider
 {
+    /**
+     * Các policy đăng ký cho ứng dụng.
+     */
+    protected $policies = [
+        PersonalNote::class => PersonalNotePolicy::class,
+    ];
+
     /**
      * Register any application services.
      */
@@ -19,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerPolicies();
     }
 }
