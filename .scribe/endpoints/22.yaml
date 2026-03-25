@@ -1,0 +1,544 @@
+name: 'Meeting - Kết luận'
+description: |-
+
+  Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+  Kết luận có thể gắn với một mục chương trình cụ thể.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/meetings/{meeting_id}/conclusions'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Kết luận'
+      groupDescription: |-
+
+        Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+        Kết luận có thể gắn với một mục chương trình cụ thể.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Danh sách kết luận của cuộc họp'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      meeting: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "data": [{"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách", "content": "Thống nhất tăng ngân sách CNTT 20%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:00:00"}]}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/meetings/{meeting_id}/conclusions'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Kết luận'
+      groupDescription: |-
+
+        Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+        Kết luận có thể gắn với một mục chương trình cụ thể.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Tạo kết luận mới'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      meeting: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      agenda_id:
+        custom: []
+        name: agenda_id
+        description: 'Gắn với mục chương trình (nullable).'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Tiêu đề kết luận.'
+        required: true
+        example: 'Kết luận về ngân sách'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: 'Nội dung chi tiết kết luận.'
+        required: true
+        example: 'Thống nhất tăng ngân sách CNTT 20%'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      agenda_id: 2
+      title: 'Kết luận về ngân sách'
+      content: 'Thống nhất tăng ngân sách CNTT 20%'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: '{"success": true, "message": "Kết luận đã được ghi nhận!", "data": {"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách", "content": "Thống nhất tăng ngân sách CNTT 20%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:00:00"}}'
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 422
+        content: '{"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"title": ["Tiêu đề kết luận không được để trống."], "content": ["Nội dung kết luận không được để trống."]}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/meetings/{meeting_id}/conclusions/{conclusion_id}'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Kết luận'
+      groupDescription: |-
+
+        Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+        Kết luận có thể gắn với một mục chương trình cụ thể.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cập nhật kết luận'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      conclusion_id:
+        custom: []
+        name: conclusion_id
+        description: 'The ID of the conclusion.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      conclusion:
+        custom: []
+        name: conclusion
+        description: 'ID kết luận.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      conclusion_id: 1
+      meeting: 1
+      conclusion: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      agenda_id:
+        custom: []
+        name: agenda_id
+        description: 'ID mục chương trình (nullable).'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Tiêu đề kết luận.'
+        required: false
+        example: 'Kết luận về ngân sách (cập nhật)'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: 'Nội dung kết luận.'
+        required: false
+        example: 'Thống nhất tăng ngân sách CNTT 25%'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      agenda_id: 2
+      title: 'Kết luận về ngân sách (cập nhật)'
+      content: 'Thống nhất tăng ngân sách CNTT 25%'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "message": "Kết luận đã được cập nhật!", "data": {"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách (cập nhật)", "content": "Thống nhất tăng ngân sách CNTT 25%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:30:00"}}'
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 404
+        content: '{"success": false, "message": "Không tìm thấy kết luận."}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'api/meetings/{meeting_id}/conclusions/{conclusion_id}'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Kết luận'
+      groupDescription: |-
+
+        Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+        Kết luận có thể gắn với một mục chương trình cụ thể.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cập nhật kết luận'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      conclusion_id:
+        custom: []
+        name: conclusion_id
+        description: 'The ID of the conclusion.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      conclusion:
+        custom: []
+        name: conclusion
+        description: 'ID kết luận.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      conclusion_id: 1
+      meeting: 1
+      conclusion: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      agenda_id:
+        custom: []
+        name: agenda_id
+        description: 'ID mục chương trình (nullable).'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      title:
+        custom: []
+        name: title
+        description: 'Tiêu đề kết luận.'
+        required: false
+        example: 'Kết luận về ngân sách (cập nhật)'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: 'Nội dung kết luận.'
+        required: false
+        example: 'Thống nhất tăng ngân sách CNTT 25%'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      agenda_id: 2
+      title: 'Kết luận về ngân sách (cập nhật)'
+      content: 'Thống nhất tăng ngân sách CNTT 25%'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "message": "Kết luận đã được cập nhật!", "data": {"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách (cập nhật)", "content": "Thống nhất tăng ngân sách CNTT 25%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:30:00"}}'
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 404
+        content: '{"success": false, "message": "Không tìm thấy kết luận."}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/meetings/{meeting_id}/conclusions/{conclusion_id}'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Kết luận'
+      groupDescription: |-
+
+        Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+        Kết luận có thể gắn với một mục chương trình cụ thể.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Xóa kết luận'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      conclusion_id:
+        custom: []
+        name: conclusion_id
+        description: 'The ID of the conclusion.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      conclusion:
+        custom: []
+        name: conclusion
+        description: 'ID kết luận.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      conclusion_id: 1
+      meeting: 1
+      conclusion: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "message": "Kết luận đã được xóa!"}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null

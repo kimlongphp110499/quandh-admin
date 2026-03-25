@@ -50,6 +50,8 @@ class MeetingController extends Controller
      * @queryParam sort_by string Sắp xếp theo: id, title, start_at, end_at, created_at. Example: start_at
      * @queryParam sort_order string Thứ tự: asc, desc. Example: desc
      * @queryParam limit integer Số bản ghi mỗi trang (1-100). Example: 10
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "title": "Họp tháng 3/2026", "description": "Cuộc họp định kỳ", "location": "Phòng họp A", "start_at": "25/03/2026 08:00", "end_at": "25/03/2026 10:00", "status": "active", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 07:00:00", "updated_at": "25/03/2026 07:00:00"}], "meta": {"current_page": 1, "last_page": 1, "per_page": 10, "total": 1}}
      */
     public function index(FilterRequest $request)
     {
@@ -62,6 +64,9 @@ class MeetingController extends Controller
      * Chi tiết cuộc họp
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @response 200 {"success": true, "data": {"id": 1, "title": "Họp tháng 3/2026", "description": "Cuộc họp định kỳ", "location": "Phòng họp A", "start_at": "25/03/2026 08:00", "end_at": "25/03/2026 10:00", "status": "active", "agendas": [], "participants": [], "documents": [], "conclusions": [], "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 07:00:00", "updated_at": "25/03/2026 07:00:00"}}
+     * @response 404 {"success": false, "message": "Không tìm thấy cuộc họp."}
      */
     public function show(Meeting $meeting)
     {
@@ -74,10 +79,14 @@ class MeetingController extends Controller
      * Tạo cuộc họp mới
      *
      * @bodyParam title string required Tiêu đề cuộc họp. Example: Họp tháng 3/2026
-     * @bodyParam description string Mô tả.
+     * @bodyParam description string Mô tả. Example: Cuộc họp định kỳ tháng 3
      * @bodyParam location string Địa điểm. Example: Phòng họp A
      * @bodyParam start_at datetime Thời gian bắt đầu. Example: 2026-03-25 08:00:00
      * @bodyParam end_at datetime Thời gian kết thúc. Example: 2026-03-25 10:00:00
+     * @bodyParam status string Trạng thái ban đầu (mặc định: draft). Example: draft
+     *
+     * @response 201 {"success": true, "message": "Cuộc họp đã được tạo thành công!", "data": {"id": 1, "title": "Họp tháng 3/2026", "description": "Cuộc họp định kỳ tháng 3", "location": "Phòng họp A", "start_at": "25/03/2026 08:00", "end_at": "25/03/2026 10:00", "status": "draft", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 07:00:00", "updated_at": "25/03/2026 07:00:00"}}
+     * @response 422 {"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"title": ["Tiêu đề cuộc họp không được để trống."]}}
      */
     public function store(StoreMeetingRequest $request)
     {
@@ -90,6 +99,14 @@ class MeetingController extends Controller
      * Cập nhật cuộc họp
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
+     * @bodyParam title string Tiêu đề cuộc họp. Example: Họp tháng 3/2026 (cập nhật)
+     * @bodyParam description string Mô tả. Example: Nội dung cuộc họp đã được cập nhật
+     * @bodyParam location string Địa điểm. Example: Phòng họp B
+     * @bodyParam start_at datetime Thời gian bắt đầu. Example: 2026-03-26 09:00:00
+     * @bodyParam end_at datetime Thời gian kết thúc. Example: 2026-03-26 11:00:00
+     *
+     * @response 200 {"success": true, "message": "Cuộc họp đã được cập nhật!", "data": {"id": 1, "title": "Họp tháng 3/2026 (cập nhật)", "description": "Nội dung cuộc họp đã được cập nhật", "location": "Phòng họp B", "start_at": "26/03/2026 09:00", "end_at": "26/03/2026 11:00", "status": "draft", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 07:00:00", "updated_at": "25/03/2026 08:00:00"}}
+     * @response 404 {"success": false, "message": "Không tìm thấy cuộc họp."}
      */
     public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {
@@ -158,7 +175,7 @@ class MeetingController extends Controller
     }
 
     /**
-     * Xuất danh sách cuộc họ p
+     * Xuất danh sách cuộc họp
      *
      * Áp dụng cùng bộ lọc với index. Xuất ra file meetings.xlsx.
      *
@@ -166,6 +183,8 @@ class MeetingController extends Controller
      * @queryParam status string Lọc trạng thái.
      * @queryParam from_date date Từ ngày.
      * @queryParam to_date date Đến ngày.
+     *
+     * @response 200 scenario="File Excel" {}
      */
     public function export(FilterRequest $request)
     {

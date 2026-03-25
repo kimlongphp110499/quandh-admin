@@ -26,6 +26,8 @@ class PersonalNoteController extends Controller
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @queryParam document_id integer Lọc theo ID tài liệu. Example: 5
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "meeting_id": 1, "meeting_document_id": 3, "content": "Cần xem xét lại điều khoản 5.", "created_at": "25/03/2026 08:10:00", "updated_at": "25/03/2026 08:10:00"}]}
      */
     public function index(Request $request, Meeting $meeting)
     {
@@ -42,6 +44,9 @@ class PersonalNoteController extends Controller
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @bodyParam content string required Nội dung ghi chú. Example: Cần xem xét lại điều khoản 5.
      * @bodyParam meeting_document_id integer ID tài liệu (để gắn ghi chú với tài liệu cụ thể). Example: 3
+     *
+     * @response 200 {"success": true, "message": "Ghi chú đã được lưu!", "data": {"id": 1, "meeting_id": 1, "meeting_document_id": 3, "content": "Cần xem xét lại điều khoản 5.", "created_at": "25/03/2026 08:10:00", "updated_at": "25/03/2026 08:10:00"}}
+     * @response 422 {"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"content": ["Nội dung ghi chú không được để trống."]}}
      */
     public function upsert(StorePersonalNoteRequest $request, Meeting $meeting)
     {

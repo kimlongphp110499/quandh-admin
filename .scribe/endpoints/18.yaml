@@ -1,0 +1,286 @@
+name: 'Meeting - Tài liệu họp'
+description: |-
+
+  Upload và quản lý tài liệu đính kèm cuộc họp.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/meetings/{meeting_id}/documents'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Tài liệu họp'
+      groupDescription: |-
+
+        Upload và quản lý tài liệu đính kèm cuộc họp.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Danh sách tài liệu của cuộc họp'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      meeting: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "data": [{"id": 1, "meeting_id": 1, "name": "Báo cáo tháng 3", "type": "Biên bản", "url": "https://example.com/storage/documents/baocao.pdf", "file_type": "pdf", "uploaded_by": "Admin", "created_at": "25/03/2026 07:30:00"}]}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/meetings/{meeting_id}/documents'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Tài liệu họp'
+      groupDescription: |-
+
+        Upload và quản lý tài liệu đính kèm cuộc họp.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Upload tài liệu họp'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      meeting: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      documents:
+        custom: []
+        name: documents
+        description: 'Must be a file. Must not be greater than 51200 kilobytes.'
+        required: false
+        example:
+          - null
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Tên hiển thị (áp dụng cho tất cả file upload).'
+        required: false
+        example: 'Báo cáo tháng 3'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: 'Loại tài liệu do người dùng nhập.'
+        required: false
+        example: 'Biên bản'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      'documents[]':
+        custom: []
+        name: 'documents[]'
+        description: 'File tài liệu (pdf, doc, docx, xls, xlsx, ppt, pptx, tối đa 50MB mỗi file).'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Báo cáo tháng 3'
+      type: 'Biên bản'
+    fileParameters:
+      documents:
+        - null
+      'documents[]': null
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "message": "Tài liệu đã được tải lên thành công!", "data": [{"id": 1, "meeting_id": 1, "name": "Báo cáo tháng 3", "type": "Biên bản", "url": "https://example.com/storage/documents/baocao.pdf", "file_type": "pdf", "uploaded_by": "Admin", "created_at": "25/03/2026 07:30:00"}]}'
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 422
+        content: '{"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"documents": ["Phải chọn ít nhất 1 tài liệu."], "documents.0": ["Chỉ chấp nhận file: pdf, doc, docx, xls, xlsx, ppt, pptx, txt, png, jpg, jpeg."]}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/meetings/{meeting_id}/documents/{document_id}'
+    metadata:
+      custom: []
+      groupName: 'Meeting - Tài liệu họp'
+      groupDescription: |-
+
+        Upload và quản lý tài liệu đính kèm cuộc họp.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Xóa tài liệu họp'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meeting_id:
+        custom: []
+        name: meeting_id
+        description: 'The ID of the meeting.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      document_id:
+        custom: []
+        name: document_id
+        description: 'The ID of the document.'
+        required: true
+        example: 9
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      meeting:
+        custom: []
+        name: meeting
+        description: 'ID cuộc họp.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      document:
+        custom: []
+        name: document
+        description: 'ID tài liệu.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      meeting_id: 2
+      document_id: 9
+      meeting: 16
+      document: 16
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success": true, "message": "Tài liệu đã được xóa!"}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null

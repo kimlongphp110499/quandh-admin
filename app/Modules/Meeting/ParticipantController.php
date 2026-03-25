@@ -29,6 +29,8 @@ class ParticipantController extends Controller
      * Danh sách đại biểu
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "meeting_id": 1, "user_id": 2, "user_name": "Nguyễn Văn A", "user_email": "nguyenvana@example.com", "position": "Trưởng phòng CNTT", "meeting_role": "delegate", "attendance_status": "not_arrived", "checkin_at": null, "absence_reason": null, "created_at": "25/03/2026 07:00:00"}]}
      */
     public function index(Meeting $meeting)
     {
@@ -39,8 +41,11 @@ class ParticipantController extends Controller
     /**
      * Chi tiết đại biểu
      *
-     * @urlParam meeting integer required ID cuộc họ p. Example: 1
+     * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @urlParam participant integer required ID đại biểu. Example: 1
+     *
+     * @response 200 {"success": true, "data": {"id": 1, "meeting_id": 1, "user_id": 2, "user_name": "Nguyễn Văn A", "user_email": "nguyenvana@example.com", "position": "Trưởng phòng CNTT", "meeting_role": "delegate", "attendance_status": "not_arrived", "checkin_at": null, "absence_reason": null, "created_at": "25/03/2026 07:00:00"}}
+     * @response 404 {"success": false, "message": "Không tìm thấy đại biểu."}
      */
     public function show(Meeting $meeting, Participant $participant)
     {
@@ -57,6 +62,9 @@ class ParticipantController extends Controller
      * @bodyParam user_ids array required Danh sách ID người dùng. Example: [1, 2, 3]
      * @bodyParam meeting_role string required Vai trò: chair, secretary, delegate. Example: delegate
      * @bodyParam position string Chức vụ (tên chức danh). Example: Trưởng phòng CNTT
+     *
+     * @response 200 {"success": true, "message": "Đại biểu đã được thêm vào cuộc họp!", "data": [{"id": 1, "meeting_id": 1, "user_id": 2, "user_name": "Nguyễn Văn A", "user_email": "nguyenvana@example.com", "position": "Trưởng phòng CNTT", "meeting_role": "delegate", "attendance_status": "not_arrived", "checkin_at": null, "absence_reason": null, "created_at": "25/03/2026 07:00:00"}]}
+     * @response 422 {"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"user_ids": ["Danh sách ID người dùng không được để trống."], "meeting_role": ["Vai trò không hợp lệ."]}}
      */
     public function store(StoreParticipantRequest $request, Meeting $meeting)
     {
@@ -70,8 +78,10 @@ class ParticipantController extends Controller
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @urlParam participant integer required ID đại biểu. Example: 1
-     * @bodyParam meeting_role string Vai trò: chair, secretary, delegate.
-     * @bodyParam position string Chức vụ.
+     * @bodyParam meeting_role string Vai trò: chair, secretary, delegate. Example: secretary
+     * @bodyParam position string Chức vụ. Example: Thư ký cuộc họp
+     *
+     * @response 200 {"success": true, "message": "Thông tin đại biểu đã được cập nhật!", "data": {"id": 1, "meeting_id": 1, "user_id": 2, "user_name": "Nguyễn Văn A", "user_email": "nguyenvana@example.com", "position": "Thư ký cuộc họp", "meeting_role": "secretary", "attendance_status": "not_arrived", "checkin_at": null, "absence_reason": null, "created_at": "25/03/2026 07:00:00"}}
      */
     public function update(UpdateParticipantRequest $request, Meeting $meeting, Participant $participant)
     {
@@ -103,7 +113,10 @@ class ParticipantController extends Controller
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @urlParam participant integer required ID đại biểu. Example: 1
      * @bodyParam attendance_status string required Trạng thái: not_arrived, present, absent. Example: present
-     * @bodyParam absence_reason string Lý do vắng (yêu cầu khi absent).
+     * @bodyParam absence_reason string Lý do vắng (yêu cầu khi absent). Example: Bị bệnh
+     *
+     * @response 200 {"success": true, "message": "Điểm danh thành công!", "data": {"id": 1, "meeting_id": 1, "user_id": 2, "user_name": "Nguyễn Văn A", "user_email": "nguyenvana@example.com", "position": "Trưởng phòng CNTT", "meeting_role": "delegate", "attendance_status": "present", "checkin_at": "25/03/2026 08:05:00", "absence_reason": null, "created_at": "25/03/2026 07:00:00"}}
+     * @response 422 {"success": false, "message": "Đại biểu đã điểm danh rồi."}
      */
     public function checkin(CheckinRequest $request, Meeting $meeting, Participant $participant)
     {
@@ -128,7 +141,9 @@ class ParticipantController extends Controller
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @urlParam participant integer required ID đại biểu. Example: 1
      * @bodyParam attendance_status string required Trạng thái: not_arrived, present, absent. Example: present
-     * @bodyParam absence_reason string Lý do vắng (yêu cầu khi absent).
+     * @bodyParam absence_reason string Lý do vắng (yêu cầu khi absent). Example: Bị bệnh
+     *
+     * @response 200 {"success": true, "message": "Trạng thái điểm danh đã được cập nhật!", "data": {"id": 1, "meeting_id": 1, "user_id": 2, "user_name": "Nguyễn Văn A", "user_email": "nguyenvana@example.com", "position": "Trưởng phòng CNTT", "meeting_role": "delegate", "attendance_status": "absent", "checkin_at": null, "absence_reason": "Bị bệnh", "created_at": "25/03/2026 07:00:00"}}
      */
     public function changeStatus(CheckinRequest $request, Meeting $meeting, Participant $participant)
     {
@@ -175,7 +190,11 @@ class ParticipantController extends Controller
     /**
      * Xuất danh sách đại biểu
      *
+     * Xuất file Excel chứa danh sách đại biểu cùng trạng thái điểm danh.
+     *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @response 200 scenario="File Excel" {}
      */
     public function export(Meeting $meeting)
     {

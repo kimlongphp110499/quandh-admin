@@ -23,6 +23,8 @@ class MeetingDocumentController extends Controller
      * Danh sách tài liệu của cuộc họp
      *
      * @urlParam meeting integer required ID cuộc họp.
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "meeting_id": 1, "name": "Báo cáo tháng 3", "type": "Biên bản", "url": "https://example.com/storage/documents/baocao.pdf", "file_type": "pdf", "uploaded_by": "Admin", "created_at": "25/03/2026 07:30:00"}]}
      */
     public function index(Meeting $meeting)
     {
@@ -38,6 +40,9 @@ class MeetingDocumentController extends Controller
      * @bodyParam documents[] file required File tài liệu (pdf, doc, docx, xls, xlsx, ppt, pptx, tối đa 50MB mỗi file).
      * @bodyParam name string Tên hiển thị (áp dụng cho tất cả file upload). Example: Báo cáo tháng 3
      * @bodyParam type string Loại tài liệu do người dùng nhập. Example: Biên bản
+     *
+     * @response 200 {"success": true, "message": "Tài liệu đã được tải lên thành công!", "data": [{"id": 1, "meeting_id": 1, "name": "Báo cáo tháng 3", "type": "Biên bản", "url": "https://example.com/storage/documents/baocao.pdf", "file_type": "pdf", "uploaded_by": "Admin", "created_at": "25/03/2026 07:30:00"}]}
+     * @response 422 {"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"documents": ["Phải chọn ít nhất 1 tài liệu."], "documents.0": ["Chỉ chấp nhận file: pdf, doc, docx, xls, xlsx, ppt, pptx, txt, png, jpg, jpeg."]}}
      */
     public function store(UploadMeetingDocumentRequest $request, Meeting $meeting)
     {

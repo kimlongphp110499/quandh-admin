@@ -25,6 +25,8 @@ class ConclusionController extends Controller
      * Danh sách kết luận của cuộc họp
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách", "content": "Thống nhất tăng ngân sách CNTT 20%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:00:00"}]}
      */
     public function index(Meeting $meeting)
     {
@@ -38,8 +40,11 @@ class ConclusionController extends Controller
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @bodyParam title string required Tiêu đề kết luận. Example: Kết luận về ngân sách
-     * @bodyParam content string required Nội dung chi tiết kết luận.
+     * @bodyParam content string required Nội dung chi tiết kết luận. Example: Thống nhất tăng ngân sách CNTT 20%
      * @bodyParam agenda_id integer Gắn với mục chương trình (nullable). Example: 2
+     *
+     * @response 201 {"success": true, "message": "Kết luận đã được ghi nhận!", "data": {"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách", "content": "Thống nhất tăng ngân sách CNTT 20%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:00:00"}}
+     * @response 422 {"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"title": ["Tiêu đề kết luận không được để trống."], "content": ["Nội dung kết luận không được để trống."]}}
      */
     public function store(StoreConclusionRequest $request, Meeting $meeting)
     {
@@ -53,6 +58,12 @@ class ConclusionController extends Controller
      *
      * @urlParam meeting integer required ID cuộc họp. Example: 1
      * @urlParam conclusion integer required ID kết luận. Example: 1
+     * @bodyParam title string Tiêu đề kết luận. Example: Kết luận về ngân sách (cập nhật)
+     * @bodyParam content string Nội dung kết luận. Example: Thống nhất tăng ngân sách CNTT 25%
+     * @bodyParam agenda_id integer ID mục chương trình (nullable). Example: 2
+     *
+     * @response 200 {"success": true, "message": "Kết luận đã được cập nhật!", "data": {"id": 1, "meeting_id": 1, "agenda_id": 2, "agenda_title": "Thảo luận kế hoạch Q2", "title": "Kết luận về ngân sách (cập nhật)", "content": "Thống nhất tăng ngân sách CNTT 25%", "created_by": "Admin", "updated_by": "Admin", "created_at": "25/03/2026 09:00:00", "updated_at": "25/03/2026 09:30:00"}}
+     * @response 404 {"success": false, "message": "Không tìm thấy kết luận."}
      */
     public function update(UpdateConclusionRequest $request, Meeting $meeting, Conclusion $conclusion)
     {

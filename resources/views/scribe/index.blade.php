@@ -31,9 +31,9 @@
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="{{ asset("/vendor/scribe/js/tryitout-5.7.0.js") }}"></script>
+    <script src="{{ asset("/vendor/scribe/js/tryitout-5.8.0.js") }}"></script>
 
-    <script src="{{ asset("/vendor/scribe/js/theme-default-5.7.0.js") }}"></script>
+    <script src="{{ asset("/vendor/scribe/js/theme-default-5.8.0.js") }}"></script>
 
 </head>
 
@@ -603,6 +603,215 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-meeting-bieu-quyet" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-bieu-quyet">
+                    <a href="#meeting-bieu-quyet">Meeting - Biểu quyết</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-bieu-quyet" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-bieu-quyet-GETapi-meetings--meeting_id--votings">
+                                <a href="#meeting-bieu-quyet-GETapi-meetings--meeting_id--votings">Danh sách phiên biểu quyết</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-bieu-quyet-POSTapi-meetings--meeting_id--votings">
+                                <a href="#meeting-bieu-quyet-POSTapi-meetings--meeting_id--votings">Tạo phiên biểu quyết</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-bieu-quyet-PATCHapi-meetings--meeting_id--votings--voting_id--status">
+                                <a href="#meeting-bieu-quyet-PATCHapi-meetings--meeting_id--votings--voting_id--status">Thay đổi trạng thái phiên biểu quyết (Kích hoạt / Đóng)</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-bieu-quyet-POSTapi-meetings--meeting_id--votings--voting_id--vote">
+                                <a href="#meeting-bieu-quyet-POSTapi-meetings--meeting_id--votings--voting_id--vote">Gửi phiếu biểu quyết (Đại biểu)</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-bieu-quyet-GETapi-meetings--meeting_id--votings--voting_id--results">
+                                <a href="#meeting-bieu-quyet-GETapi-meetings--meeting_id--votings--voting_id--results">Kết quả tổng hợp biểu quyết</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-bieu-quyet-DELETEapi-meetings--meeting_id--votings--voting_id-">
+                                <a href="#meeting-bieu-quyet-DELETEapi-meetings--meeting_id--votings--voting_id-">Xóa phiên biểu quyết</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-chuong-trinh-hop-agenda" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-chuong-trinh-hop-agenda">
+                    <a href="#meeting-chuong-trinh-hop-agenda">Meeting - Chương trình họp (Agenda)</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-chuong-trinh-hop-agenda" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-GETapi-meetings--meeting_id--agendas">
+                                <a href="#meeting-chuong-trinh-hop-agenda-GETapi-meetings--meeting_id--agendas">Danh sách mục chương trình họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas">
+                                <a href="#meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas">Thêm mục chương trình họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-PUTapi-meetings--meeting_id--agendas--agenda_id-">
+                                <a href="#meeting-chuong-trinh-hop-agenda-PUTapi-meetings--meeting_id--agendas--agenda_id-">Cập nhật mục chương trình họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-PATCHapi-meetings--meeting_id--agendas--agenda_id-">
+                                <a href="#meeting-chuong-trinh-hop-agenda-PATCHapi-meetings--meeting_id--agendas--agenda_id-">Cập nhật mục chương trình họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-DELETEapi-meetings--meeting_id--agendas--agenda_id-">
+                                <a href="#meeting-chuong-trinh-hop-agenda-DELETEapi-meetings--meeting_id--agendas--agenda_id-">Xóa mục chương trình họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current">
+                                <a href="#meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current">Đặt mục đang thảo luận (real-time điều hướng)</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas-reorder">
+                                <a href="#meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas-reorder">Sắp xếp lại thứ tự chương trình họp (Drag-and-drop)</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-cuoc-hop" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-cuoc-hop">
+                    <a href="#meeting-cuoc-hop">Meeting - Cuộc họp</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-cuoc-hop" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-GETapi-meetings-stats">
+                                <a href="#meeting-cuoc-hop-GETapi-meetings-stats">Thống kê cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-GETapi-meetings-export">
+                                <a href="#meeting-cuoc-hop-GETapi-meetings-export">Xuất danh sách cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-POSTapi-meetings-import">
+                                <a href="#meeting-cuoc-hop-POSTapi-meetings-import">Nhập danh sách cuộc họ p</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-POSTapi-meetings-bulk-delete">
+                                <a href="#meeting-cuoc-hop-POSTapi-meetings-bulk-delete">Xóa hàng loạt cuộc họ p</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-PATCHapi-meetings-bulk-status">
+                                <a href="#meeting-cuoc-hop-PATCHapi-meetings-bulk-status">Cập nhật trạng thái hàng loạt cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-GETapi-meetings">
+                                <a href="#meeting-cuoc-hop-GETapi-meetings">Danh sách cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-POSTapi-meetings">
+                                <a href="#meeting-cuoc-hop-POSTapi-meetings">Tạo cuộc họp mới</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-GETapi-meetings--meeting_id-">
+                                <a href="#meeting-cuoc-hop-GETapi-meetings--meeting_id-">Chi tiết cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-PUTapi-meetings--meeting_id-">
+                                <a href="#meeting-cuoc-hop-PUTapi-meetings--meeting_id-">Cập nhật cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-PATCHapi-meetings--meeting_id-">
+                                <a href="#meeting-cuoc-hop-PATCHapi-meetings--meeting_id-">Cập nhật cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-DELETEapi-meetings--meeting_id-">
+                                <a href="#meeting-cuoc-hop-DELETEapi-meetings--meeting_id-">Xóa cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-cuoc-hop-PATCHapi-meetings--meeting_id--status">
+                                <a href="#meeting-cuoc-hop-PATCHapi-meetings--meeting_id--status">Thay đổi trạng thái cuộc họp</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-ghi-chu-ca-nhan" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-ghi-chu-ca-nhan">
+                    <a href="#meeting-ghi-chu-ca-nhan">Meeting - Ghi chú cá nhân</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-ghi-chu-ca-nhan" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-ghi-chu-ca-nhan-GETapi-meetings--meeting_id--personal-notes">
+                                <a href="#meeting-ghi-chu-ca-nhan-GETapi-meetings--meeting_id--personal-notes">Lấy ghi chú cá nhân trong cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-ghi-chu-ca-nhan-POSTapi-meetings--meeting_id--personal-notes">
+                                <a href="#meeting-ghi-chu-ca-nhan-POSTapi-meetings--meeting_id--personal-notes">Lưu ghi chú cá nhân (tạo mới hoặc cập nhật)</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-ghi-chu-ca-nhan-DELETEapi-meetings--meeting_id--personal-notes--note_id-">
+                                <a href="#meeting-ghi-chu-ca-nhan-DELETEapi-meetings--meeting_id--personal-notes--note_id-">Xóa ghi chú cá nhân</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-ket-luan" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-ket-luan">
+                    <a href="#meeting-ket-luan">Meeting - Kết luận</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-ket-luan" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-ket-luan-GETapi-meetings--meeting_id--conclusions">
+                                <a href="#meeting-ket-luan-GETapi-meetings--meeting_id--conclusions">Danh sách kết luận của cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-ket-luan-POSTapi-meetings--meeting_id--conclusions">
+                                <a href="#meeting-ket-luan-POSTapi-meetings--meeting_id--conclusions">Tạo kết luận mới</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-ket-luan-PUTapi-meetings--meeting_id--conclusions--conclusion_id-">
+                                <a href="#meeting-ket-luan-PUTapi-meetings--meeting_id--conclusions--conclusion_id-">Cập nhật kết luận</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-ket-luan-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-">
+                                <a href="#meeting-ket-luan-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-">Cập nhật kết luận</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-ket-luan-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-">
+                                <a href="#meeting-ket-luan-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-">Xóa kết luận</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-tai-lieu-hop" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-tai-lieu-hop">
+                    <a href="#meeting-tai-lieu-hop">Meeting - Tài liệu họp</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-tai-lieu-hop" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-tai-lieu-hop-GETapi-meetings--meeting_id--documents">
+                                <a href="#meeting-tai-lieu-hop-GETapi-meetings--meeting_id--documents">Danh sách tài liệu của cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-tai-lieu-hop-POSTapi-meetings--meeting_id--documents">
+                                <a href="#meeting-tai-lieu-hop-POSTapi-meetings--meeting_id--documents">Upload tài liệu họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-tai-lieu-hop-DELETEapi-meetings--meeting_id--documents--document_id-">
+                                <a href="#meeting-tai-lieu-hop-DELETEapi-meetings--meeting_id--documents--document_id-">Xóa tài liệu họp</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-dang-ky-phat-bieu" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-dang-ky-phat-bieu">
+                    <a href="#meeting-dang-ky-phat-bieu">Meeting - Đăng ký phát biểu</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-dang-ky-phat-bieu" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-dang-ky-phat-bieu-GETapi-meetings--meeting_id--speech-requests">
+                                <a href="#meeting-dang-ky-phat-bieu-GETapi-meetings--meeting_id--speech-requests">Danh sách đăng ký phát biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dang-ky-phat-bieu-POSTapi-meetings--meeting_id--speech-requests">
+                                <a href="#meeting-dang-ky-phat-bieu-POSTapi-meetings--meeting_id--speech-requests">Đăng ký phát biểu (Đại biểu)</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dang-ky-phat-bieu-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status">
+                                <a href="#meeting-dang-ky-phat-bieu-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status">Duyệt hoặc từ chối đăng ký phát biểu (Quản lý / Chủ trì)</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-meeting-dai-bieu-participants" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="meeting-dai-bieu-participants">
+                    <a href="#meeting-dai-bieu-participants">Meeting - Đại biểu (Participants)</a>
+                </li>
+                                    <ul id="tocify-subheader-meeting-dai-bieu-participants" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants-export">
+                                <a href="#meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants-export">Xuất danh sách đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants-import">
+                                <a href="#meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants-import">Nhập danh sách đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants-bulk-delete">
+                                <a href="#meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants-bulk-delete">Xóa hàng loạt đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants-bulk-status">
+                                <a href="#meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants-bulk-status">Cập nhật trạng thái hàng loạt đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants">
+                                <a href="#meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants">Danh sách đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants">
+                                <a href="#meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants">Thêm đại biểu vào cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants--participant_id-">
+                                <a href="#meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants--participant_id-">Chi tiết đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-PUTapi-meetings--meeting_id--participants--participant_id-">
+                                <a href="#meeting-dai-bieu-participants-PUTapi-meetings--meeting_id--participants--participant_id-">Cập nhật thông tin đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id-">
+                                <a href="#meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id-">Cập nhật thông tin đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-DELETEapi-meetings--meeting_id--participants--participant_id-">
+                                <a href="#meeting-dai-bieu-participants-DELETEapi-meetings--meeting_id--participants--participant_id-">Xóa đại biểu khỏi cuộc họp</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id--checkin">
+                                <a href="#meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id--checkin">Điểm danh đại biểu</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id--status">
+                                <a href="#meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id--status">Thay đổi trạng thái điểm danh (Admin)</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-post-category" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="post-category">
                     <a href="#post-category">Post - Category</a>
@@ -710,7 +919,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 5, 2026</li>
+        <li>Last updated: March 25, 2026</li>
     </ul>
 </div>
 
@@ -1341,6 +1550,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "POST",
     headers,
@@ -1694,6 +1904,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -1855,7 +2066,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/log-activities/export?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=desc&amp;limit=10&amp;method_type=GET&amp;status_code=200" \
+    --get "http://localhost/api/log-activities/export?search=architecto&amp;status=active&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=architecto&amp;sort_order=desc%0A%0AXu%E1%BA%A5t+ra+c%C3%A1c+tr%C6%B0%E1%BB%9Dng%3A+id%2C+description%2C+user_type%2C+user_id%2C+user_name%2C+organization_id%2C+route%2C+method_type%2C+status_code%2C+ip_address%2C+country%2C+user_agent%2C+request_data%2C+created_at%2C+updated_at.&amp;limit=10&amp;method_type=GET&amp;status_code=200" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: application/json" \
@@ -1873,7 +2084,9 @@ const params = {
     "from_date": "2026-01-01",
     "to_date": "2026-12-31",
     "sort_by": "architecto",
-    "sort_order": "desc",
+    "sort_order": "desc
+
+Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at.",
     "limit": "10",
     "method_type": "GET",
     "status_code": "200",
@@ -1887,6 +2100,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -1912,7 +2126,9 @@ $response = $client-&gt;get(
             'from_date' =&gt; '2026-01-01',
             'to_date' =&gt; '2026-12-31',
             'sort_by' =&gt; 'architecto',
-            'sort_order' =&gt; 'desc',
+            'sort_order' =&gt; 'desc
+
+Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at.',
             'limit' =&gt; '10',
             'method_type' =&gt; 'GET',
             'status_code' =&gt; '200',
@@ -2105,10 +2321,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort_order"                data-endpoint="GETapi-log-activities-export"
-               value="desc"
+               value="desc
+
+Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at."
                data-component="query">
     <br>
-<p>asc, desc. Example: <code>desc</code></p>
+<p>asc, desc. Example: `desc</p>
+<p>Xuất ra các trường: id, description, user_type, user_id, user_name, organization_id, route, method_type, status_code, ip_address, country, user_agent, request_data, created_at, updated_at.`</p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>limit</code></b>&nbsp;&nbsp;
@@ -2194,6 +2413,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -2691,6 +2911,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "POST",
     headers,
@@ -3078,6 +3299,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -3123,7 +3345,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 38,
+            &quot;id&quot;: 258,
             &quot;description&quot;: &quot;Et animi quos velit et fugiat.&quot;,
             &quot;user_type&quot;: &quot;User&quot;,
             &quot;user_id&quot;: null,
@@ -3134,15 +3356,15 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;status_code&quot;: 404,
             &quot;ip_address&quot;: &quot;125.161.29.220&quot;,
             &quot;country&quot;: &quot;Pakistan&quot;,
-            &quot;user_agent&quot;: &quot;Mozilla/5.0 (Windows NT 5.0; en-US; rv:1.9.2.20) Gecko/20260217 Firefox/35.0&quot;,
+            &quot;user_agent&quot;: &quot;Mozilla/5.0 (Windows NT 5.0; en-US; rv:1.9.2.20) Gecko/20251108 Firefox/35.0&quot;,
             &quot;request_data&quot;: {
                 &quot;sample&quot;: &quot;et&quot;
             },
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 39,
+            &quot;id&quot;: 259,
             &quot;description&quot;: &quot;Aut dolores enim non facere tempora ex voluptatem.&quot;,
             &quot;user_type&quot;: &quot;User&quot;,
             &quot;user_id&quot;: null,
@@ -3157,8 +3379,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;request_data&quot;: {
                 &quot;sample&quot;: &quot;accusamus&quot;
             },
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -3420,7 +3642,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/log-activities/4" \
+    --get "http://localhost/api/log-activities/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: application/json" \
@@ -3429,7 +3651,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/4"
+    "http://localhost/api/log-activities/1"
 );
 
 const headers = {
@@ -3439,6 +3661,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -3447,7 +3670,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/4';
+$url = 'http://localhost/api/log-activities/1';
 $response = $client-&gt;get(
     $url,
     [
@@ -3472,12 +3695,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 40,
+        &quot;id&quot;: 260,
         &quot;description&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;user_type&quot;: &quot;User&quot;,
-        &quot;user_id&quot;: 84,
+        &quot;user_id&quot;: 44,
         &quot;user_name&quot;: &quot;Bridget Schaden&quot;,
-        &quot;organization_id&quot;: 191,
+        &quot;organization_id&quot;: 85,
         &quot;route&quot;: &quot;https://mclaughlin.com/ipsum-nostrum-omnis-autem-et-consequatur-aut-dolores-enim.html&quot;,
         &quot;method_type&quot;: &quot;POST&quot;,
         &quot;status_code&quot;: 401,
@@ -3487,8 +3710,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;request_data&quot;: {
             &quot;sample&quot;: &quot;veniam&quot;
         },
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -3597,10 +3820,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="logActivity_id"                data-endpoint="GETapi-log-activities--logActivity_id-"
-               value="4"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the logActivity. Example: <code>4</code></p>
+<p>The ID of the logActivity. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>logActivity</code></b>&nbsp;&nbsp;
@@ -3630,7 +3853,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/log-activities/4" \
+    "http://localhost/api/log-activities/1" \
     --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: application/json" \
@@ -3639,7 +3862,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/log-activities/4"
+    "http://localhost/api/log-activities/1"
 );
 
 const headers = {
@@ -3649,6 +3872,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "DELETE",
     headers,
@@ -3657,7 +3881,7 @@ fetch(url, {
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$url = 'http://localhost/api/log-activities/4';
+$url = 'http://localhost/api/log-activities/1';
 $response = $client-&gt;delete(
     $url,
     [
@@ -3789,10 +4013,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="logActivity_id"                data-endpoint="DELETEapi-log-activities--logActivity_id-"
-               value="4"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the logActivity. Example: <code>4</code></p>
+<p>The ID of the logActivity. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>logActivity</code></b>&nbsp;&nbsp;
@@ -3854,6 +4078,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -3896,7 +4121,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 171,
+            &quot;id&quot;: 65,
             &quot;name&quot;: &quot;Bailey Inc&quot;,
             &quot;slug&quot;: &quot;quos-velit-et-fugiat-sunt-nihil-accusantium-harum&quot;,
             &quot;description&quot;: null,
@@ -3906,11 +4131,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:23 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:23 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 172,
+            &quot;id&quot;: 66,
             &quot;name&quot;: &quot;DuBuque Inc&quot;,
             &quot;slug&quot;: &quot;quo-omnis-nostrum-aut-adipisci&quot;,
             &quot;description&quot;: &quot;Qui commodi incidunt iure odit.&quot;,
@@ -3920,8 +4145,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:23 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:23 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -4142,6 +4367,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -4184,12 +4410,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 173,
+            &quot;id&quot;: 67,
             &quot;name&quot;: &quot;Okuneva, Rempel and Gulgowski&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 174,
+            &quot;id&quot;: 68,
             &quot;name&quot;: &quot;Cormier Inc&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;
         }
@@ -4414,6 +4640,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -4655,7 +4882,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: slug, description, status (mặc định &quot;active&quot;), parent_id.</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: slug, description, status (mặc định "active"), parent_id.</p>
 
 <span id="example-requests-POSTapi-organizations-import">
 <blockquote>Example request:</blockquote>
@@ -4668,7 +4895,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpgb8dlento42ldbNGYa5" </code></pre></div>
+    --form "file=@/tmp/phpgk51fju793h3fVeSWON" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -4708,7 +4935,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpgb8dlento42ldbNGYa5', 'r')
+                'contents' =&gt; fopen('/tmp/phpgk51fju793h3fVeSWON', 'r')
             ],
         ],
     ]
@@ -4836,7 +5063,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpgb8dlento42ldbNGYa5</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpgk51fju793h3fVeSWON</code></p>
         </div>
         </form>
 
@@ -5312,6 +5539,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -5583,6 +5811,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -5787,6 +6016,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -5830,7 +6060,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 176,
+            &quot;id&quot;: 70,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;slug&quot;: &quot;velit-et-fugiat-sunt-nihil-accusantium&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
@@ -5840,11 +6070,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 177,
+            &quot;id&quot;: 71,
             &quot;name&quot;: &quot;Marquardt Inc&quot;,
             &quot;slug&quot;: &quot;nostrum-qui-commodi-incidunt-iure&quot;,
             &quot;description&quot;: null,
@@ -5854,8 +6084,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -6112,6 +6342,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -6145,20 +6376,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 179,
+        &quot;id&quot;: 73,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;slug&quot;: &quot;qui-commodi-incidunt-iure-odit&quot;,
         &quot;description&quot;: &quot;Modi ipsum nostrum omnis autem et.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 178,
+        &quot;parent_id&quot;: 72,
         &quot;sort_order&quot;: 84,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 178,
+            &quot;id&quot;: 72,
             &quot;name&quot;: &quot;Stokes and Sons&quot;,
             &quot;slug&quot;: &quot;tempora-ex-voluptatem-laboriosam-praesentium-quis&quot;,
             &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
@@ -6168,23 +6399,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 180,
+                &quot;id&quot;: 74,
                 &quot;name&quot;: &quot;Kutch and Sons&quot;,
                 &quot;slug&quot;: &quot;nemo-odit-quia-officia-est-dignissimos&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 179,
+                &quot;parent_id&quot;: 73,
                 &quot;sort_order&quot;: 6,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
             }
         ]
     },
@@ -6407,7 +6638,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 181,
+        &quot;id&quot;: 75,
         &quot;name&quot;: &quot;Dach-Gaylord&quot;,
         &quot;slug&quot;: &quot;mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo&quot;,
         &quot;description&quot;: null,
@@ -6417,8 +6648,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;depth&quot;: 0,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Organization đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -6688,20 +6919,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 183,
+        &quot;id&quot;: 77,
         &quot;name&quot;: &quot;Tillman-Runte&quot;,
         &quot;slug&quot;: &quot;aut-ab-provident-perspiciatis-quo-omnis-nostrum-aut&quot;,
         &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 182,
+        &quot;parent_id&quot;: 76,
         &quot;sort_order&quot;: 45,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 182,
+            &quot;id&quot;: 76,
             &quot;name&quot;: &quot;Bauch, Fritsch and O&#039;Keefe&quot;,
             &quot;slug&quot;: &quot;autem-et-consequatur-aut-dolores-enim-non-facere-tempora&quot;,
             &quot;description&quot;: &quot;Laboriosam praesentium quis adipisci molestias fugit deleniti distinctio.&quot;,
@@ -6711,23 +6942,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 184,
+                &quot;id&quot;: 78,
                 &quot;name&quot;: &quot;Ankunding PLC&quot;,
                 &quot;slug&quot;: &quot;veniam-corporis-dolorem-mollitia&quot;,
                 &quot;description&quot;: &quot;Odit quia officia est dignissimos neque blanditiis odio.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 183,
+                &quot;parent_id&quot;: 77,
                 &quot;sort_order&quot;: 16,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
             }
         ]
     },
@@ -7024,20 +7255,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 186,
+        &quot;id&quot;: 80,
         &quot;name&quot;: &quot;Schuster Inc&quot;,
         &quot;slug&quot;: &quot;perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui&quot;,
         &quot;description&quot;: &quot;Iure odit et et modi ipsum nostrum omnis.&quot;,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;parent_id&quot;: 185,
+        &quot;parent_id&quot;: 79,
         &quot;sort_order&quot;: 54,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 185,
+            &quot;id&quot;: 79,
             &quot;name&quot;: &quot;Tromp-Leffler&quot;,
             &quot;slug&quot;: &quot;non-facere-tempora-ex-voluptatem-laboriosam-praesentium&quot;,
             &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
@@ -7047,23 +7278,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 187,
+                &quot;id&quot;: 81,
                 &quot;name&quot;: &quot;Batz Inc&quot;,
                 &quot;slug&quot;: &quot;mollitia-deleniti-nemo-odit-quia-officia&quot;,
                 &quot;description&quot;: &quot;Neque blanditiis odio veritatis excepturi doloribus delectus.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 186,
+                &quot;parent_id&quot;: 80,
                 &quot;sort_order&quot;: 22,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
             }
         ]
     },
@@ -7299,6 +7530,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -7537,20 +7769,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 189,
+        &quot;id&quot;: 83,
         &quot;name&quot;: &quot;Baumbach Ltd&quot;,
         &quot;slug&quot;: &quot;et-modi-ipsum-nostrum-omnis-autem-et-consequatur&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;parent_id&quot;: 188,
+        &quot;parent_id&quot;: 82,
         &quot;sort_order&quot;: 62,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;,
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 188,
+            &quot;id&quot;: 82,
             &quot;name&quot;: &quot;VonRueden-Leuschke&quot;,
             &quot;slug&quot;: &quot;voluptatem-laboriosam-praesentium-quis-adipisci&quot;,
             &quot;description&quot;: null,
@@ -7560,23 +7792,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 190,
+                &quot;id&quot;: 84,
                 &quot;name&quot;: &quot;Gaylord, Hettinger and Nitzsche&quot;,
                 &quot;slug&quot;: &quot;libero-aliquam-veniam-corporis-dolorem-mollitia-deleniti&quot;,
                 &quot;description&quot;: &quot;Quia officia est dignissimos neque.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
-                &quot;parent_id&quot;: 189,
+                &quot;parent_id&quot;: 83,
                 &quot;sort_order&quot;: 6,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+                &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
             }
         ]
     },
@@ -7768,6 +8000,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -8009,7 +8242,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định &quot;web&quot;), description, sort_order, parent_id.</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "web"), description, sort_order, parent_id.</p>
 
 <span id="example-requests-POSTapi-permissions-import">
 <blockquote>Example request:</blockquote>
@@ -8022,7 +8255,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpfqtqkggvlflt6DZ9JRQ" </code></pre></div>
+    --form "file=@/tmp/phps3inf1uqpbrj4YHmE1I" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -8062,7 +8295,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpfqtqkggvlflt6DZ9JRQ', 'r')
+                'contents' =&gt; fopen('/tmp/phps3inf1uqpbrj4YHmE1I', 'r')
             ],
         ],
     ]
@@ -8190,7 +8423,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpfqtqkggvlflt6DZ9JRQ</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phps3inf1uqpbrj4YHmE1I</code></p>
         </div>
         </form>
 
@@ -8444,6 +8677,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -8714,6 +8948,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -8919,6 +9154,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -8962,24 +9198,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 254,
+            &quot;id&quot;: 248,
             &quot;name&quot;: &quot;users.update.4027&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;description&quot;: null,
             &quot;sort_order&quot;: 95,
             &quot;parent_id&quot;: null,
-            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 255,
+            &quot;id&quot;: 249,
             &quot;name&quot;: &quot;documents.index.6955&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;description&quot;: null,
             &quot;sort_order&quot;: 39,
             &quot;parent_id&quot;: null,
-            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -9236,6 +9472,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -9269,30 +9506,30 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 257,
+        &quot;id&quot;: 251,
         &quot;name&quot;: &quot;users.index.4524&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;sort_order&quot;: 45,
-        &quot;parent_id&quot;: 256,
+        &quot;parent_id&quot;: 250,
         &quot;parent&quot;: {
-            &quot;id&quot;: 256,
+            &quot;id&quot;: 250,
             &quot;name&quot;: &quot;documents.show.967&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 258,
+                &quot;id&quot;: 252,
                 &quot;name&quot;: &quot;roles.destroy.1904&quot;,
                 &quot;guard_name&quot;: &quot;web&quot;,
                 &quot;description&quot;: null,
                 &quot;sort_order&quot;: 93,
-                &quot;parent_id&quot;: 257,
-                &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-                &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+                &quot;parent_id&quot;: 251,
+                &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+                &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
             }
         ],
-        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -9510,14 +9747,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 259,
+        &quot;id&quot;: 253,
         &quot;name&quot;: &quot;roles.index.660&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;sort_order&quot;: 91,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -9772,14 +10009,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 260,
+        &quot;id&quot;: 254,
         &quot;name&quot;: &quot;roles.index.4338&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: null,
         &quot;sort_order&quot;: 7,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được cập nhật!&quot;
@@ -10059,14 +10296,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 261,
+        &quot;id&quot;: 255,
         &quot;name&quot;: &quot;roles.index.3491&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;description&quot;: &quot;Sunt nihil accusantium harum mollitia.&quot;,
         &quot;sort_order&quot;: 86,
         &quot;parent_id&quot;: null,
-        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Quyền đ&atilde; được cập nhật!&quot;
@@ -10289,6 +10526,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "DELETE",
     headers,
@@ -10496,6 +10734,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -10737,7 +10976,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định &quot;web&quot;), organization_id.</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: guard_name (mặc định "web"), organization_id.</p>
 
 <span id="example-requests-POSTapi-roles-import">
 <blockquote>Example request:</blockquote>
@@ -10750,7 +10989,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpsck7a86dlhrm25jSlJb" </code></pre></div>
+    --form "file=@/tmp/php56u33et6ovq75cptJ8B" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -10790,7 +11029,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpsck7a86dlhrm25jSlJb', 'r')
+                'contents' =&gt; fopen('/tmp/php56u33et6ovq75cptJ8B', 'r')
             ],
         ],
     ]
@@ -10918,7 +11157,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpsck7a86dlhrm25jSlJb</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/php56u33et6ovq75cptJ8B</code></p>
         </div>
         </form>
 
@@ -11172,6 +11411,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -11448,6 +11688,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -11491,20 +11732,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 53,
+            &quot;id&quot;: 23,
             &quot;name&quot;: &quot;role_ng775&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;organization_id&quot;: null,
-            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 54,
+            &quot;id&quot;: 24,
             &quot;name&quot;: &quot;role_mi365&quot;,
             &quot;guard_name&quot;: &quot;web&quot;,
             &quot;organization_id&quot;: null,
-            &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -11761,6 +12002,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -11794,19 +12036,19 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 55,
+        &quot;id&quot;: 25,
         &quot;name&quot;: &quot;role_wp680&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
-        &quot;organization_id&quot;: 175,
+        &quot;organization_id&quot;: 69,
         &quot;organization&quot;: {
-            &quot;id&quot;: 175,
+            &quot;id&quot;: 69,
             &quot;name&quot;: &quot;Dare Group&quot;
         },
         &quot;permissions&quot;: [
             &quot;organizations.index.7602&quot;
         ],
-        &quot;created_at&quot;: &quot;09:32:24 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:24 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -12030,15 +12272,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 56,
+        &quot;id&quot;: 26,
         &quot;name&quot;: &quot;role_zm806&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;documents.index.5606&quot;
         ],
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -12274,15 +12516,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 57,
+        &quot;id&quot;: 27,
         &quot;name&quot;: &quot;role_yv564&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;users.update.3433&quot;
         ],
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được cập nhật!&quot;
@@ -12543,15 +12785,15 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 58,
+        &quot;id&quot;: 28,
         &quot;name&quot;: &quot;role_lj575&quot;,
         &quot;guard_name&quot;: &quot;web&quot;,
         &quot;organization_id&quot;: null,
         &quot;permissions&quot;: [
             &quot;roles.destroy.6854&quot;
         ],
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Vai tr&ograve; đ&atilde; được cập nhật!&quot;
@@ -12752,6 +12994,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "DELETE",
     headers,
@@ -12945,6 +13188,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -13095,6 +13339,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -13259,6 +13504,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -13683,6 +13929,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -13923,7 +14170,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name, email. Cột không bắt buộc: user_name, password (mặc định &quot;password&quot;), status (mặc định &quot;active&quot;).</p>
+<p>Cột bắt buộc: name, email. Cột không bắt buộc: user_name, password (mặc định "password"), status (mặc định "active").</p>
 
 <span id="example-requests-POSTapi-users-import">
 <blockquote>Example request:</blockquote>
@@ -13936,7 +14183,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpjm982lun46rq9jKpk6x" </code></pre></div>
+    --form "file=@/tmp/phpmns8g8bugskc2qQCF1c" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -13976,7 +14223,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpjm982lun46rq9jKpk6x', 'r')
+                'contents' =&gt; fopen('/tmp/phpmns8g8bugskc2qQCF1c', 'r')
             ],
         ],
     ]
@@ -14104,7 +14351,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpjm982lun46rq9jKpk6x</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpmns8g8bugskc2qQCF1c</code></p>
         </div>
         </form>
 
@@ -14580,6 +14827,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -14857,6 +15105,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -14900,7 +15149,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 77,
+            &quot;id&quot;: 37,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;email&quot;: &quot;gulgowski.asia@example.com&quot;,
             &quot;user_name&quot;: &quot;idickens&quot;,
@@ -14908,11 +15157,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
             &quot;assignments&quot;: [],
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:06&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:06&quot;
         },
         {
-            &quot;id&quot;: 78,
+            &quot;id&quot;: 38,
             &quot;name&quot;: &quot;Mya DuBuque&quot;,
             &quot;email&quot;: &quot;breitenberg.gilbert@example.com&quot;,
             &quot;user_name&quot;: &quot;price.amber&quot;,
@@ -14920,8 +15169,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
             &quot;assignments&quot;: [],
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:06&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:06&quot;
         }
     ],
     &quot;links&quot;: {
@@ -15178,6 +15427,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -15211,7 +15461,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 79,
+        &quot;id&quot;: 39,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
         &quot;user_name&quot;: &quot;imclaughlin&quot;,
@@ -15219,8 +15469,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:06&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:06&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -15450,7 +15700,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 80,
+        &quot;id&quot;: 40,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;idickens@example.org&quot;,
         &quot;user_name&quot;: &quot;aschuster&quot;,
@@ -15458,8 +15708,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:06&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:06&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -15630,7 +15880,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
  &nbsp;
 <br>
-<p>Danh sách gán vai trò theo tổ chức. Ví dụ: [{&quot;role_id&quot;:1,&quot;organization_ids&quot;:[2,3]},{&quot;role_id&quot;:5,&quot;organization_ids&quot;:[9]}]</p>
+<p>Danh sách gán vai trò theo tổ chức. Ví dụ: [{"role_id":1,"organization_ids":[2,3]},{"role_id":5,"organization_ids":[9]}]</p>
             </summary>
                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>role_id</code></b>&nbsp;&nbsp;
@@ -15776,7 +16026,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 81,
+        &quot;id&quot;: 41,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;aschuster@example.com&quot;,
         &quot;user_name&quot;: &quot;gilbert32&quot;,
@@ -15784,8 +16034,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được cập nhật!&quot;
@@ -16127,7 +16377,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 82,
+        &quot;id&quot;: 42,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;email&quot;: &quot;gilbert32@example.com&quot;,
         &quot;user_name&quot;: &quot;hirthe.theo&quot;,
@@ -16135,8 +16385,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;T&agrave;i khoản đ&atilde; được cập nhật!&quot;
@@ -16409,6 +16659,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "DELETE",
     headers,
@@ -16646,7 +16897,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 83,
+        &quot;id&quot;: 43,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;imclaughlin@example.org&quot;,
         &quot;user_name&quot;: &quot;okeefe.isidro&quot;,
@@ -16654,8 +16905,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
         &quot;assignments&quot;: [],
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -16843,6 +17094,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -16885,24 +17137,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 129,
+            &quot;id&quot;: 49,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 130,
+            &quot;id&quot;: 50,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -17121,6 +17373,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -17163,12 +17416,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 131,
+            &quot;id&quot;: 51,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;
         },
         {
-            &quot;id&quot;: 132,
+            &quot;id&quot;: 52,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;
         }
@@ -17391,6 +17644,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -17634,7 +17888,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").</p>
 
 <span id="example-requests-POSTapi-issuing-agencies-import">
 <blockquote>Example request:</blockquote>
@@ -17647,7 +17901,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpb0b2vff1l4au4d33II3" </code></pre></div>
+    --form "file=@/tmp/phph6aj8t3fa4lmbhGArz0" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -17687,7 +17941,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpb0b2vff1l4au4d33II3', 'r')
+                'contents' =&gt; fopen('/tmp/phph6aj8t3fa4lmbhGArz0', 'r')
             ],
         ],
     ]
@@ -17815,7 +18069,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpb0b2vff1l4au4d33II3</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phph6aj8t3fa4lmbhGArz0</code></p>
         </div>
         </form>
 
@@ -18291,6 +18545,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -18568,6 +18823,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -18611,24 +18867,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 138,
+            &quot;id&quot;: 58,
             &quot;name&quot;: &quot;Bailey Ltd&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 139,
+            &quot;id&quot;: 59,
             &quot;name&quot;: &quot;Runte-Considine&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -18885,6 +19141,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -18918,14 +19175,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 140,
+        &quot;id&quot;: 60,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -19137,14 +19394,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 141,
+        &quot;id&quot;: 61,
         &quot;name&quot;: &quot;Ernser Group&quot;,
         &quot;description&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -19369,14 +19626,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 142,
+        &quot;id&quot;: 62,
         &quot;name&quot;: &quot;Bailey Ltd&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -19626,14 +19883,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 143,
+        &quot;id&quot;: 63,
         &quot;name&quot;: &quot;Bailey Ltd&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cơ quan ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -19831,6 +20088,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -20069,14 +20327,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 144,
+        &quot;id&quot;: 64,
         &quot;name&quot;: &quot;Price Ltd&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -20264,6 +20522,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -20306,24 +20565,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 129,
+            &quot;id&quot;: 49,
             &quot;name&quot;: &quot;modi deserunt&quot;,
             &quot;description&quot;: &quot;Provident perspiciatis quo omnis nostrum aut adipisci quidem.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 130,
+            &quot;id&quot;: 50,
             &quot;name&quot;: &quot;qui commodi&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -20542,6 +20801,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -20584,12 +20844,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 131,
+            &quot;id&quot;: 51,
             &quot;name&quot;: &quot;provident perspiciatis&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 132,
+            &quot;id&quot;: 52,
             &quot;name&quot;: &quot;nostrum aut&quot;,
             &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;
         }
@@ -20812,6 +21072,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -21055,7 +21316,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").</p>
 
 <span id="example-requests-POSTapi-issuing-levels-import">
 <blockquote>Example request:</blockquote>
@@ -21068,7 +21329,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpci6gih1j79svdRJCXym" </code></pre></div>
+    --form "file=@/tmp/phpkasm9241rdgu43W9ZtE" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -21108,7 +21369,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpci6gih1j79svdRJCXym', 'r')
+                'contents' =&gt; fopen('/tmp/phpkasm9241rdgu43W9ZtE', 'r')
             ],
         ],
     ]
@@ -21236,7 +21497,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpci6gih1j79svdRJCXym</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpkasm9241rdgu43W9ZtE</code></p>
         </div>
         </form>
 
@@ -21712,6 +21973,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -21989,6 +22251,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -22032,24 +22295,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 138,
+            &quot;id&quot;: 58,
             &quot;name&quot;: &quot;doloremque id&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 139,
+            &quot;id&quot;: 59,
             &quot;name&quot;: &quot;aliquam veniam&quot;,
             &quot;description&quot;: &quot;Mollitia deleniti nemo odit quia officia.&quot;,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -22306,6 +22569,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -22339,14 +22603,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 140,
+        &quot;id&quot;: 60,
         &quot;name&quot;: &quot;et modi&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -22558,14 +22822,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 141,
+        &quot;id&quot;: 61,
         &quot;name&quot;: &quot;aut libero&quot;,
         &quot;description&quot;: &quot;Corporis dolorem mollitia deleniti nemo odit quia officia.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -22790,14 +23054,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 142,
+        &quot;id&quot;: 62,
         &quot;name&quot;: &quot;corporis dolorem&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -23047,14 +23311,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 143,
+        &quot;id&quot;: 63,
         &quot;name&quot;: &quot;mollitia deleniti&quot;,
         &quot;description&quot;: &quot;Quia officia est dignissimos neque.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật cấp ban h&agrave;nh th&agrave;nh c&ocirc;ng!&quot;
@@ -23252,6 +23516,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -23490,14 +23755,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 144,
+        &quot;id&quot;: 64,
         &quot;name&quot;: &quot;ipsum nostrum&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -23685,6 +23950,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -23727,24 +23993,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 129,
+            &quot;id&quot;: 49,
             &quot;name&quot;: &quot;nihil accusantium&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 130,
+            &quot;id&quot;: 50,
             &quot;name&quot;: &quot;omnis nostrum&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -23963,6 +24229,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -24005,12 +24272,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 131,
+            &quot;id&quot;: 51,
             &quot;name&quot;: &quot;harum mollitia&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 132,
+            &quot;id&quot;: 52,
             &quot;name&quot;: &quot;aut ab&quot;,
             &quot;description&quot;: &quot;Quo omnis nostrum aut adipisci.&quot;
         }
@@ -24233,6 +24500,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -24476,7 +24744,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").</p>
 
 <span id="example-requests-POSTapi-document-types-import">
 <blockquote>Example request:</blockquote>
@@ -24489,7 +24757,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpgven0eb8f2hqceERggh" </code></pre></div>
+    --form "file=@/tmp/phpqbksuvjfvkck60jSbdZ" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -24529,7 +24797,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpgven0eb8f2hqceERggh', 'r')
+                'contents' =&gt; fopen('/tmp/phpqbksuvjfvkck60jSbdZ', 'r')
             ],
         ],
     ]
@@ -24657,7 +24925,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpgven0eb8f2hqceERggh</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpqbksuvjfvkck60jSbdZ</code></p>
         </div>
         </form>
 
@@ -25133,6 +25401,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -25410,6 +25679,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -25453,24 +25723,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 138,
+            &quot;id&quot;: 58,
             &quot;name&quot;: &quot;autem et&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 139,
+            &quot;id&quot;: 59,
             &quot;name&quot;: &quot;tempora ex&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -25727,6 +25997,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -25760,14 +26031,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 140,
+        &quot;id&quot;: 60,
         &quot;name&quot;: &quot;incidunt iure&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -25979,14 +26250,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 141,
+        &quot;id&quot;: 61,
         &quot;name&quot;: &quot;consequatur aut&quot;,
         &quot;description&quot;: &quot;Non facere tempora ex voluptatem laboriosam praesentium.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -26211,14 +26482,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 142,
+        &quot;id&quot;: 62,
         &quot;name&quot;: &quot;voluptatem laboriosam&quot;,
         &quot;description&quot;: &quot;Adipisci molestias fugit deleniti distinctio eum doloremque id.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -26468,14 +26739,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 143,
+        &quot;id&quot;: 63,
         &quot;name&quot;: &quot;praesentium quis&quot;,
         &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật loại văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -26673,6 +26944,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -26911,14 +27183,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 144,
+        &quot;id&quot;: 64,
         &quot;name&quot;: &quot;odit et&quot;,
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -27106,6 +27378,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -27148,24 +27421,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 129,
+            &quot;id&quot;: 49,
             &quot;name&quot;: &quot;eius et&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 130,
+            &quot;id&quot;: 50,
             &quot;name&quot;: &quot;velit et&quot;,
             &quot;description&quot;: &quot;Nihil accusantium harum mollitia modi deserunt.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -27384,6 +27657,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -27426,12 +27700,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 131,
+            &quot;id&quot;: 51,
             &quot;name&quot;: &quot;animi quos&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 132,
+            &quot;id&quot;: 52,
             &quot;name&quot;: &quot;fugiat sunt&quot;,
             &quot;description&quot;: &quot;Harum mollitia modi deserunt aut ab provident perspiciatis quo.&quot;
         }
@@ -27654,6 +27928,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -27897,7 +28172,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").</p>
 
 <span id="example-requests-POSTapi-document-fields-import">
 <blockquote>Example request:</blockquote>
@@ -27910,7 +28185,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpqovenbdao2gs8aGCffJ" </code></pre></div>
+    --form "file=@/tmp/phpgsu2uv0qmc3bd0rL8AR" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -27950,7 +28225,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpqovenbdao2gs8aGCffJ', 'r')
+                'contents' =&gt; fopen('/tmp/phpgsu2uv0qmc3bd0rL8AR', 'r')
             ],
         ],
     ]
@@ -28078,7 +28353,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpqovenbdao2gs8aGCffJ</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpgsu2uv0qmc3bd0rL8AR</code></p>
         </div>
         </form>
 
@@ -28554,6 +28829,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -28831,6 +29107,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -28874,24 +29151,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 138,
+            &quot;id&quot;: 58,
             &quot;name&quot;: &quot;nemo odit&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 139,
+            &quot;id&quot;: 59,
             &quot;name&quot;: &quot;est dignissimos&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;inactive&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -29148,6 +29425,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -29181,14 +29459,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 140,
+        &quot;id&quot;: 60,
         &quot;name&quot;: &quot;omnis autem&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -29400,14 +29678,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 141,
+        &quot;id&quot;: 61,
         &quot;name&quot;: &quot;quia officia&quot;,
         &quot;description&quot;: &quot;Neque blanditiis odio veritatis excepturi doloribus delectus.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -29632,14 +29910,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 142,
+        &quot;id&quot;: 62,
         &quot;name&quot;: &quot;neque blanditiis&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -29889,14 +30167,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 143,
+        &quot;id&quot;: 63,
         &quot;name&quot;: &quot;odio veritatis&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật lĩnh vực th&agrave;nh c&ocirc;ng!&quot;
@@ -30094,6 +30372,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -30332,14 +30611,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 144,
+        &quot;id&quot;: 64,
         &quot;name&quot;: &quot;aut dolores&quot;,
         &quot;description&quot;: &quot;Facere tempora ex voluptatem laboriosam.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -30527,6 +30806,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -30569,24 +30849,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 129,
+            &quot;id&quot;: 49,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 130,
+            &quot;id&quot;: 50,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:22 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:22 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:06 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:06 25/03/2026&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -30805,6 +31085,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -30847,12 +31128,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 131,
+            &quot;id&quot;: 51,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null
         },
         {
-            &quot;id&quot;: 132,
+            &quot;id&quot;: 52,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;
         }
@@ -31075,6 +31356,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -31318,7 +31600,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định &quot;active&quot;).</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: description, status (mặc định "active").</p>
 
 <span id="example-requests-POSTapi-document-signers-import">
 <blockquote>Example request:</blockquote>
@@ -31331,7 +31613,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpvc9pgrodf5kk3TF5031" </code></pre></div>
+    --form "file=@/tmp/phpskmokt2fhak42ALVJBs" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -31371,7 +31653,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpvc9pgrodf5kk3TF5031', 'r')
+                'contents' =&gt; fopen('/tmp/phpskmokt2fhak42ALVJBs', 'r')
             ],
         ],
     ]
@@ -31499,7 +31781,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpvc9pgrodf5kk3TF5031</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpskmokt2fhak42ALVJBs</code></p>
         </div>
         </form>
 
@@ -31975,6 +32257,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -32252,6 +32535,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -32295,24 +32579,24 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 138,
+            &quot;id&quot;: 58,
             &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
             &quot;description&quot;: null,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 139,
+            &quot;id&quot;: 59,
             &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
             &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
             &quot;status&quot;: &quot;active&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -32569,6 +32853,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -32602,14 +32887,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 140,
+        &quot;id&quot;: 60,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -32821,14 +33106,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 141,
+        &quot;id&quot;: 61,
         &quot;name&quot;: &quot;Mrs. Justina Gaylord&quot;,
         &quot;description&quot;: &quot;Modi deserunt aut ab provident perspiciatis.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -33053,14 +33338,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 142,
+        &quot;id&quot;: 62,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -33310,14 +33595,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 143,
+        &quot;id&quot;: 63,
         &quot;name&quot;: &quot;Ms. Elisabeth Okuneva&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật người k&yacute; th&agrave;nh c&ocirc;ng!&quot;
@@ -33515,6 +33800,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -33753,14 +34039,14 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 144,
+        &quot;id&quot;: 64,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:26 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:26 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:08 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:08 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
@@ -33955,6 +34241,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -34263,7 +34550,7 @@ Must be one of:
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột không bắt buộc: so_ky_hieu, ten_van_ban, noi_dung, status (mặc định &quot;active&quot;). Quan hệ loại/lĩnh vực/cơ quan/cấp/người ký cần cấu hình riêng.</p>
+<p>Cột không bắt buộc: so_ky_hieu, ten_van_ban, noi_dung, status (mặc định "active"). Quan hệ loại/lĩnh vực/cơ quan/cấp/người ký cần cấu hình riêng.</p>
 
 <span id="example-requests-POSTapi-documents-import">
 <blockquote>Example request:</blockquote>
@@ -34276,7 +34563,7 @@ Must be one of:
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpf7bvplhfp68u7F23Th2" </code></pre></div>
+    --form "file=@/tmp/phphebr3is0o4lt76eQrke" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -34316,7 +34603,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpf7bvplhfp68u7F23Th2', 'r')
+                'contents' =&gt; fopen('/tmp/phphebr3is0o4lt76eQrke', 'r')
             ],
         ],
     ]
@@ -34444,7 +34731,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpf7bvplhfp68u7F23Th2</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phphebr3is0o4lt76eQrke</code></p>
         </div>
         </form>
 
@@ -34925,6 +35212,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -35274,6 +35562,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -35322,7 +35611,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 57,
+            &quot;id&quot;: 22,
             &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
             &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
             &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -35333,11 +35622,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;ngay_het_hieu_luc&quot;: null,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         },
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 23,
             &quot;so_ky_hieu&quot;: &quot;VB-1084/VI&quot;,
             &quot;ten_van_ban&quot;: &quot;Qui repudiandae laboriosam est.&quot;,
             &quot;noi_dung&quot;: null,
@@ -35345,11 +35634,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;ngay_ban_hanh&quot;: null,
             &quot;ngay_xuat_ban&quot;: null,
             &quot;ngay_hieu_luc&quot;: null,
-            &quot;ngay_het_hieu_luc&quot;: &quot;30/05/1986&quot;,
+            &quot;ngay_het_hieu_luc&quot;: &quot;10/05/1986&quot;,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-            &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+            &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+            &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
         }
     ],
     &quot;links&quot;: {
@@ -35666,6 +35955,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -35699,43 +35989,43 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 59,
+        &quot;id&quot;: 24,
         &quot;so_ky_hieu&quot;: &quot;VB-7680/WP&quot;,
         &quot;ten_van_ban&quot;: &quot;Qui commodi incidunt iure.&quot;,
         &quot;noi_dung&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;ngay_ban_hanh&quot;: &quot;19/04/1982&quot;,
+        &quot;ngay_ban_hanh&quot;: &quot;29/03/1982&quot;,
         &quot;ngay_xuat_ban&quot;: &quot;16/11/1971&quot;,
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 133,
+            &quot;id&quot;: 53,
             &quot;name&quot;: &quot;Smitham-Tromp&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 133,
+            &quot;id&quot;: 53,
             &quot;name&quot;: &quot;adipisci molestias&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 133,
+            &quot;id&quot;: 53,
             &quot;name&quot;: &quot;Cynthia Fahey&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 133,
+                &quot;id&quot;: 53,
                 &quot;name&quot;: &quot;delectus fugit&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 133,
+                &quot;id&quot;: 53,
                 &quot;name&quot;: &quot;voluptate accusamus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -35895,8 +36185,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_hieu_luc=architecto"\
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
-    --form "attachments[]=@/tmp/phps6r8k1ickhp10NRl8f4" \
-    --form "attachments[]=@/tmp/phpv5ijgbmhc7sd0c4CoyK" </code></pre></div>
+    --form "attachments[]=@/tmp/phpdt25njk1dqpu9agJ9As" \
+    --form "attachments[]=@/tmp/phpdpb6ardri6r046gOhCE" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -36002,11 +36292,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phps6r8k1ickhp10NRl8f4', 'r')
+                'contents' =&gt; fopen('/tmp/phpdt25njk1dqpu9agJ9As', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpv5ijgbmhc7sd0c4CoyK', 'r')
+                'contents' =&gt; fopen('/tmp/phpdpb6ardri6r046gOhCE', 'r')
             ],
         ],
     ]
@@ -36024,43 +36314,43 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 25,
         &quot;so_ky_hieu&quot;: &quot;VB-9775/NG&quot;,
         &quot;ten_van_ban&quot;: &quot;Quos velit et fugiat sunt nihil.&quot;,
         &quot;noi_dung&quot;: &quot;Modi deserunt aut ab provident perspiciatis. Omnis nostrum aut adipisci quidem nostrum qui commodi. Iure odit et et modi ipsum nostrum omnis. Et consequatur aut dolores enim.\n\nTempora ex voluptatem laboriosam praesentium quis. Molestias fugit deleniti distinctio eum doloremque id. Libero aliquam veniam corporis dolorem mollitia deleniti.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
-        &quot;ngay_ban_hanh&quot;: &quot;04/09/2009&quot;,
+        &quot;ngay_ban_hanh&quot;: &quot;15/08/2009&quot;,
         &quot;ngay_xuat_ban&quot;: null,
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: &quot;12/10/1999&quot;,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 134,
+            &quot;id&quot;: 54,
             &quot;name&quot;: &quot;O&#039;Connell, Beier and Bradtke&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 134,
+            &quot;id&quot;: 54,
             &quot;name&quot;: &quot;ratione nemo&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 134,
+            &quot;id&quot;: 54,
             &quot;name&quot;: &quot;Michelle Cassin&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 134,
+                &quot;id&quot;: 54,
                 &quot;name&quot;: &quot;ducimus corrupti&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 134,
+                &quot;id&quot;: 54,
                 &quot;name&quot;: &quot;quia maiores&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Tạo văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -36347,7 +36637,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm. Example: <code>/tmp/phpv5ijgbmhc7sd0c4CoyK</code></p>
+<p>Nhiều file đính kèm. Example: <code>/tmp/phpdpb6ardri6r046gOhCE</code></p>
         </div>
         </form>
 
@@ -36384,8 +36674,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "attachments[]=@/tmp/php54haceak8fr93BYsfKS" \
-    --form "attachments[]=@/tmp/phpl40sihac42ii6sVsK59" </code></pre></div>
+    --form "attachments[]=@/tmp/php4ndk100n320n4Qgt3Av" \
+    --form "attachments[]=@/tmp/phpmn8cm5c8s9mt81fP2uc" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -36496,11 +36786,11 @@ $response = $client-&gt;put(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/php54haceak8fr93BYsfKS', 'r')
+                'contents' =&gt; fopen('/tmp/php4ndk100n320n4Qgt3Av', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/phpl40sihac42ii6sVsK59', 'r')
+                'contents' =&gt; fopen('/tmp/phpmn8cm5c8s9mt81fP2uc', 'r')
             ],
         ],
     ]
@@ -36518,7 +36808,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 26,
         &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
         &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
         &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -36528,33 +36818,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 135,
+            &quot;id&quot;: 55,
             &quot;name&quot;: &quot;Pagac-Emmerich&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 135,
+            &quot;id&quot;: 55,
             &quot;name&quot;: &quot;ut et&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 135,
+            &quot;id&quot;: 55,
             &quot;name&quot;: &quot;Graham Crist V&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 135,
+                &quot;id&quot;: 55,
                 &quot;name&quot;: &quot;dolores quia&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 135,
+                &quot;id&quot;: 55,
                 &quot;name&quot;: &quot;odit doloribus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -36880,7 +37170,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpl40sihac42ii6sVsK59</code></p>
+<p>Nhiều file đính kèm (append). Example: <code>/tmp/phpmn8cm5c8s9mt81fP2uc</code></p>
         </div>
         </form>
 
@@ -36917,8 +37207,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "ngay_het_hieu_luc=architecto"\
     --form "status=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "attachments[]=@/tmp/php15qs3e2ikad205VaagU" \
-    --form "attachments[]=@/tmp/php65lbjktbulcjduUYfzz" </code></pre></div>
+    --form "attachments[]=@/tmp/php5hfmcn9apnmb4v5qbYP" \
+    --form "attachments[]=@/tmp/php4pmehhfbkt61cJ0EDIo" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -37029,11 +37319,11 @@ $response = $client-&gt;patch(
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/php15qs3e2ikad205VaagU', 'r')
+                'contents' =&gt; fopen('/tmp/php5hfmcn9apnmb4v5qbYP', 'r')
             ],
             [
                 'name' =&gt; 'attachments[]',
-                'contents' =&gt; fopen('/tmp/php65lbjktbulcjduUYfzz', 'r')
+                'contents' =&gt; fopen('/tmp/php4pmehhfbkt61cJ0EDIo', 'r')
             ],
         ],
     ]
@@ -37051,7 +37341,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
+        &quot;id&quot;: 27,
         &quot;so_ky_hieu&quot;: &quot;VB-9171/GZ&quot;,
         &quot;ten_van_ban&quot;: &quot;Velit et fugiat sunt.&quot;,
         &quot;noi_dung&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo. Nostrum aut adipisci quidem nostrum. Commodi incidunt iure odit. Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora.\n\nLaboriosam praesentium quis adipisci molestias fugit deleniti distinctio. Doloremque id aut libero aliquam veniam corporis. Mollitia deleniti nemo odit quia officia.&quot;,
@@ -37061,33 +37351,33 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 136,
+            &quot;id&quot;: 56,
             &quot;name&quot;: &quot;Pagac-Emmerich&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 136,
+            &quot;id&quot;: 56,
             &quot;name&quot;: &quot;recusandae modi&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 136,
+            &quot;id&quot;: 56,
             &quot;name&quot;: &quot;Mona Lemke&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 136,
+                &quot;id&quot;: 56,
                 &quot;name&quot;: &quot;maiores assumenda&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 136,
+                &quot;id&quot;: 56,
                 &quot;name&quot;: &quot;iure impedit&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -37413,7 +37703,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Nhiều file đính kèm (append). Example: <code>/tmp/php65lbjktbulcjduUYfzz</code></p>
+<p>Nhiều file đính kèm (append). Example: <code>/tmp/php4pmehhfbkt61cJ0EDIo</code></p>
         </div>
         </form>
 
@@ -37449,6 +37739,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -37687,43 +37978,43 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 63,
+        &quot;id&quot;: 28,
         &quot;so_ky_hieu&quot;: &quot;VB-7680/WP&quot;,
         &quot;ten_van_ban&quot;: &quot;Qui commodi incidunt iure.&quot;,
         &quot;noi_dung&quot;: null,
         &quot;status&quot;: &quot;active&quot;,
-        &quot;ngay_ban_hanh&quot;: &quot;19/04/1982&quot;,
+        &quot;ngay_ban_hanh&quot;: &quot;29/03/1982&quot;,
         &quot;ngay_xuat_ban&quot;: &quot;16/11/1971&quot;,
         &quot;ngay_hieu_luc&quot;: null,
         &quot;ngay_het_hieu_luc&quot;: null,
         &quot;issuing_agency&quot;: {
-            &quot;id&quot;: 137,
+            &quot;id&quot;: 57,
             &quot;name&quot;: &quot;Smitham-Tromp&quot;
         },
         &quot;issuing_level&quot;: {
-            &quot;id&quot;: 137,
+            &quot;id&quot;: 57,
             &quot;name&quot;: &quot;distinctio eum&quot;
         },
         &quot;signer&quot;: {
-            &quot;id&quot;: 137,
+            &quot;id&quot;: 57,
             &quot;name&quot;: &quot;Mathew Klocko&quot;
         },
         &quot;types&quot;: [
             {
-                &quot;id&quot;: 137,
+                &quot;id&quot;: 57,
                 &quot;name&quot;: &quot;dolorem mollitia&quot;
             }
         ],
         &quot;fields&quot;: [
             {
-                &quot;id&quot;: 137,
+                &quot;id&quot;: 57,
                 &quot;name&quot;: &quot;excepturi doloribus&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;09:32:25 05/03/2026&quot;,
-        &quot;updated_at&quot;: &quot;09:32:25 05/03/2026&quot;
+        &quot;created_at&quot;: &quot;12:50:07 25/03/2026&quot;,
+        &quot;updated_at&quot;: &quot;12:50:07 25/03/2026&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Đổi trạng th&aacute;i văn bản th&agrave;nh c&ocirc;ng!&quot;
@@ -37865,6 +38156,12144 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
+                <h1 id="meeting-bieu-quyet">Meeting - Biểu quyết</h1>
+
+    <p>Quản lý phiên biểu quyết: tạo, kích hoạt, thu phiếu, tổng hợp kết quả.
+Hỗ trợ biểu quyết công khai (public) và ẩn danh (anonymous).</p>
+
+                                <h2 id="meeting-bieu-quyet-GETapi-meetings--meeting_id--votings">Danh sách phiên biểu quyết</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--votings">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/votings" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/votings"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/votings';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--votings">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;title&quot;: &quot;Th&ocirc;ng qua kế hoạch ng&acirc;n s&aacute;ch năm 2027&quot;,
+            &quot;description&quot;: null,
+            &quot;type&quot;: &quot;public&quot;,
+            &quot;status&quot;: &quot;closed&quot;,
+            &quot;started_at&quot;: &quot;25/03/2026 09:00:00&quot;,
+            &quot;closed_at&quot;: &quot;25/03/2026 09:15:00&quot;,
+            &quot;created_at&quot;: &quot;25/03/2026 08:55:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--votings" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--votings"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--votings"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--votings" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--votings">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--votings" data-method="GET"
+      data-path="api/meetings/{meeting_id}/votings"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--votings', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--votings"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--votings');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--votings"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--votings');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--votings"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/votings</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--votings"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--votings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--votings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--votings"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--votings"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-bieu-quyet-POSTapi-meetings--meeting_id--votings">Tạo phiên biểu quyết</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings--meeting_id--votings">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/votings" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Thông qua kế hoạch ngân sách năm 2027\",
+    \"description\": \"Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu\",
+    \"type\": \"public\",
+    \"agenda_id\": 2
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/votings"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Thông qua kế hoạch ngân sách năm 2027",
+    "description": "Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu",
+    "type": "public",
+    "agenda_id": 2
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/votings';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Thông qua kế hoạch ngân sách năm 2027',
+            'description' =&gt; 'Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu',
+            'type' =&gt; 'public',
+            'agenda_id' =&gt; 2,
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--votings">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Phi&ecirc;n biểu quyết đ&atilde; được tạo!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;title&quot;: &quot;Th&ocirc;ng qua kế hoạch ng&acirc;n s&aacute;ch năm 2027&quot;,
+        &quot;description&quot;: &quot;Biểu quyết th&ocirc;ng qua kế hoạch ng&acirc;n s&aacute;ch dự kiến 500 triệu&quot;,
+        &quot;type&quot;: &quot;public&quot;,
+        &quot;status&quot;: &quot;pending&quot;,
+        &quot;started_at&quot;: null,
+        &quot;closed_at&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 08:55:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;title&quot;: [
+            &quot;Ti&ecirc;u đề biểu quyết kh&ocirc;ng được để trống.&quot;
+        ],
+        &quot;type&quot;: [
+            &quot;Kiểu biểu quyết kh&ocirc;ng hợp lệ. Chấp nhận: public, anonymous.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--votings" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--votings"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--votings"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--votings" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--votings">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--votings" data-method="POST"
+      data-path="api/meetings/{meeting_id}/votings"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--votings', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--votings"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--votings');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--votings"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--votings');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--votings"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/votings</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="Thông qua kế hoạch ngân sách năm 2027"
+               data-component="body">
+    <br>
+<p>Nội dung biểu quyết. Example: <code>Thông qua kế hoạch ngân sách năm 2027</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu"
+               data-component="body">
+    <br>
+<p>Mô tả chi tiết. Example: <code>Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="public"
+               data-component="body">
+    <br>
+<p>Kiểu: public (đưa ra công khai), anonymous (ẩn danh). Example: <code>public</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="POSTapi-meetings--meeting_id--votings"
+               value="2"
+               data-component="body">
+    <br>
+<p>Gắn với mục chương trình (nullable). Example: <code>2</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-bieu-quyet-PATCHapi-meetings--meeting_id--votings--voting_id--status">Thay đổi trạng thái phiên biểu quyết (Kích hoạt / Đóng)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--votings--voting_id--status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/votings/1/status" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"status\": \"active\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/votings/1/status"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "status": "active"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/votings/1/status';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'status' =&gt; 'active',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--votings--voting_id--status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Phi&ecirc;n biểu quyết đ&atilde; được k&iacute;ch hoạt!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--votings--voting_id--status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--votings--voting_id--status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--votings--voting_id--status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--votings--voting_id--status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--votings--voting_id--status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--votings--voting_id--status" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/votings/{voting_id}/status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--votings--voting_id--status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--votings--voting_id--status"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--votings--voting_id--status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--votings--voting_id--status"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--votings--voting_id--status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--votings--voting_id--status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/votings/{voting_id}/status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting_id"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the voting. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID phiên biểu quyết. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PATCHapi-meetings--meeting_id--votings--voting_id--status"
+               value="active"
+               data-component="body">
+    <br>
+<p>Trạng thái: active (kích hoạt), closed (đóng). Example: <code>active</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-bieu-quyet-POSTapi-meetings--meeting_id--votings--voting_id--vote">Gửi phiếu biểu quyết (Đại biểu)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Người dùng phải là đại biểu trong cuộc họp và phiên biểu quyết phải đang active.</p>
+
+<span id="example-requests-POSTapi-meetings--meeting_id--votings--voting_id--vote">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/votings/1/vote" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"vote_option\": \"agree\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/votings/1/vote"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "vote_option": "agree"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/votings/1/vote';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'vote_option' =&gt; 'agree',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--votings--voting_id--vote">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Biểu quyết của bạn đ&atilde; được ghi nhận!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--votings--voting_id--vote" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--votings--voting_id--vote"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--votings--voting_id--vote"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--votings--voting_id--vote" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--votings--voting_id--vote">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--votings--voting_id--vote" data-method="POST"
+      data-path="api/meetings/{meeting_id}/votings/{voting_id}/vote"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--votings--voting_id--vote', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--votings--voting_id--vote"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--votings--voting_id--vote');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--votings--voting_id--vote"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--votings--voting_id--vote');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--votings--voting_id--vote"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/votings/{voting_id}/vote</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting_id"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the voting. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID phiên biểu quyết. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>vote_option</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="vote_option"                data-endpoint="POSTapi-meetings--meeting_id--votings--voting_id--vote"
+               value="agree"
+               data-component="body">
+    <br>
+<p>Lựa chọn: agree, disagree, abstain. Example: <code>agree</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-bieu-quyet-GETapi-meetings--meeting_id--votings--voting_id--results">Kết quả tổng hợp biểu quyết</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Với anonymous voting, chỉ trả về tổng số phiếu theo từng lựa chọn, không lộ danh tính.</p>
+
+<span id="example-requests-GETapi-meetings--meeting_id--votings--voting_id--results">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/votings/1/results" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/votings/1/results"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/votings/1/results';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--votings--voting_id--results">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;voting&quot;: {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;...&quot;,
+            &quot;type&quot;: &quot;public&quot;,
+            &quot;status&quot;: &quot;closed&quot;
+        },
+        &quot;summary&quot;: {
+            &quot;agree&quot;: 8,
+            &quot;disagree&quot;: 2,
+            &quot;abstain&quot;: 1,
+            &quot;total&quot;: 11
+        },
+        &quot;details&quot;: null
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--votings--voting_id--results" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--votings--voting_id--results"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--votings--voting_id--results"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--votings--voting_id--results" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--votings--voting_id--results">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--votings--voting_id--results" data-method="GET"
+      data-path="api/meetings/{meeting_id}/votings/{voting_id}/results"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--votings--voting_id--results', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--votings--voting_id--results"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--votings--voting_id--results');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--votings--voting_id--results"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--votings--voting_id--results');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--votings--voting_id--results"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/votings/{voting_id}/results</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting_id"                data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the voting. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting"                data-endpoint="GETapi-meetings--meeting_id--votings--voting_id--results"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID phiên biểu quyết. Example: <code>16</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-bieu-quyet-DELETEapi-meetings--meeting_id--votings--voting_id-">Xóa phiên biểu quyết</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id--votings--voting_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2/votings/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/votings/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/votings/1';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id--votings--voting_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Phi&ecirc;n biểu quyết đ&atilde; được x&oacute;a!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id--votings--voting_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id--votings--voting_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id--votings--voting_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id--votings--voting_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id--votings--voting_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id--votings--voting_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}/votings/{voting_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id--votings--voting_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id--votings--voting_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id--votings--voting_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id--votings--voting_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id--votings--voting_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id--votings--voting_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}/votings/{voting_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting_id"                data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the voting. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>voting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="voting"                data-endpoint="DELETEapi-meetings--meeting_id--votings--voting_id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID phiên biểu quyết. Example: <code>16</code></p>
+            </div>
+                    </form>
+
+                <h1 id="meeting-chuong-trinh-hop-agenda">Meeting - Chương trình họp (Agenda)</h1>
+
+    <p>Quản lý mục chương trình họp.</p>
+
+                                <h2 id="meeting-chuong-trinh-hop-agenda-GETapi-meetings--meeting_id--agendas">Danh sách mục chương trình họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--agendas">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/agendas" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--agendas">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;title&quot;: &quot;B&aacute;o c&aacute;o th&aacute;ng 2&quot;,
+            &quot;description&quot;: &quot;B&aacute;o c&aacute;o kết quả c&ocirc;ng việc&quot;,
+            &quot;order_index&quot;: 0,
+            &quot;duration&quot;: 30,
+            &quot;is_current&quot;: true,
+            &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 07:00:00&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;meeting_id&quot;: 1,
+            &quot;title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+            &quot;description&quot;: null,
+            &quot;order_index&quot;: 1,
+            &quot;duration&quot;: 45,
+            &quot;is_current&quot;: false,
+            &quot;created_at&quot;: &quot;25/03/2026 07:05:00&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 07:05:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--agendas" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--agendas"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--agendas"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--agendas" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--agendas">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--agendas" data-method="GET"
+      data-path="api/meetings/{meeting_id}/agendas"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--agendas', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--agendas"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--agendas');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--agendas"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--agendas');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--agendas"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/agendas</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--agendas"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--agendas"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--agendas"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--agendas"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--agendas"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas">Thêm mục chương trình họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings--meeting_id--agendas">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/agendas" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Báo cáo tháng 2\",
+    \"description\": \"Báo cáo kết quả công việc tháng 2\",
+    \"order_index\": 0,
+    \"duration\": 30
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Báo cáo tháng 2",
+    "description": "Báo cáo kết quả công việc tháng 2",
+    "order_index": 0,
+    "duration": 30
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Báo cáo tháng 2',
+            'description' =&gt; 'Báo cáo kết quả công việc tháng 2',
+            'order_index' =&gt; 0,
+            'duration' =&gt; 30,
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--agendas">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Mục chương tr&igrave;nh đ&atilde; được th&ecirc;m!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;title&quot;: &quot;B&aacute;o c&aacute;o th&aacute;ng 2&quot;,
+        &quot;description&quot;: &quot;B&aacute;o c&aacute;o kết quả c&ocirc;ng việc th&aacute;ng 2&quot;,
+        &quot;order_index&quot;: 0,
+        &quot;duration&quot;: 30,
+        &quot;is_current&quot;: false,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;title&quot;: [
+            &quot;Ti&ecirc;u đề mục họp kh&ocirc;ng được để trống.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--agendas" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--agendas"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--agendas"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--agendas" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--agendas">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--agendas" data-method="POST"
+      data-path="api/meetings/{meeting_id}/agendas"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--agendas', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--agendas"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--agendas');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--agendas"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--agendas');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--agendas"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/agendas</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="Báo cáo tháng 2"
+               data-component="body">
+    <br>
+<p>Tiêu đề mục. Example: <code>Báo cáo tháng 2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="Báo cáo kết quả công việc tháng 2"
+               data-component="body">
+    <br>
+<p>Mô tả chi tiết. Example: <code>Báo cáo kết quả công việc tháng 2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>order_index</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order_index"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="0"
+               data-component="body">
+    <br>
+<p>Thứ tự hiển thị (bắt đầu từ 0). Example: <code>0</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>duration</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="duration"                data-endpoint="POSTapi-meetings--meeting_id--agendas"
+               value="30"
+               data-component="body">
+    <br>
+<p>Thời lượng (phút). Example: <code>30</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-chuong-trinh-hop-agenda-PUTapi-meetings--meeting_id--agendas--agenda_id-">Cập nhật mục chương trình họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-meetings--meeting_id--agendas--agenda_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/meetings/2/agendas/3" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Báo cáo tháng 2 (cập nhật)\",
+    \"description\": \"Nội dung mới\",
+    \"order_index\": 1,
+    \"duration\": 45
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas/3"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Báo cáo tháng 2 (cập nhật)",
+    "description": "Nội dung mới",
+    "order_index": 1,
+    "duration": 45
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas/3';
+$response = $client-&gt;put(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Báo cáo tháng 2 (cập nhật)',
+            'description' =&gt; 'Nội dung mới',
+            'order_index' =&gt; 1,
+            'duration' =&gt; 45,
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-meetings--meeting_id--agendas--agenda_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Mục chương tr&igrave;nh đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;title&quot;: &quot;B&aacute;o c&aacute;o th&aacute;ng 2 (cập nhật)&quot;,
+        &quot;description&quot;: &quot;Nội dung mới&quot;,
+        &quot;order_index&quot;: 1,
+        &quot;duration&quot;: 45,
+        &quot;is_current&quot;: false,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy mục chương tr&igrave;nh.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-meetings--meeting_id--agendas--agenda_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-meetings--meeting_id--agendas--agenda_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-meetings--meeting_id--agendas--agenda_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-meetings--meeting_id--agendas--agenda_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-meetings--meeting_id--agendas--agenda_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-meetings--meeting_id--agendas--agenda_id-" data-method="PUT"
+      data-path="api/meetings/{meeting_id}/agendas/{agenda_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-meetings--meeting_id--agendas--agenda_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-meetings--meeting_id--agendas--agenda_id-"
+                    onclick="tryItOut('PUTapi-meetings--meeting_id--agendas--agenda_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-meetings--meeting_id--agendas--agenda_id-"
+                    onclick="cancelTryOut('PUTapi-meetings--meeting_id--agendas--agenda_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-meetings--meeting_id--agendas--agenda_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/meetings/{meeting_id}/agendas/{agenda_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="3"
+               data-component="url">
+    <br>
+<p>The ID of the agenda. Example: <code>3</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID mục chương trình. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Báo cáo tháng 2 (cập nhật)"
+               data-component="body">
+    <br>
+<p>Tiêu đề mục. Example: <code>Báo cáo tháng 2 (cập nhật)</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Nội dung mới"
+               data-component="body">
+    <br>
+<p>Mô tả. Example: <code>Nội dung mới</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>order_index</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order_index"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="body">
+    <br>
+<p>Thứ tự mới. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>duration</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="duration"                data-endpoint="PUTapi-meetings--meeting_id--agendas--agenda_id-"
+               value="45"
+               data-component="body">
+    <br>
+<p>Thời lượng (phút, tối đa 480). Example: <code>45</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-chuong-trinh-hop-agenda-PATCHapi-meetings--meeting_id--agendas--agenda_id-">Cập nhật mục chương trình họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--agendas--agenda_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/agendas/3" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Báo cáo tháng 2 (cập nhật)\",
+    \"description\": \"Nội dung mới\",
+    \"order_index\": 1,
+    \"duration\": 45
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas/3"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Báo cáo tháng 2 (cập nhật)",
+    "description": "Nội dung mới",
+    "order_index": 1,
+    "duration": 45
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas/3';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Báo cáo tháng 2 (cập nhật)',
+            'description' =&gt; 'Nội dung mới',
+            'order_index' =&gt; 1,
+            'duration' =&gt; 45,
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--agendas--agenda_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Mục chương tr&igrave;nh đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;title&quot;: &quot;B&aacute;o c&aacute;o th&aacute;ng 2 (cập nhật)&quot;,
+        &quot;description&quot;: &quot;Nội dung mới&quot;,
+        &quot;order_index&quot;: 1,
+        &quot;duration&quot;: 45,
+        &quot;is_current&quot;: false,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy mục chương tr&igrave;nh.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--agendas--agenda_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--agendas--agenda_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--agendas--agenda_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--agendas--agenda_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--agendas--agenda_id-" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/agendas/{agenda_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--agendas--agenda_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--agendas--agenda_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--agendas--agenda_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/agendas/{agenda_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="3"
+               data-component="url">
+    <br>
+<p>The ID of the agenda. Example: <code>3</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID mục chương trình. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Báo cáo tháng 2 (cập nhật)"
+               data-component="body">
+    <br>
+<p>Tiêu đề mục. Example: <code>Báo cáo tháng 2 (cập nhật)</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Nội dung mới"
+               data-component="body">
+    <br>
+<p>Mô tả. Example: <code>Nội dung mới</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>order_index</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="order_index"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="body">
+    <br>
+<p>Thứ tự mới. Example: <code>1</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>duration</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="duration"                data-endpoint="PATCHapi-meetings--meeting_id--agendas--agenda_id-"
+               value="45"
+               data-component="body">
+    <br>
+<p>Thời lượng (phút, tối đa 480). Example: <code>45</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-chuong-trinh-hop-agenda-DELETEapi-meetings--meeting_id--agendas--agenda_id-">Xóa mục chương trình họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id--agendas--agenda_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2/agendas/3" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas/3"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas/3';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id--agendas--agenda_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Mục chương tr&igrave;nh đ&atilde; được x&oacute;a!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id--agendas--agenda_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id--agendas--agenda_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id--agendas--agenda_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id--agendas--agenda_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id--agendas--agenda_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}/agendas/{agenda_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id--agendas--agenda_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id--agendas--agenda_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id--agendas--agenda_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}/agendas/{agenda_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="3"
+               data-component="url">
+    <br>
+<p>The ID of the agenda. Example: <code>3</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda"                data-endpoint="DELETEapi-meetings--meeting_id--agendas--agenda_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID mục chương trình. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current">Đặt mục đang thảo luận (real-time điều hướng)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Đánh dấu agenda đang được thảo luận. Trigger event để đồng bộ màn hình tất cả đại biểu.</p>
+
+<span id="example-requests-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/agendas/3/set-current" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas/3/set-current"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas/3/set-current';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đ&atilde; chuyển sang mục thảo luận!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current" data-method="POST"
+      data-path="api/meetings/{meeting_id}/agendas/{agenda_id}/set-current"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--agendas--agenda_id--set-current', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--agendas--agenda_id--set-current');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--agendas--agenda_id--set-current');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/agendas/{agenda_id}/set-current</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="3"
+               data-component="url">
+    <br>
+<p>The ID of the agenda. Example: <code>3</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda"                data-endpoint="POSTapi-meetings--meeting_id--agendas--agenda_id--set-current"
+               value="2"
+               data-component="url">
+    <br>
+<p>ID mục chương trình. Example: <code>2</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-chuong-trinh-hop-agenda-POSTapi-meetings--meeting_id--agendas-reorder">Sắp xếp lại thứ tự chương trình họp (Drag-and-drop)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings--meeting_id--agendas-reorder">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/agendas/reorder" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"orders\": [
+        {
+            \"id\": 1,
+            \"order_index\": 0
+        },
+        {
+            \"id\": 2,
+            \"order_index\": 1
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/agendas/reorder"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "orders": [
+        {
+            "id": 1,
+            "order_index": 0
+        },
+        {
+            "id": 2,
+            "order_index": 1
+        }
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/agendas/reorder';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+            $o = [
+                clone (($p = &amp;\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['stdClass'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('stdClass')),
+                clone $p['stdClass'],
+            ],
+            null,
+            [
+                'stdClass' =&gt; [
+                    'id' =&gt; [
+                        1,
+                        2,
+                    ],
+                    'order_index' =&gt; [
+                        0,
+                        1,
+                    ],
+                ],
+            ],
+            [
+                'orders' =&gt; [
+                    $o[0],
+                    $o[1],
+                ],
+            ],
+            []
+        ),
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--agendas-reorder">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Thứ tự chương tr&igrave;nh đ&atilde; được cập nhật!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--agendas-reorder" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--agendas-reorder"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--agendas-reorder"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--agendas-reorder" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--agendas-reorder">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--agendas-reorder" data-method="POST"
+      data-path="api/meetings/{meeting_id}/agendas/reorder"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--agendas-reorder', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--agendas-reorder"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--agendas-reorder');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--agendas-reorder"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--agendas-reorder');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--agendas-reorder"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/agendas/reorder</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>orders</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>Danh sách thứ tự.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="orders.0.id"                data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="16"
+               data-component="body">
+    <br>
+<p>The <code>id</code> of an existing record in the m_agendas table. Example: <code>16</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>order_index</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="orders.0.order_index"                data-endpoint="POSTapi-meetings--meeting_id--agendas-reorder"
+               value="39"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>39</code></p>
+                    </div>
+                                    </details>
+        </div>
+        </form>
+
+                <h1 id="meeting-cuoc-hop">Meeting - Cuộc họp</h1>
+
+    
+
+                                <h2 id="meeting-cuoc-hop-GETapi-meetings-stats">Thống kê cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings-stats">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/stats?search=h%E1%BB%8Dp+qu%C3%BD&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/stats"
+);
+
+const params = {
+    "search": "họp quý",
+    "status": "architecto",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "sort_by": "created_at",
+    "sort_order": "desc",
+    "limit": "10",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/stats';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'query' =&gt; [
+            'search' =&gt; 'họp quý',
+            'status' =&gt; 'architecto',
+            'from_date' =&gt; '2026-01-01',
+            'to_date' =&gt; '2026-12-31',
+            'sort_by' =&gt; 'created_at',
+            'sort_order' =&gt; 'desc',
+            'limit' =&gt; '10',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings-stats">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;total&quot;: 10,
+        &quot;draft&quot;: 2,
+        &quot;active&quot;: 3,
+        &quot;in_progress&quot;: 1,
+        &quot;ended&quot;: 4
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings-stats" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings-stats"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings-stats"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings-stats" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings-stats">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings-stats" data-method="GET"
+      data-path="api/meetings/stats"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings-stats', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings-stats"
+                    onclick="tryItOut('GETapi-meetings-stats');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings-stats"
+                    onclick="cancelTryOut('GETapi-meetings-stats');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings-stats"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/stats</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings-stats"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="GETapi-meetings-stats"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings-stats"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings-stats"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>search</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="search"                data-endpoint="GETapi-meetings-stats"
+               value="họp quý"
+               data-component="query">
+    <br>
+<p>Từ khóa tìm kiếm. Example: <code>họp quý</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="GETapi-meetings-stats"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Lọc trạng thái: draft, active, in_progress, ended. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>from_date</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="from_date"                data-endpoint="GETapi-meetings-stats"
+               value="2026-01-01"
+               data-component="query">
+    <br>
+<p>date Từ ngày. Example: <code>2026-01-01</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>to_date</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="to_date"                data-endpoint="GETapi-meetings-stats"
+               value="2026-12-31"
+               data-component="query">
+    <br>
+<p>date Đến ngày. Example: <code>2026-12-31</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sort_by</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sort_by"                data-endpoint="GETapi-meetings-stats"
+               value="created_at"
+               data-component="query">
+    <br>
+<p>Trường dùng để sắp xếp. Must not be greater than 50 characters. Example: <code>created_at</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sort_order</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sort_order"                data-endpoint="GETapi-meetings-stats"
+               value="desc"
+               data-component="query">
+    <br>
+<p>Thứ tự sắp xếp. Example: <code>desc</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>asc</code></li> <li><code>desc</code></li></ul>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>limit</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="limit"                data-endpoint="GETapi-meetings-stats"
+               value="10"
+               data-component="query">
+    <br>
+<p>Số bản ghi mỗi trang (1-100). Must be at least 1. Must not be greater than 100. Example: <code>10</code></p>
+            </div>
+                </form>
+
+                    <h2 id="meeting-cuoc-hop-GETapi-meetings-export">Xuất danh sách cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Áp dụng cùng bộ lọc với index. Xuất ra file meetings.xlsx.</p>
+
+<span id="example-requests-GETapi-meetings-export">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/export?search=architecto&amp;status=architecto&amp;from_date=architecto&amp;to_date=architecto&amp;sort_by=created_at&amp;sort_order=desc&amp;limit=10" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/export"
+);
+
+const params = {
+    "search": "architecto",
+    "status": "architecto",
+    "from_date": "architecto",
+    "to_date": "architecto",
+    "sort_by": "created_at",
+    "sort_order": "desc",
+    "limit": "10",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/export';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'query' =&gt; [
+            'search' =&gt; 'architecto',
+            'status' =&gt; 'architecto',
+            'from_date' =&gt; 'architecto',
+            'to_date' =&gt; 'architecto',
+            'sort_by' =&gt; 'created_at',
+            'sort_order' =&gt; 'desc',
+            'limit' =&gt; '10',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings-export">
+            <blockquote>
+            <p>Example response (200, File Excel):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings-export" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings-export"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings-export"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings-export" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings-export">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings-export" data-method="GET"
+      data-path="api/meetings/export"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings-export', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings-export"
+                    onclick="tryItOut('GETapi-meetings-export');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings-export"
+                    onclick="cancelTryOut('GETapi-meetings-export');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings-export"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/export</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings-export"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="GETapi-meetings-export"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings-export"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings-export"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>search</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="search"                data-endpoint="GETapi-meetings-export"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Từ khóa tìm kiếm. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="GETapi-meetings-export"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Lọc trạng thái. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>from_date</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="from_date"                data-endpoint="GETapi-meetings-export"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>date Từ ngày. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>to_date</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="to_date"                data-endpoint="GETapi-meetings-export"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>date Đến ngày. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sort_by</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sort_by"                data-endpoint="GETapi-meetings-export"
+               value="created_at"
+               data-component="query">
+    <br>
+<p>Trường dùng để sắp xếp. Must not be greater than 50 characters. Example: <code>created_at</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sort_order</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sort_order"                data-endpoint="GETapi-meetings-export"
+               value="desc"
+               data-component="query">
+    <br>
+<p>Thứ tự sắp xếp. Example: <code>desc</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>asc</code></li> <li><code>desc</code></li></ul>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>limit</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="limit"                data-endpoint="GETapi-meetings-export"
+               value="10"
+               data-component="query">
+    <br>
+<p>Số bản ghi mỗi trang (1-100). Must be at least 1. Must not be greater than 100. Example: <code>10</code></p>
+            </div>
+                </form>
+
+                    <h2 id="meeting-cuoc-hop-POSTapi-meetings-import">Nhập danh sách cuộc họ p</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Cột bắt buộc: title. Cột không bắt buộc: description, location, start_at, end_at, status.</p>
+
+<span id="example-requests-POSTapi-meetings-import">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/import" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "file=@/tmp/php7hkmotjcrnir8T6uunD" </code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/import"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('file', document.querySelector('input[name="file"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/import';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'multipart/form-data',
+            'Accept' =&gt; 'application/json',
+        ],
+        'multipart' =&gt; [
+            [
+                'name' =&gt; 'file',
+                'contents' =&gt; fopen('/tmp/php7hkmotjcrnir8T6uunD', 'r')
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings-import">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Nhập dữ liệu cuộc họ p th&agrave;nh c&ocirc;ng!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings-import" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings-import"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings-import"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings-import" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings-import">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings-import" data-method="POST"
+      data-path="api/meetings/import"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings-import', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings-import"
+                    onclick="tryItOut('POSTapi-meetings-import');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings-import"
+                    onclick="cancelTryOut('POSTapi-meetings-import');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings-import"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/import</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings-import"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="POSTapi-meetings-import"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings-import"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings-import"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="file"                data-endpoint="POSTapi-meetings-import"
+               value=""
+               data-component="body">
+    <br>
+<p>File xlsx, xls hoặc csv. Example: <code>/tmp/php7hkmotjcrnir8T6uunD</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-cuoc-hop-POSTapi-meetings-bulk-delete">Xóa hàng loạt cuộc họ p</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings-bulk-delete">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/bulk-delete" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"ids\": [
+        1,
+        2,
+        3
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/bulk-delete"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "ids": [
+        1,
+        2,
+        3
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/bulk-delete';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'ids' =&gt; [
+                1,
+                2,
+                3,
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings-bulk-delete">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đ&atilde; x&oacute;a th&agrave;nh c&ocirc;ng c&aacute;c cuộc họ p được chọ n!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings-bulk-delete" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings-bulk-delete"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings-bulk-delete"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings-bulk-delete" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings-bulk-delete">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings-bulk-delete" data-method="POST"
+      data-path="api/meetings/bulk-delete"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings-bulk-delete', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings-bulk-delete"
+                    onclick="tryItOut('POSTapi-meetings-bulk-delete');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings-bulk-delete"
+                    onclick="cancelTryOut('POSTapi-meetings-bulk-delete');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings-bulk-delete"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/bulk-delete</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings-bulk-delete"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="POSTapi-meetings-bulk-delete"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings-bulk-delete"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings-bulk-delete"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="ids[0]"                data-endpoint="POSTapi-meetings-bulk-delete"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="ids[1]"                data-endpoint="POSTapi-meetings-bulk-delete"
+               data-component="body">
+    <br>
+<p>Danh sách ID cuộc họ p.</p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-cuoc-hop-PATCHapi-meetings-bulk-status">Cập nhật trạng thái hàng loạt cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings-bulk-status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/bulk-status" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"ids\": [
+        1,
+        2
+    ],
+    \"status\": \"active\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/bulk-status"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "ids": [
+        1,
+        2
+    ],
+    "status": "active"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/bulk-status';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'ids' =&gt; [
+                1,
+                2,
+            ],
+            'status' =&gt; 'active',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings-bulk-status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings-bulk-status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings-bulk-status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings-bulk-status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings-bulk-status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings-bulk-status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings-bulk-status" data-method="PATCH"
+      data-path="api/meetings/bulk-status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings-bulk-status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings-bulk-status"
+                    onclick="tryItOut('PATCHapi-meetings-bulk-status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings-bulk-status"
+                    onclick="cancelTryOut('PATCHapi-meetings-bulk-status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings-bulk-status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/bulk-status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings-bulk-status"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="PATCHapi-meetings-bulk-status"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings-bulk-status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings-bulk-status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="ids[0]"                data-endpoint="PATCHapi-meetings-bulk-status"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="ids[1]"                data-endpoint="PATCHapi-meetings-bulk-status"
+               data-component="body">
+    <br>
+<p>Danh sách ID.</p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PATCHapi-meetings-bulk-status"
+               value="active"
+               data-component="body">
+    <br>
+<p>Trạng thái: draft, active, in_progress, ended. Example: <code>active</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-cuoc-hop-GETapi-meetings">Danh sách cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings?search=architecto&amp;status=architecto&amp;from_date=2026-01-01&amp;to_date=2026-12-31&amp;sort_by=start_at&amp;sort_order=desc&amp;limit=10" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings"
+);
+
+const params = {
+    "search": "architecto",
+    "status": "architecto",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "sort_by": "start_at",
+    "sort_order": "desc",
+    "limit": "10",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'query' =&gt; [
+            'search' =&gt; 'architecto',
+            'status' =&gt; 'architecto',
+            'from_date' =&gt; '2026-01-01',
+            'to_date' =&gt; '2026-12-31',
+            'sort_by' =&gt; 'start_at',
+            'sort_order' =&gt; 'desc',
+            'limit' =&gt; '10',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Họp th&aacute;ng 3/2026&quot;,
+            &quot;description&quot;: &quot;Cuộc họp định kỳ&quot;,
+            &quot;location&quot;: &quot;Ph&ograve;ng họp A&quot;,
+            &quot;start_at&quot;: &quot;25/03/2026 08:00&quot;,
+            &quot;end_at&quot;: &quot;25/03/2026 10:00&quot;,
+            &quot;status&quot;: &quot;active&quot;,
+            &quot;created_by&quot;: &quot;Admin&quot;,
+            &quot;updated_by&quot;: &quot;Admin&quot;,
+            &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 07:00:00&quot;
+        }
+    ],
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;per_page&quot;: 10,
+        &quot;total&quot;: 1
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings" data-method="GET"
+      data-path="api/meetings"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings"
+                    onclick="tryItOut('GETapi-meetings');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings"
+                    onclick="cancelTryOut('GETapi-meetings');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="GETapi-meetings"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>search</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="search"                data-endpoint="GETapi-meetings"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Từ khóa tìm kiếm. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="GETapi-meetings"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Lọc trạng thái: draft, active, in_progress, ended. Example: <code>architecto</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>from_date</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="from_date"                data-endpoint="GETapi-meetings"
+               value="2026-01-01"
+               data-component="query">
+    <br>
+<p>date Từ ngày bắt đầu. Example: <code>2026-01-01</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>to_date</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="to_date"                data-endpoint="GETapi-meetings"
+               value="2026-12-31"
+               data-component="query">
+    <br>
+<p>date Đến ngày bắt đầu. Example: <code>2026-12-31</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sort_by</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sort_by"                data-endpoint="GETapi-meetings"
+               value="start_at"
+               data-component="query">
+    <br>
+<p>Sắp xếp theo: id, title, start_at, end_at, created_at. Example: <code>start_at</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sort_order</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sort_order"                data-endpoint="GETapi-meetings"
+               value="desc"
+               data-component="query">
+    <br>
+<p>Thứ tự: asc, desc. Example: <code>desc</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>limit</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="limit"                data-endpoint="GETapi-meetings"
+               value="10"
+               data-component="query">
+    <br>
+<p>Số bản ghi mỗi trang (1-100). Example: <code>10</code></p>
+            </div>
+                </form>
+
+                    <h2 id="meeting-cuoc-hop-POSTapi-meetings">Tạo cuộc họp mới</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Họp tháng 3\\/2026\",
+    \"description\": \"Cuộc họp định kỳ tháng 3\",
+    \"location\": \"Phòng họp A\",
+    \"start_at\": \"2026-03-25 08:00:00\",
+    \"end_at\": \"2026-03-25 10:00:00\",
+    \"status\": \"draft\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Họp tháng 3\/2026",
+    "description": "Cuộc họp định kỳ tháng 3",
+    "location": "Phòng họp A",
+    "start_at": "2026-03-25 08:00:00",
+    "end_at": "2026-03-25 10:00:00",
+    "status": "draft"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Họp tháng 3/2026',
+            'description' =&gt; 'Cuộc họp định kỳ tháng 3',
+            'location' =&gt; 'Phòng họp A',
+            'start_at' =&gt; '2026-03-25 08:00:00',
+            'end_at' =&gt; '2026-03-25 10:00:00',
+            'status' =&gt; 'draft',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Cuộc họp đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Họp th&aacute;ng 3/2026&quot;,
+        &quot;description&quot;: &quot;Cuộc họp định kỳ th&aacute;ng 3&quot;,
+        &quot;location&quot;: &quot;Ph&ograve;ng họp A&quot;,
+        &quot;start_at&quot;: &quot;25/03/2026 08:00&quot;,
+        &quot;end_at&quot;: &quot;25/03/2026 10:00&quot;,
+        &quot;status&quot;: &quot;draft&quot;,
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;title&quot;: [
+            &quot;Ti&ecirc;u đề cuộc họp kh&ocirc;ng được để trống.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings" data-method="POST"
+      data-path="api/meetings"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings"
+                    onclick="tryItOut('POSTapi-meetings');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings"
+                    onclick="cancelTryOut('POSTapi-meetings');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="POSTapi-meetings"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="POSTapi-meetings"
+               value="Họp tháng 3/2026"
+               data-component="body">
+    <br>
+<p>Tiêu đề cuộc họp. Example: <code>Họp tháng 3/2026</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-meetings"
+               value="Cuộc họp định kỳ tháng 3"
+               data-component="body">
+    <br>
+<p>Mô tả. Example: <code>Cuộc họp định kỳ tháng 3</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="location"                data-endpoint="POSTapi-meetings"
+               value="Phòng họp A"
+               data-component="body">
+    <br>
+<p>Địa điểm. Example: <code>Phòng họp A</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>start_at</code></b>&nbsp;&nbsp;
+<small>datetime</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="start_at"                data-endpoint="POSTapi-meetings"
+               value="2026-03-25 08:00:00"
+               data-component="body">
+    <br>
+<p>Thời gian bắt đầu. Example: <code>2026-03-25 08:00:00</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>end_at</code></b>&nbsp;&nbsp;
+<small>datetime</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="end_at"                data-endpoint="POSTapi-meetings"
+               value="2026-03-25 10:00:00"
+               data-component="body">
+    <br>
+<p>Thời gian kết thúc. Example: <code>2026-03-25 10:00:00</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="POSTapi-meetings"
+               value="draft"
+               data-component="body">
+    <br>
+<p>Trạng thái ban đầu (mặc định: draft). Example: <code>draft</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-cuoc-hop-GETapi-meetings--meeting_id-">Chi tiết cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Họp th&aacute;ng 3/2026&quot;,
+        &quot;description&quot;: &quot;Cuộc họp định kỳ&quot;,
+        &quot;location&quot;: &quot;Ph&ograve;ng họp A&quot;,
+        &quot;start_at&quot;: &quot;25/03/2026 08:00&quot;,
+        &quot;end_at&quot;: &quot;25/03/2026 10:00&quot;,
+        &quot;status&quot;: &quot;active&quot;,
+        &quot;agendas&quot;: [],
+        &quot;participants&quot;: [],
+        &quot;documents&quot;: [],
+        &quot;conclusions&quot;: [],
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy cuộc họp.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id-" data-method="GET"
+      data-path="api/meetings/{meeting_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id-"
+                    onclick="tryItOut('GETapi-meetings--meeting_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id-"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="GETapi-meetings--meeting_id-"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-cuoc-hop-PUTapi-meetings--meeting_id-">Cập nhật cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-meetings--meeting_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/meetings/2" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Họp tháng 3\\/2026 (cập nhật)\",
+    \"description\": \"Nội dung cuộc họp đã được cập nhật\",
+    \"location\": \"Phòng họp B\",
+    \"start_at\": \"2026-03-26 09:00:00\",
+    \"end_at\": \"2026-03-26 11:00:00\",
+    \"status\": \"ended\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Họp tháng 3\/2026 (cập nhật)",
+    "description": "Nội dung cuộc họp đã được cập nhật",
+    "location": "Phòng họp B",
+    "start_at": "2026-03-26 09:00:00",
+    "end_at": "2026-03-26 11:00:00",
+    "status": "ended"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2';
+$response = $client-&gt;put(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Họp tháng 3/2026 (cập nhật)',
+            'description' =&gt; 'Nội dung cuộc họp đã được cập nhật',
+            'location' =&gt; 'Phòng họp B',
+            'start_at' =&gt; '2026-03-26 09:00:00',
+            'end_at' =&gt; '2026-03-26 11:00:00',
+            'status' =&gt; 'ended',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-meetings--meeting_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Cuộc họp đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Họp th&aacute;ng 3/2026 (cập nhật)&quot;,
+        &quot;description&quot;: &quot;Nội dung cuộc họp đ&atilde; được cập nhật&quot;,
+        &quot;location&quot;: &quot;Ph&ograve;ng họp B&quot;,
+        &quot;start_at&quot;: &quot;26/03/2026 09:00&quot;,
+        &quot;end_at&quot;: &quot;26/03/2026 11:00&quot;,
+        &quot;status&quot;: &quot;draft&quot;,
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy cuộc họp.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-meetings--meeting_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-meetings--meeting_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-meetings--meeting_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-meetings--meeting_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-meetings--meeting_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-meetings--meeting_id-" data-method="PUT"
+      data-path="api/meetings/{meeting_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-meetings--meeting_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-meetings--meeting_id-"
+                    onclick="tryItOut('PUTapi-meetings--meeting_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-meetings--meeting_id-"
+                    onclick="cancelTryOut('PUTapi-meetings--meeting_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-meetings--meeting_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/meetings/{meeting_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-meetings--meeting_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="Họp tháng 3/2026 (cập nhật)"
+               data-component="body">
+    <br>
+<p>Tiêu đề cuộc họp. Example: <code>Họp tháng 3/2026 (cập nhật)</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="Nội dung cuộc họp đã được cập nhật"
+               data-component="body">
+    <br>
+<p>Mô tả. Example: <code>Nội dung cuộc họp đã được cập nhật</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="location"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="Phòng họp B"
+               data-component="body">
+    <br>
+<p>Địa điểm. Example: <code>Phòng họp B</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>start_at</code></b>&nbsp;&nbsp;
+<small>datetime</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="start_at"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="2026-03-26 09:00:00"
+               data-component="body">
+    <br>
+<p>Thời gian bắt đầu. Example: <code>2026-03-26 09:00:00</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>end_at</code></b>&nbsp;&nbsp;
+<small>datetime</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="end_at"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="2026-03-26 11:00:00"
+               data-component="body">
+    <br>
+<p>Thời gian kết thúc. Example: <code>2026-03-26 11:00:00</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PUTapi-meetings--meeting_id-"
+               value="ended"
+               data-component="body">
+    <br>
+<p>Example: <code>ended</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>draft</code></li> <li><code>active</code></li> <li><code>in_progress</code></li> <li><code>ended</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="meeting-cuoc-hop-PATCHapi-meetings--meeting_id-">Cập nhật cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"title\": \"Họp tháng 3\\/2026 (cập nhật)\",
+    \"description\": \"Nội dung cuộc họp đã được cập nhật\",
+    \"location\": \"Phòng họp B\",
+    \"start_at\": \"2026-03-26 09:00:00\",
+    \"end_at\": \"2026-03-26 11:00:00\",
+    \"status\": \"in_progress\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "Họp tháng 3\/2026 (cập nhật)",
+    "description": "Nội dung cuộc họp đã được cập nhật",
+    "location": "Phòng họp B",
+    "start_at": "2026-03-26 09:00:00",
+    "end_at": "2026-03-26 11:00:00",
+    "status": "in_progress"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'title' =&gt; 'Họp tháng 3/2026 (cập nhật)',
+            'description' =&gt; 'Nội dung cuộc họp đã được cập nhật',
+            'location' =&gt; 'Phòng họp B',
+            'start_at' =&gt; '2026-03-26 09:00:00',
+            'end_at' =&gt; '2026-03-26 11:00:00',
+            'status' =&gt; 'in_progress',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Cuộc họp đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Họp th&aacute;ng 3/2026 (cập nhật)&quot;,
+        &quot;description&quot;: &quot;Nội dung cuộc họp đ&atilde; được cập nhật&quot;,
+        &quot;location&quot;: &quot;Ph&ograve;ng họp B&quot;,
+        &quot;start_at&quot;: &quot;26/03/2026 09:00&quot;,
+        &quot;end_at&quot;: &quot;26/03/2026 11:00&quot;,
+        &quot;status&quot;: &quot;draft&quot;,
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy cuộc họp.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id-" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id-"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id-"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="Họp tháng 3/2026 (cập nhật)"
+               data-component="body">
+    <br>
+<p>Tiêu đề cuộc họp. Example: <code>Họp tháng 3/2026 (cập nhật)</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="Nội dung cuộc họp đã được cập nhật"
+               data-component="body">
+    <br>
+<p>Mô tả. Example: <code>Nội dung cuộc họp đã được cập nhật</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="location"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="Phòng họp B"
+               data-component="body">
+    <br>
+<p>Địa điểm. Example: <code>Phòng họp B</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>start_at</code></b>&nbsp;&nbsp;
+<small>datetime</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="start_at"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="2026-03-26 09:00:00"
+               data-component="body">
+    <br>
+<p>Thời gian bắt đầu. Example: <code>2026-03-26 09:00:00</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>end_at</code></b>&nbsp;&nbsp;
+<small>datetime</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="end_at"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="2026-03-26 11:00:00"
+               data-component="body">
+    <br>
+<p>Thời gian kết thúc. Example: <code>2026-03-26 11:00:00</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PATCHapi-meetings--meeting_id-"
+               value="in_progress"
+               data-component="body">
+    <br>
+<p>Example: <code>in_progress</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>draft</code></li> <li><code>active</code></li> <li><code>in_progress</code></li> <li><code>ended</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="meeting-cuoc-hop-DELETEapi-meetings--meeting_id-">Xóa cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Cuộc họp đ&atilde; được x&oacute;a th&agrave;nh c&ocirc;ng!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="DELETEapi-meetings--meeting_id-"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-cuoc-hop-PATCHapi-meetings--meeting_id--status">Thay đổi trạng thái cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Luồng trạng thái: draft → active → in_progress → ended.</p>
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/status" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "X-Organization-Id: ID tổ chức (bắt buộc). Example: 1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"status\": \"active\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/status"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "X-Organization-Id": "ID tổ chức (bắt buộc). Example: 1",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "status": "active"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/status';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'X-Organization-Id' =&gt; 'ID tổ chức (bắt buộc). Example: 1',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'status' =&gt; 'active',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Trạng th&aacute;i cuộc họp đ&atilde; được cập nhật!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--status" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--status"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--status"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>X-Organization-Id</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="X-Organization-Id"                data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="ID tổ chức (bắt buộc). Example: 1"
+               data-component="header">
+    <br>
+<p>Example: <code>ID tổ chức (bắt buộc). Example: 1</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PATCHapi-meetings--meeting_id--status"
+               value="active"
+               data-component="body">
+    <br>
+<p>Trạng thái mới: draft, active, in_progress, ended. Example: <code>active</code></p>
+        </div>
+        </form>
+
+                <h1 id="meeting-ghi-chu-ca-nhan">Meeting - Ghi chú cá nhân</h1>
+
+    <p>Ghi chú riêng tư của từng đại biểu. Dữ liệu hoàn toàn cô lập – API chỉ trả về ghi chú của người đang đăng nhập.</p>
+
+                                <h2 id="meeting-ghi-chu-ca-nhan-GETapi-meetings--meeting_id--personal-notes">Lấy ghi chú cá nhân trong cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Trả về tất cả ghi chú của người đăng nhập trong cuộc họp. Có thể lọc theo tài liệu cụ thể.</p>
+
+<span id="example-requests-GETapi-meetings--meeting_id--personal-notes">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/personal-notes?document_id=5" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/personal-notes"
+);
+
+const params = {
+    "document_id": "5",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/personal-notes';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'query' =&gt; [
+            'document_id' =&gt; '5',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--personal-notes">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;meeting_document_id&quot;: 3,
+            &quot;content&quot;: &quot;Cần xem x&eacute;t lại điều khoản 5.&quot;,
+            &quot;created_at&quot;: &quot;25/03/2026 08:10:00&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 08:10:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--personal-notes" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--personal-notes"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--personal-notes"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--personal-notes" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--personal-notes">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--personal-notes" data-method="GET"
+      data-path="api/meetings/{meeting_id}/personal-notes"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--personal-notes', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--personal-notes"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--personal-notes');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--personal-notes"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--personal-notes');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--personal-notes"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/personal-notes</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--personal-notes"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--personal-notes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--personal-notes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--personal-notes"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--personal-notes"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>document_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="document_id"                data-endpoint="GETapi-meetings--meeting_id--personal-notes"
+               value="5"
+               data-component="query">
+    <br>
+<p>Lọc theo ID tài liệu. Example: <code>5</code></p>
+            </div>
+                </form>
+
+                    <h2 id="meeting-ghi-chu-ca-nhan-POSTapi-meetings--meeting_id--personal-notes">Lưu ghi chú cá nhân (tạo mới hoặc cập nhật)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Nếu đã có ghi chú cho cùng cuộc họp + tài liệu, nội dung sẽ được ghi đè (upsert).</p>
+
+<span id="example-requests-POSTapi-meetings--meeting_id--personal-notes">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/personal-notes" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"meeting_document_id\": 3,
+    \"content\": \"Cần xem xét lại điều khoản 5.\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/personal-notes"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "meeting_document_id": 3,
+    "content": "Cần xem xét lại điều khoản 5."
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/personal-notes';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'meeting_document_id' =&gt; 3,
+            'content' =&gt; 'Cần xem xét lại điều khoản 5.',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--personal-notes">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Ghi ch&uacute; đ&atilde; được lưu!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;meeting_document_id&quot;: 3,
+        &quot;content&quot;: &quot;Cần xem x&eacute;t lại điều khoản 5.&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 08:10:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:10:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;content&quot;: [
+            &quot;Nội dung ghi ch&uacute; kh&ocirc;ng được để trống.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--personal-notes" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--personal-notes"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--personal-notes"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--personal-notes" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--personal-notes">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--personal-notes" data-method="POST"
+      data-path="api/meetings/{meeting_id}/personal-notes"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--personal-notes', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--personal-notes"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--personal-notes');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--personal-notes"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--personal-notes');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--personal-notes"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/personal-notes</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>meeting_document_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_document_id"                data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="3"
+               data-component="body">
+    <br>
+<p>ID tài liệu (để gắn ghi chú với tài liệu cụ thể). Example: <code>3</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="content"                data-endpoint="POSTapi-meetings--meeting_id--personal-notes"
+               value="Cần xem xét lại điều khoản 5."
+               data-component="body">
+    <br>
+<p>Nội dung ghi chú. Example: <code>Cần xem xét lại điều khoản 5.</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-ghi-chu-ca-nhan-DELETEapi-meetings--meeting_id--personal-notes--note_id-">Xóa ghi chú cá nhân</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id--personal-notes--note_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2/personal-notes/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/personal-notes/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/personal-notes/1';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id--personal-notes--note_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Ghi ch&uacute; đ&atilde; được x&oacute;a!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id--personal-notes--note_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id--personal-notes--note_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id--personal-notes--note_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id--personal-notes--note_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id--personal-notes--note_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}/personal-notes/{note_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id--personal-notes--note_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id--personal-notes--note_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id--personal-notes--note_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}/personal-notes/{note_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>note_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="note_id"                data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the note. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>note</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="note"                data-endpoint="DELETEapi-meetings--meeting_id--personal-notes--note_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID ghi chú. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                <h1 id="meeting-ket-luan">Meeting - Kết luận</h1>
+
+    <p>Quản lý các kết luận của cuộc họp. Mỗi cuộc họp có thể có nhiều kết luận (1:N).
+Kết luận có thể gắn với một mục chương trình cụ thể.</p>
+
+                                <h2 id="meeting-ket-luan-GETapi-meetings--meeting_id--conclusions">Danh sách kết luận của cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--conclusions">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/conclusions" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/conclusions"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/conclusions';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--conclusions">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;agenda_id&quot;: 2,
+            &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+            &quot;title&quot;: &quot;Kết luận về ng&acirc;n s&aacute;ch&quot;,
+            &quot;content&quot;: &quot;Thống nhất tăng ng&acirc;n s&aacute;ch CNTT 20%&quot;,
+            &quot;created_by&quot;: &quot;Admin&quot;,
+            &quot;updated_by&quot;: &quot;Admin&quot;,
+            &quot;created_at&quot;: &quot;25/03/2026 09:00:00&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 09:00:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--conclusions" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--conclusions"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--conclusions"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--conclusions" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--conclusions">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--conclusions" data-method="GET"
+      data-path="api/meetings/{meeting_id}/conclusions"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--conclusions', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--conclusions"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--conclusions');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--conclusions"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--conclusions');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--conclusions"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/conclusions</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--conclusions"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--conclusions"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--conclusions"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--conclusions"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--conclusions"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-ket-luan-POSTapi-meetings--meeting_id--conclusions">Tạo kết luận mới</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings--meeting_id--conclusions">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/conclusions" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"agenda_id\": 2,
+    \"title\": \"Kết luận về ngân sách\",
+    \"content\": \"Thống nhất tăng ngân sách CNTT 20%\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/conclusions"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "agenda_id": 2,
+    "title": "Kết luận về ngân sách",
+    "content": "Thống nhất tăng ngân sách CNTT 20%"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/conclusions';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'agenda_id' =&gt; 2,
+            'title' =&gt; 'Kết luận về ngân sách',
+            'content' =&gt; 'Thống nhất tăng ngân sách CNTT 20%',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--conclusions">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Kết luận đ&atilde; được ghi nhận!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;agenda_id&quot;: 2,
+        &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+        &quot;title&quot;: &quot;Kết luận về ng&acirc;n s&aacute;ch&quot;,
+        &quot;content&quot;: &quot;Thống nhất tăng ng&acirc;n s&aacute;ch CNTT 20%&quot;,
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 09:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 09:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;title&quot;: [
+            &quot;Ti&ecirc;u đề kết luận kh&ocirc;ng được để trống.&quot;
+        ],
+        &quot;content&quot;: [
+            &quot;Nội dung kết luận kh&ocirc;ng được để trống.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--conclusions" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--conclusions"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--conclusions"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--conclusions" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--conclusions">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--conclusions" data-method="POST"
+      data-path="api/meetings/{meeting_id}/conclusions"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--conclusions', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--conclusions"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--conclusions');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--conclusions"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--conclusions');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--conclusions"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/conclusions</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="2"
+               data-component="body">
+    <br>
+<p>Gắn với mục chương trình (nullable). Example: <code>2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="Kết luận về ngân sách"
+               data-component="body">
+    <br>
+<p>Tiêu đề kết luận. Example: <code>Kết luận về ngân sách</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="content"                data-endpoint="POSTapi-meetings--meeting_id--conclusions"
+               value="Thống nhất tăng ngân sách CNTT 20%"
+               data-component="body">
+    <br>
+<p>Nội dung chi tiết kết luận. Example: <code>Thống nhất tăng ngân sách CNTT 20%</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-ket-luan-PUTapi-meetings--meeting_id--conclusions--conclusion_id-">Cập nhật kết luận</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-meetings--meeting_id--conclusions--conclusion_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/meetings/2/conclusions/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"agenda_id\": 2,
+    \"title\": \"Kết luận về ngân sách (cập nhật)\",
+    \"content\": \"Thống nhất tăng ngân sách CNTT 25%\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/conclusions/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "agenda_id": 2,
+    "title": "Kết luận về ngân sách (cập nhật)",
+    "content": "Thống nhất tăng ngân sách CNTT 25%"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/conclusions/1';
+$response = $client-&gt;put(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'agenda_id' =&gt; 2,
+            'title' =&gt; 'Kết luận về ngân sách (cập nhật)',
+            'content' =&gt; 'Thống nhất tăng ngân sách CNTT 25%',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-meetings--meeting_id--conclusions--conclusion_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Kết luận đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;agenda_id&quot;: 2,
+        &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+        &quot;title&quot;: &quot;Kết luận về ng&acirc;n s&aacute;ch (cập nhật)&quot;,
+        &quot;content&quot;: &quot;Thống nhất tăng ng&acirc;n s&aacute;ch CNTT 25%&quot;,
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 09:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 09:30:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy kết luận.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-meetings--meeting_id--conclusions--conclusion_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-meetings--meeting_id--conclusions--conclusion_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-meetings--meeting_id--conclusions--conclusion_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-meetings--meeting_id--conclusions--conclusion_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-meetings--meeting_id--conclusions--conclusion_id-" data-method="PUT"
+      data-path="api/meetings/{meeting_id}/conclusions/{conclusion_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-meetings--meeting_id--conclusions--conclusion_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    onclick="tryItOut('PUTapi-meetings--meeting_id--conclusions--conclusion_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    onclick="cancelTryOut('PUTapi-meetings--meeting_id--conclusions--conclusion_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/meetings/{meeting_id}/conclusions/{conclusion_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>conclusion_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="conclusion_id"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the conclusion. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>conclusion</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="conclusion"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID kết luận. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="2"
+               data-component="body">
+    <br>
+<p>ID mục chương trình (nullable). Example: <code>2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Kết luận về ngân sách (cập nhật)"
+               data-component="body">
+    <br>
+<p>Tiêu đề kết luận. Example: <code>Kết luận về ngân sách (cập nhật)</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="content"                data-endpoint="PUTapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Thống nhất tăng ngân sách CNTT 25%"
+               data-component="body">
+    <br>
+<p>Nội dung kết luận. Example: <code>Thống nhất tăng ngân sách CNTT 25%</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-ket-luan-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-">Cập nhật kết luận</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/conclusions/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"agenda_id\": 2,
+    \"title\": \"Kết luận về ngân sách (cập nhật)\",
+    \"content\": \"Thống nhất tăng ngân sách CNTT 25%\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/conclusions/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "agenda_id": 2,
+    "title": "Kết luận về ngân sách (cập nhật)",
+    "content": "Thống nhất tăng ngân sách CNTT 25%"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/conclusions/1';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'agenda_id' =&gt; 2,
+            'title' =&gt; 'Kết luận về ngân sách (cập nhật)',
+            'content' =&gt; 'Thống nhất tăng ngân sách CNTT 25%',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Kết luận đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;agenda_id&quot;: 2,
+        &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+        &quot;title&quot;: &quot;Kết luận về ng&acirc;n s&aacute;ch (cập nhật)&quot;,
+        &quot;content&quot;: &quot;Thống nhất tăng ng&acirc;n s&aacute;ch CNTT 25%&quot;,
+        &quot;created_by&quot;: &quot;Admin&quot;,
+        &quot;updated_by&quot;: &quot;Admin&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 09:00:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 09:30:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy kết luận.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/conclusions/{conclusion_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--conclusions--conclusion_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--conclusions--conclusion_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--conclusions--conclusion_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/conclusions/{conclusion_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>conclusion_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="conclusion_id"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the conclusion. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>conclusion</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="conclusion"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID kết luận. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="2"
+               data-component="body">
+    <br>
+<p>ID mục chương trình (nullable). Example: <code>2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="title"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Kết luận về ngân sách (cập nhật)"
+               data-component="body">
+    <br>
+<p>Tiêu đề kết luận. Example: <code>Kết luận về ngân sách (cập nhật)</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="content"                data-endpoint="PATCHapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Thống nhất tăng ngân sách CNTT 25%"
+               data-component="body">
+    <br>
+<p>Nội dung kết luận. Example: <code>Thống nhất tăng ngân sách CNTT 25%</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-ket-luan-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-">Xóa kết luận</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2/conclusions/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/conclusions/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/conclusions/1';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Kết luận đ&atilde; được x&oacute;a!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}/conclusions/{conclusion_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id--conclusions--conclusion_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id--conclusions--conclusion_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id--conclusions--conclusion_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}/conclusions/{conclusion_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>conclusion_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="conclusion_id"                data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the conclusion. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>conclusion</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="conclusion"                data-endpoint="DELETEapi-meetings--meeting_id--conclusions--conclusion_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID kết luận. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                <h1 id="meeting-tai-lieu-hop">Meeting - Tài liệu họp</h1>
+
+    <p>Upload và quản lý tài liệu đính kèm cuộc họp.</p>
+
+                                <h2 id="meeting-tai-lieu-hop-GETapi-meetings--meeting_id--documents">Danh sách tài liệu của cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--documents">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/documents" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/documents"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/documents';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--documents">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;name&quot;: &quot;B&aacute;o c&aacute;o th&aacute;ng 3&quot;,
+            &quot;type&quot;: &quot;Bi&ecirc;n bản&quot;,
+            &quot;url&quot;: &quot;https://example.com/storage/documents/baocao.pdf&quot;,
+            &quot;file_type&quot;: &quot;pdf&quot;,
+            &quot;uploaded_by&quot;: &quot;Admin&quot;,
+            &quot;created_at&quot;: &quot;25/03/2026 07:30:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--documents" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--documents"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--documents"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--documents" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--documents">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--documents" data-method="GET"
+      data-path="api/meetings/{meeting_id}/documents"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--documents', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--documents"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--documents');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--documents"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--documents');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--documents"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/documents</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--documents"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--documents"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--documents"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--documents"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--documents"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-tai-lieu-hop-POSTapi-meetings--meeting_id--documents">Upload tài liệu họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings--meeting_id--documents">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/documents" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "name=Báo cáo tháng 3"\
+    --form "type=Biên bản"\
+    --form "documents[]=@/tmp/phpv8nrrupn64jp4WSw1I1" \
+    --form "documents[]=@/tmp/phpn6o5ad5uaiuocma1t3i" </code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/documents"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('name', 'Báo cáo tháng 3');
+body.append('type', 'Biên bản');
+body.append('documents[]', document.querySelector('input[name="documents[]"]').files[0]);
+body.append('documents[]', document.querySelector('input[name="documents[]"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/documents';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'multipart/form-data',
+            'Accept' =&gt; 'application/json',
+        ],
+        'multipart' =&gt; [
+            [
+                'name' =&gt; 'name',
+                'contents' =&gt; 'Báo cáo tháng 3'
+            ],
+            [
+                'name' =&gt; 'type',
+                'contents' =&gt; 'Biên bản'
+            ],
+            [
+                'name' =&gt; 'documents[]',
+                'contents' =&gt; fopen('/tmp/phpv8nrrupn64jp4WSw1I1', 'r')
+            ],
+            [
+                'name' =&gt; 'documents[]',
+                'contents' =&gt; fopen('/tmp/phpn6o5ad5uaiuocma1t3i', 'r')
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--documents">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;T&agrave;i liệu đ&atilde; được tải l&ecirc;n th&agrave;nh c&ocirc;ng!&quot;,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;name&quot;: &quot;B&aacute;o c&aacute;o th&aacute;ng 3&quot;,
+            &quot;type&quot;: &quot;Bi&ecirc;n bản&quot;,
+            &quot;url&quot;: &quot;https://example.com/storage/documents/baocao.pdf&quot;,
+            &quot;file_type&quot;: &quot;pdf&quot;,
+            &quot;uploaded_by&quot;: &quot;Admin&quot;,
+            &quot;created_at&quot;: &quot;25/03/2026 07:30:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;documents&quot;: [
+            &quot;Phải chọn &iacute;t nhất 1 t&agrave;i liệu.&quot;
+        ],
+        &quot;documents.0&quot;: [
+            &quot;Chỉ chấp nhận file: pdf, doc, docx, xls, xlsx, ppt, pptx, txt, png, jpg, jpeg.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--documents" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--documents"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--documents"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--documents" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--documents">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--documents" data-method="POST"
+      data-path="api/meetings/{meeting_id}/documents"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--documents', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--documents"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--documents');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--documents"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--documents');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--documents"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/documents</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>documents</code></b>&nbsp;&nbsp;
+<small>file[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="documents[0]"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               data-component="body">
+        <input type="file" style="display: none"
+               name="documents[1]"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               data-component="body">
+    <br>
+<p>Must be a file. Must not be greater than 51200 kilobytes.</p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="Báo cáo tháng 3"
+               data-component="body">
+    <br>
+<p>Tên hiển thị (áp dụng cho tất cả file upload). Example: <code>Báo cáo tháng 3</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value="Biên bản"
+               data-component="body">
+    <br>
+<p>Loại tài liệu do người dùng nhập. Example: <code>Biên bản</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>documents[]</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="documents.0"                data-endpoint="POSTapi-meetings--meeting_id--documents"
+               value=""
+               data-component="body">
+    <br>
+<p>File tài liệu (pdf, doc, docx, xls, xlsx, ppt, pptx, tối đa 50MB mỗi file). Example: <code>/tmp/phpn6o5ad5uaiuocma1t3i</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-tai-lieu-hop-DELETEapi-meetings--meeting_id--documents--document_id-">Xóa tài liệu họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id--documents--document_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2/documents/9" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/documents/9"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/documents/9';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id--documents--document_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;T&agrave;i liệu đ&atilde; được x&oacute;a!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id--documents--document_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id--documents--document_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id--documents--document_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id--documents--document_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id--documents--document_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id--documents--document_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}/documents/{document_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id--documents--document_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id--documents--document_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id--documents--document_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id--documents--document_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id--documents--document_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id--documents--document_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}/documents/{document_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>document_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="document_id"                data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="9"
+               data-component="url">
+    <br>
+<p>The ID of the document. Example: <code>9</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>16</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>document</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="document"                data-endpoint="DELETEapi-meetings--meeting_id--documents--document_id-"
+               value="16"
+               data-component="url">
+    <br>
+<p>ID tài liệu. Example: <code>16</code></p>
+            </div>
+                    </form>
+
+                <h1 id="meeting-dang-ky-phat-bieu">Meeting - Đăng ký phát biểu</h1>
+
+    <p>Đại biểu đăng ký phát biểu; Quản lý duyệt hoặc từ chối.</p>
+
+                                <h2 id="meeting-dang-ky-phat-bieu-GETapi-meetings--meeting_id--speech-requests">Danh sách đăng ký phát biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--speech-requests">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/speech-requests?status=pending&amp;agenda_id=2" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/speech-requests"
+);
+
+const params = {
+    "status": "pending",
+    "agenda_id": "2",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/speech-requests';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'query' =&gt; [
+            'status' =&gt; 'pending',
+            'agenda_id' =&gt; '2',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--speech-requests">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;participant_id&quot;: 1,
+            &quot;participant_name&quot;: &quot;Nguyễn Văn A&quot;,
+            &quot;agenda_id&quot;: 2,
+            &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+            &quot;content&quot;: &quot;Đề xuất tăng ng&acirc;n s&aacute;ch ph&ograve;ng CNTT.&quot;,
+            &quot;status&quot;: &quot;pending&quot;,
+            &quot;rejection_reason&quot;: null,
+            &quot;created_at&quot;: &quot;25/03/2026 08:30:00&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 08:30:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--speech-requests" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--speech-requests"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--speech-requests"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--speech-requests" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--speech-requests">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--speech-requests" data-method="GET"
+      data-path="api/meetings/{meeting_id}/speech-requests"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--speech-requests', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--speech-requests"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--speech-requests');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--speech-requests"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--speech-requests');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--speech-requests"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/speech-requests</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="pending"
+               data-component="query">
+    <br>
+<p>Lọc trạng thái: pending, approved, rejected. Example: <code>pending</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="GETapi-meetings--meeting_id--speech-requests"
+               value="2"
+               data-component="query">
+    <br>
+<p>Lọc theo mục chương trình. Example: <code>2</code></p>
+            </div>
+                </form>
+
+                    <h2 id="meeting-dang-ky-phat-bieu-POSTapi-meetings--meeting_id--speech-requests">Đăng ký phát biểu (Đại biểu)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Người dùng phải là đại biểu trong cuộc họp.</p>
+
+<span id="example-requests-POSTapi-meetings--meeting_id--speech-requests">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/speech-requests" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"agenda_id\": 2,
+    \"content\": \"Đề xuất tăng ngân sách phòng CNTT.\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/speech-requests"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "agenda_id": 2,
+    "content": "Đề xuất tăng ngân sách phòng CNTT."
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/speech-requests';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'agenda_id' =&gt; 2,
+            'content' =&gt; 'Đề xuất tăng ngân sách phòng CNTT.',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--speech-requests">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đăng k&yacute; ph&aacute;t biểu đ&atilde; được gửi!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;participant_id&quot;: 1,
+        &quot;participant_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;agenda_id&quot;: 2,
+        &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+        &quot;content&quot;: &quot;Đề xuất tăng ng&acirc;n s&aacute;ch ph&ograve;ng CNTT.&quot;,
+        &quot;status&quot;: &quot;pending&quot;,
+        &quot;rejection_reason&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 08:30:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:30:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;participant&quot;: [
+            &quot;Bạn kh&ocirc;ng phải đại biểu của cuộc họp n&agrave;y.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--speech-requests" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--speech-requests"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--speech-requests"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--speech-requests" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--speech-requests">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--speech-requests" data-method="POST"
+      data-path="api/meetings/{meeting_id}/speech-requests"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--speech-requests', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--speech-requests"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--speech-requests');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--speech-requests"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--speech-requests');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--speech-requests"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/speech-requests</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>agenda_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="agenda_id"                data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="2"
+               data-component="body">
+    <br>
+<p>ID mục chương trình (nullable = phát biểu chung). Example: <code>2</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>content</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="content"                data-endpoint="POSTapi-meetings--meeting_id--speech-requests"
+               value="Đề xuất tăng ngân sách phòng CNTT."
+               data-component="body">
+    <br>
+<p>Nội dung ý kiến dự kiến (tối đa 2000 ký tự). Example: <code>Đề xuất tăng ngân sách phòng CNTT.</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dang-ky-phat-bieu-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status">Duyệt hoặc từ chối đăng ký phát biểu (Quản lý / Chủ trì)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/speech-requests/1/status" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"status\": \"approved\",
+    \"rejection_reason\": \"Đã quá số lượt phát biểu\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/speech-requests/1/status"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "status": "approved",
+    "rejection_reason": "Đã quá số lượt phát biểu"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/speech-requests/1/status';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'status' =&gt; 'approved',
+            'rejection_reason' =&gt; 'Đã quá số lượt phát biểu',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đ&atilde; cập nhật trạng th&aacute;i đăng k&yacute; ph&aacute;t biểu!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;participant_id&quot;: 1,
+        &quot;participant_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;agenda_id&quot;: 2,
+        &quot;agenda_title&quot;: &quot;Thảo luận kế hoạch Q2&quot;,
+        &quot;content&quot;: &quot;Đề xuất tăng ng&acirc;n s&aacute;ch ph&ograve;ng CNTT.&quot;,
+        &quot;status&quot;: &quot;approved&quot;,
+        &quot;rejection_reason&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 08:30:00&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 08:35:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Chỉ chủ tr&igrave; hoặc thư k&yacute; mới được duyệt đăng k&yacute; ph&aacute;t biểu.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/speech-requests/{speechRequest_id}/status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/speech-requests/{speechRequest_id}/status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>speechRequest_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="speechRequest_id"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the speechRequest. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>speechRequest</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="speechRequest"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đăng ký. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="approved"
+               data-component="body">
+    <br>
+<p>Trạng thái: approved, rejected. Example: <code>approved</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>rejection_reason</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="rejection_reason"                data-endpoint="PATCHapi-meetings--meeting_id--speech-requests--speechRequest_id--status"
+               value="Đã quá số lượt phát biểu"
+               data-component="body">
+    <br>
+<p>Lý do từ chối (bắt buộc khi rejected). Example: <code>Đã quá số lượt phát biểu</code></p>
+        </div>
+        </form>
+
+                <h1 id="meeting-dai-bieu-participants">Meeting - Đại biểu (Participants)</h1>
+
+    <p>Quản lý đại biểu tham dự và điểm danh.</p>
+
+                                <h2 id="meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants-export">Xuất danh sách đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Xuất file Excel chứa danh sách đại biểu cùng trạng thái điểm danh.</p>
+
+<span id="example-requests-GETapi-meetings--meeting_id--participants-export">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/participants/export" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/export"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/export';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--participants-export">
+            <blockquote>
+            <p>Example response (200, File Excel):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--participants-export" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--participants-export"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--participants-export"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--participants-export" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--participants-export">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--participants-export" data-method="GET"
+      data-path="api/meetings/{meeting_id}/participants/export"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--participants-export', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--participants-export"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--participants-export');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--participants-export"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--participants-export');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--participants-export"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/participants/export</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--participants-export"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--participants-export"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--participants-export"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--participants-export"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--participants-export"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants-import">Nhập danh sách đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Cột bắt buộc: email. Cột không bắt buộc: meeting_role, position.</p>
+
+<span id="example-requests-POSTapi-meetings--meeting_id--participants-import">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/participants/import" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --form "file=@/tmp/php6f28bpu2odg5eMKoFj4" </code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/import"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('file', document.querySelector('input[name="file"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/import';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'multipart/form-data',
+            'Accept' =&gt; 'application/json',
+        ],
+        'multipart' =&gt; [
+            [
+                'name' =&gt; 'file',
+                'contents' =&gt; fopen('/tmp/php6f28bpu2odg5eMKoFj4', 'r')
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--participants-import">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Nhập danh s&aacute;ch đại biểu th&agrave;nh c&ocirc;ng!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--participants-import" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--participants-import"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--participants-import"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--participants-import" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--participants-import">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--participants-import" data-method="POST"
+      data-path="api/meetings/{meeting_id}/participants/import"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--participants-import', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--participants-import"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--participants-import');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--participants-import"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--participants-import');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--participants-import"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/participants/import</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--participants-import"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--participants-import"
+               value="multipart/form-data"
+               data-component="header">
+    <br>
+<p>Example: <code>multipart/form-data</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--participants-import"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--participants-import"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--participants-import"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>file</code></b>&nbsp;&nbsp;
+<small>file</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="file" style="display: none"
+                              name="file"                data-endpoint="POSTapi-meetings--meeting_id--participants-import"
+               value=""
+               data-component="body">
+    <br>
+<p>File xlsx, xls hoặc csv. Example: <code>/tmp/php6f28bpu2odg5eMKoFj4</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants-bulk-delete">Xóa hàng loạt đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-meetings--meeting_id--participants-bulk-delete">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/participants/bulk-delete" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"ids\": [
+        1,
+        2,
+        3
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/bulk-delete"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "ids": [
+        1,
+        2,
+        3
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/bulk-delete';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'ids' =&gt; [
+                1,
+                2,
+                3,
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--participants-bulk-delete">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đ&atilde; x&oacute;a th&agrave;nh c&ocirc;ng c&aacute;c đại biểu được chọn!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--participants-bulk-delete" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--participants-bulk-delete"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--participants-bulk-delete"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--participants-bulk-delete" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--participants-bulk-delete">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--participants-bulk-delete" data-method="POST"
+      data-path="api/meetings/{meeting_id}/participants/bulk-delete"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--participants-bulk-delete', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--participants-bulk-delete"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--participants-bulk-delete');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--participants-bulk-delete"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--participants-bulk-delete');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--participants-bulk-delete"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/participants/bulk-delete</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="ids[0]"                data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="ids[1]"                data-endpoint="POSTapi-meetings--meeting_id--participants-bulk-delete"
+               data-component="body">
+    <br>
+<p>Danh sách ID đại biểu.</p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants-bulk-status">Cập nhật trạng thái hàng loạt đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--participants-bulk-status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/participants/bulk-status" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"ids\": [
+        1,
+        2
+    ],
+    \"attendance_status\": \"present\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/bulk-status"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "ids": [
+        1,
+        2
+    ],
+    "attendance_status": "present"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/bulk-status';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'ids' =&gt; [
+                1,
+                2,
+            ],
+            'attendance_status' =&gt; 'present',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--participants-bulk-status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--participants-bulk-status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--participants-bulk-status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--participants-bulk-status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--participants-bulk-status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--participants-bulk-status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--participants-bulk-status" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/participants/bulk-status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--participants-bulk-status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--participants-bulk-status"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--participants-bulk-status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--participants-bulk-status"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--participants-bulk-status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--participants-bulk-status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/participants/bulk-status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="ids[0]"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="ids[1]"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               data-component="body">
+    <br>
+<p>Danh sách ID đại biểu.</p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>attendance_status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="attendance_status"                data-endpoint="PATCHapi-meetings--meeting_id--participants-bulk-status"
+               value="present"
+               data-component="body">
+    <br>
+<p>Trạng thái: not_arrived, present, absent. Example: <code>present</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants">Danh sách đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--participants">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/participants" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--participants">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;user_id&quot;: 2,
+            &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+            &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+            &quot;position&quot;: &quot;Trưởng ph&ograve;ng CNTT&quot;,
+            &quot;meeting_role&quot;: &quot;delegate&quot;,
+            &quot;attendance_status&quot;: &quot;not_arrived&quot;,
+            &quot;checkin_at&quot;: null,
+            &quot;absence_reason&quot;: null,
+            &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--participants" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--participants"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--participants"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--participants" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--participants">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--participants" data-method="GET"
+      data-path="api/meetings/{meeting_id}/participants"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--participants', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--participants"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--participants');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--participants"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--participants');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--participants"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/participants</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--participants"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--participants"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--participants"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--participants"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--participants"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-dai-bieu-participants-POSTapi-meetings--meeting_id--participants">Thêm đại biểu vào cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Thêm nhiều người dùng cùng lúc. Người dùng đã có trong cuộc họp sẽ bị bỏ qua.</p>
+
+<span id="example-requests-POSTapi-meetings--meeting_id--participants">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/meetings/2/participants" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"user_ids\": [
+        1,
+        2,
+        3
+    ],
+    \"meeting_role\": \"delegate\",
+    \"position\": \"Trưởng phòng CNTT\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "user_ids": [
+        1,
+        2,
+        3
+    ],
+    "meeting_role": "delegate",
+    "position": "Trưởng phòng CNTT"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants';
+$response = $client-&gt;post(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'user_ids' =&gt; [
+                1,
+                2,
+                3,
+            ],
+            'meeting_role' =&gt; 'delegate',
+            'position' =&gt; 'Trưởng phòng CNTT',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-meetings--meeting_id--participants">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đại biểu đ&atilde; được th&ecirc;m v&agrave;o cuộc họp!&quot;,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;meeting_id&quot;: 1,
+            &quot;user_id&quot;: 2,
+            &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+            &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+            &quot;position&quot;: &quot;Trưởng ph&ograve;ng CNTT&quot;,
+            &quot;meeting_role&quot;: &quot;delegate&quot;,
+            &quot;attendance_status&quot;: &quot;not_arrived&quot;,
+            &quot;checkin_at&quot;: null,
+            &quot;absence_reason&quot;: null,
+            &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+        }
+    ]
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Dữ liệu kh&ocirc;ng hợp lệ.&quot;,
+    &quot;errors&quot;: {
+        &quot;user_ids&quot;: [
+            &quot;Danh s&aacute;ch ID người d&ugrave;ng kh&ocirc;ng được để trống.&quot;
+        ],
+        &quot;meeting_role&quot;: [
+            &quot;Vai tr&ograve; kh&ocirc;ng hợp lệ.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-meetings--meeting_id--participants" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-meetings--meeting_id--participants"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-meetings--meeting_id--participants"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-meetings--meeting_id--participants" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-meetings--meeting_id--participants">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-meetings--meeting_id--participants" data-method="POST"
+      data-path="api/meetings/{meeting_id}/participants"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-meetings--meeting_id--participants', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-meetings--meeting_id--participants"
+                    onclick="tryItOut('POSTapi-meetings--meeting_id--participants');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-meetings--meeting_id--participants"
+                    onclick="cancelTryOut('POSTapi-meetings--meeting_id--participants');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-meetings--meeting_id--participants"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/meetings/{meeting_id}/participants</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>user_ids</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="user_ids[0]"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="user_ids[1]"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               data-component="body">
+    <br>
+<p>Danh sách ID người dùng.</p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>meeting_role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="meeting_role"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="delegate"
+               data-component="body">
+    <br>
+<p>Vai trò: chair, secretary, delegate. Example: <code>delegate</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>position</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="position"                data-endpoint="POSTapi-meetings--meeting_id--participants"
+               value="Trưởng phòng CNTT"
+               data-component="body">
+    <br>
+<p>Chức vụ (tên chức danh). Example: <code>Trưởng phòng CNTT</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-GETapi-meetings--meeting_id--participants--participant_id-">Chi tiết đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-meetings--meeting_id--participants--participant_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/meetings/2/participants/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/1';
+$response = $client-&gt;get(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-meetings--meeting_id--participants--participant_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;user_id&quot;: 2,
+        &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+        &quot;position&quot;: &quot;Trưởng ph&ograve;ng CNTT&quot;,
+        &quot;meeting_role&quot;: &quot;delegate&quot;,
+        &quot;attendance_status&quot;: &quot;not_arrived&quot;,
+        &quot;checkin_at&quot;: null,
+        &quot;absence_reason&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Kh&ocirc;ng t&igrave;m thấy đại biểu.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-meetings--meeting_id--participants--participant_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-meetings--meeting_id--participants--participant_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-meetings--meeting_id--participants--participant_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-meetings--meeting_id--participants--participant_id-" data-method="GET"
+      data-path="api/meetings/{meeting_id}/participants/{participant_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-meetings--meeting_id--participants--participant_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="tryItOut('GETapi-meetings--meeting_id--participants--participant_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="cancelTryOut('GETapi-meetings--meeting_id--participants--participant_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-meetings--meeting_id--participants--participant_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/meetings/{meeting_id}/participants/{participant_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant_id"                data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the participant. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant"                data-endpoint="GETapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đại biểu. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-dai-bieu-participants-PUTapi-meetings--meeting_id--participants--participant_id-">Cập nhật thông tin đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-meetings--meeting_id--participants--participant_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/meetings/2/participants/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"meeting_role\": \"secretary\",
+    \"position\": \"Thư ký cuộc họp\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "meeting_role": "secretary",
+    "position": "Thư ký cuộc họp"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/1';
+$response = $client-&gt;put(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'meeting_role' =&gt; 'secretary',
+            'position' =&gt; 'Thư ký cuộc họp',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-meetings--meeting_id--participants--participant_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Th&ocirc;ng tin đại biểu đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;user_id&quot;: 2,
+        &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+        &quot;position&quot;: &quot;Thư k&yacute; cuộc họp&quot;,
+        &quot;meeting_role&quot;: &quot;secretary&quot;,
+        &quot;attendance_status&quot;: &quot;not_arrived&quot;,
+        &quot;checkin_at&quot;: null,
+        &quot;absence_reason&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-meetings--meeting_id--participants--participant_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-meetings--meeting_id--participants--participant_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-meetings--meeting_id--participants--participant_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-meetings--meeting_id--participants--participant_id-" data-method="PUT"
+      data-path="api/meetings/{meeting_id}/participants/{participant_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-meetings--meeting_id--participants--participant_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="tryItOut('PUTapi-meetings--meeting_id--participants--participant_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="cancelTryOut('PUTapi-meetings--meeting_id--participants--participant_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-meetings--meeting_id--participants--participant_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/meetings/{meeting_id}/participants/{participant_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant_id"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the participant. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đại biểu. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>meeting_role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="meeting_role"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="secretary"
+               data-component="body">
+    <br>
+<p>Vai trò: chair, secretary, delegate. Example: <code>secretary</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>position</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="position"                data-endpoint="PUTapi-meetings--meeting_id--participants--participant_id-"
+               value="Thư ký cuộc họp"
+               data-component="body">
+    <br>
+<p>Chức vụ. Example: <code>Thư ký cuộc họp</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id-">Cập nhật thông tin đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--participants--participant_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/participants/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"meeting_role\": \"secretary\",
+    \"position\": \"Thư ký cuộc họp\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "meeting_role": "secretary",
+    "position": "Thư ký cuộc họp"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/1';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'meeting_role' =&gt; 'secretary',
+            'position' =&gt; 'Thư ký cuộc họp',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--participants--participant_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Th&ocirc;ng tin đại biểu đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;user_id&quot;: 2,
+        &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+        &quot;position&quot;: &quot;Thư k&yacute; cuộc họp&quot;,
+        &quot;meeting_role&quot;: &quot;secretary&quot;,
+        &quot;attendance_status&quot;: &quot;not_arrived&quot;,
+        &quot;checkin_at&quot;: null,
+        &quot;absence_reason&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--participants--participant_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--participants--participant_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--participants--participant_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--participants--participant_id-" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/participants/{participant_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--participants--participant_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--participants--participant_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--participants--participant_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--participants--participant_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/participants/{participant_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the participant. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đại biểu. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>meeting_role</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="meeting_role"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="secretary"
+               data-component="body">
+    <br>
+<p>Vai trò: chair, secretary, delegate. Example: <code>secretary</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>position</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="position"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id-"
+               value="Thư ký cuộc họp"
+               data-component="body">
+    <br>
+<p>Chức vụ. Example: <code>Thư ký cuộc họp</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-DELETEapi-meetings--meeting_id--participants--participant_id-">Xóa đại biểu khỏi cuộc họp</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-meetings--meeting_id--participants--participant_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/meetings/2/participants/1" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/1"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/1';
+$response = $client-&gt;delete(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-meetings--meeting_id--participants--participant_id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Đại biểu đ&atilde; được x&oacute;a khỏi cuộc họp!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-meetings--meeting_id--participants--participant_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-meetings--meeting_id--participants--participant_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-meetings--meeting_id--participants--participant_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-meetings--meeting_id--participants--participant_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEapi-meetings--meeting_id--participants--participant_id-" data-method="DELETE"
+      data-path="api/meetings/{meeting_id}/participants/{participant_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-meetings--meeting_id--participants--participant_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="tryItOut('DELETEapi-meetings--meeting_id--participants--participant_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-meetings--meeting_id--participants--participant_id-"
+                    onclick="cancelTryOut('DELETEapi-meetings--meeting_id--participants--participant_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-meetings--meeting_id--participants--participant_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/meetings/{meeting_id}/participants/{participant_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant_id"                data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the participant. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant"                data-endpoint="DELETEapi-meetings--meeting_id--participants--participant_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đại biểu. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id--checkin">Điểm danh đại biểu</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Đại biểu tự xác nhận có mặt hoặc quản lý cập nhật trạng thái điểm danh.</p>
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--participants--participant_id--checkin">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/participants/1/checkin" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"attendance_status\": \"present\",
+    \"absence_reason\": \"Bị bệnh\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/1/checkin"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "attendance_status": "present",
+    "absence_reason": "Bị bệnh"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/1/checkin';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'attendance_status' =&gt; 'present',
+            'absence_reason' =&gt; 'Bị bệnh',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--participants--participant_id--checkin">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Điểm danh th&agrave;nh c&ocirc;ng!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;user_id&quot;: 2,
+        &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+        &quot;position&quot;: &quot;Trưởng ph&ograve;ng CNTT&quot;,
+        &quot;meeting_role&quot;: &quot;delegate&quot;,
+        &quot;attendance_status&quot;: &quot;present&quot;,
+        &quot;checkin_at&quot;: &quot;25/03/2026 08:05:00&quot;,
+        &quot;absence_reason&quot;: null,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Đại biểu đ&atilde; điểm danh rồi.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--participants--participant_id--checkin" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--participants--participant_id--checkin"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--participants--participant_id--checkin" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--participants--participant_id--checkin">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--participants--participant_id--checkin" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/participants/{participant_id}/checkin"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--participants--participant_id--checkin', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--participants--participant_id--checkin');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--participants--participant_id--checkin');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/participants/{participant_id}/checkin</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the participant. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đại biểu. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>attendance_status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="attendance_status"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="present"
+               data-component="body">
+    <br>
+<p>Trạng thái: not_arrived, present, absent. Example: <code>present</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>absence_reason</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="absence_reason"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--checkin"
+               value="Bị bệnh"
+               data-component="body">
+    <br>
+<p>Lý do vắng (yêu cầu khi absent). Example: <code>Bị bệnh</code></p>
+        </div>
+        </form>
+
+                    <h2 id="meeting-dai-bieu-participants-PATCHapi-meetings--meeting_id--participants--participant_id--status">Thay đổi trạng thái điểm danh (Admin)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Admin cưỡng chế cập nhật trạng thái điểm danh, không bị ràng buộc trạng thái hiện tại.</p>
+
+<span id="example-requests-PATCHapi-meetings--meeting_id--participants--participant_id--status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/api/meetings/2/participants/1/status" \
+    --header "Authorization: Bearer Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"attendance_status\": \"present\",
+    \"absence_reason\": \"Bị bệnh\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/meetings/2/participants/1/status"
+);
+
+const headers = {
+    "Authorization": "Bearer Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "attendance_status": "present",
+    "absence_reason": "Bị bệnh"
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$url = 'http://localhost/api/meetings/2/participants/1/status';
+$response = $client-&gt;patch(
+    $url,
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'attendance_status' =&gt; 'present',
+            'absence_reason' =&gt; 'Bị bệnh',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHapi-meetings--meeting_id--participants--participant_id--status">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Trạng th&aacute;i điểm danh đ&atilde; được cập nhật!&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;meeting_id&quot;: 1,
+        &quot;user_id&quot;: 2,
+        &quot;user_name&quot;: &quot;Nguyễn Văn A&quot;,
+        &quot;user_email&quot;: &quot;nguyenvana@example.com&quot;,
+        &quot;position&quot;: &quot;Trưởng ph&ograve;ng CNTT&quot;,
+        &quot;meeting_role&quot;: &quot;delegate&quot;,
+        &quot;attendance_status&quot;: &quot;absent&quot;,
+        &quot;checkin_at&quot;: null,
+        &quot;absence_reason&quot;: &quot;Bị bệnh&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 07:00:00&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHapi-meetings--meeting_id--participants--participant_id--status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHapi-meetings--meeting_id--participants--participant_id--status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-meetings--meeting_id--participants--participant_id--status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHapi-meetings--meeting_id--participants--participant_id--status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-meetings--meeting_id--participants--participant_id--status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHapi-meetings--meeting_id--participants--participant_id--status" data-method="PATCH"
+      data-path="api/meetings/{meeting_id}/participants/{participant_id}/status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-meetings--meeting_id--participants--participant_id--status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHapi-meetings--meeting_id--participants--participant_id--status"
+                    onclick="tryItOut('PATCHapi-meetings--meeting_id--participants--participant_id--status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHapi-meetings--meeting_id--participants--participant_id--status"
+                    onclick="cancelTryOut('PATCHapi-meetings--meeting_id--participants--participant_id--status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHapi-meetings--meeting_id--participants--participant_id--status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/meetings/{meeting_id}/participants/{participant_id}/status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="Bearer Bearer {YOUR_ACCESS_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer Bearer {YOUR_ACCESS_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="2"
+               data-component="url">
+    <br>
+<p>The ID of the meeting. Example: <code>2</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant_id"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the participant. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>meeting</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="meeting"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID cuộc họp. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>participant</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="participant"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="1"
+               data-component="url">
+    <br>
+<p>ID đại biểu. Example: <code>1</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>attendance_status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="attendance_status"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="present"
+               data-component="body">
+    <br>
+<p>Trạng thái: not_arrived, present, absent. Example: <code>present</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>absence_reason</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="absence_reason"                data-endpoint="PATCHapi-meetings--meeting_id--participants--participant_id--status"
+               value="Bị bệnh"
+               data-component="body">
+    <br>
+<p>Lý do vắng (yêu cầu khi absent). Example: <code>Bị bệnh</code></p>
+        </div>
+        </form>
+
                 <h1 id="post-category">Post - Category</h1>
 
     
@@ -37911,6 +50340,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -37953,7 +50383,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 210,
+            &quot;id&quot;: 91,
             &quot;name&quot;: &quot;Architecto Eius&quot;,
             &quot;slug&quot;: &quot;architecto-eius&quot;,
             &quot;description&quot;: &quot;Quos velit et fugiat sunt nihil accusantium harum.&quot;,
@@ -37963,11 +50393,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:06&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:06&quot;
         },
         {
-            &quot;id&quot;: 211,
+            &quot;id&quot;: 92,
             &quot;name&quot;: &quot;Deserunt Aut&quot;,
             &quot;slug&quot;: &quot;deserunt-aut&quot;,
             &quot;description&quot;: null,
@@ -37977,8 +50407,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:23&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:23&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:06&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:06&quot;
         }
     ],
     &quot;success&quot;: &quot;true&quot;
@@ -38199,6 +50629,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -38241,12 +50672,12 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 212,
+            &quot;id&quot;: 93,
             &quot;name&quot;: &quot;Et Animi&quot;,
             &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;
         },
         {
-            &quot;id&quot;: 213,
+            &quot;id&quot;: 94,
             &quot;name&quot;: &quot;Quo Omnis&quot;,
             &quot;description&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;
         }
@@ -38471,6 +50902,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -38712,7 +51144,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: name. Cột không bắt buộc: slug (tự sinh từ name), description, status (mặc định &quot;active&quot;), sort_order (mặc định 0), parent_slug (slug của danh mục cha).</p>
+<p>Cột bắt buộc: name. Cột không bắt buộc: slug (tự sinh từ name), description, status (mặc định "active"), sort_order (mặc định 0), parent_slug (slug của danh mục cha).</p>
 
 <span id="example-requests-POSTapi-post-categories-import">
 <blockquote>Example request:</blockquote>
@@ -38725,7 +51157,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpeb7d6t9rua4n4mvQMWL" </code></pre></div>
+    --form "file=@/tmp/phpcm5n7pttie1a1DEuEqu" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -38765,7 +51197,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpeb7d6t9rua4n4mvQMWL', 'r')
+                'contents' =&gt; fopen('/tmp/phpcm5n7pttie1a1DEuEqu', 'r')
             ],
         ],
     ]
@@ -38893,7 +51325,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpeb7d6t9rua4n4mvQMWL</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpcm5n7pttie1a1DEuEqu</code></p>
         </div>
         </form>
 
@@ -39369,6 +51801,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -39640,6 +52073,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -39846,6 +52280,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -39889,7 +52324,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 219,
+            &quot;id&quot;: 100,
             &quot;name&quot;: &quot;Adipisci Quidem&quot;,
             &quot;slug&quot;: &quot;adipisci-quidem&quot;,
             &quot;description&quot;: &quot;Commodi incidunt iure odit.&quot;,
@@ -39899,11 +52334,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         },
         {
-            &quot;id&quot;: 220,
+            &quot;id&quot;: 101,
             &quot;name&quot;: &quot;Modi Ipsum&quot;,
             &quot;slug&quot;: &quot;modi-ipsum&quot;,
             &quot;description&quot;: &quot;Autem et consequatur aut dolores enim non facere tempora.&quot;,
@@ -39913,8 +52348,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         }
     ],
     &quot;links&quot;: {
@@ -40171,6 +52606,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -40204,20 +52640,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 222,
+        &quot;id&quot;: 103,
         &quot;name&quot;: &quot;Aut Adipisci&quot;,
         &quot;slug&quot;: &quot;aut-adipisci&quot;,
         &quot;description&quot;: &quot;Qui commodi incidunt iure odit.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;sort_order&quot;: 20,
-        &quot;parent_id&quot;: 221,
+        &quot;parent_id&quot;: 102,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 221,
+            &quot;id&quot;: 102,
             &quot;name&quot;: &quot;Nostrum Omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;,
             &quot;description&quot;: &quot;Consequatur aut dolores enim non facere tempora.&quot;,
@@ -40227,23 +52663,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 223,
+                &quot;id&quot;: 104,
                 &quot;name&quot;: &quot;Laboriosam Praesentium&quot;,
                 &quot;slug&quot;: &quot;laboriosam-praesentium&quot;,
                 &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
                 &quot;status&quot;: &quot;active&quot;,
                 &quot;sort_order&quot;: 61,
-                &quot;parent_id&quot;: 222,
+                &quot;parent_id&quot;: 103,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ]
     },
@@ -40466,7 +52902,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 224,
+        &quot;id&quot;: 105,
         &quot;name&quot;: &quot;Nostrum Qui&quot;,
         &quot;slug&quot;: &quot;nostrum-qui&quot;,
         &quot;description&quot;: &quot;Iure odit et et modi ipsum nostrum omnis.&quot;,
@@ -40476,8 +52912,8 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;depth&quot;: 0,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Danh mục đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -40747,20 +53183,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 226,
+        &quot;id&quot;: 107,
         &quot;name&quot;: &quot;Commodi Incidunt&quot;,
         &quot;slug&quot;: &quot;commodi-incidunt&quot;,
         &quot;description&quot;: &quot;Et et modi ipsum nostrum.&quot;,
         &quot;status&quot;: &quot;active&quot;,
         &quot;sort_order&quot;: 41,
-        &quot;parent_id&quot;: 225,
+        &quot;parent_id&quot;: 106,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 225,
+            &quot;id&quot;: 106,
             &quot;name&quot;: &quot;Et Consequatur&quot;,
             &quot;slug&quot;: &quot;et-consequatur&quot;,
             &quot;description&quot;: &quot;Enim non facere tempora ex voluptatem laboriosam praesentium.&quot;,
@@ -40770,23 +53206,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 227,
+                &quot;id&quot;: 108,
                 &quot;name&quot;: &quot;Molestias Fugit&quot;,
                 &quot;slug&quot;: &quot;molestias-fugit&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;inactive&quot;,
                 &quot;sort_order&quot;: 7,
-                &quot;parent_id&quot;: 226,
+                &quot;parent_id&quot;: 107,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ]
     },
@@ -41083,20 +53519,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 229,
+        &quot;id&quot;: 110,
         &quot;name&quot;: &quot;Iure Odit&quot;,
         &quot;slug&quot;: &quot;iure-odit&quot;,
         &quot;description&quot;: &quot;Modi ipsum nostrum omnis autem et.&quot;,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;sort_order&quot;: 84,
-        &quot;parent_id&quot;: 228,
+        &quot;parent_id&quot;: 109,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 228,
+            &quot;id&quot;: 109,
             &quot;name&quot;: &quot;Dolores Enim&quot;,
             &quot;slug&quot;: &quot;dolores-enim&quot;,
             &quot;description&quot;: &quot;Tempora ex voluptatem laboriosam praesentium quis.&quot;,
@@ -41106,23 +53542,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 230,
+                &quot;id&quot;: 111,
                 &quot;name&quot;: &quot;Fugit Deleniti&quot;,
                 &quot;slug&quot;: &quot;fugit-deleniti&quot;,
                 &quot;description&quot;: null,
                 &quot;status&quot;: &quot;active&quot;,
                 &quot;sort_order&quot;: 35,
-                &quot;parent_id&quot;: 229,
+                &quot;parent_id&quot;: 110,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ]
     },
@@ -41358,6 +53794,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -41596,20 +54033,20 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 232,
+        &quot;id&quot;: 113,
         &quot;name&quot;: &quot;Quidem Nostrum&quot;,
         &quot;slug&quot;: &quot;quidem-nostrum&quot;,
         &quot;description&quot;: null,
         &quot;status&quot;: &quot;inactive&quot;,
         &quot;sort_order&quot;: 0,
-        &quot;parent_id&quot;: 231,
+        &quot;parent_id&quot;: 112,
         &quot;depth&quot;: 1,
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;,
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;,
         &quot;parent&quot;: {
-            &quot;id&quot;: 231,
+            &quot;id&quot;: 112,
             &quot;name&quot;: &quot;Et Et&quot;,
             &quot;slug&quot;: &quot;et-et&quot;,
             &quot;description&quot;: &quot;Nostrum omnis autem et consequatur aut.&quot;,
@@ -41619,23 +54056,23 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;depth&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         },
         &quot;children&quot;: [
             {
-                &quot;id&quot;: 233,
+                &quot;id&quot;: 114,
                 &quot;name&quot;: &quot;Non Facere&quot;,
                 &quot;slug&quot;: &quot;non-facere&quot;,
                 &quot;description&quot;: &quot;Voluptatem laboriosam praesentium quis adipisci.&quot;,
                 &quot;status&quot;: &quot;inactive&quot;,
                 &quot;sort_order&quot;: 10,
-                &quot;parent_id&quot;: 232,
+                &quot;parent_id&quot;: 113,
                 &quot;depth&quot;: 2,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ]
     },
@@ -41828,6 +54265,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "GET",
@@ -42082,7 +54520,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cột bắt buộc: title, content. Cột không bắt buộc: status (mặc định &quot;published&quot;), categories (tên nối phẩy).</p>
+<p>Cột bắt buộc: title, content. Cột không bắt buộc: status (mặc định "published"), categories (tên nối phẩy).</p>
 
 <span id="example-requests-POSTapi-posts-import">
 <blockquote>Example request:</blockquote>
@@ -42095,7 +54533,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "X-Organization-Id: ID tổ chức cần làm việc (bắt buộc với endpoint yêu cầu auth). Example: 1" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "file=@/tmp/phpfi8ptaqvg8vnbGTvAfu" </code></pre></div>
+    --form "file=@/tmp/php0gomo43a7uu229IDbOS" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -42135,7 +54573,7 @@ $response = $client-&gt;post(
         'multipart' =&gt; [
             [
                 'name' =&gt; 'file',
-                'contents' =&gt; fopen('/tmp/phpfi8ptaqvg8vnbGTvAfu', 'r')
+                'contents' =&gt; fopen('/tmp/php0gomo43a7uu229IDbOS', 'r')
             ],
         ],
     ]
@@ -42263,7 +54701,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/phpfi8ptaqvg8vnbGTvAfu</code></p>
+<p>File Excel (xlsx, xls, csv). Cột theo chuẩn export. Example: <code>/tmp/php0gomo43a7uu229IDbOS</code></p>
         </div>
         </form>
 
@@ -42740,6 +55178,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -43031,6 +55470,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -43075,7 +55515,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 77,
+            &quot;id&quot;: 42,
             &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
             &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
             &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -43083,11 +55523,11 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;view_count&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         },
         {
-            &quot;id&quot;: 78,
+            &quot;id&quot;: 43,
             &quot;title&quot;: &quot;Alias tenetur ratione nemo voluptate accusamus ut et.&quot;,
             &quot;slug&quot;: &quot;alias-tenetur-ratione-nemo-voluptate-accusamus-ut-et&quot;,
             &quot;content&quot;: &quot;Rerum ex repellendus assumenda et. Ab reiciendis quia perspiciatis deserunt ducimus corrupti. Dolores quia maiores assumenda odit doloribus repellat officiis. Nesciunt ut ratione iure impedit molestiae ut rem.\n\nSint aut molestiae sunt suscipit. Fugiat ut aut deserunt et error neque recusandae. Ipsam dolorem et ut dicta vitae assumenda consequatur. Et sunt quisquam sit repellendus ut.\n\nRatione dolores sed rem ea ut. Deserunt sint quis in quod. Aspernatur consectetur id a consectetur assumenda eaque neque.&quot;,
@@ -43095,8 +55535,8 @@ print_r(json_decode((string) $body));</code></pre></div>
             &quot;view_count&quot;: 0,
             &quot;created_by&quot;: &quot;N/A&quot;,
             &quot;updated_by&quot;: &quot;N/A&quot;,
-            &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-            &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+            &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+            &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
         }
     ],
     &quot;links&quot;: {
@@ -43365,6 +55805,7 @@ const headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
@@ -43398,7 +55839,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 79,
+        &quot;id&quot;: 44,
         &quot;title&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
         &quot;content&quot;: &quot;Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.\n\nAlias tenetur ratione nemo voluptate accusamus ut et. Modi rerum ex repellendus assumenda et tenetur.&quot;,
@@ -43406,7 +55847,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 214,
+                &quot;id&quot;: 95,
                 &quot;name&quot;: &quot;Reiciendis Quia&quot;,
                 &quot;slug&quot;: &quot;reiciendis-quia&quot;,
                 &quot;description&quot;: &quot;Ducimus corrupti et dolores quia maiores assumenda.&quot;,
@@ -43416,14 +55857,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;
 }</code>
@@ -43583,6 +56024,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "POST",
@@ -43769,8 +56211,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "content=Nội dung bài viết..."\
     --form "status=draft"\
     --form "category_ids[]=1"\
-    --form "images[]=@/tmp/phpnej16h80hd7sewuogez" \
-    --form "images[]=@/tmp/phpm1mdmsnks1l1764vdTp" </code></pre></div>
+    --form "images[]=@/tmp/php6gnq4g2f4pcreJ8SB2q" \
+    --form "images[]=@/tmp/php9ah6kdealuj24pCItzp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -43831,11 +56273,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpnej16h80hd7sewuogez', 'r')
+                'contents' =&gt; fopen('/tmp/php6gnq4g2f4pcreJ8SB2q', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpm1mdmsnks1l1764vdTp', 'r')
+                'contents' =&gt; fopen('/tmp/php9ah6kdealuj24pCItzp', 'r')
             ],
         ],
     ]
@@ -43853,7 +56295,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 80,
+        &quot;id&quot;: 45,
         &quot;title&quot;: &quot;Eius et animi quos velit et.&quot;,
         &quot;slug&quot;: &quot;eius-et-animi-quos-velit-et&quot;,
         &quot;content&quot;: &quot;Nihil accusantium harum mollitia modi deserunt. Ab provident perspiciatis quo omnis nostrum aut adipisci. Nostrum qui commodi incidunt iure.\n\nEt modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -43861,7 +56303,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 215,
+                &quot;id&quot;: 96,
                 &quot;name&quot;: &quot;Est Alias&quot;,
                 &quot;slug&quot;: &quot;est-alias&quot;,
                 &quot;description&quot;: &quot;Nemo voluptate accusamus ut et.&quot;,
@@ -43871,14 +56313,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được tạo th&agrave;nh c&ocirc;ng!&quot;
@@ -44055,7 +56497,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB). Example: <code>/tmp/phpm1mdmsnks1l1764vdTp</code></p>
+<p>Ảnh đính kèm (jpeg/png/gif/webp, tối đa 10 ảnh, mỗi ảnh ≤ 5MB). Example: <code>/tmp/php9ah6kdealuj24pCItzp</code></p>
         </div>
         </form>
 
@@ -44083,8 +56525,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "status=architecto"\
     --form "category_ids[]=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "images[]=@/tmp/phpr7p89qshonpj6VumloN" \
-    --form "images[]=@/tmp/phpb2n3croj5k4aew9EbOZ" </code></pre></div>
+    --form "images[]=@/tmp/phps383fes6qdfkdxPl9Xj" \
+    --form "images[]=@/tmp/phpj1sbho911c2r2Z6NceD" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -44150,11 +56592,11 @@ $response = $client-&gt;put(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpr7p89qshonpj6VumloN', 'r')
+                'contents' =&gt; fopen('/tmp/phps383fes6qdfkdxPl9Xj', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpb2n3croj5k4aew9EbOZ', 'r')
+                'contents' =&gt; fopen('/tmp/phpj1sbho911c2r2Z6NceD', 'r')
             ],
         ],
     ]
@@ -44172,7 +56614,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 81,
+        &quot;id&quot;: 46,
         &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
         &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
         &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -44180,7 +56622,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 216,
+                &quot;id&quot;: 97,
                 &quot;name&quot;: &quot;Tenetur Ratione&quot;,
                 &quot;slug&quot;: &quot;tenetur-ratione&quot;,
                 &quot;description&quot;: null,
@@ -44190,14 +56632,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được cập nhật!&quot;
@@ -44413,7 +56855,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh mới (append). Example: <code>/tmp/phpb2n3croj5k4aew9EbOZ</code></p>
+<p>Ảnh mới (append). Example: <code>/tmp/phpj1sbho911c2r2Z6NceD</code></p>
         </div>
         </form>
 
@@ -44441,8 +56883,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "status=architecto"\
     --form "category_ids[]=architecto"\
     --form "remove_attachment_ids[]=architecto"\
-    --form "images[]=@/tmp/phpm3plc7b4dick29CznD2" \
-    --form "images[]=@/tmp/phphuci7nieaf3gaITfctM" </code></pre></div>
+    --form "images[]=@/tmp/phpa2jsnc5mnmhudRz95Xj" \
+    --form "images[]=@/tmp/phpphinnr8aogup9EkxqwA" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -44508,11 +56950,11 @@ $response = $client-&gt;patch(
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpm3plc7b4dick29CznD2', 'r')
+                'contents' =&gt; fopen('/tmp/phpa2jsnc5mnmhudRz95Xj', 'r')
             ],
             [
                 'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phphuci7nieaf3gaITfctM', 'r')
+                'contents' =&gt; fopen('/tmp/phpphinnr8aogup9EkxqwA', 'r')
             ],
         ],
     ]
@@ -44530,7 +56972,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 82,
+        &quot;id&quot;: 47,
         &quot;title&quot;: &quot;Et animi quos velit et fugiat.&quot;,
         &quot;slug&quot;: &quot;et-animi-quos-velit-et-fugiat&quot;,
         &quot;content&quot;: &quot;Accusantium harum mollitia modi deserunt aut ab. Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum.\n\nAutem et consequatur aut dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.&quot;,
@@ -44538,7 +56980,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 217,
+                &quot;id&quot;: 98,
                 &quot;name&quot;: &quot;Nemo Voluptate&quot;,
                 &quot;slug&quot;: &quot;nemo-voluptate&quot;,
                 &quot;description&quot;: &quot;Et recusandae modi rerum ex repellendus assumenda et.&quot;,
@@ -44548,14 +56990,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;B&agrave;i viết đ&atilde; được cập nhật!&quot;
@@ -44771,7 +57213,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Ảnh mới (append). Example: <code>/tmp/phphuci7nieaf3gaITfctM</code></p>
+<p>Ảnh mới (append). Example: <code>/tmp/phpphinnr8aogup9EkxqwA</code></p>
         </div>
         </form>
 
@@ -44807,6 +57249,7 @@ const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
+
 
 fetch(url, {
     method: "DELETE",
@@ -45045,7 +57488,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 83,
+        &quot;id&quot;: 48,
         &quot;title&quot;: &quot;Adipisci quidem nostrum qui commodi incidunt iure.&quot;,
         &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
         &quot;content&quot;: &quot;Et modi ipsum nostrum omnis autem et consequatur. Dolores enim non facere tempora. Voluptatem laboriosam praesentium quis adipisci.\n\nDeleniti distinctio eum doloremque id aut. Aliquam veniam corporis dolorem mollitia deleniti nemo. Quia officia est dignissimos neque. Odio veritatis excepturi doloribus delectus fugit qui repudiandae.\n\nAlias tenetur ratione nemo voluptate accusamus ut et. Modi rerum ex repellendus assumenda et tenetur.&quot;,
@@ -45053,7 +57496,7 @@ print_r(json_decode((string) $body));</code></pre></div>
         &quot;view_count&quot;: 0,
         &quot;categories&quot;: [
             {
-                &quot;id&quot;: 218,
+                &quot;id&quot;: 99,
                 &quot;name&quot;: &quot;Perspiciatis Deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;,
                 &quot;description&quot;: &quot;Et dolores quia maiores.&quot;,
@@ -45063,14 +57506,14 @@ print_r(json_decode((string) $body));</code></pre></div>
                 &quot;depth&quot;: 0,
                 &quot;created_by&quot;: &quot;N/A&quot;,
                 &quot;updated_by&quot;: &quot;N/A&quot;,
-                &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-                &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+                &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+                &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
             }
         ],
         &quot;created_by&quot;: &quot;N/A&quot;,
         &quot;updated_by&quot;: &quot;N/A&quot;,
-        &quot;created_at&quot;: &quot;05/03/2026 09:32:24&quot;,
-        &quot;updated_at&quot;: &quot;05/03/2026 09:32:24&quot;
+        &quot;created_at&quot;: &quot;25/03/2026 12:50:07&quot;,
+        &quot;updated_at&quot;: &quot;25/03/2026 12:50:07&quot;
     },
     &quot;success&quot;: &quot;true&quot;,
     &quot;message&quot;: &quot;Cập nhật trạng th&aacute;i th&agrave;nh c&ocirc;ng!&quot;

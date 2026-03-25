@@ -26,6 +26,8 @@ class VotingController extends Controller
      * Danh sách phiên biểu quyết
      *
      * @urlParam meeting integer required ID cuộc họp.
+     *
+     * @response 200 {"success": true, "data": [{"id": 1, "meeting_id": 1, "title": "Thông qua kế hoạch ngân sách năm 2027", "description": null, "type": "public", "status": "closed", "started_at": "25/03/2026 09:00:00", "closed_at": "25/03/2026 09:15:00", "created_at": "25/03/2026 08:55:00"}]}
      */
     public function index(Meeting $meeting)
     {
@@ -39,9 +41,12 @@ class VotingController extends Controller
      *
      * @urlParam meeting integer required ID cuộc họp.
      * @bodyParam title string required Nội dung biểu quyết. Example: Thông qua kế hoạch ngân sách năm 2027
-     * @bodyParam description string Mô tả chi tiết.
-     * @bodyParam agenda_id integer Gắn với mục chương trình (nullable).
-     * @bodyParam type string required Kiểu: public (công khai), anonymous (ẩn danh).
+     * @bodyParam description string Mô tả chi tiết. Example: Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu
+     * @bodyParam agenda_id integer Gắn với mục chương trình (nullable). Example: 2
+     * @bodyParam type string required Kiểu: public (đưa ra công khai), anonymous (ẩn danh). Example: public
+     *
+     * @response 201 {"success": true, "message": "Phiên biểu quyết đã được tạo!", "data": {"id": 1, "meeting_id": 1, "title": "Thông qua kế hoạch ngân sách năm 2027", "description": "Biểu quyết thông qua kế hoạch ngân sách dự kiến 500 triệu", "type": "public", "status": "pending", "started_at": null, "closed_at": null, "created_at": "25/03/2026 08:55:00"}}
+     * @response 422 {"success": false, "message": "Dữ liệu không hợp lệ.", "errors": {"title": ["Tiêu đề biểu quyết không được để trống."], "type": ["Kiểu biểu quyết không hợp lệ. Chấp nhận: public, anonymous."]}}
      */
     public function store(StoreVotingRequest $request, Meeting $meeting)
     {
