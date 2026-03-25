@@ -90,7 +90,6 @@ return new class extends Migration
         Schema::create('m_votings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('meeting_id')->constrained('m_meetings')->cascadeOnDelete();
-            $table->foreignId('agenda_id')->nullable()->constrained('m_agendas')->nullOnDelete();
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('type')->default('public'); // public, anonymous
