@@ -140,6 +140,18 @@ const openAgendaEditor = (id: number) => {
   router.push({ name: 'meetings-id-agenda', params: { id } })
 }
 
+const openParticipantManager = (id: number) => {
+  router.push({ name: 'meetings-id-participants', params: { id } })
+}
+
+const openAttendance = (id: number) => {
+  router.push({ name: 'meetings-id-attendance', params: { id } })
+}
+
+const openCheckinKiosk = (id: number) => {
+  router.push({ name: 'meetings-id-checkin', params: { id } })
+}
+
 const handleFormSubmit = async () => {
   isFormDrawerVisible.value = false
   await fetchMeetings()
@@ -603,6 +615,48 @@ fetchMeetings()
                 location="top"
               >
                 Chương trình
+              </VTooltip>
+            </IconBtn>
+
+            <IconBtn
+              size="small"
+              color="primary"
+              @click="openParticipantManager(item.id)"
+            >
+              <VIcon icon="tabler-users" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Đại biểu
+              </VTooltip>
+            </IconBtn>
+
+            <IconBtn
+              size="small"
+              color="primary"
+              @click="openAttendance(item.id)"
+            >
+              <VIcon icon="tabler-clipboard-check" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Theo dõi điểm danh
+              </VTooltip>
+            </IconBtn>
+
+            <IconBtn
+              size="small"
+              color="primary"
+              @click="openCheckinKiosk(item.id)"
+            >
+              <VIcon icon="tabler-login" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Kiosk điểm danh
               </VTooltip>
             </IconBtn>
 
