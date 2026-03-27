@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import { meetingApi, type Meeting, type MeetingFilters } from '@/api/modules/meeting'
+import { computed, ref } from 'vue'
+import { type Meeting, type MeetingFilters, meetingApi } from '@/api/modules/meeting'
 
 export const useMeetingStore = defineStore('meeting', () => {
   // State
@@ -9,11 +9,13 @@ export const useMeetingStore = defineStore('meeting', () => {
   const stats = ref<any>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+
   const filters = ref<MeetingFilters>({
     limit: 10,
     sort_by: 'created_at',
     sort_order: 'desc',
   })
+
   const meta = ref<any>(null)
 
   // Getters
@@ -25,15 +27,17 @@ export const useMeetingStore = defineStore('meeting', () => {
   async function fetchStats(customFilters?: MeetingFilters) {
     try {
       isLoading.value = true
+
       const response = await meetingApi.stats({ ...filters.value, ...customFilters })
-      
-      if (response.data.success) {
+
+      if (response.data.success)
         stats.value = response.data.data
-      }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Lấy thống kê thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -42,17 +46,19 @@ export const useMeetingStore = defineStore('meeting', () => {
     try {
       isLoading.value = true
       error.value = null
-      
+
       const response = await meetingApi.list({ ...filters.value, ...customFilters })
-      
+
       if (response.data.success) {
         meetings.value = response.data.data || []
         meta.value = response.data.meta
       }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Lấy danh sách cuộc họp thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -60,15 +66,17 @@ export const useMeetingStore = defineStore('meeting', () => {
   async function fetchMeeting(id: number) {
     try {
       isLoading.value = true
+
       const response = await meetingApi.show(id)
-      
-      if (response.data.success && response.data.data) {
+
+      if (response.data.success && response.data.data)
         currentMeeting.value = response.data.data
-      }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Lấy chi tiết cuộc họp thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -76,16 +84,20 @@ export const useMeetingStore = defineStore('meeting', () => {
   async function createMeeting(data: Partial<Meeting>) {
     try {
       isLoading.value = true
+
       const response = await meetingApi.create(data)
-      
+
       if (response.data.success && response.data.data) {
         meetings.value.unshift(response.data.data)
+
         return response.data.data
       }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Tạo cuộc họp thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -93,22 +105,25 @@ export const useMeetingStore = defineStore('meeting', () => {
   async function updateMeeting(id: number, data: Partial<Meeting>) {
     try {
       isLoading.value = true
+
       const response = await meetingApi.update(id, data)
-      
+
       if (response.data.success && response.data.data) {
         const index = meetings.value.findIndex(m => m.id === id)
         if (index !== -1)
           meetings.value[index] = response.data.data
-        
+
         if (currentMeeting.value?.id === id)
           currentMeeting.value = response.data.data
-        
+
         return response.data.data
       }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Cập nhật cuộc họp thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -117,14 +132,16 @@ export const useMeetingStore = defineStore('meeting', () => {
     try {
       isLoading.value = true
       await meetingApi.delete(id)
-      
+
       meetings.value = meetings.value.filter(m => m.id !== id)
       if (currentMeeting.value?.id === id)
         currentMeeting.value = null
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Xóa cuộc họp thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -132,19 +149,22 @@ export const useMeetingStore = defineStore('meeting', () => {
   async function changeStatus(id: number, status: Meeting['status']) {
     try {
       isLoading.value = true
+
       const response = await meetingApi.changeStatus(id, status)
-      
+
       if (response.data.success && response.data.data) {
         const index = meetings.value.findIndex(m => m.id === id)
         if (index !== -1)
           meetings.value[index] = response.data.data
-        
+
         return response.data.data
       }
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Thay đổi trạng thái thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -154,10 +174,12 @@ export const useMeetingStore = defineStore('meeting', () => {
       isLoading.value = true
       await meetingApi.bulkDelete(ids)
       meetings.value = meetings.value.filter(m => !ids.includes(m.id))
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Xóa hàng loạt thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -166,10 +188,12 @@ export const useMeetingStore = defineStore('meeting', () => {
     try {
       isLoading.value = true
       await meetingApi.bulkUpdateStatus(ids, status)
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Cập nhật trạng thái hàng loạt thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -181,11 +205,13 @@ export const useMeetingStore = defineStore('meeting', () => {
       const blob = new Blob([response.data], { type: response.headers['content-type'] })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
+
       a.href = url
       a.download = `meetings_${new Date().toISOString().slice(0, 10)}.xlsx`
       a.click()
       URL.revokeObjectURL(url)
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Xuất danh sách thất bại'
       throw err
     }
@@ -194,12 +220,16 @@ export const useMeetingStore = defineStore('meeting', () => {
   async function importMeetings(file: File) {
     try {
       isLoading.value = true
+
       const response = await meetingApi.import(file)
+
       return response.data
-    } catch (err: any) {
+    }
+    catch (err: any) {
       error.value = err.response?.data?.message || 'Nhập danh sách thất bại'
       throw err
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -225,12 +255,12 @@ export const useMeetingStore = defineStore('meeting', () => {
     error,
     filters,
     meta,
-    
+
     // Getters
     totalMeetings,
     draftMeetings,
     activeMeetings,
-    
+
     // Actions
     fetchStats,
     fetchMeetings,

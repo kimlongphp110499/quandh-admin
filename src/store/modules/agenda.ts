@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { type Agenda, type AgendaReorderItem, agendaApi } from '@/api/modules/agenda'
 
 export const useAgendaStore = defineStore('agenda', () => {

@@ -7,10 +7,12 @@ const router = useRouter()
 
 const userData = computed(() => {
   const data = useCookie('userData').value
-  if (!data) return null
+  if (!data)
+    return null
   try {
     return typeof data === 'string' ? JSON.parse(data) : data
-  } catch {
+  }
+  catch {
     return data
   }
 })
@@ -20,7 +22,7 @@ const handleLogout = () => {
   useCookie('accessToken').value = null
   useCookie('userData').value = null
   useCookie('userAbilityRules').value = null
-  
+
   // Redirect về login
   router.push('/login')
 }

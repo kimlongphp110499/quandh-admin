@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import dayjs from 'dayjs'
+import MeetingFormDrawer from './MeetingFormDrawer.vue'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useMeetingStore } from '@/store/modules/meeting'
 import type { Meeting } from '@/api/modules/meeting'
-import MeetingFormDrawer from './MeetingFormDrawer.vue'
-import dayjs from 'dayjs'
 
 definePage({
   meta: {
@@ -41,6 +42,7 @@ const isExporting = ref(false)
 
 // Snackbar
 const snackbar = ref({ show: false, message: '', color: 'success' })
+
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
@@ -109,6 +111,7 @@ const resolveStatusVariant = (status: string) => {
     in_progress: 'warning',
     ended: 'success',
   }
+
   return variants[status] || 'secondary'
 }
 
@@ -119,6 +122,7 @@ const resolveStatusLabel = (status: string) => {
     in_progress: 'Đang diễn ra',
     ended: 'Đã kết thúc',
   }
+
   return labels[status] || status
 }
 
@@ -147,7 +151,8 @@ const confirmDeleteSingle = (id: number) => {
 }
 
 const confirmBulkDelete = () => {
-  if (selectedIds.value.length === 0) return
+  if (selectedIds.value.length === 0)
+    return
   deletingId.value = null
   isDeleteDialogVisible.value = true
 }
@@ -157,21 +162,24 @@ const handleDeleteConfirm = async () => {
     if (deletingId.value !== null) {
       await meetingStore.deleteMeeting(deletingId.value)
       showToast('Xóa cuộc họp thành công!', 'success')
-    } else {
+    }
+    else {
       await meetingStore.bulkDelete(selectedIds.value)
       showToast(`Đã xóa ${selectedIds.value.length} cuộc họp!`, 'success')
       selected.value = []
     }
     isDeleteDialogVisible.value = false
     await fetchMeetings()
-  } catch {
+  }
+  catch {
     showToast('Xóa thất bại!', 'error')
     isDeleteDialogVisible.value = false
   }
 }
 
 const openBulkStatusDialog = () => {
-  if (selectedIds.value.length === 0) return
+  if (selectedIds.value.length === 0)
+    return
   bulkStatusValue.value = 'active'
   isBulkStatusDialogVisible.value = true
 }
@@ -183,7 +191,8 @@ const handleBulkUpdateStatus = async () => {
     selected.value = []
     isBulkStatusDialogVisible.value = false
     await fetchMeetings()
-  } catch {
+  }
+  catch {
     showToast('Cập nhật trạng thái thất bại!', 'error')
     isBulkStatusDialogVisible.value = false
   }
@@ -197,9 +206,11 @@ const handleExport = async () => {
       status: selectedStatus.value || undefined,
     })
     showToast('Xuất file thành công!', 'success')
-  } catch {
+  }
+  catch {
     showToast('Xuất file thất bại!', 'error')
-  } finally {
+  }
+  finally {
     isExporting.value = false
   }
 }
@@ -210,19 +221,24 @@ const triggerImport = () => {
 
 const handleImportFile = async (event: Event) => {
   const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) return
+  if (!file)
+    return
 
   isImporting.value = true
   try {
     await meetingStore.importMeetings(file)
     showToast('Nhập dữ liệu thành công!', 'success')
     await fetchMeetings()
-  } catch (err: any) {
+  }
+  catch (err: any) {
     showToast(err?.response?.data?.message || 'Nhập dữ liệu thất bại!', 'error')
-  } finally {
+  }
+  finally {
     isImporting.value = false
+
     // Reset input để có thể import lại cùng file
-    if (importFileInput.value) importFileInput.value.value = ''
+    if (importFileInput.value)
+      importFileInput.value.value = ''
   }
 }
 
@@ -527,14 +543,16 @@ fetchMeetings()
         class="text-no-wrap"
         @update:options="updateOptions"
       >
-
         <!-- Title -->
         <template #item.title="{ item }">
           <div class="d-flex flex-column">
             <span class="font-weight-medium text-high-emphasis">
               {{ item.title }}
             </span>
-            <small v-if="item.description" class="text-disabled">
+            <small
+              v-if="item.description"
+              class="text-disabled"
+            >
               {{ item.description?.substring(0, 50) }}{{ item.description?.length > 50 ? '...' : '' }}
             </small>
           </div>
