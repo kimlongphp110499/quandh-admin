@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios'
+import axios, { type AxiosInstance, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
 import { useCookie } from '@/@core/utils/cookie'
 
 // Base API URL - cấu hình theo environment
@@ -30,16 +30,16 @@ const apiClient: AxiosInstance = axios.create({
 
 // Request Interceptor - tự động thêm Bearer Token
 apiClient.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     const token = useCookie('accessToken').value
 
     if (token && config.headers)
       config.headers.Authorization = `Bearer ${token}`
 
-    // Thêm X-Organization-Id nếu có (cho Meeting module)
-    const orgId = useCookie('organizationId').value
-    if (orgId && config.headers)
-      config.headers['X-Organization-Id'] = orgId
+    // Luôn thêm X-Organization-Id (Backend yêu cầu bắt buộc) mặc định là 1 => sau này mở rộng nhiều tổ chức
+    const orgId = useCookie('organizationId').value || '1'
+    if (config.headers)
+      config.headers['X-Organization-Id'] = String(orgId)
 
     return config
   },

@@ -4,6 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAbility } from '@casl/vue'
 import { authApi } from '@/api/modules/auth'
 import { useCookie } from '@/@core/utils/cookie'
+import type { Rule } from '@/plugins/casl/ability'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
 import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
@@ -55,30 +56,32 @@ const handleLogin = async () => {
       password: form.value.password,
     })
 
-    console.log('Login response:', response.data)
-
     if (response.data.success && response.data.data) {
       // Backend trả về access_token, không phải token
       const { access_token } = response.data.data
-      
+
       // Lưu token vào cookie trước
       useCookie('accessToken').value = access_token
       
-      // Sau đó gọi API để lấy thông tin user
+      // Sau đó gọi API để lấy thông tin user với permissions
       try {
         const userResponse = await authApi.me()
-        console.log('User response:', userResponse.data)
         
         if (userResponse.data.success && userResponse.data.data) {
-          const user = userResponse.data.data
-          
+          const { user, roles, permissions, abilities } = userResponse.data.data
+
           // Lưu userData vào cookie
           useCookie('userData').value = user
+
+          // Lưu organizationId (mặc định là 1 nếu không có)
+          const organizationId = user.organization_id || user.current_organization_id || '1'
+          useCookie('organizationId').value = String(organizationId)
           
-          // Nếu có permissions/roles từ backend, update ability
-          const userAbilityRules = user.permissions || []
-          useCookie('userAbilityRules').value = userAbilityRules
+          // Lưu abilities vào localStorage (cookie bị truncate do vượt 4KB)
+          const userAbilityRules: Rule[] = abilities ?? []
+          localStorage.setItem('userAbilityRules', JSON.stringify(userAbilityRules))
           ability.update(userAbilityRules)
+
 
           // Redirect to `to` query if exist or redirect to index route
           await nextTick(() => {

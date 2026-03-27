@@ -51,9 +51,15 @@ export const canNavigate = (to: RouteLocationNormalized) => {
     if (targetRoute?.meta?.action && targetRoute?.meta?.subject)
       return ability.can(targetRoute.meta.action, targetRoute.meta.subject)
 
-    // If no specific permissions, fall back to checking if any parent route allows access
+    // Only check routes that actually have ACL meta defined
+    const routesWithAcl = to.matched.filter(route => route.meta?.action && route.meta?.subject)
+
+    // If no route defines ACL, allow navigation by default
+    if (routesWithAcl.length === 0)
+      return true
+
     // @ts-expect-error We should allow passing string | undefined to can because for admin ability we omit defining action & subject
-    return to.matched.some(route => ability.can(route.meta.action, route.meta.subject))
+    return routesWithAcl.some(route => ability.can(route.meta.action, route.meta.subject))
   } catch (error) {
     // If CASL is not configured or ability not found, allow navigation
     console.warn('CASL ability not found, allowing navigation')

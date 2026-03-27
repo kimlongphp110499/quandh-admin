@@ -4,7 +4,7 @@ import apiClient, { type ApiResponse } from '../client'
 export const authApi = {
   // Đăng nhập
   login(credentials: { email: string; password: string }) {
-    return apiClient.post<ApiResponse<{ user: any; token: string }>>('/auth/login', credentials)
+    return apiClient.post<ApiResponse<{ user: any; access_token: string }>>('/auth/login', credentials)
   },
 
   // Đăng xuất

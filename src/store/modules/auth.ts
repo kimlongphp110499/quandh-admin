@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { authApi } from '@/api/modules'
 import { useCookie } from '@/@core/utils/cookie'
+import { ability } from '@/plugins/casl/ability'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -24,12 +25,22 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authApi.login(credentials)
       
       if (response.data.success && response.data.data) {
-        token.value = response.data.data.token
+        token.value = response.data.data.access_token
         user.value = response.data.data.user
 
         // Lưu vào cookie
         useCookie('accessToken').value = token.value
         useCookie('userData').value = JSON.stringify(user.value)
+
+        // Set CASL ability rules: dùng permissions từ user hoặc rule mặc định
+        const permissions = user.value?.permissions ?? []
+        const abilityRules = permissions.length > 0
+          ? permissions
+          : [{ action: 'manage', subject: 'all' }]
+        localStorage.setItem('userAbilityRules', JSON.stringify(abilityRules))
+
+        // Update ability instance đang chạy (không cần reload trang)
+        ability.update(abilityRules)
         
         return response.data
       }
@@ -52,6 +63,8 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = null
       useCookie('accessToken').value = null
       useCookie('userData').value = null
+      localStorage.removeItem('userAbilityRules')
+      ability.update([])
     }
   }
 

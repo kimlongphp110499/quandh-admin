@@ -149,6 +149,61 @@ export const useMeetingStore = defineStore('meeting', () => {
     }
   }
 
+  async function bulkDelete(ids: number[]) {
+    try {
+      isLoading.value = true
+      await meetingApi.bulkDelete(ids)
+      meetings.value = meetings.value.filter(m => !ids.includes(m.id))
+    } catch (err: any) {
+      error.value = err.response?.data?.message || 'Xóa hàng loạt thất bại'
+      throw err
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  async function bulkUpdateStatus(ids: number[], status: Meeting['status']) {
+    try {
+      isLoading.value = true
+      await meetingApi.bulkUpdateStatus(ids, status)
+    } catch (err: any) {
+      error.value = err.response?.data?.message || 'Cập nhật trạng thái hàng loạt thất bại'
+      throw err
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  async function exportMeetings(exportFilters?: MeetingFilters) {
+    try {
+      const { page: _page, limit: _limit, ...baseFilters } = filters.value
+      const response = await meetingApi.export({ ...baseFilters, ...exportFilters })
+      const blob = new Blob([response.data], { type: response.headers['content-type'] })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `meetings_${new Date().toISOString().slice(0, 10)}.xlsx`
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch (err: any) {
+      error.value = err.response?.data?.message || 'Xuất danh sách thất bại'
+      throw err
+    }
+  }
+
+  async function importMeetings(file: File) {
+    try {
+      isLoading.value = true
+      const response = await meetingApi.import(file)
+      return response.data
+    } catch (err: any) {
+      error.value = err.response?.data?.message || 'Nhập danh sách thất bại'
+      throw err
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   function setFilters(newFilters: Partial<MeetingFilters>) {
     filters.value = { ...filters.value, ...newFilters }
   }
@@ -184,6 +239,10 @@ export const useMeetingStore = defineStore('meeting', () => {
     updateMeeting,
     deleteMeeting,
     changeStatus,
+    bulkDelete,
+    bulkUpdateStatus,
+    exportMeetings,
+    importMeetings,
     setFilters,
     resetFilters,
   }

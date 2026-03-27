@@ -6,9 +6,9 @@ export interface Meeting {
   title: string
   description: string | null
   location: string | null
-  start_at: string | null
-  end_at: string | null
-  status: 'draft' | 'active' | 'in_progress' | 'ended'
+  start_at: string
+  end_at: string
+  status: 'draft' | 'in_progress' | 'active' | 'ended'
   created_by: string
   updated_by: string
   created_at: string
@@ -16,13 +16,14 @@ export interface Meeting {
 }
 
 export interface MeetingFilters {
+  page?: number
+  limit?: number
   search?: string
   status?: string
   from_date?: string
   to_date?: string
-  sort_by?: 'id' | 'title' | 'start_at' | 'end_at' | 'created_at'
+  sort_by?: string
   sort_order?: 'asc' | 'desc'
-  limit?: number
 }
 
 // Meeting API endpoints
