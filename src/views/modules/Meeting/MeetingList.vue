@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useMeetingStore } from '@/store/modules/meeting'
 import type { Meeting } from '@/api/modules/meeting'
 import MeetingFormDrawer from './MeetingFormDrawer.vue'
@@ -14,6 +15,7 @@ definePage({
 
 // Store
 const meetingStore = useMeetingStore()
+const router = useRouter()
 
 // State
 const searchQuery = ref('')
@@ -128,6 +130,10 @@ const openAddDrawer = () => {
 const openEditDrawer = (meeting: Meeting) => {
   editingMeeting.value = meeting
   isFormDrawerVisible.value = true
+}
+
+const openAgendaEditor = (id: number) => {
+  router.push({ name: 'meetings-id-agenda', params: { id } })
 }
 
 const handleFormSubmit = async () => {
@@ -568,6 +574,20 @@ fetchMeetings()
         <!-- Actions -->
         <template #item.actions="{ item }">
           <div class="d-flex gap-1">
+            <IconBtn
+              size="small"
+              color="primary"
+              @click="openAgendaEditor(item.id)"
+            >
+              <VIcon icon="tabler-list-details" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Chương trình
+              </VTooltip>
+            </IconBtn>
+
             <IconBtn
               size="small"
               @click="openEditDrawer(item)"

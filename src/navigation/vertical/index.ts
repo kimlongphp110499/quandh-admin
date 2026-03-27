@@ -6,10 +6,9 @@ export default [
   },
   {
     title: 'Quản lý cuộc họp',
-    to: { name: 'meetings-index' },
+    to: { name: 'meetings' },
     icon: { icon: 'tabler-calendar-event' },
     action: 'index',
-    subject: 'Meeting',
+    subject: 'Meetings',
   },
 ]
-

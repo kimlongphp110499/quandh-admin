@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useMeetingStore } from '@/store/modules/meeting'
-import type { Meeting } from '@/api/modules/meeting'
+import { computed, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 import dayjs from 'dayjs'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useMeetingStore } from '@/store/modules/meeting'
+import type { Meeting } from '@/api/modules/meeting'
 
 interface Props {
   isDrawerOpen: boolean
@@ -59,6 +60,7 @@ const dateTimeRule = (v: string) => !!v || 'Ngày giờ là bắt buộc'
 // Server-side error rules
 const serverErrorRule = (field: string) => () => {
   const errors = serverErrors.value[field]
+
   return !errors?.length || errors[0]
 }
 
@@ -85,8 +87,10 @@ const closeDrawer = () => {
 
 const onSubmit = async () => {
   serverErrors.value = {}
+
   const { valid } = await refVForm.value!.validate()
-  if (!valid) return
+  if (!valid)
+    return
 
   isSubmitting.value = true
 
@@ -98,31 +102,33 @@ const onSubmit = async () => {
       end_at: formData.value.end_at ? dayjs(formData.value.end_at).format('YYYY-MM-DD HH:mm:ss') : '',
     }
 
-    if (isEditMode.value) {
+    if (isEditMode.value)
       await meetingStore.updateMeeting(props.meeting!.id, payload)
-    } else {
+    else
       await meetingStore.createMeeting(payload)
-    }
 
     showToast(isEditMode.value ? 'Cập nhật cuộc họp thành công!' : 'Thêm cuộc họp thành công!', 'success')
     emit('submit')
     closeDrawer()
-  } catch (error: any) {
+  }
+  catch (error: any) {
     const responseData = error?.response?.data
     if (responseData?.code === 'VALIDATION_ERROR' && responseData?.errors) {
       serverErrors.value = responseData.errors
       await refVForm.value!.validate()
       showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
-    } else {
+    }
+    else {
       showToast(responseData?.message || 'Có lỗi xảy ra, vui lòng thử lại.', 'error')
     }
-  } finally {
+  }
+  finally {
     isSubmitting.value = false
   }
 }
 
 // Watch for editing meeting
-watch(() => props.meeting, (meeting) => {
+watch(() => props.meeting, meeting => {
   if (meeting) {
     formData.value = {
       title: meeting.title || '',
@@ -132,16 +138,16 @@ watch(() => props.meeting, (meeting) => {
       end_at: meeting.end_at || '',
       status: meeting.status || 'draft',
     }
-  } else {
+  }
+  else {
     resetForm()
   }
 }, { immediate: true })
 
 // Reset form when drawer closes
-watch(() => props.isDrawerOpen, (val) => {
-  if (!val) {
+watch(() => props.isDrawerOpen, val => {
+  if (!val)
     resetForm()
-  }
 })
 </script>
 
