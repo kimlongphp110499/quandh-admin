@@ -15,6 +15,34 @@ export interface Meeting {
   updated_at: string
 }
 
+export interface UpcomingMeeting {
+  id: number
+  title: string
+  start_at: string
+  end_at: string
+  location: string | null
+  status: Meeting['status']
+  participant_count: number
+}
+
+export interface MeetingDashboard {
+  monthly_stats: {
+    month: string
+    total: number
+    draft: number
+    active: number
+    in_progress: number
+    ended: number
+  }
+  upcoming_meetings: UpcomingMeeting[]
+  attendance_stats: {
+    total: number
+    present: number
+    absent: number
+    not_arrived: number
+  }
+}
+
 export interface MeetingFilters {
   page?: number
   limit?: number
@@ -28,6 +56,11 @@ export interface MeetingFilters {
 
 // Meeting API endpoints
 export const meetingApi = {
+  // Dashboard tổng quan
+  dashboard() {
+    return apiClient.get<ApiResponse<MeetingDashboard>>('/meetings/dashboard')
+  },
+
   // Thống kê cuộc họp
   stats(filters?: MeetingFilters) {
     return apiClient.get<ApiResponse<any>>('/meetings/stats', { params: filters })

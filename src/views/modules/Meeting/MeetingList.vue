@@ -3,6 +3,7 @@ import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import MeetingFormDrawer from './MeetingFormDrawer.vue'
+import MeetingDocumentDrawer from './MeetingDocumentDrawer.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useMeetingStore } from '@/store/modules/meeting'
 import type { Meeting } from '@/api/modules/meeting'
@@ -34,6 +35,15 @@ const bulkStatusValue = ref<Meeting['status']>('active')
 // Delete confirm dialog (single & bulk)
 const isDeleteDialogVisible = ref(false)
 const deletingId = ref<number | null>(null) // null = bulk delete
+
+// Document drawer
+const isDocumentDrawerVisible = ref(false)
+const documentMeetingId = ref<number | null>(null)
+
+const openDocumentDrawer = (id: number) => {
+  documentMeetingId.value = id
+  isDocumentDrawerVisible.value = true
+}
 
 // Import
 const importFileInput = ref<HTMLInputElement>()
@@ -277,131 +287,6 @@ fetchMeetings()
 <template>
   <section>
     <!-- Stats Cards -->
-    <VRow class="mb-6">
-      <VCol
-        cols="12"
-        sm="6"
-        md="3"
-      >
-        <VCard>
-          <VCardText class="d-flex align-center">
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              rounded
-              size="44"
-              class="me-4"
-            >
-              <VIcon
-                icon="tabler-calendar"
-                size="26"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-body-1 font-weight-medium">
-                Tổng cuộc họp
-              </div>
-              <h4 class="text-h4">
-                {{ totalMeetings }}
-              </h4>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        sm="6"
-        md="3"
-      >
-        <VCard>
-          <VCardText class="d-flex align-center">
-            <VAvatar
-              color="info"
-              variant="tonal"
-              rounded
-              size="44"
-              class="me-4"
-            >
-              <VIcon
-                icon="tabler-clock"
-                size="26"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-body-1 font-weight-medium">
-                Đã lên lịch
-              </div>
-              <h4 class="text-h4">
-                {{ meetings.filter(m => m.status === 'active').length }}
-              </h4>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        sm="6"
-        md="3"
-      >
-        <VCard>
-          <VCardText class="d-flex align-center">
-            <VAvatar
-              color="success"
-              variant="tonal"
-              rounded
-              size="44"
-              class="me-4"
-            >
-              <VIcon
-                icon="tabler-check"
-                size="26"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-body-1 font-weight-medium">
-                Đã hoàn thành
-              </div>
-              <h4 class="text-h4">
-                {{ meetings.filter(m => m.status === 'ended').length }}
-              </h4>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        sm="6"
-        md="3"
-      >
-        <VCard>
-          <VCardText class="d-flex align-center">
-            <VAvatar
-              color="warning"
-              variant="tonal"
-              rounded
-              size="44"
-              class="me-4"
-            >
-              <VIcon
-                icon="tabler-progress"
-                size="26"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-body-1 font-weight-medium">
-                Đang diễn ra
-              </div>
-              <h4 class="text-h4">
-                {{ meetings.filter(m => m.status === 'in_progress').length }}
-              </h4>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
 
     <!-- Table Card -->
     <VCard>
@@ -607,6 +492,20 @@ fetchMeetings()
             <IconBtn
               size="small"
               color="primary"
+              @click="openDocumentDrawer(item.id)"
+            >
+              <VIcon icon="tabler-files" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Tài liệu
+              </VTooltip>
+            </IconBtn>
+
+            <IconBtn
+              size="small"
+              color="primary"
               @click="openAgendaEditor(item.id)"
             >
               <VIcon icon="tabler-list-details" />
@@ -718,6 +617,12 @@ fetchMeetings()
       v-model:is-drawer-open="isFormDrawerVisible"
       :meeting="editingMeeting"
       @submit="handleFormSubmit"
+    />
+
+    <!-- Document Drawer -->
+    <MeetingDocumentDrawer
+      v-model:is-drawer-open="isDocumentDrawerVisible"
+      :meeting-id="documentMeetingId"
     />
 
     <!-- Delete Confirm Dialog (single & bulk) -->

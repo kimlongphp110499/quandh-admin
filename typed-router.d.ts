@@ -26,6 +26,9 @@ declare module 'vue-router/auto-routes' {
     'meetings-id-attendance': RouteRecordInfo<'meetings-id-attendance', '/meetings/:id/attendance', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'meetings-id-checkin': RouteRecordInfo<'meetings-id-checkin', '/meetings/:id/checkin', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'meetings-id-participants': RouteRecordInfo<'meetings-id-participants', '/meetings/:id/participants', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    'meetings-conclusions': RouteRecordInfo<'meetings-conclusions', '/meetings/conclusions', Record<never, never>, Record<never, never>>,
+    'meetings-conduct': RouteRecordInfo<'meetings-conduct', '/meetings/conduct', Record<never, never>, Record<never, never>>,
+    'meetings-dashboard': RouteRecordInfo<'meetings-dashboard', '/meetings/dashboard', Record<never, never>, Record<never, never>>,
     'not-authorized': RouteRecordInfo<'not-authorized', '/not-authorized', Record<never, never>, Record<never, never>>,
     'second-page': RouteRecordInfo<'second-page', '/second-page', Record<never, never>, Record<never, never>>,
   }
