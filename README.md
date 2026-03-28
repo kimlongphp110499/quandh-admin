@@ -69,7 +69,7 @@ cp .env.example .env
 - API docs: `/docs` (sau khi generate).
 - Tài liệu API dạng markdown: `docs/api`.
 - Thiết kế CSDL: `docs/DATABASE_DESIGN.md`.
-- Thiết kế cấu trúc dự án: `STRUCTURE_DESIGN.md`.
+- Thiết kế cấu trúc dự án: `docs/STRUCTURE_DESIGN.md`.
 - Tài liệu phân tích/giải pháp: `docs/answer`.
 
 Sinh lại tài liệu Scribe:

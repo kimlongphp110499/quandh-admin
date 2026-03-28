@@ -115,7 +115,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":[{"id":49,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:06 25\/03\/2026","updated_at":"12:50:06 25\/03\/2026"},{"id":50,"name":"Runte-Considine","description":"Provident perspiciatis quo omnis nostrum aut adipisci quidem.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:06 25\/03\/2026","updated_at":"12:50:06 25\/03\/2026"}],"success":"true"}'
+=======
+        content: '{"data":[{"id":161,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:26 27\/03\/2026","updated_at":"08:01:26 27\/03\/2026"},{"id":162,"name":"Runte-Considine","description":"Provident perspiciatis quo omnis nostrum aut adipisci quidem.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:26 27\/03\/2026","updated_at":"08:01:26 27\/03\/2026"}],"success":"true"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -237,7 +241,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":[{"id":51,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium."},{"id":52,"name":"Runte-Considine","description":"Provident perspiciatis quo omnis nostrum aut adipisci quidem."}],"success":"true"}'
+=======
+        content: '{"data":[{"id":163,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium."},{"id":164,"name":"Runte-Considine","description":"Provident perspiciatis quo omnis nostrum aut adipisci quidem."}],"success":"true"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -803,7 +811,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":[{"id":58,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"},{"id":59,"name":"Runte-Considine","description":"Provident perspiciatis quo omnis nostrum aut adipisci quidem.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+=======
+        content: '{"data":[{"id":170,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"},{"id":171,"name":"Runte-Considine","description":"Provident perspiciatis quo omnis nostrum aut adipisci quidem.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2},"success":"true"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -869,7 +881,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":{"id":60,"name":"Price Ltd","description":"Commodi incidunt iure odit.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"},"success":"true"}'
+=======
+        content: '{"data":{"id":172,"name":"Price Ltd","description":"Commodi incidunt iure odit.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"},"success":"true"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -947,7 +963,11 @@ endpoints:
       -
         custom: []
         status: 201
+<<<<<<< HEAD
         content: '{"data":{"id":61,"name":"Ernser Group","description":"Mollitia modi deserunt aut ab provident perspiciatis quo.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"},"success":"true","message":"T\u1ea1o c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+=======
+        content: '{"data":{"id":173,"name":"Ernser Group","description":"Mollitia modi deserunt aut ab provident perspiciatis quo.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"},"success":"true","message":"T\u1ea1o c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -1049,7 +1069,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":{"id":62,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+=======
+        content: '{"data":{"id":174,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -1151,7 +1175,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":{"id":63,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+=======
+        content: '{"data":{"id":175,"name":"Bailey Ltd","description":"Et fugiat sunt nihil accusantium.","status":"inactive","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"},"success":"true","message":"C\u1eadp nh\u1eadt c\u01a1 quan ban h\u00e0nh th\u00e0nh c\u00f4ng!"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
@@ -1295,7 +1323,11 @@ endpoints:
       -
         custom: []
         status: 200
+<<<<<<< HEAD
         content: '{"data":{"id":64,"name":"Price Ltd","description":"Commodi incidunt iure odit.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"12:50:07 25\/03\/2026","updated_at":"12:50:07 25\/03\/2026"},"success":"true","message":"\u0110\u1ed5i tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
+=======
+        content: '{"data":{"id":176,"name":"Price Ltd","description":"Commodi incidunt iure odit.","status":"active","created_by":"N\/A","updated_by":"N\/A","created_at":"08:01:29 27\/03\/2026","updated_at":"08:01:29 27\/03\/2026"},"success":"true","message":"\u0110\u1ed5i tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng!"}'
+>>>>>>> ecc461fd0768ca7a51354dd322a0f3d4e6ad884d
         headers: []
         description: ''
     responseFields: []
