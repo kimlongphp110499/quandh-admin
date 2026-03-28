@@ -1,11 +1,8 @@
+<!-- eslint-disable import/no-unresolved -->
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { nextTick, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useAbility } from '@casl/vue'
-import { authApi } from '@/api/modules/auth'
-import { useCookie } from '@/@core/utils/cookie'
-import type { Rule } from '@/plugins/casl/ability'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
 import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
 import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
@@ -15,6 +12,10 @@ import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useAuthStore } from '@/store/modules/auth'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { type Rule } from '@/plugins/casl/ability'
 
 definePage({
   meta: {
@@ -26,16 +27,21 @@ definePage({
 const router = useRouter()
 const route = useRoute()
 const ability = useAbility()
+const authStore = useAuthStore()
+
+// Bước hiện tại: 'login' | 'select-org'
+const step = ref<'login' | 'select-org'>('login')
 
 const form = ref({
-  email: 'admin@example.com',
-  password: 'password',
+  email: '',
+  password: '',
   remember: false,
 })
 
 const isPasswordVisible = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
+const selectedOrgId = ref<number | null>(null)
 
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
@@ -51,55 +57,56 @@ const handleLogin = async () => {
     errorMessage.value = ''
     isLoading.value = true
 
-    const response = await authApi.login({
+    await authStore.login({
       email: form.value.email,
       password: form.value.password,
     })
 
-    if (response.data.success && response.data.data) {
-      // Backend trả về access_token, không phải token
-      const { access_token } = response.data.data
-
-      // Lưu token vào cookie trước
-      useCookie('accessToken').value = access_token
-      
-      // Sau đó gọi API để lấy thông tin user với permissions
-      try {
-        const userResponse = await authApi.me()
-        
-        if (userResponse.data.success && userResponse.data.data) {
-          const { user, roles, permissions, abilities } = userResponse.data.data
-
-          // Lưu userData vào cookie
-          useCookie('userData').value = user
-
-          // Lưu organizationId (mặc định là 1 nếu không có)
-          const organizationId = user.organization_id || user.current_organization_id || '1'
-          useCookie('organizationId').value = String(organizationId)
-          
-          // Lưu abilities vào localStorage (cookie bị truncate do vượt 4KB)
-          const userAbilityRules: Rule[] = abilities ?? []
-          localStorage.setItem('userAbilityRules', JSON.stringify(userAbilityRules))
-          ability.update(userAbilityRules)
-
-
-          // Redirect to `to` query if exist or redirect to index route
-          await nextTick(() => {
-            router.replace(route.query.to ? String(route.query.to) : '/')
-          })
-        }
-      } catch (userError) {
-        console.error('Failed to fetch user:', userError)
-        // Nếu không lấy được user, vẫn redirect về home
-        await nextTick(() => {
-          router.replace(route.query.to ? String(route.query.to) : '/')
-        })
-      }
+    // Nếu cần chọn tổ chức → hiện bước chọn org
+    if (authStore.needsOrgSelection) {
+      step.value = 'select-org'
     }
-  } catch (error: any) {
-    console.error('Login error:', error)
+    else {
+      await nextTick(() => {
+        router.replace(route.query.to ? String(route.query.to) : '/')
+      })
+    }
+  }
+  catch (error: any) {
     errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.'
-  } finally {
+  }
+  finally {
+    isLoading.value = false
+  }
+}
+
+const handleSelectOrg = async () => {
+  if (!selectedOrgId.value)
+    return
+
+  try {
+    errorMessage.value = ''
+    isLoading.value = true
+
+    await authStore.switchOrganization(selectedOrgId.value)
+
+    // Sau switch org, cập nhật CASL từ store (đã được update trong switchOrganization)
+    const savedRules = localStorage.getItem('userAbilityRules')
+
+    if (savedRules) {
+      const rules: Rule[] = JSON.parse(savedRules)
+
+      ability.update(rules)
+    }
+
+    await nextTick(() => {
+      router.replace(route.query.to ? String(route.query.to) : '/')
+    })
+  }
+  catch (error: any) {
+    errorMessage.value = error.response?.data?.message || 'Chọn tổ chức thất bại. Vui lòng thử lại.'
+  }
+  finally {
     isLoading.value = false
   }
 }
@@ -134,7 +141,6 @@ const handleLogin = async () => {
             class="auth-illustration mt-16 mb-2"
           />
         </div>
-
         <img
           class="auth-footer-mask flip-in-rtl"
           :src="authThemeMask"
@@ -155,113 +161,171 @@ const handleLogin = async () => {
         :max-width="500"
         class="mt-12 mt-sm-0 pa-6"
       >
-        <VCardText>
-          <h4 class="text-h4 mb-1">
-            Chào mừng đến với <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
-          </h4>
-          <p class="mb-0">
-            Vui lòng đăng nhập để tiếp tục
-          </p>
-        </VCardText>
-        <VCardText>
-          <!-- Error Alert -->
-          <VAlert
-            v-if="errorMessage"
-            type="error"
-            variant="tonal"
-            class="mb-4"
-            closable
-            @click:close="errorMessage = ''"
-          >
-            {{ errorMessage }}
-          </VAlert>
+        <!-- BƯỚC 1: ĐĂNG NHẬP -->
+        <template v-if="step === 'login'">
+          <VCardText>
+            <h4 class="text-h4 mb-1">
+              Chào mừng đến với <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
+            </h4>
+            <p class="mb-0">
+              Vui lòng đăng nhập để tiếp tục
+            </p>
+          </VCardText>
 
-          <VForm @submit.prevent="handleLogin">
-            <VRow>
-              <!-- email -->
-              <VCol cols="12">
-                <AppTextField
-                  v-model="form.email"
-                  autofocus
-                  label="Email"
-                  type="email"
-                  placeholder="admin@example.com"
-                  :disabled="isLoading"
-                />
-              </VCol>
+          <VCardText>
+            <VAlert
+              v-if="errorMessage"
+              type="error"
+              variant="tonal"
+              class="mb-4"
+              closable
+              @click:close="errorMessage = ''"
+            >
+              {{ errorMessage }}
+            </VAlert>
 
-              <!-- password -->
-              <VCol cols="12">
-                <AppTextField
-                  v-model="form.password"
-                  label="Mật khẩu"
-                  placeholder="············"
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                  autocomplete="password"
-                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
-                  :disabled="isLoading"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                />
-
-                <div class="d-flex align-center flex-wrap justify-space-between my-6">
-                  <VCheckbox
-                    v-model="form.remember"
-                    label="Ghi nhớ đăng nhập"
+            <VForm @submit.prevent="handleLogin">
+              <VRow>
+                <VCol cols="12">
+                  <AppTextField
+                    v-model="form.email"
+                    autofocus
+                    label="Email"
+                    type="email"
+                    placeholder="admin@example.com"
                     :disabled="isLoading"
                   />
-                  <a
-                    class="text-primary"
-                    href="javascript:void(0)"
-                  >
-                    Quên mật khẩu?
-                  </a>
-                </div>
+                </VCol>
 
+                <VCol cols="12">
+                  <AppTextField
+                    v-model="form.password"
+                    label="Mật khẩu"
+                    placeholder="············"
+                    :type="isPasswordVisible ? 'text' : 'password'"
+                    autocomplete="current-password"
+                    :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                    :disabled="isLoading"
+                    @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                  />
+
+                  <div class="d-flex align-center flex-wrap justify-space-between my-6">
+                    <VCheckbox
+                      v-model="form.remember"
+                      label="Ghi nhớ đăng nhập"
+                      :disabled="isLoading"
+                    />
+                    <RouterLink
+                      class="text-primary"
+                      to="/forgot-password"
+                    >
+                      Quên mật khẩu?
+                    </RouterLink>
+                  </div>
+
+                  <VBtn
+                    block
+                    type="submit"
+                    :loading="isLoading"
+                    :disabled="isLoading"
+                  >
+                    Đăng nhập
+                  </VBtn>
+                </VCol>
+              </VRow>
+            </VForm>
+          </VCardText>
+        </template>
+
+        <!-- BƯỚC 2: CHỌN TỔ CHỨC -->
+        <template v-else-if="step === 'select-org'">
+          <VCardText>
+            <h4 class="text-h4 mb-1">
+              Chọn tổ chức làm việc 🏢
+            </h4>
+            <p class="mb-0">
+              Tài khoản của bạn thuộc nhiều tổ chức. Vui lòng chọn tổ chức để tiếp tục.
+            </p>
+          </VCardText>
+
+          <VCardText>
+            <VAlert
+              v-if="errorMessage"
+              type="error"
+              variant="tonal"
+              class="mb-4"
+              closable
+              @click:close="errorMessage = ''"
+            >
+              {{ errorMessage }}
+            </VAlert>
+
+            <VRow>
+              <!-- Danh sách tổ chức -->
+              <VCol cols="12">
+                <div class="d-flex flex-column gap-3">
+                  <VCard
+                    v-for="org in authStore.availableOrganizations"
+                    :key="org.id"
+                    :variant="selectedOrgId === org.id ? 'tonal' : 'outlined'"
+                    :color="selectedOrgId === org.id ? 'primary' : undefined"
+                    class="cursor-pointer pa-1"
+                    @click="selectedOrgId = org.id"
+                  >
+                    <VCardText class="d-flex align-center gap-3 py-3">
+                      <VAvatar
+                        color="primary"
+                        variant="tonal"
+                        size="40"
+                      >
+                        <VIcon icon="tabler-building" />
+                      </VAvatar>
+                      <div>
+                        <div class="font-weight-semibold">
+                          {{ org.name }}
+                        </div>
+                      </div>
+                      <VSpacer />
+                      <VIcon
+                        v-if="selectedOrgId === org.id"
+                        icon="tabler-circle-check-filled"
+                        color="primary"
+                      />
+                    </VCardText>
+                  </VCard>
+                </div>
+              </VCol>
+
+              <VCol cols="12">
                 <VBtn
                   block
-                  type="submit"
                   :loading="isLoading"
-                  :disabled="isLoading"
+                  :disabled="isLoading || !selectedOrgId"
+                  @click="handleSelectOrg"
                 >
-                  Đăng nhập
+                  Vào hệ thống
                 </VBtn>
               </VCol>
 
-              <!-- create account -->
-              <VCol
-                cols="12"
-                class="text-body-1 text-center"
-              >
-                <span class="d-inline-block">
-                  Bạn chưa có tài khoản?
-                </span>
-                <a
-                  class="text-primary ms-1 d-inline-block text-body-1"
-                  href="javascript:void(0)"
-                >
-                  Đăng ký ngay
-                </a>
-              </VCol>
-
-              <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
-                <VDivider />
-                <span class="mx-4">or</span>
-                <VDivider />
-              </VCol>
-
-              <!-- auth providers -->
               <VCol
                 cols="12"
                 class="text-center"
               >
-                <AuthProvider />
+                <a
+                  class="text-primary d-inline-flex align-center gap-1"
+                  href="javascript:void(0)"
+                  @click="step = 'login'; errorMessage = ''"
+                >
+                  <VIcon
+                    icon="tabler-arrow-left"
+                    size="16"
+                  />
+                  Quay lại
+                </a>
               </VCol>
             </VRow>
-          </VForm>
-        </VCardText>
+          </VCardText>
+        </template>
       </VCard>
     </VCol>
   </VRow>

@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import avatar1 from '@images/avatars/avatar-1.png'
-import { useAuthStore } from '@/store/modules/auth'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import avatar1 from '@images/avatars/avatar-1.png'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useAuthStore } from '@/store/modules/auth'
 
 const authStore = useAuthStore()
 const router = useRouter()
+
+const userName = computed(() => authStore.user?.name || 'Người dùng')
+const userEmail = computed(() => authStore.user?.email || '')
+const userRole = computed(() => authStore.userRoles[0] || '')
+const currentOrg = computed(() => authStore.currentOrganization)
 
 async function handleLogout() {
   await authStore.logout()
   router.push('/login')
 }
-
 </script>
 
 <template>
@@ -29,15 +35,14 @@ async function handleLogout() {
     >
       <VImg :src="avatar1" />
 
-      <!-- SECTION Menu -->
       <VMenu
         activator="parent"
-        width="230"
+        width="240"
         location="bottom end"
         offset="14px"
       >
         <VList>
-          <!-- 👉 User Avatar & Name -->
+          <!-- User info -->
           <VListItem>
             <template #prepend>
               <VListItemAction start>
@@ -59,70 +64,47 @@ async function handleLogout() {
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+              {{ userName }}
             </VListItemTitle>
-            <VListItemSubtitle>Admin</VListItemSubtitle>
+            <VListItemSubtitle>{{ userRole || userEmail }}</VListItemSubtitle>
+          </VListItem>
+
+          <!-- Tổ chức hiện tại -->
+          <VListItem
+            v-if="currentOrg"
+            density="compact"
+            class="text-caption text-medium-emphasis"
+          >
+            <template #prepend>
+              <VIcon
+                icon="tabler-building"
+                size="16"
+                class="me-2 opacity-60"
+              />
+            </template>
+            <VListItemTitle class="text-caption">
+              {{ currentOrg.name }}
+            </VListItemTitle>
           </VListItem>
 
           <VDivider class="my-2" />
 
-          <!-- 👉 Profile -->
-          <VListItem link>
+          <!-- Trang cá nhân -->
+          <VListItem :to="{ name: 'profile' }">
             <template #prepend>
               <VIcon
                 class="me-2"
-                icon="tabler-user"
+                icon="tabler-user-circle"
                 size="22"
               />
             </template>
-
-            <VListItemTitle>Profile</VListItemTitle>
+            <VListItemTitle>Trang cá nhân</VListItemTitle>
           </VListItem>
 
-          <!-- 👉 Settings -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-settings"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Settings</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 Pricing -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-currency-dollar"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Pricing</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 FAQ -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="tabler-help"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>FAQ</VListItemTitle>
-          </VListItem>
-
-          <!-- Divider -->
           <VDivider class="my-2" />
 
-          <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <!-- Đăng xuất -->
+          <VListItem @click="handleLogout">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -130,12 +112,10 @@ async function handleLogout() {
                 size="22"
               />
             </template>
-
-            <VListItemTitle>Logout</VListItemTitle>
+            <VListItemTitle>Đăng xuất</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>
-      <!-- !SECTION -->
     </VAvatar>
   </VBadge>
 </template>

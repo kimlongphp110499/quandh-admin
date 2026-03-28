@@ -1,9 +1,11 @@
 import { createMongoAbility } from '@casl/ability'
 
-export type Actions = 'create' | 'read' | 'update' | 'delete' | 'manage'
+// CRUD-style actions + Laravel resource actions (index, store, show, update, destroy)
+export type Actions =
+  | 'create' | 'read' | 'update' | 'delete' | 'manage'
+  | 'index' | 'store' | 'show' | 'destroy'
 
-// ex: Meeting, Document, Post, User, etc.
-export type Subjects = 'Meeting' | 'Document' | 'Post' | 'User' | 'Role' | 'Permission' | 'all'
+export type Subjects = string
 
 export interface Rule { action: Actions; subject: Subjects }
 

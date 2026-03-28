@@ -20,6 +20,7 @@ declare module 'vue-router/auto-routes' {
   export interface RouteNamedMap {
     'root': RouteRecordInfo<'root', '/', Record<never, never>, Record<never, never>>,
     '$error': RouteRecordInfo<'$error', '/:error(.*)', { error: ParamValue<true> }, { error: ParamValue<false> }>,
+    'forgot-password': RouteRecordInfo<'forgot-password', '/forgot-password', Record<never, never>, Record<never, never>>,
     'login': RouteRecordInfo<'login', '/login', Record<never, never>, Record<never, never>>,
     'meetings': RouteRecordInfo<'meetings', '/meetings', Record<never, never>, Record<never, never>>,
     'meetings-id-agenda': RouteRecordInfo<'meetings-id-agenda', '/meetings/:id/agenda', { id: ParamValue<true> }, { id: ParamValue<false> }>,
@@ -30,6 +31,14 @@ declare module 'vue-router/auto-routes' {
     'meetings-conduct': RouteRecordInfo<'meetings-conduct', '/meetings/conduct', Record<never, never>, Record<never, never>>,
     'meetings-dashboard': RouteRecordInfo<'meetings-dashboard', '/meetings/dashboard', Record<never, never>, Record<never, never>>,
     'not-authorized': RouteRecordInfo<'not-authorized', '/not-authorized', Record<never, never>, Record<never, never>>,
+    'profile': RouteRecordInfo<'profile', '/profile', Record<never, never>, Record<never, never>>,
+    'reset-password': RouteRecordInfo<'reset-password', '/reset-password', Record<never, never>, Record<never, never>>,
     'second-page': RouteRecordInfo<'second-page', '/second-page', Record<never, never>, Record<never, never>>,
+    'system-activity-logs': RouteRecordInfo<'system-activity-logs', '/system/activity-logs', Record<never, never>, Record<never, never>>,
+    'system-organizations': RouteRecordInfo<'system-organizations', '/system/organizations', Record<never, never>, Record<never, never>>,
+    'system-permissions': RouteRecordInfo<'system-permissions', '/system/permissions', Record<never, never>, Record<never, never>>,
+    'system-roles': RouteRecordInfo<'system-roles', '/system/roles', Record<never, never>, Record<never, never>>,
+    'system-settings': RouteRecordInfo<'system-settings', '/system/settings', Record<never, never>, Record<never, never>>,
+    'system-users': RouteRecordInfo<'system-users', '/system/users', Record<never, never>, Record<never, never>>,
   }
 }

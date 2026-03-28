@@ -5,7 +5,12 @@ import { authApi } from '@/api/modules'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import { ability } from '@/plugins/casl/ability'
+import { type Rule, ability } from '@/plugins/casl/ability'
+
+export interface Organization {
+  id: number
+  name: string
+}
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -13,11 +18,22 @@ export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const availableOrganizations = ref<Organization[]>([])
+  const currentOrganizationId = ref<number | null>(null)
 
   // Getters
   const isAuthenticated = computed(() => !!token.value)
   const userPermissions = computed(() => user.value?.permissions || [])
   const userRoles = computed(() => user.value?.roles || [])
+
+  // Cần chọn tổ chức khi có nhiều org và chưa có org hiện tại
+  const needsOrgSelection = computed(
+    () => !currentOrganizationId.value && availableOrganizations.value.length > 1,
+  )
+
+  const currentOrganization = computed(
+    () => availableOrganizations.value.find(o => o.id === currentOrganizationId.value) ?? null,
+  )
 
   // Actions
   async function login(credentials: { email: string; password: string }) {
@@ -28,24 +44,32 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authApi.login(credentials)
 
       if (response.data.success && response.data.data) {
-        token.value = response.data.data.access_token
-        user.value = response.data.data.user
+        const data = response.data.data as any
+        const accessToken = data.access_token
+        const userData = data.user
+        const orgId = data.current_organization_id ?? null
+        const orgs: Organization[] = data.available_organizations ?? []
+        const abilities: Rule[] = data.abilities ?? []
 
-        // Lưu vào cookie
-        useCookie('accessToken').value = token.value
-        useCookie('userData').value = JSON.stringify(user.value)
+        token.value = accessToken
+        user.value = userData
+        availableOrganizations.value = orgs
+        currentOrganizationId.value = orgId
 
-        // Set CASL ability rules: dùng permissions từ user hoặc rule mặc định
-        const permissions = user.value?.permissions ?? []
+        useCookie('accessToken').value = accessToken
+        useCookie('userData').value = userData
 
-        const abilityRules = permissions.length > 0
-          ? permissions
-          : [{ action: 'manage', subject: 'all' }]
+        if (orgId) {
+          useCookie('organizationId').value = String(orgId)
 
-        localStorage.setItem('userAbilityRules', JSON.stringify(abilityRules))
+          // Chỉ lưu abilities khi đã có org (có đủ permissions context)
+          const abilityRules: Rule[] = abilities.length > 0
+            ? abilities
+            : [{ action: 'manage', subject: 'all' }]
 
-        // Update ability instance đang chạy (không cần reload trang)
-        ability.update(abilityRules)
+          localStorage.setItem('userAbilityRules', JSON.stringify(abilityRules))
+          ability.update(abilityRules)
+        }
 
         return response.data
       }
@@ -67,11 +91,13 @@ export const useAuthStore = defineStore('auth', () => {
       console.error('Logout error:', err)
     }
     finally {
-      // Clear state
       token.value = null
       user.value = null
+      availableOrganizations.value = []
+      currentOrganizationId.value = null
       useCookie('accessToken').value = null
       useCookie('userData').value = null
+      useCookie('organizationId').value = null
       localStorage.removeItem('userAbilityRules')
       ability.update([])
     }
@@ -80,9 +106,24 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUser() {
     try {
       const response = await authApi.me()
+
       if (response.data.success && response.data.data) {
-        user.value = response.data.data
-        useCookie('userData').value = JSON.stringify(user.value)
+        const data = response.data.data as any
+        const userData = data.user
+        const abilities: Rule[] = data.abilities ?? []
+        const orgId = data.current_organization_id ?? null
+
+        user.value = userData
+        currentOrganizationId.value = orgId
+        useCookie('userData').value = userData
+
+        if (orgId)
+          useCookie('organizationId').value = String(orgId)
+
+        if (abilities.length) {
+          localStorage.setItem('userAbilityRules', JSON.stringify(abilities))
+          ability.update(abilities)
+        }
       }
     }
     catch (err) {
@@ -97,12 +138,19 @@ export const useAuthStore = defineStore('auth', () => {
 
       const response = await authApi.switchOrganization(organizationId)
 
-      if (response.data.success) {
-        useCookie('organizationId').value = String(organizationId)
-        await fetchUser()
+      if (response.data.success && response.data.data) {
+        const data = response.data.data as any
+        const orgId = data.current_organization_id || organizationId
+        const abilities: Rule[] = data.abilities ?? []
 
-        // Reload page để cập nhật permissions
-        window.location.reload()
+        currentOrganizationId.value = orgId
+        useCookie('organizationId').value = String(orgId)
+
+        if (abilities.length) {
+          const abilityRules: Rule[] = abilities
+          localStorage.setItem('userAbilityRules', JSON.stringify(abilityRules))
+          ability.update(abilityRules)
+        }
       }
     }
     catch (err: any) {
@@ -118,33 +166,31 @@ export const useAuthStore = defineStore('auth', () => {
   function initializeFromCookie() {
     const savedToken = useCookie('accessToken').value
     const savedUser = useCookie('userData').value
+    const savedOrgId = useCookie('organizationId').value
 
     if (savedToken) {
-      token.value = savedToken
-      if (savedUser) {
-        try {
-          user.value = JSON.parse(savedUser)
-        }
-        catch (err) {
-          console.error('Parse user data error:', err)
-        }
-      }
+      token.value = savedToken as string
+
+      if (savedUser)
+        user.value = savedUser
+
+      if (savedOrgId)
+        currentOrganizationId.value = Number(savedOrgId)
     }
   }
 
   return {
-    // State
     user,
     token,
     isLoading,
     error,
-
-    // Getters
+    availableOrganizations,
+    currentOrganizationId,
     isAuthenticated,
     userPermissions,
     userRoles,
-
-    // Actions
+    needsOrgSelection,
+    currentOrganization,
     login,
     logout,
     fetchUser,
