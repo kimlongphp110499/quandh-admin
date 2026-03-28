@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import PermissionFormDrawer from './PermissionFormDrawer.vue'
 import { usePermissionStore } from '@/store/modules/permission'
 import type { Permission } from '@/api/modules/permission'
@@ -9,6 +9,7 @@ const permissionStore = usePermissionStore()
 const isFormDrawerVisible = ref(false)
 const editingPermission = ref<Permission | null>(null)
 const importFileInput = ref<HTMLInputElement>()
+const selectedIds = ref<number[]>([])
 
 const searchQuery = ref('')
 const snackbar = ref({ show: false, message: '', color: 'success' })
@@ -46,6 +47,23 @@ const filteredTree = computed(() => {
   return filterNodes(permissionStore.permissionTree)
 })
 
+// Cache all child IDs for select all checkbox (avoid recalculating on every render)
+const allChildIds = computed(() => {
+  return filteredTree.value.flatMap(g => (g.children ?? []).map(p => p.id))
+})
+
+const isAllSelected = computed(() => {
+  return selectedIds.value.length > 0 && selectedIds.value.length === allChildIds.value.length
+})
+
+const isIndeterminate = computed(() => {
+  return selectedIds.value.length > 0 && selectedIds.value.length < allChildIds.value.length
+})
+
+const toggleSelectAll = (val: boolean | null) => {
+  selectedIds.value = val ? [...allChildIds.value] : []
+}
+
 const openCreateDrawer = () => {
   editingPermission.value = null
   isFormDrawerVisible.value = true
@@ -71,11 +89,33 @@ const handleDelete = (permission: Permission) => {
     async () => {
       try {
         await permissionStore.deletePermission(permission.id)
+        selectedIds.value = selectedIds.value.filter(id => id !== permission.id)
         showToast('Xóa quyền thành công!', 'success')
         await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
       }
       catch {
         showToast('Xóa quyền thất bại!', 'error')
+      }
+    },
+  )
+}
+
+const handleBulkDelete = () => {
+  if (!selectedIds.value.length)
+    return
+
+  showConfirm(
+    'Xóa hàng loạt',
+    `Bạn có chắc muốn xóa ${selectedIds.value.length} quyền đã chọn?`,
+    async () => {
+      try {
+        await permissionStore.bulkDelete(selectedIds.value)
+        selectedIds.value = []
+        showToast('Xóa hàng loạt thành công!', 'success')
+        await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
+      }
+      catch {
+        showToast('Xóa hàng loạt thất bại!', 'error')
       }
     },
   )
@@ -114,11 +154,7 @@ const handleImportFile = async (event: Event) => {
   }
 }
 
-let searchTimeout: ReturnType<typeof setTimeout>
-watch(searchQuery, () => {
-  clearTimeout(searchTimeout)
-  searchTimeout = setTimeout(() => {}, 400)
-})
+// Search is handled by computed filteredTree, no need for watch
 
 onMounted(async () => {
   await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
@@ -212,6 +248,16 @@ onMounted(async () => {
         <VSpacer />
 
         <VBtn
+          v-if="selectedIds.length > 0"
+          variant="tonal"
+          color="error"
+          prepend-icon="tabler-trash"
+          @click="handleBulkDelete"
+        >
+          Xóa ({{ selectedIds.length }})
+        </VBtn>
+
+        <VBtn
           variant="tonal"
           color="secondary"
           prepend-icon="tabler-upload"
@@ -282,10 +328,16 @@ onMounted(async () => {
         <thead>
           <tr>
             <th style="width: 48px;" />
-            <th>TÊN QUYỀN HẠN</th>
-            <th style="width: 220px;">
-              THUỘC VAI TRÒ
+            <th style="width: 40px;">
+              <VCheckbox
+                :model-value="isAllSelected"
+                :indeterminate="isIndeterminate"
+                hide-details
+                density="compact"
+                @update:model-value="toggleSelectAll"
+              />
             </th>
+            <th>TÊN QUYỀN HẠN</th>
             <th style="width: 160px;">
               NGÀY TẠO
             </th>
@@ -367,6 +419,14 @@ onMounted(async () => {
                 {{ perm.sort_order ?? '—' }}
               </td>
               <td>
+                <VCheckbox
+                  v-model="selectedIds"
+                  :value="perm.id"
+                  hide-details
+                  density="compact"
+                />
+              </td>
+              <td>
                 <div class="d-flex align-center gap-2 py-1">
                   <VIcon
                     icon="tabler-point"
@@ -385,26 +445,6 @@ onMounted(async () => {
                     </div>
                   </div>
                 </div>
-              </td>
-              <td>
-                <div
-                  v-if="perm.roles?.length"
-                  class="d-flex flex-wrap gap-1 py-1"
-                >
-                  <VChip
-                    v-for="role in perm.roles"
-                    :key="role.id"
-                    size="x-small"
-                    color="success"
-                    variant="tonal"
-                  >
-                    {{ role.name }}
-                  </VChip>
-                </div>
-                <span
-                  v-else
-                  class="text-caption text-disabled"
-                >—</span>
               </td>
               <td class="text-body-2 text-medium-emphasis">
                 {{ perm.created_at }}

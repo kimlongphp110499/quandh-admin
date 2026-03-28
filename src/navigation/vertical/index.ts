@@ -51,10 +51,23 @@ export default [
       },
       {
         title: 'Cấu hình hệ thống',
-        to: { name: 'system-settings' },
         icon: { icon: 'tabler-settings' },
-        action: 'index',
-        subject: 'Settings',
+        children: [
+          {
+            title: 'Cấu hình chung',
+            to: { name: 'system-settings' },
+            icon: { icon: 'tabler-adjustments' },
+            action: 'index',
+            subject: 'Settings',
+          },
+          {
+            title: 'Cấu hình thông báo',
+            to: { name: 'system-settings-notification' },
+            icon: { icon: 'tabler-bell' },
+            action: 'index',
+            subject: 'Settings',
+          },
+        ],
       },
     ],
   },

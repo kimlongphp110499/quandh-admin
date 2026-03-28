@@ -31,6 +31,7 @@ const showToast = (message: string, color: 'success' | 'error') => {
 
 const formData = ref({
   name: '',
+  guard_name: 'web',
   description: '' as string | null,
   sort_order: 0,
   parent_id: null as number | null,
@@ -69,7 +70,7 @@ const isEditMode = computed(() => !!props.permission?.id)
 const drawerTitle = computed(() => isEditMode.value ? 'Cập nhật quyền hạn' : 'Thêm quyền hạn mới')
 
 const resetForm = () => {
-  formData.value = { name: '', description: '', sort_order: 0, parent_id: null }
+  formData.value = { name: '', guard_name: 'web', description: '', sort_order: 0, parent_id: null }
   serverErrors.value = {}
   refVForm.value?.resetValidation()
 }
@@ -90,6 +91,7 @@ const onSubmit = async () => {
   try {
     const payload = {
       name: formData.value.name,
+      guard_name: formData.value.guard_name || 'web',
       description: formData.value.description || null,
       sort_order: formData.value.sort_order,
       parent_id: formData.value.parent_id || null,
@@ -124,6 +126,7 @@ watch(() => props.permission, perm => {
   if (perm) {
     formData.value = {
       name: perm.name || '',
+      guard_name: perm.guard_name || 'web',
       description: perm.description || '',
       sort_order: perm.sort_order ?? 0,
       parent_id: perm.parent_id || null,
@@ -176,6 +179,16 @@ watch(() => props.isDrawerOpen, async val => {
                   label="Tên quyền"
                   placeholder="vd: users.index"
                   :rules="[requiredRule, serverErrorRule('name')]"
+                />
+              </VCol>
+
+              <!-- Guard name -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="formData.guard_name"
+                  label="Guard name"
+                  placeholder="web"
+                  :rules="[serverErrorRule('guard_name')]"
                 />
               </VCol>
 

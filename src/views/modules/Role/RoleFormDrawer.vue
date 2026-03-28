@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useRoleStore } from '@/store/modules/role'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { usePermissionStore } from '@/store/modules/permission'
 import type { Role } from '@/api/modules/role'
 
@@ -34,6 +36,7 @@ const showToast = (message: string, color: 'success' | 'error') => {
 
 const formData = ref({
   name: '',
+  guard_name: 'web',
   permission_ids: [] as number[],
 })
 
@@ -112,7 +115,7 @@ const filteredPermissions = computed(() => {
 })
 
 const resetForm = () => {
-  formData.value = { name: '', permission_ids: [] }
+  formData.value = { name: '', guard_name: 'web', permission_ids: [] }
   serverErrors.value = {}
   permissionSearch.value = ''
   refVForm.value?.resetValidation()
@@ -134,6 +137,7 @@ const onSubmit = async () => {
   try {
     const payload = {
       name: formData.value.name,
+      guard_name: formData.value.guard_name || 'web',
       permission_ids: formData.value.permission_ids,
     }
 
@@ -164,6 +168,10 @@ const onSubmit = async () => {
 
 watch(() => props.role, async role => {
   if (role) {
+    // Ensure permission tree is loaded before mapping
+    if (!permissionStore.permissionTree.length)
+      await permissionStore.fetchTree()
+
     // Load full role with permissions
     await roleStore.fetchRole(role.id)
 
@@ -171,6 +179,7 @@ watch(() => props.role, async role => {
 
     formData.value = {
       name: fullRole?.name || role.name,
+      guard_name: fullRole?.guard_name || role.guard_name || 'web',
       permission_ids: [],
     }
 
@@ -236,6 +245,16 @@ watch(() => props.isDrawerOpen, async val => {
                 />
               </VCol>
 
+              <!-- Guard name -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="formData.guard_name"
+                  label="Guard name"
+                  placeholder="web"
+                  :rules="[serverErrorRule('guard_name')]"
+                />
+              </VCol>
+
               <!-- Phân quyền -->
               <VCol cols="12">
                 <div class="text-body-2 font-weight-medium mb-2">
@@ -295,12 +314,12 @@ watch(() => props.isDrawerOpen, async val => {
                         density="compact"
                       />
                       <div class="py-1">
-                        <div class="text-body-2">
+                        <div>
                           {{ perm.name }}
                         </div>
                         <div
                           v-if="perm.description"
-                          class="text-caption text-disabled"
+                          class=""
                         >
                           {{ perm.description }}
                         </div>
