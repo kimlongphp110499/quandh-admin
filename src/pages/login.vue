@@ -12,9 +12,9 @@ import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useAuthStore } from '@/store/modules/auth'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { type Rule } from '@/plugins/casl/ability'
 
 definePage({
@@ -29,9 +29,6 @@ const route = useRoute()
 const ability = useAbility()
 const authStore = useAuthStore()
 
-// Bước hiện tại: 'login' | 'select-org'
-const step = ref<'login' | 'select-org'>('login')
-
 const form = ref({
   email: '',
   password: '',
@@ -41,7 +38,11 @@ const form = ref({
 const isPasswordVisible = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
+
+// Dialog chọn tổ chức
+const isOrgDialogOpen = ref(false)
 const selectedOrgId = ref<number | null>(null)
+const orgDialogError = ref('')
 
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
@@ -62,9 +63,11 @@ const handleLogin = async () => {
       password: form.value.password,
     })
 
-    // Nếu cần chọn tổ chức → hiện bước chọn org
+    // Nếu cần chọn tổ chức → hiện dialog chọn org
     if (authStore.needsOrgSelection) {
-      step.value = 'select-org'
+      selectedOrgId.value = null
+      orgDialogError.value = ''
+      isOrgDialogOpen.value = true
     }
     else {
       await nextTick(() => {
@@ -85,12 +88,12 @@ const handleSelectOrg = async () => {
     return
 
   try {
-    errorMessage.value = ''
+    orgDialogError.value = ''
     isLoading.value = true
 
     await authStore.switchOrganization(selectedOrgId.value)
 
-    // Sau switch org, cập nhật CASL từ store (đã được update trong switchOrganization)
+    // Sau switch org, cập nhật CASL từ store
     const savedRules = localStorage.getItem('userAbilityRules')
 
     if (savedRules) {
@@ -99,12 +102,14 @@ const handleSelectOrg = async () => {
       ability.update(rules)
     }
 
+    isOrgDialogOpen.value = false
+
     await nextTick(() => {
       router.replace(route.query.to ? String(route.query.to) : '/')
     })
   }
   catch (error: any) {
-    errorMessage.value = error.response?.data?.message || 'Chọn tổ chức thất bại. Vui lòng thử lại.'
+    orgDialogError.value = error.response?.data?.message || 'Chọn tổ chức thất bại. Vui lòng thử lại.'
   }
   finally {
     isLoading.value = false
@@ -161,174 +166,169 @@ const handleSelectOrg = async () => {
         :max-width="500"
         class="mt-12 mt-sm-0 pa-6"
       >
-        <!-- BƯỚC 1: ĐĂNG NHẬP -->
-        <template v-if="step === 'login'">
-          <VCardText>
-            <h4 class="text-h4 mb-1">
-              Chào mừng đến với <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
-            </h4>
-            <p class="mb-0">
-              Vui lòng đăng nhập để tiếp tục
-            </p>
-          </VCardText>
+        <VCardText>
+          <h4 class="text-h4 mb-1">
+            Chào mừng đến với <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
+          </h4>
+          <p class="mb-0">
+            Vui lòng đăng nhập để tiếp tục
+          </p>
+        </VCardText>
 
-          <VCardText>
-            <VAlert
-              v-if="errorMessage"
-              type="error"
-              variant="tonal"
-              class="mb-4"
-              closable
-              @click:close="errorMessage = ''"
-            >
-              {{ errorMessage }}
-            </VAlert>
+        <VCardText>
+          <VAlert
+            v-if="errorMessage"
+            type="error"
+            variant="tonal"
+            class="mb-4"
+            closable
+            @click:close="errorMessage = ''"
+          >
+            {{ errorMessage }}
+          </VAlert>
 
-            <VForm @submit.prevent="handleLogin">
-              <VRow>
-                <VCol cols="12">
-                  <AppTextField
-                    v-model="form.email"
-                    autofocus
-                    label="Email"
-                    type="email"
-                    placeholder="admin@example.com"
-                    :disabled="isLoading"
-                  />
-                </VCol>
-
-                <VCol cols="12">
-                  <AppTextField
-                    v-model="form.password"
-                    label="Mật khẩu"
-                    placeholder="············"
-                    :type="isPasswordVisible ? 'text' : 'password'"
-                    autocomplete="current-password"
-                    :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
-                    :disabled="isLoading"
-                    @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                  />
-
-                  <div class="d-flex align-center flex-wrap justify-space-between my-6">
-                    <VCheckbox
-                      v-model="form.remember"
-                      label="Ghi nhớ đăng nhập"
-                      :disabled="isLoading"
-                    />
-                    <RouterLink
-                      class="text-primary"
-                      to="/forgot-password"
-                    >
-                      Quên mật khẩu?
-                    </RouterLink>
-                  </div>
-
-                  <VBtn
-                    block
-                    type="submit"
-                    :loading="isLoading"
-                    :disabled="isLoading"
-                  >
-                    Đăng nhập
-                  </VBtn>
-                </VCol>
-              </VRow>
-            </VForm>
-          </VCardText>
-        </template>
-
-        <!-- BƯỚC 2: CHỌN TỔ CHỨC -->
-        <template v-else-if="step === 'select-org'">
-          <VCardText>
-            <h4 class="text-h4 mb-1">
-              Chọn tổ chức làm việc 🏢
-            </h4>
-            <p class="mb-0">
-              Tài khoản của bạn thuộc nhiều tổ chức. Vui lòng chọn tổ chức để tiếp tục.
-            </p>
-          </VCardText>
-
-          <VCardText>
-            <VAlert
-              v-if="errorMessage"
-              type="error"
-              variant="tonal"
-              class="mb-4"
-              closable
-              @click:close="errorMessage = ''"
-            >
-              {{ errorMessage }}
-            </VAlert>
-
+          <VForm @submit.prevent="handleLogin">
             <VRow>
-              <!-- Danh sách tổ chức -->
               <VCol cols="12">
-                <div class="d-flex flex-column gap-3">
-                  <VCard
-                    v-for="org in authStore.availableOrganizations"
-                    :key="org.id"
-                    :variant="selectedOrgId === org.id ? 'tonal' : 'outlined'"
-                    :color="selectedOrgId === org.id ? 'primary' : undefined"
-                    class="cursor-pointer pa-1"
-                    @click="selectedOrgId = org.id"
-                  >
-                    <VCardText class="d-flex align-center gap-3 py-3">
-                      <VAvatar
-                        color="primary"
-                        variant="tonal"
-                        size="40"
-                      >
-                        <VIcon icon="tabler-building" />
-                      </VAvatar>
-                      <div>
-                        <div class="font-weight-semibold">
-                          {{ org.name }}
-                        </div>
-                      </div>
-                      <VSpacer />
-                      <VIcon
-                        v-if="selectedOrgId === org.id"
-                        icon="tabler-circle-check-filled"
-                        color="primary"
-                      />
-                    </VCardText>
-                  </VCard>
-                </div>
+                <AppTextField
+                  v-model="form.email"
+                  autofocus
+                  label="Email"
+                  type="email"
+                  placeholder="admin@example.com"
+                  :disabled="isLoading"
+                />
               </VCol>
 
               <VCol cols="12">
+                <AppTextField
+                  v-model="form.password"
+                  label="Mật khẩu"
+                  placeholder="············"
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="current-password"
+                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  :disabled="isLoading"
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                />
+
+                <div class="d-flex align-center flex-wrap justify-space-between my-6">
+                  <VCheckbox
+                    v-model="form.remember"
+                    label="Ghi nhớ đăng nhập"
+                    :disabled="isLoading"
+                  />
+                  <RouterLink
+                    class="text-primary"
+                    to="/forgot-password"
+                  >
+                    Quên mật khẩu?
+                  </RouterLink>
+                </div>
+
                 <VBtn
                   block
+                  type="submit"
                   :loading="isLoading"
-                  :disabled="isLoading || !selectedOrgId"
-                  @click="handleSelectOrg"
+                  :disabled="isLoading"
                 >
-                  Vào hệ thống
+                  Đăng nhập
                 </VBtn>
               </VCol>
-
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <a
-                  class="text-primary d-inline-flex align-center gap-1"
-                  href="javascript:void(0)"
-                  @click="step = 'login'; errorMessage = ''"
-                >
-                  <VIcon
-                    icon="tabler-arrow-left"
-                    size="16"
-                  />
-                  Quay lại
-                </a>
-              </VCol>
             </VRow>
-          </VCardText>
-        </template>
+          </VForm>
+        </VCardText>
       </VCard>
     </VCol>
   </VRow>
+
+  <!-- Dialog chọn tổ chức -->
+  <VDialog
+    v-model="isOrgDialogOpen"
+    max-width="480"
+    persistent
+  >
+    <VCard>
+      <VCardTitle class="d-flex align-center gap-3 pt-6 px-6">
+        <VAvatar
+          color="primary"
+          variant="tonal"
+          size="40"
+          rounded
+        >
+          <VIcon icon="tabler-building" />
+        </VAvatar>
+        <div>
+          <div class="text-h6">
+            Chọn tổ chức làm việc
+          </div>
+          <div class="text-body-2 text-medium-emphasis font-weight-regular">
+            Tài khoản của bạn thuộc nhiều tổ chức
+          </div>
+        </div>
+      </VCardTitle>
+
+      <VDivider class="mt-4" />
+
+      <VCardText class="px-6 pt-4">
+        <VAlert
+          v-if="orgDialogError"
+          type="error"
+          variant="tonal"
+          class="mb-4"
+          closable
+          @click:close="orgDialogError = ''"
+        >
+          {{ orgDialogError }}
+        </VAlert>
+
+        <div class="d-flex flex-column gap-2">
+          <VCard
+            v-for="org in authStore.availableOrganizations"
+            :key="org.id"
+            :variant="selectedOrgId === org.id ? 'tonal' : 'outlined'"
+            :color="selectedOrgId === org.id ? 'primary' : undefined"
+            class="cursor-pointer"
+            @click="selectedOrgId = org.id"
+          >
+            <VCardText class="d-flex align-center gap-3 py-3">
+              <VAvatar
+                color="primary"
+                variant="tonal"
+                size="36"
+                rounded
+              >
+                <VIcon
+                  icon="tabler-building"
+                  size="18"
+                />
+              </VAvatar>
+              <span class="font-weight-medium">{{ org.name }}</span>
+              <VSpacer />
+              <VIcon
+                v-if="selectedOrgId === org.id"
+                icon="tabler-circle-check-filled"
+                color="primary"
+                size="20"
+              />
+            </VCardText>
+          </VCard>
+        </div>
+      </VCardText>
+
+      <VCardActions class="px-6 pb-6 pt-2">
+        <VBtn
+          block
+          size="large"
+          :loading="isLoading"
+          :disabled="isLoading || !selectedOrgId"
+          @click="handleSelectOrg"
+        >
+          Vào hệ thống
+        </VBtn>
+      </VCardActions>
+    </VCard>
+  </VDialog>
 </template>
 
 <style lang="scss">

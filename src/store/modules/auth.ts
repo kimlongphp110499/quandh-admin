@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { authApi } from '@/api/modules'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useCookie } from '@/@core/utils/cookie'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { type Rule, ability } from '@/plugins/casl/ability'
 
 export interface Organization {
@@ -26,9 +26,9 @@ export const useAuthStore = defineStore('auth', () => {
   const userPermissions = computed(() => user.value?.permissions || [])
   const userRoles = computed(() => user.value?.roles || [])
 
-  // Cần chọn tổ chức khi có nhiều org và chưa có org hiện tại
+  // Cần chọn tổ chức khi chưa có org hiện tại và có ít nhất 1 org để chọn
   const needsOrgSelection = computed(
-    () => !currentOrganizationId.value && availableOrganizations.value.length > 1,
+    () => !currentOrganizationId.value && availableOrganizations.value.length > 0,
   )
 
   const currentOrganization = computed(
@@ -148,6 +148,7 @@ export const useAuthStore = defineStore('auth', () => {
 
         if (abilities.length) {
           const abilityRules: Rule[] = abilities
+
           localStorage.setItem('userAbilityRules', JSON.stringify(abilityRules))
           ability.update(abilityRules)
         }

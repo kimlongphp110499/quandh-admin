@@ -1,0 +1,405 @@
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+import { VForm } from 'vuetify/components/VForm'
+
+import { useUserStore } from '@/store/modules/user'
+import { useOrganizationStore } from '@/store/modules/organization'
+import { useRoleStore } from '@/store/modules/role'
+import type { User } from '@/api/modules/user'
+
+interface Props {
+  isDrawerOpen: boolean
+  user?: User | null
+}
+
+interface Emit {
+  (e: 'update:isDrawerOpen', value: boolean): void
+  (e: 'submit'): void
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emit>()
+
+const userStore = useUserStore()
+const orgStore = useOrganizationStore()
+const roleStore = useRoleStore()
+
+const refVForm = ref<VForm>()
+const isSubmitting = ref(false)
+const serverErrors = ref<Record<string, string[]>>({})
+const isPasswordVisible = ref(false)
+const isPasswordConfirmVisible = ref(false)
+
+const snackbar = ref({ show: false, message: '', color: 'success' })
+
+const showToast = (message: string, color: 'success' | 'error') => {
+  snackbar.value = { show: true, message, color }
+}
+
+interface AssignmentRow {
+  role_id: number | null
+  organization_ids: number[]
+}
+
+const formData = ref({
+  name: '',
+  email: '',
+  user_name: '',
+  password: '',
+  password_confirmation: '',
+  status: 'active' as 'active' | 'inactive' | 'banned',
+  assignments: [] as AssignmentRow[],
+})
+
+const statusOptions = [
+  { title: 'Hoạt động', value: 'active' },
+  { title: 'Không hoạt động', value: 'inactive' },
+  { title: 'Bị khóa', value: 'banned' },
+]
+
+const orgSelectItems = computed(() =>
+  orgStore.parentOptions.map(o => ({ title: o.name, value: o.id })),
+)
+
+const roleSelectItems = computed(() =>
+  roleStore.roles.map(r => ({ title: r.name, value: r.id })),
+)
+
+const requiredRule = (v: string) => !!v?.trim() || 'Trường này là bắt buộc'
+const emailRule = (v: string) => !v || /.[^\n\r@\u2028\u2029]*@.+\..+/.test(v) || 'Email không hợp lệ'
+
+const serverErrorRule = (field: string) => () => {
+  const errors = serverErrors.value[field]
+
+  return !errors?.length || errors[0]
+}
+
+const isEditMode = computed(() => !!props.user?.id)
+const drawerTitle = computed(() => isEditMode.value ? 'Cập nhật người dùng' : 'Thêm người dùng mới')
+
+const addAssignment = () => {
+  formData.value.assignments.push({ role_id: null, organization_ids: [] })
+}
+
+const removeAssignment = (index: number) => {
+  formData.value.assignments.splice(index, 1)
+}
+
+const resetForm = () => {
+  formData.value = {
+    name: '',
+    email: '',
+    user_name: '',
+    password: '',
+    password_confirmation: '',
+    status: 'active',
+    assignments: [],
+  }
+  serverErrors.value = {}
+  isPasswordVisible.value = false
+  isPasswordConfirmVisible.value = false
+  refVForm.value?.resetValidation()
+}
+
+const closeDrawer = () => {
+  emit('update:isDrawerOpen', false)
+}
+
+const onSubmit = async () => {
+  serverErrors.value = {}
+
+  const { valid } = await refVForm.value!.validate()
+  if (!valid)
+    return
+
+  isSubmitting.value = true
+
+  try {
+    const payload: any = {
+      name: formData.value.name,
+      email: formData.value.email,
+      status: formData.value.status,
+    }
+
+    if (formData.value.user_name)
+      payload.user_name = formData.value.user_name
+
+    if (formData.value.password) {
+      payload.password = formData.value.password
+      payload.password_confirmation = formData.value.password_confirmation
+    }
+
+    const validAssignments = formData.value.assignments.filter(a => a.role_id !== null)
+    if (validAssignments.length > 0) {
+      payload.assignments = validAssignments.map(a => ({
+        role_id: a.role_id!,
+        organization_ids: a.organization_ids,
+      }))
+    }
+
+    if (isEditMode.value)
+      await userStore.updateUser(props.user!.id, payload)
+    else
+      await userStore.createUser(payload)
+
+    showToast(isEditMode.value ? 'Cập nhật người dùng thành công!' : 'Thêm người dùng thành công!', 'success')
+    emit('submit')
+    closeDrawer()
+  }
+  catch (error: any) {
+    const responseData = error?.response?.data
+    if (responseData?.errors) {
+      serverErrors.value = responseData.errors
+      await refVForm.value!.validate()
+      showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
+    }
+    else {
+      showToast(responseData?.message || 'Có lỗi xảy ra, vui lòng thử lại.', 'error')
+    }
+  }
+  finally {
+    isSubmitting.value = false
+  }
+}
+
+watch(() => props.user, usr => {
+  if (usr) {
+    formData.value = {
+      name: usr.name || '',
+      email: usr.email || '',
+      user_name: usr.user_name || '',
+      password: '',
+      password_confirmation: '',
+      status: usr.status || 'active',
+      assignments: (usr.assignments || []).map(a => ({
+        role_id: a.role_id,
+        organization_ids: a.organization_ids || [],
+      })),
+    }
+  }
+  else {
+    resetForm()
+  }
+}, { immediate: true })
+
+watch(() => props.isDrawerOpen, val => {
+  if (!val) {
+    resetForm()
+  }
+  else {
+    orgStore.fetchParentOptions()
+    if (!roleStore.roles.length)
+      roleStore.fetchRoles({ limit: 100 })
+  }
+})
+</script>
+
+<template>
+  <VNavigationDrawer
+    :model-value="props.isDrawerOpen"
+    temporary
+    location="end"
+    width="520"
+    @update:model-value="val => emit('update:isDrawerOpen', val)"
+  >
+    <div class="d-flex flex-column h-100">
+      <AppDrawerHeaderSection
+        :title="drawerTitle"
+        @cancel="closeDrawer"
+      />
+
+      <VDivider />
+
+      <PerfectScrollbar
+        :options="{ wheelPropagation: false }"
+        class="flex-grow-1"
+        style="overflow-y: auto;"
+      >
+        <VCardText>
+          <VForm
+            ref="refVForm"
+            @submit.prevent="onSubmit"
+          >
+            <VRow>
+              <!-- Họ tên -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="formData.name"
+                  label="Họ và tên"
+                  placeholder="Nhập họ và tên"
+                  :rules="[requiredRule, serverErrorRule('name')]"
+                />
+              </VCol>
+
+              <!-- Email -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="formData.email"
+                  label="Email"
+                  placeholder="Nhập địa chỉ email"
+                  type="email"
+                  :rules="[requiredRule, emailRule, serverErrorRule('email')]"
+                />
+              </VCol>
+
+              <!-- Tên đăng nhập -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="formData.user_name"
+                  label="Tên đăng nhập"
+                  placeholder="Nhập tên đăng nhập (tùy chọn)"
+                  :rules="[serverErrorRule('user_name')]"
+                />
+              </VCol>
+
+              <!-- Mật khẩu -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="formData.password"
+                  label="Mật khẩu"
+                  :placeholder="isEditMode ? 'Để trống nếu không đổi mật khẩu' : 'Nhập mật khẩu'"
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  :rules="isEditMode ? [serverErrorRule('password')] : [requiredRule, serverErrorRule('password')]"
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                />
+              </VCol>
+
+              <!-- Xác nhận mật khẩu -->
+              <VCol
+                v-if="formData.password"
+                cols="12"
+              >
+                <AppTextField
+                  v-model="formData.password_confirmation"
+                  label="Xác nhận mật khẩu"
+                  placeholder="Nhập lại mật khẩu"
+                  :type="isPasswordConfirmVisible ? 'text' : 'password'"
+                  :append-inner-icon="isPasswordConfirmVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  :rules="[
+                    (v: string) => !!v || 'Vui lòng xác nhận mật khẩu',
+                    (v: string) => v === formData.password || 'Mật khẩu không khớp',
+                  ]"
+                  @click:append-inner="isPasswordConfirmVisible = !isPasswordConfirmVisible"
+                />
+              </VCol>
+
+              <!-- Trạng thái -->
+              <VCol cols="12">
+                <AppSelect
+                  v-model="formData.status"
+                  label="Trạng thái"
+                  :items="statusOptions"
+                  :rules="[requiredRule]"
+                />
+              </VCol>
+
+              <!-- Phân công tổ chức & vai trò -->
+              <VCol cols="12">
+                <div class="d-flex align-center justify-space-between mb-3">
+                  <span class="text-body-2 font-weight-medium">Phân công tổ chức & vai trò</span>
+                  <VBtn
+                    size="small"
+                    variant="tonal"
+                    prepend-icon="tabler-plus"
+                    @click="addAssignment"
+                  >
+                    Thêm
+                  </VBtn>
+                </div>
+
+                <div
+                  v-if="formData.assignments.length === 0"
+                  class="text-body-2 text-disabled text-center py-4 border rounded"
+                >
+                  Chưa có phân công nào
+                </div>
+
+                <VCard
+                  v-for="(assignment, index) in formData.assignments"
+                  :key="index"
+                  variant="outlined"
+                  class="mb-3 pa-3"
+                >
+                  <div class="d-flex align-center justify-space-between mb-2">
+                    <span class="text-caption text-medium-emphasis">Phân công {{ index + 1 }}</span>
+                    <VBtn
+                      icon
+                      size="x-small"
+                      variant="text"
+                      color="error"
+                      @click="removeAssignment(index)"
+                    >
+                      <VIcon
+                        icon="tabler-trash"
+                        size="14"
+                      />
+                    </VBtn>
+                  </div>
+
+                  <VRow dense>
+                    <VCol cols="12">
+                      <AppSelect
+                        v-model="assignment.role_id"
+                        label="Vai trò"
+                        :items="roleSelectItems"
+                        placeholder="Chọn vai trò"
+                        clearable
+                      />
+                    </VCol>
+                    <VCol cols="12">
+                      <AppSelect
+                        v-model="assignment.organization_ids"
+                        label="Tổ chức"
+                        :items="orgSelectItems"
+                        multiple
+                        chips
+                        closable-chips
+                        placeholder="Chọn tổ chức"
+                      />
+                    </VCol>
+                  </VRow>
+                </VCard>
+              </VCol>
+
+              <!-- Actions -->
+              <VCol cols="12">
+                <VBtn
+                  type="submit"
+                  class="me-3"
+                  :loading="isSubmitting"
+                >
+                  {{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}
+                </VBtn>
+                <VBtn
+                  variant="tonal"
+                  color="secondary"
+                  @click="closeDrawer"
+                >
+                  Hủy
+                </VBtn>
+              </VCol>
+            </VRow>
+          </VForm>
+        </VCardText>
+      </PerfectScrollbar>
+    </div>
+  </VNavigationDrawer>
+
+  <VSnackbar
+    v-model="snackbar.show"
+    :color="snackbar.color"
+    location="top end"
+    :timeout="3000"
+  >
+    {{ snackbar.message }}
+    <template #actions>
+      <VBtn
+        variant="text"
+        @click="snackbar.show = false"
+      >
+        Đóng
+      </VBtn>
+    </template>
+  </VSnackbar>
+</template>
