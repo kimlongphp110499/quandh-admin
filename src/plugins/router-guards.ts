@@ -1,5 +1,7 @@
 import type { RouteNamedMap, _RouterTyped } from 'unplugin-vue-router'
+// eslint-disable-next-line import/no-unresolved
 import { canNavigate } from '@layouts/plugins/casl'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
 
 export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]: any }>) => {

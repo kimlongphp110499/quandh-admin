@@ -1,15 +1,18 @@
+<!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
 import UserFormDrawer from './UserFormDrawer.vue'
 import { useUserStore } from '@/store/modules/user'
-
 import { useOrganizationStore } from '@/store/modules/organization'
+import { useAuthStore } from '@/store/modules/auth'
 
+// eslint-disable-next-line import/no-unresolved
 import { type User, userApi } from '@/api/modules/user'
 
 const userStore = useUserStore()
 const orgStore = useOrganizationStore()
+const authStore = useAuthStore()
 
 // State
 const isFormDrawerVisible = ref(false)
@@ -612,7 +615,7 @@ watch(() => orgStore.parentOptions, opts => {
             class="d-flex flex-column gap-1 py-1"
           >
             <div
-              v-for="(assignment, idx) in item.assignments.slice(0, 2)"
+              v-for="(assignment, idx) in item.assignments"
               :key="idx"
               class="d-flex align-center gap-1 flex-wrap"
             >
@@ -626,7 +629,7 @@ watch(() => orgStore.parentOptions, opts => {
                 {{ assignment.role_name }}
               </VChip>
               <VChip
-                v-for="org in (assignment.organizations ?? []).slice(0, 1)"
+                v-for="org in (assignment.organizations ?? [])"
                 :key="org.id"
                 size="x-small"
                 color="info"
@@ -635,23 +638,7 @@ watch(() => orgStore.parentOptions, opts => {
               >
                 {{ org.name }}
               </VChip>
-              <VChip
-                v-if="(assignment.organizations ?? []).length > 1"
-                size="x-small"
-                variant="outlined"
-                color="secondary"
-              >
-                +{{ (assignment.organizations ?? []).length - 1 }}
-              </VChip>
             </div>
-            <VChip
-              v-if="item.assignments.length > 2"
-              size="x-small"
-              variant="outlined"
-              color="secondary"
-            >
-              +{{ item.assignments.length - 2 }} vai trò khác
-            </VChip>
           </div>
           <span
             v-else
@@ -661,7 +648,22 @@ watch(() => orgStore.parentOptions, opts => {
 
         <!-- Updated at -->
         <template #item.updated_at="{ item }">
-          <span class="text-body-2 text-medium-emphasis">{{ formatDate(item.updated_at) }}</span>
+          <div class="d-flex flex-column gap-1 py-1">
+            <div
+              v-if="item.updated_by && item.updated_by !== 'N/A'"
+              class="d-flex align-center gap-1"
+            >
+              <VAvatar
+                size="18"
+                color="secondary"
+                variant="tonal"
+              >
+                <span style="font-size: 9px; font-weight: 600;">{{ getUserInitials(item.updated_by) }}</span>
+              </VAvatar>
+              <span class="text-caption text-disabled">{{ item.updated_by }}</span>
+            </div>
+            <span class="text-body-2 text-medium-emphasis">{{ formatDate(item.updated_at) }}</span>
+          </div>
         </template>
 
         <!-- Status -->
@@ -669,8 +671,9 @@ watch(() => orgStore.parentOptions, opts => {
           <VChip
             :color="statusColor(item.status)"
             size="small"
-            class="cursor-pointer"
-            @click="handleToggleStatus(item)"
+            :class="item.id !== authStore.user?.id ? 'cursor-pointer' : ''"
+            :disabled="item.id === authStore.user?.id"
+            @click="item.id !== authStore.user?.id && handleToggleStatus(item)"
           >
             {{ statusLabel(item.status) }}
           </VChip>
@@ -679,55 +682,61 @@ watch(() => orgStore.parentOptions, opts => {
         <!-- Actions -->
         <template #item.actions="{ item }">
           <div class="d-flex align-center gap-1">
-            <IconBtn
-              size="small"
-              @click="openEditDrawer(item)"
-            >
-              <VIcon
-                icon="tabler-edit"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
+            <template v-if="item.id !== authStore.user?.id">
+              <IconBtn
+                size="small"
+                @click="openEditDrawer(item)"
               >
-                Sửa
-              </VTooltip>
-            </IconBtn>
+                <VIcon
+                  icon="tabler-edit"
+                  size="18"
+                />
+                <VTooltip
+                  activator="parent"
+                  location="top"
+                >
+                  Sửa
+                </VTooltip>
+              </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="warning"
-              @click="handleResetPassword(item)"
-            >
-              <VIcon
-                icon="tabler-key"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
+              <IconBtn
+                size="small"
+                color="warning"
+                @click="handleResetPassword(item)"
               >
-                Đặt lại mật khẩu
-              </VTooltip>
-            </IconBtn>
+                <VIcon
+                  icon="tabler-key"
+                  size="18"
+                />
+                <VTooltip
+                  activator="parent"
+                  location="top"
+                >
+                  Đặt lại mật khẩu
+                </VTooltip>
+              </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="error"
-              @click="handleDelete(item)"
-            >
-              <VIcon
-                icon="tabler-trash"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
+              <IconBtn
+                size="small"
+                color="error"
+                @click="handleDelete(item)"
               >
-                Xóa
-              </VTooltip>
-            </IconBtn>
+                <VIcon
+                  icon="tabler-trash"
+                  size="18"
+                />
+                <VTooltip
+                  activator="parent"
+                  location="top"
+                >
+                  Xóa
+                </VTooltip>
+              </IconBtn>
+            </template>
+            <span
+              v-else
+              class="text-caption text-disabled"
+            >—</span>
           </div>
         </template>
 

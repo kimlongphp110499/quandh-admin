@@ -53,7 +53,8 @@ export const usePermissionStore = defineStore('permission', () => {
 
   async function fetchTree() {
     try {
-      const response = await permissionApi.tree()
+      const response = await permissionApi.tree({ with_roles: true })
+
       if (response.data.success)
         permissionTree.value = response.data.data || []
     }

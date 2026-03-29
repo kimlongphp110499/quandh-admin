@@ -46,10 +46,16 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.data.success && response.data.data) {
         const data = response.data.data as any
         const accessToken = data.access_token
-        const userData = data.user
         const orgId = data.current_organization_id ?? null
         const orgs: Organization[] = data.available_organizations ?? []
         const abilities: Rule[] = data.abilities ?? []
+
+        // Gộp roles/permissions từ top-level vào user object
+        const userData = {
+          ...data.user,
+          roles: data.roles ?? data.user?.roles ?? [],
+          permissions: data.permissions ?? data.user?.permissions ?? [],
+        }
 
         token.value = accessToken
         user.value = userData
@@ -109,9 +115,15 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.data.success && response.data.data) {
         const data = response.data.data as any
-        const userData = data.user
         const abilities: Rule[] = data.abilities ?? []
         const orgId = data.current_organization_id ?? null
+
+        // Gộp roles/permissions từ top-level vào user object
+        const userData = {
+          ...data.user,
+          roles: data.roles ?? data.user?.roles ?? [],
+          permissions: data.permissions ?? data.user?.permissions ?? [],
+        }
 
         user.value = userData
         currentOrganizationId.value = orgId

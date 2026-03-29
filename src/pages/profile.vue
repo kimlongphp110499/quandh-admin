@@ -1,16 +1,62 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAbility } from '@casl/vue'
 import avatar1 from '@images/avatars/avatar-1.png'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useAuthStore } from '@/store/modules/auth'
+// eslint-disable-next-line import/extensions
+import { type Rule } from '@/plugins/casl/ability'
 
 const authStore = useAuthStore()
+const router = useRouter()
+const ability = useAbility()
 
 const userName = computed(() => authStore.user?.name || 'Người dùng')
 const userEmail = computed(() => authStore.user?.email || '')
 const userRoles = computed(() => authStore.userRoles)
+const userPermissions = computed(() => authStore.userPermissions)
 const currentOrg = computed(() => authStore.currentOrganization)
 const availableOrgs = computed(() => authStore.availableOrganizations)
+
+const activeTab = ref('roles')
+const snackbar = ref({ show: false, message: '', color: 'success' })
+
+// Form chỉnh sửa thông tin cơ bản
+const profileForm = reactive({
+  name: authStore.user?.name || '',
+  email: authStore.user?.email || '',
+})
+
+// Sync form khi user data load xong
+watch(() => authStore.user, user => {
+  if (user) {
+    profileForm.name = user.name || ''
+    profileForm.email = user.email || ''
+  }
+})
+
+onMounted(async () => {
+  await authStore.fetchUser()
+})
+
+const profileError = ref('')
+
+// Group permissions theo module
+const groupedPermissions = computed(() => {
+  const groups: Record<string, string[]> = {}
+
+  userPermissions.value.forEach((perm: string) => {
+    const [module] = perm.split('.')
+
+    if (!groups[module])
+      groups[module] = []
+
+    groups[module].push(perm)
+  })
+
+  return Object.entries(groups).sort((a, b) => a[0].localeCompare(b[0]))
+})
 
 const isSwitchingOrg = ref(false)
 const switchError = ref('')
@@ -22,8 +68,18 @@ async function handleSwitchOrg(orgId: number) {
   try {
     isSwitchingOrg.value = true
     switchError.value = ''
+
     await authStore.switchOrganization(orgId)
-    window.location.reload()
+
+    const savedRules = localStorage.getItem('userAbilityRules')
+
+    if (savedRules) {
+      const rules: Rule[] = JSON.parse(savedRules)
+
+      ability.update(rules)
+    }
+
+    router.push('/')
   }
   catch (err: any) {
     switchError.value = err.response?.data?.message || 'Chuyển tổ chức thất bại.'
@@ -32,13 +88,55 @@ async function handleSwitchOrg(orgId: number) {
     isSwitchingOrg.value = false
   }
 }
+
+function getModuleName(module: string): string {
+  const names: Record<string, string> = {
+    'users': 'Người dùng',
+    'roles': 'Vai trò',
+    'permissions': 'Quyền hạn',
+    'organizations': 'Tổ chức',
+    'meetings': 'Cuộc họp',
+    'posts': 'Bài viết',
+    'settings': 'Cài đặt',
+    'log-activities': 'Nhật ký',
+    'document-fields': 'Lĩnh vực',
+    'document-types': 'Loại văn bản',
+    'document-signers': 'Người ký',
+    'documents': 'Văn bản',
+    'issuing-agencies': 'Cơ quan ban hành',
+    'issuing-levels': 'Cơ quan ban hành',
+  }
+
+  return names[module] || module
+}
+
+function getActionName(action: string): string {
+  const names: Record<string, string> = {
+    stats: 'Xem thống kê',
+    index: 'Xem danh sách',
+    show: 'Xem chi tiết',
+    store: 'Tạo mới',
+    create: 'Tạo mới',
+    update: 'Cập nhật',
+    destroy: 'Xóa',
+    delete: 'Xóa',
+    read: 'Đọc',
+    manage: 'Quản lý',
+  }
+
+  return names[action] || action
+}
 </script>
 
 <template>
   <VRow>
-    <!-- Thông tin cá nhân -->
-    <VCol cols="12" md="4">
-      <VCard>
+    <!-- Cột trái: thông tin + chỉnh sửa -->
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <!-- Avatar & tên -->
+      <VCard class="mb-6">
         <VCardText class="d-flex flex-column align-center text-center pt-8 pb-6">
           <VAvatar
             color="primary"
@@ -52,6 +150,9 @@ async function handleSwitchOrg(orgId: number) {
           <h5 class="text-h5 mb-1">
             {{ userName }}
           </h5>
+          <div class="text-body-2 text-medium-emphasis mb-3">
+            {{ userEmail }}
+          </div>
 
           <div class="d-flex gap-2 flex-wrap justify-center mb-3">
             <VChip
@@ -76,63 +177,49 @@ async function handleSwitchOrg(orgId: number) {
             {{ currentOrg.name }}
           </div>
         </VCardText>
+      </VCard>
 
-        <VDivider />
+      <!-- Chỉnh sửa thông tin cơ bản -->
+      <VCard class="mb-6">
+        <VCardTitle class="pa-5 pb-3 text-subtitle-1">
+          <VIcon
+            icon="tabler-user-edit"
+            size="18"
+            class="me-2"
+          />
+          Thông tin cá nhân
+        </VCardTitle>
 
         <VCardText>
-          <div class="d-flex flex-column gap-3">
-            <div class="d-flex align-center gap-3">
-              <VAvatar
-                color="primary"
-                variant="tonal"
-                size="36"
-                rounded
-              >
-                <VIcon
-                  icon="tabler-mail"
-                  size="18"
-                />
-              </VAvatar>
-              <div>
-                <div class="text-caption text-medium-emphasis">
-                  Email
-                </div>
-                <div class="font-weight-medium">
-                  {{ userEmail }}
-                </div>
-              </div>
-            </div>
+          <VAlert
+            v-if="profileError"
+            type="error"
+            variant="tonal"
+            class="mb-4"
+            closable
+            @click:close="profileError = ''"
+          >
+            {{ profileError }}
+          </VAlert>
 
-            <div
-              v-if="currentOrg"
-              class="d-flex align-center gap-3"
-            >
-              <VAvatar
-                color="success"
-                variant="tonal"
-                size="36"
-                rounded
-              >
-                <VIcon
-                  icon="tabler-building"
-                  size="18"
-                />
-              </VAvatar>
-              <div>
-                <div class="text-caption text-medium-emphasis">
-                  Tổ chức hiện tại
-                </div>
-                <div class="font-weight-medium">
-                  {{ currentOrg.name }}
-                </div>
-              </div>
-            </div>
+          <div class="d-flex flex-column gap-4">
+            <AppTextField
+              v-model="profileForm.name"
+              label="Họ và tên"
+              prepend-inner-icon="tabler-user"
+            />
+            <AppTextField
+              v-model="profileForm.email"
+              label="Email"
+              type="email"
+              prepend-inner-icon="tabler-mail"
+            />
           </div>
         </VCardText>
       </VCard>
     </VCol>
 
-    <!-- Chi tiết & Đổi tổ chức -->
+    <!-- Cột phải: tổ chức + vai trò + quyền hạn (chỉ xem) -->
     <VCol
       cols="12"
       md="8"
@@ -197,56 +284,136 @@ async function handleSwitchOrg(orgId: number) {
         </VCardText>
       </VCard>
 
-      <!-- Vai trò & quyền hạn -->
+      <!-- Vai trò & quyền hạn (chỉ xem) -->
       <VCard>
-        <VCardTitle class="pa-6 pb-3">
-          Vai trò & Quyền hạn
-        </VCardTitle>
+        <VTabs
+          v-model="activeTab"
+          color="primary"
+        >
+          <VTab value="roles">
+            <VIcon
+              icon="tabler-user-shield"
+              start
+            />
+            Vai trò
+          </VTab>
+          <VTab value="permissions">
+            <VIcon
+              icon="tabler-key"
+              start
+            />
+            Quyền hạn
+          </VTab>
+        </VTabs>
 
-        <VCardText>
-          <div
-            v-if="userRoles.length"
-            class="mb-4"
-          >
-            <div class="text-subtitle-2 mb-2">
-              Vai trò
-            </div>
-            <div class="d-flex gap-2 flex-wrap">
-              <VChip
-                v-for="role in userRoles"
-                :key="role"
-                color="primary"
-                variant="tonal"
+        <VDivider />
+
+        <VWindow v-model="activeTab">
+          <!-- Tab Vai trò -->
+          <VWindowItem value="roles">
+            <VCardText>
+              <div
+                v-if="userRoles.length"
+                class="d-flex gap-3 flex-wrap"
               >
-                {{ role }}
-              </VChip>
-            </div>
-          </div>
-
-          <div v-if="authStore.userPermissions.length">
-            <div class="text-subtitle-2 mb-2">
-              Quyền hạn
-            </div>
-            <div class="d-flex gap-2 flex-wrap">
-              <VChip
-                v-for="perm in authStore.userPermissions"
-                :key="perm"
-                size="small"
-                variant="outlined"
+                <VCard
+                  v-for="role in userRoles"
+                  :key="role"
+                  variant="tonal"
+                  color="success"
+                >
+                  <VCardText class="d-flex align-center gap-3 py-3 px-4">
+                    <VAvatar
+                      color="success"
+                      variant="tonal"
+                      size="36"
+                    >
+                      <VIcon icon="tabler-user-shield" />
+                    </VAvatar>
+                    <span class="font-weight-semibold">{{ role }}</span>
+                  </VCardText>
+                </VCard>
+              </div>
+              <div
+                v-else
+                class="text-center text-medium-emphasis py-6"
               >
-                {{ perm }}
-              </VChip>
-            </div>
-          </div>
+                <VIcon
+                  icon="tabler-user-off"
+                  size="48"
+                  class="mb-2"
+                />
+                <div>Không có vai trò</div>
+              </div>
+            </VCardText>
+          </VWindowItem>
 
-          <div
-            v-if="!userRoles.length && !authStore.userPermissions.length"
-            class="text-medium-emphasis"
-          >
-            Không có thông tin vai trò.
-          </div>
-        </VCardText>
+          <!-- Tab Quyền hạn -->
+          <VWindowItem value="permissions">
+            <VCardText>
+              <div
+                v-if="groupedPermissions.length"
+                class="d-flex flex-column gap-4"
+              >
+                <div
+                  v-for="[module, perms] in groupedPermissions"
+                  :key="module"
+                >
+                  <div class="d-flex align-center gap-2 mb-2">
+                    <VIcon
+                      icon="tabler-folder"
+                      size="18"
+                      color="primary"
+                    />
+                    <span class="text-subtitle-2 font-weight-semibold">
+                      {{ getModuleName(module) }}
+                    </span>
+                    <VChip
+                      size="x-small"
+                      color="primary"
+                      variant="tonal"
+                    >
+                      {{ perms.length }}
+                    </VChip>
+                  </div>
+                  <div class="d-flex gap-2 flex-wrap ms-6">
+                    <VChip
+                      v-for="perm in perms"
+                      :key="perm"
+                      size="small"
+                      variant="outlined"
+                      color="primary"
+                    >
+                      {{ getActionName(perm.split('.')[1] || perm) }}
+                    </VChip>
+                  </div>
+                </div>
+              </div>
+              <div
+                v-else
+                class="text-center text-medium-emphasis py-6"
+              >
+                <VIcon
+                  icon="tabler-key-off"
+                  size="48"
+                  class="mb-2"
+                />
+                <div>Không có quyền hạn</div>
+              </div>
+            </VCardText>
+          </VWindowItem>
+        </VWindow>
       </VCard>
     </VCol>
   </VRow>
+
+  <!-- Snackbar -->
+  <VSnackbar
+    v-model="snackbar.show"
+    :color="snackbar.color"
+    location="top end"
+    :timeout="3000"
+  >
+    {{ snackbar.message }}
+  </VSnackbar>
 </template>

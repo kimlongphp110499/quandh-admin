@@ -1,4 +1,5 @@
-import axios, { type AxiosInstance, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
+import axios, { type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
 
 // Base API URL - cấu hình theo environment
@@ -55,21 +56,21 @@ apiClient.interceptors.response.use(
     return response
   },
   error => {
-    // Xử lý lỗi 401 - chuyển về trang login
-    if (error.response?.status === 401) {
+    // Xử lý lỗi 401 - chuyển về trang login (trừ khi đang ở login endpoint)
+    if (error.response?.status === 401 && !error.config?.url?.includes('/auth/login')) {
       useCookie('accessToken').value = null
       useCookie('userData').value = null
       window.location.href = '/login'
     }
 
     // Xử lý lỗi 403 - không có quyền
-    if (error.response?.status === 403) {
+    if (error.response?.status === 403)
       console.error('Access denied:', error.response.data.message)
-    }
 
     // Xử lý lỗi 422 - validation errors
     if (error.response?.status === 422) {
       const errors = error.response.data.errors || {}
+
       console.error('Validation errors:', errors)
     }
 

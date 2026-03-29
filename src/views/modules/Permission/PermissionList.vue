@@ -338,6 +338,9 @@ onMounted(async () => {
               />
             </th>
             <th>TÊN QUYỀN HẠN</th>
+            <th style="width: 220px;">
+              THUỘC VAI TRÒ
+            </th>
             <th style="width: 160px;">
               NGÀY TẠO
             </th>
@@ -355,7 +358,7 @@ onMounted(async () => {
             <!-- Group header row -->
             <tr class="bg-surface-variant">
               <td
-                colspan="5"
+                colspan="6"
                 class="py-2 px-4"
               >
                 <div class="d-flex align-center gap-2">
@@ -446,6 +449,26 @@ onMounted(async () => {
                   </div>
                 </div>
               </td>
+              <td>
+                <div
+                  v-if="perm.roles && perm.roles.length"
+                  class="d-flex flex-wrap gap-1 py-1"
+                >
+                  <VChip
+                    v-for="role in perm.roles"
+                    :key="role.id"
+                    size="x-small"
+                    color="primary"
+                    variant="tonal"
+                  >
+                    {{ role.name }}
+                  </VChip>
+                </div>
+                <span
+                  v-else
+                  class="text-caption text-disabled"
+                >—</span>
+              </td>
               <td class="text-body-2 text-medium-emphasis">
                 {{ perm.created_at }}
               </td>
@@ -492,7 +515,7 @@ onMounted(async () => {
               :key="`${group.id}-empty`"
             >
               <td
-                colspan="5"
+                colspan="6"
                 class="text-center text-caption text-disabled py-3"
               >
                 Nhóm chưa có quyền nào

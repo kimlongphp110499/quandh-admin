@@ -61,8 +61,8 @@ export const permissionApi = {
     return apiClient.get<ApiResponse<PermissionStats>>('/permissions/stats')
   },
 
-  tree() {
-    return apiClient.get<ApiResponse<Permission[]>>('/permissions/tree')
+  tree(params?: { with_roles?: boolean }) {
+    return apiClient.get<ApiResponse<Permission[]>>('/permissions/tree', { params })
   },
 
   bulkDelete(ids: number[]) {

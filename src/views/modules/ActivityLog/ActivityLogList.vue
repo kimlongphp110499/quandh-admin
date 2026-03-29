@@ -290,20 +290,32 @@ onMounted(load)
             cols="6"
             md="2"
           >
-            <AppTextField
+            <AppDateTimePicker
               v-model="fromDate"
               label="Từ ngày"
-              type="date"
+              placeholder="Từ ngày"
+              :config="{
+                dateFormat: 'Y-m-d',
+                maxDate: toDate || undefined,
+              }"
+              style="inline-size: 10rem;"
+              clearable
             />
           </VCol>
           <VCol
             cols="6"
             md="2"
           >
-            <AppTextField
+            <AppDateTimePicker
               v-model="toDate"
               label="Đến ngày"
-              type="date"
+              placeholder="Đến ngày"
+              :config="{
+                dateFormat: 'Y-m-d',
+                minDate: fromDate || undefined,
+              }"
+              style="inline-size: 10rem;"
+              clearable
             />
           </VCol>
           <VCol
