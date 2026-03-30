@@ -74,6 +74,13 @@ const serverErrorRule = (field: string) => () => {
   return !errors?.length || errors[0]
 }
 
+const assignmentErrorRule = (index: number, field: 'role_id' | 'organization_ids') => () => {
+  const prefix = `assignments.${index}.${field}`
+  const key = Object.keys(serverErrors.value).find(k => k === prefix || k.startsWith(`${prefix}.`))
+
+  return !key || !serverErrors.value[key]?.length || serverErrors.value[key][0]
+}
+
 const isEditMode = computed(() => !!props.user?.id)
 const drawerTitle = computed(() => isEditMode.value ? 'Cập nhật người dùng' : 'Thêm người dùng mới')
 
@@ -130,7 +137,7 @@ const onSubmit = async () => {
     }
 
     const validAssignments = formData.value.assignments.filter(a => a.role_id !== null)
-    if (validAssignments.length > 0) {
+    if (isEditMode.value || validAssignments.length > 0) {
       payload.assignments = validAssignments.map(a => ({
         role_id: a.role_id!,
         organization_ids: a.organization_ids,
@@ -190,6 +197,23 @@ watch(() => props.isDrawerOpen, val => {
     orgStore.fetchParentOptions()
     if (!roleStore.roles.length)
       roleStore.fetchRoles({ limit: 100 })
+    if (props.user) {
+      const usr = props.user
+
+      formData.value = {
+        name: usr.name || '',
+        email: usr.email || '',
+        user_name: usr.user_name || '',
+        password: '',
+        password_confirmation: '',
+        status: usr.status || 'active',
+        assignments: (usr.assignments || []).map(a => ({
+          role_id: a.role_id,
+          organization_ids: a.organization_ids || [],
+        })),
+      }
+      serverErrors.value = {}
+    }
   }
 })
 </script>
@@ -345,6 +369,7 @@ watch(() => props.isDrawerOpen, val => {
                         :items="roleSelectItems"
                         placeholder="Chọn vai trò"
                         clearable
+                        :rules="[assignmentErrorRule(index, 'role_id')]"
                       />
                     </VCol>
                     <VCol cols="12">
@@ -356,6 +381,7 @@ watch(() => props.isDrawerOpen, val => {
                         chips
                         closable-chips
                         placeholder="Chọn tổ chức"
+                        :rules="[assignmentErrorRule(index, 'organization_ids')]"
                       />
                     </VCol>
                   </VRow>

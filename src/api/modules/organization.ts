@@ -116,4 +116,9 @@ export const organizationApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },
+
+  // Tải file mẫu import
+  downloadTemplate() {
+    return apiClient.get('/organizations/import/template', { responseType: 'blob' })
+  },
 }

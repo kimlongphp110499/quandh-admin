@@ -190,43 +190,6 @@ const handleDelete = (user: User) => {
   )
 }
 
-// Reset password dialog
-const resetPasswordDialog = ref({ show: false, userId: 0, userName: '', password: '', password_confirmation: '', isVisible: false, isConfirmVisible: false, isSubmitting: false })
-
-const handleResetPassword = (user: User) => {
-  resetPasswordDialog.value = {
-    show: true,
-    userId: user.id,
-    userName: user.name,
-    password: '',
-    password_confirmation: '',
-    isVisible: false,
-    isConfirmVisible: false,
-    isSubmitting: false,
-  }
-}
-
-const submitResetPassword = async () => {
-  if (!resetPasswordDialog.value.password)
-    return
-
-  resetPasswordDialog.value.isSubmitting = true
-  try {
-    await userApi.resetPassword(resetPasswordDialog.value.userId, {
-      password: resetPasswordDialog.value.password,
-      password_confirmation: resetPasswordDialog.value.password_confirmation,
-    })
-    resetPasswordDialog.value.show = false
-    showToast('Đặt lại mật khẩu thành công!', 'success')
-  }
-  catch {
-    showToast('Đặt lại mật khẩu thất bại!', 'error')
-  }
-  finally {
-    resetPasswordDialog.value.isSubmitting = false
-  }
-}
-
 // Status toggle
 const handleToggleStatus = async (user: User) => {
   try {
@@ -701,23 +664,6 @@ watch(() => orgStore.parentOptions, opts => {
 
               <IconBtn
                 size="small"
-                color="warning"
-                @click="handleResetPassword(item)"
-              >
-                <VIcon
-                  icon="tabler-key"
-                  size="18"
-                />
-                <VTooltip
-                  activator="parent"
-                  location="top"
-                >
-                  Đặt lại mật khẩu
-                </VTooltip>
-              </IconBtn>
-
-              <IconBtn
-                size="small"
                 color="error"
                 @click="handleDelete(item)"
               >
@@ -763,56 +709,6 @@ watch(() => orgStore.parentOptions, opts => {
       :user="editingUser"
       @submit="handleFormSubmit"
     />
-
-    <!-- Reset Password Dialog -->
-    <VDialog
-      v-model="resetPasswordDialog.show"
-      max-width="440"
-    >
-      <VCard>
-        <VCardTitle class="pt-6 px-6">
-          Đặt lại mật khẩu
-        </VCardTitle>
-        <VCardText class="px-6">
-          <p class="mb-4 text-body-2">
-            Đặt mật khẩu mới cho người dùng <strong>{{ resetPasswordDialog.userName }}</strong>
-          </p>
-          <AppTextField
-            v-model="resetPasswordDialog.password"
-            label="Mật khẩu mới"
-            :type="resetPasswordDialog.isVisible ? 'text' : 'password'"
-            :append-inner-icon="resetPasswordDialog.isVisible ? 'tabler-eye-off' : 'tabler-eye'"
-            class="mb-3"
-            @click:append-inner="resetPasswordDialog.isVisible = !resetPasswordDialog.isVisible"
-          />
-          <AppTextField
-            v-model="resetPasswordDialog.password_confirmation"
-            label="Xác nhận mật khẩu"
-            :type="resetPasswordDialog.isConfirmVisible ? 'text' : 'password'"
-            :append-inner-icon="resetPasswordDialog.isConfirmVisible ? 'tabler-eye-off' : 'tabler-eye'"
-            @click:append-inner="resetPasswordDialog.isConfirmVisible = !resetPasswordDialog.isConfirmVisible"
-          />
-        </VCardText>
-        <VCardActions class="px-6 pb-6">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            color="secondary"
-            @click="resetPasswordDialog.show = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="warning"
-            :loading="resetPasswordDialog.isSubmitting"
-            :disabled="!resetPasswordDialog.password"
-            @click="submitResetPassword"
-          >
-            Xác nhận
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
 
     <!-- Confirm Dialog -->
     <VDialog

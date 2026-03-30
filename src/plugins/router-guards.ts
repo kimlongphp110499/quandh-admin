@@ -3,6 +3,8 @@ import type { RouteNamedMap, _RouterTyped } from 'unplugin-vue-router'
 import { canNavigate } from '@layouts/plugins/casl'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useAuthStore } from '@/store/modules/auth'
 
 export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]: any }>) => {
   // 👉 router.beforeEach
@@ -16,10 +18,13 @@ export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]
       return
 
     /**
-     * Check if user is logged in by checking if token & user data exists in cookie
-     * Feel free to update this logic to suit your needs
+     * Check if user is logged in by:
+     * 1. authStore.isAuthenticated — reliable immediately after login (in-memory)
+     * 2. accessToken cookie — reliable on page refresh
+     * Note: userData cookie is NOT checked here as it may be too large and silently fail to persist.
      */
-    const isLoggedIn = !!(useCookie('userData').value && useCookie('accessToken').value)
+    const authStore = useAuthStore()
+    const isLoggedIn = authStore.isAuthenticated || !!(useCookie('accessToken').value)
 
     /*
       If user is logged in and is trying to access login like page, redirect to home
@@ -31,6 +36,16 @@ export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]
         return '/'
       else
         return undefined
+    }
+
+    if (!isLoggedIn) {
+      return {
+        name: 'login',
+        query: {
+          ...to.query,
+          to: to.fullPath !== '/' ? to.path : undefined,
+        },
+      }
     }
 
     if (!canNavigate(to) && to.matched.length) {

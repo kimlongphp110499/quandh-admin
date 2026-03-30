@@ -33,25 +33,7 @@ const handleLogout = () => {
     <VCard
       class="mb-6"
       title="Chào mừng đến với Quandh Admin 🚀"
-    >
-      <VCardText v-if="userData">
-        <div class="mb-4">
-          <strong>Xin chào:</strong> {{ userData.name || userData.email }}
-        </div>
-        <div class="mb-4">
-          <strong>Email:</strong> {{ userData.email }}
-        </div>
-        <VBtn
-          color="error"
-          @click="handleLogout"
-        >
-          Đăng xuất
-        </VBtn>
-      </VCardText>
-      <VCardText v-else>
-        Đang tải thông tin người dùng...
-      </VCardText>
-    </VCard>
+    />
 
     <VCard title="Hệ thống quản trị">
       <VCardText>

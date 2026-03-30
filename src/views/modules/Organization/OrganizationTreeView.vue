@@ -32,8 +32,8 @@ const loadTree = async () => {
 }
 
 // Tìm kiếm trong cây (highlight/filter node có tên chứa query)
-const filterTree = (nodes: Organization[], query: string): Organization[] => {
-  if (!query.trim())
+const filterTree = (nodes: Organization[], query: string | null): Organization[] => {
+  if (!query?.trim())
     return nodes
 
   const q = query.toLowerCase()
@@ -53,7 +53,7 @@ const filterTree = (nodes: Organization[], query: string): Organization[] => {
   }, [])
 }
 
-const filteredTree = computed(() => filterTree(orgStore.tree, searchQuery.value))
+const filteredTree = computed(() => filterTree(orgStore.tree, searchQuery.value ?? ''))
 
 // Đếm tổng số node trong cây
 const countNodes = (nodes: Organization[]): number =>
@@ -87,6 +87,8 @@ const handleToggleStatus = async (org: Organization) => {
 }
 
 onMounted(loadTree)
+
+defineExpose({ reload: loadTree })
 </script>
 
 <template>

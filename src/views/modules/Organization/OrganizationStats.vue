@@ -25,6 +25,8 @@ const loadStats = async () => {
 }
 
 onMounted(loadStats)
+
+defineExpose({ reload: loadStats })
 </script>
 
 <template>

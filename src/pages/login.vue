@@ -13,8 +13,10 @@ import authV2MaskLight from '@images/pages/misc-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
+// eslint-disable-next-line import/extensions
 import { useAuthStore } from '@/store/modules/auth'
 
+// eslint-disable-next-line import/extensions
 import { type Rule } from '@/plugins/casl/ability'
 
 definePage({
@@ -71,7 +73,7 @@ const handleLogin = async () => {
     }
     else {
       await nextTick(() => {
-        router.replace(route.query.to ? String(route.query.to) : '/')
+        router.replace(route.query.to ? String(route.query.to) : '/dashboard')
       })
     }
   }
@@ -105,7 +107,7 @@ const handleSelectOrg = async () => {
     isOrgDialogOpen.value = false
 
     await nextTick(() => {
-      router.replace(route.query.to ? String(route.query.to) : '/')
+      router.replace(route.query.to ? String(route.query.to) : '/dashboard')
     })
   }
   catch (error: any) {

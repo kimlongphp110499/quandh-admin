@@ -247,6 +247,18 @@ export const useOrganizationStore = defineStore('organization', () => {
     }
   }
 
+  async function downloadImportTemplate() {
+    const response = await organizationApi.downloadTemplate()
+    const blob = new Blob([response.data], { type: response.headers['content-type'] })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = 'organizations_template.xlsx'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   function setFilters(newFilters: Partial<OrganizationFilters>) {
     filters.value = { ...filters.value, ...newFilters }
   }
@@ -285,6 +297,7 @@ export const useOrganizationStore = defineStore('organization', () => {
     bulkUpdateStatus,
     exportOrganizations,
     importOrganizations,
+    downloadImportTemplate,
     setFilters,
     resetFilters,
   }

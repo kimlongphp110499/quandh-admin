@@ -1,8 +1,10 @@
 export default [
   {
-    title: 'Trang chủ',
-    to: { name: 'index' },
-    icon: { icon: 'tabler-smart-home' },
+    title: 'Bảng điều khiển',
+    to: { name: 'dashboard' },
+    icon: { icon: 'tabler-layout-dashboard' },
+    action: 'index',
+    subject: 'Dashboard',
   },
   {
     title: 'Quản lý hệ thống',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import OrganizationList from '@/views/modules/Organization/OrganizationList.vue'
 // eslint-disable-next-line import/no-unresolved
@@ -15,6 +15,20 @@ definePage({
 })
 
 const activeTab = ref('list')
+
+const listRef = ref<InstanceType<typeof OrganizationList>>()
+const treeRef = ref<InstanceType<typeof OrganizationTreeView>>()
+const statsRef = ref<InstanceType<typeof OrganizationStats>>()
+
+// Reload dữ liệu mỗi khi chuyển tab
+watch(activeTab, tab => {
+  if (tab === 'list')
+    listRef.value?.reload()
+  else if (tab === 'tree')
+    treeRef.value?.reload()
+  else if (tab === 'stats')
+    statsRef.value?.reload()
+})
 </script>
 
 <template>
@@ -53,15 +67,15 @@ const activeTab = ref('list')
     <!-- Tab content -->
     <VWindow v-model="activeTab">
       <VWindowItem value="list">
-        <OrganizationList />
+        <OrganizationList ref="listRef" />
       </VWindowItem>
 
       <VWindowItem value="tree">
-        <OrganizationTreeView />
+        <OrganizationTreeView ref="treeRef" />
       </VWindowItem>
 
       <VWindowItem value="stats">
-        <OrganizationStats />
+        <OrganizationStats ref="statsRef" />
       </VWindowItem>
     </VWindow>
   </div>

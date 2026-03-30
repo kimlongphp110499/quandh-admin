@@ -27,6 +27,7 @@ const deletingId = ref<number | null>(null)
 const importFileInput = ref<HTMLInputElement>()
 const isImporting = ref(false)
 const isExporting = ref(false)
+const isDownloadingTemplate = ref(false)
 
 // Snackbar
 const snackbar = ref({ show: false, message: '', color: 'success' })
@@ -180,6 +181,19 @@ const handleExport = async () => {
   }
 }
 
+const handleDownloadTemplate = async () => {
+  isDownloadingTemplate.value = true
+  try {
+    await orgStore.downloadImportTemplate()
+  }
+  catch {
+    showToast('Tải file mẫu thất bại!', 'error')
+  }
+  finally {
+    isDownloadingTemplate.value = false
+  }
+}
+
 const triggerImport = () => importFileInput.value?.click()
 
 const handleImportFile = async (event: Event) => {
@@ -210,18 +224,34 @@ const updateOptions = (options: any) => {
 }
 
 // Watchers
+// Dùng debounce để tránh double-fetch khi search/filter thay đổi đồng thời kích hoạt page watcher
+let fetchDebounceTimer: ReturnType<typeof setTimeout> | null = null
+
+const debouncedFetch = () => {
+  if (fetchDebounceTimer)
+    clearTimeout(fetchDebounceTimer)
+  fetchDebounceTimer = setTimeout(fetchOrganizations, 80)
+}
+
 watch([searchQuery, selectedStatus], () => {
   page.value = 1
-  fetchOrganizations()
+  debouncedFetch()
 })
 
 watch([page, itemsPerPage, sortBy], () => {
-  fetchOrganizations()
+  debouncedFetch()
 }, { deep: true })
 
 // Init
 fetchOrganizations()
 orgStore.fetchStats()
+
+defineExpose({
+  reload: () => {
+    fetchOrganizations()
+    orgStore.fetchStats()
+  },
+})
 </script>
 
 <template>
@@ -388,6 +418,17 @@ orgStore.fetchStats()
             @click="handleExport"
           >
             Xuất
+          </VBtn>
+
+          <!-- Download template -->
+          <VBtn
+            color="secondary"
+            variant="tonal"
+            prepend-icon="tabler-file-download"
+            :loading="isDownloadingTemplate"
+            @click="handleDownloadTemplate"
+          >
+            File mẫu
           </VBtn>
 
           <!-- Import -->
