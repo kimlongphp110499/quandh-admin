@@ -3,6 +3,7 @@
 namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -75,6 +76,18 @@ class User extends Authenticatable
             });
         })->when($filters['status'] ?? null, function ($query, $status) {
             $query->where('status', $status);
+        })->when($filters['organization_id'] ?? null, function ($query, $organizationId) {
+            $teamForeignKey = config('permission.column_names.team_foreign_key', 'organization_id');
+            $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
+            $modelType = get_class($query->getModel());
+
+            $query->whereExists(function ($subquery) use ($modelHasRolesTable, $teamForeignKey, $organizationId, $modelType) {
+                $subquery->select(DB::raw(1))
+                    ->from($modelHasRolesTable)
+                    ->whereColumn($modelHasRolesTable.'.model_id', 'users.id')
+                    ->where($modelHasRolesTable.'.model_type', $modelType)
+                    ->where($modelHasRolesTable.'.'.$teamForeignKey, (int) $organizationId);
+            });
         })->when($filters['sort_by'] ?? 'created_at', function ($query, $sortBy) use ($filters) {
             $allowed = ['id', 'name', 'email', 'user_name', 'created_at'];
             $column = in_array($sortBy, $allowed) ? $sortBy : 'created_at';
