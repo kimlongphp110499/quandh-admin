@@ -15,7 +15,10 @@ class PermissionService
     {
         $base = Permission::filter($filters);
 
-        return ['total' => (clone $base)->count()];
+        return [
+            'total' => (clone $base)->count(),
+            'groups' => (clone $base)->whereNull('parent_id')->count(),
+        ];
     }
 
     public function index(array $filters, int $limit)
@@ -26,10 +29,11 @@ class PermissionService
             ->paginate($limit);
     }
 
-    public function tree($parentIdProvided, $parentId)
+    public function tree($parentIdProvided, $parentId, bool $withRoles = false)
     {
         $query = Permission::query()
-            ->when($parentIdProvided, fn ($q) => $q->where('parent_id', $parentId));
+            ->when($parentIdProvided, fn ($q) => $q->where('parent_id', $parentId))
+            ->when($withRoles, fn ($q) => $q->with('roles'));
 
         $items = $query->orderBy('sort_order')->orderBy('id')->get();
 

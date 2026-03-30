@@ -3,7 +3,9 @@
 namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Models\Permission as SpatiePermission;
+use Spatie\Permission\PermissionRegistrar;
 
 /**
  * Model Permission (kế thừa Spatie), bổ sung description, sort_order, parent_id, scope filter.
@@ -61,6 +63,21 @@ class Permission extends SpatiePermission
         });
 
         return $query;
+    }
+
+    /**
+     * Override to use explicit User model instead of dynamic guard lookup,
+     * preventing "Class name must be a valid object or a string" errors.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            User::class,
+            'model',
+            config('permission.table_names.model_has_permissions'),
+            app(PermissionRegistrar::class)->pivotPermission,
+            config('permission.column_names.model_morph_key')
+        );
     }
 
     /** Sắp xếp theo cây: parent trước, rồi sort_order. */

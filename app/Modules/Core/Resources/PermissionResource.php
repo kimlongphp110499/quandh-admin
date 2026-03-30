@@ -21,6 +21,7 @@ class PermissionResource extends JsonResource
                 'name' => $this->parent->name,
             ] : null),
             'children' => $this->whenLoaded('children', fn () => PermissionResource::collection($this->children)),
+            'roles' => $this->whenLoaded('roles', fn () => $this->roles->map(fn ($r) => ['id' => $r->id, 'name' => $r->name])),
             'created_at' => $this->created_at?->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at?->format('H:i:s d/m/Y'),
         ];

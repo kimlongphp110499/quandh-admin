@@ -22,6 +22,8 @@ class PermissionTreeResource extends JsonResource
                 fn () => PermissionTreeResource::collection($this->children),
                 []
             ),
+            'roles' => $this->whenLoaded('roles', fn () => $this->roles->map(fn ($r) => ['id' => $r->id, 'name' => $r->name])),
+            'created_at' => $this->created_at?->format('H:i:s d/m/Y'),
         ];
     }
 }

@@ -78,7 +78,11 @@ class PermissionController extends Controller
      */
     public function tree(Request $request)
     {
-        $tree = $this->permissionService->tree($request->has('parent_id'), $request->parent_id);
+        $tree = $this->permissionService->tree(
+            $request->has('parent_id'),
+            $request->parent_id,
+            $request->boolean('with_roles'),
+        );
 
         return $this->successCollection(PermissionTreeResource::collection($tree));
     }

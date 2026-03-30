@@ -3,7 +3,9 @@
 namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Models\Role as SpatieRole;
+use Spatie\Permission\PermissionRegistrar;
 
 /**
  * Model Role (kế thừa Spatie), bổ sung scope filter. Cột theo mặc định Spatie: id, name, guard_name, team_id, timestamps.
@@ -42,6 +44,21 @@ class Role extends SpatieRole
         });
 
         return $query;
+    }
+
+    /**
+     * Override to use explicit User model instead of dynamic guard lookup,
+     * preventing "Class name must be a valid object or a string" errors.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            User::class,
+            'model',
+            config('permission.table_names.model_has_roles'),
+            app(PermissionRegistrar::class)->pivotRole,
+            config('permission.column_names.model_morph_key')
+        );
     }
 
     /** Quan hệ organization (bảng organizations). */

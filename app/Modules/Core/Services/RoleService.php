@@ -21,6 +21,12 @@ class RoleService
     public function index(array $filters, int $limit)
     {
         return Role::with(['organization', 'permissions'])
+            ->addSelect([
+                'users_count' => DB::table('model_has_roles')
+                    ->selectRaw('count(*)')
+                    ->whereColumn('role_id', 'roles.id')
+                    ->where('model_type', 'App\Modules\Core\Models\User'),
+            ])
             ->filter($filters)
             ->paginate($limit);
     }
