@@ -4,6 +4,7 @@ namespace App\Modules\Core\Services;
 
 use App\Modules\Core\Enums\StatusEnum;
 use App\Modules\Core\Exports\OrganizationsExport;
+use App\Modules\Core\Exports\OrganizationTemplateExport;
 use App\Modules\Core\Imports\OrganizationsImport;
 use App\Modules\Core\Models\Organization;
 use Illuminate\Support\Collection;
@@ -133,6 +134,11 @@ class OrganizationService
     public function import($file): void
     {
         Excel::import(new OrganizationsImport, $file);
+    }
+
+    public function downloadTemplate(): BinaryFileResponse
+    {
+        return Excel::download(new OrganizationTemplateExport, 'organizations_template.xlsx');
     }
 
     public function getFlatTreeOrdered(array $filters = []): Collection

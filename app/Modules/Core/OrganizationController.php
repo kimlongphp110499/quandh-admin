@@ -239,6 +239,11 @@ class OrganizationController extends Controller
      */
     public function bulkUpdateStatus(BulkUpdateStatusOrganizationRequest $request)
     {
+        $currentOrgId = getPermissionsTeamId();
+        if ($currentOrgId && in_array((int) $currentOrgId, array_map('intval', $request->ids))) {
+            return $this->error('Không thể thay đổi trạng thái tổ chức đang làm việc.', 422, null, 'CONFLICT');
+        }
+
         $this->organizationService->bulkUpdateStatus($request->ids, $request->status);
 
         return $this->success(null, 'Cập nhật trạng thái organization thành công.');
@@ -259,6 +264,10 @@ class OrganizationController extends Controller
      */
     public function changeStatus(ChangeStatusOrganizationRequest $request, Organization $organization)
     {
+        if ((int) getPermissionsTeamId() === $organization->id) {
+            return $this->error('Không thể thay đổi trạng thái tổ chức đang làm việc.', 422, null, 'CONFLICT');
+        }
+
         $organization = $this->organizationService->changeStatus($organization, $request->status);
 
         return $this->successResource(new OrganizationResource($organization), 'Cập nhật trạng thái thành công!');
@@ -295,5 +304,15 @@ class OrganizationController extends Controller
         $this->organizationService->import($request->file('file'));
 
         return $this->success(null, 'Import organization thành công.');
+    }
+
+    /**
+     * Tải file mẫu import organization
+     *
+     * File Excel gồm các cột: name (bắt buộc), slug, description, status, parent_slug, sort_order.
+     */
+    public function downloadTemplate()
+    {
+        return $this->organizationService->downloadTemplate();
     }
 }

@@ -4,6 +4,7 @@ use App\Modules\Core\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/export', [OrganizationController::class, 'export'])->middleware('permission:organizations.export,web');
+Route::get('/import/template', [OrganizationController::class, 'downloadTemplate'])->middleware('permission:organizations.import,web');
 Route::post('/import', [OrganizationController::class, 'import'])->middleware('permission:organizations.import,web');
 Route::post('/bulk-delete', [OrganizationController::class, 'bulkDestroy'])->middleware('permission:organizations.bulkDestroy,web');
 Route::patch('/bulk-status', [OrganizationController::class, 'bulkUpdateStatus'])->middleware('permission:organizations.bulkUpdateStatus,web');
