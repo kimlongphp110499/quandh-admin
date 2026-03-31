@@ -17,6 +17,7 @@ const authStore = useAuthStore()
 // State
 const isFormDrawerVisible = ref(false)
 const editingUser = ref<User | null>(null)
+const drawerKey = ref(0)
 const selectedIds = ref<number[]>([])
 const importFileInput = ref<HTMLInputElement>()
 
@@ -159,16 +160,17 @@ const resetFilters = () => {
 // Form actions
 const openCreateDrawer = () => {
   editingUser.value = null
+  drawerKey.value++
   isFormDrawerVisible.value = true
 }
 
 const openEditDrawer = (user: User) => {
   editingUser.value = user
+  drawerKey.value++
   isFormDrawerVisible.value = true
 }
 
 const handleFormSubmit = async () => {
-  isFormDrawerVisible.value = false
   await Promise.all([loadUsers(), userStore.fetchStats()])
 }
 
@@ -705,6 +707,7 @@ watch(() => orgStore.parentOptions, opts => {
 
     <!-- Form Drawer -->
     <UserFormDrawer
+      :key="drawerKey"
       v-model:is-drawer-open="isFormDrawerVisible"
       :user="editingUser"
       @submit="handleFormSubmit"

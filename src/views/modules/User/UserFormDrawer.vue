@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 
 import { useUserStore } from '@/store/modules/user'
@@ -24,7 +24,7 @@ const userStore = useUserStore()
 const orgStore = useOrganizationStore()
 const roleStore = useRoleStore()
 
-const refVForm = ref<VForm>()
+const refVForm = ref<InstanceType<typeof VForm>>()
 const isSubmitting = ref(false)
 const serverErrors = ref<Record<string, string[]>>({})
 const isPasswordVisible = ref(false)
@@ -41,15 +41,34 @@ interface AssignmentRow {
   organization_ids: number[]
 }
 
-const formData = ref({
-  name: '',
-  email: '',
-  user_name: '',
-  password: '',
-  password_confirmation: '',
-  status: 'active' as 'active' | 'inactive' | 'banned',
-  assignments: [] as AssignmentRow[],
-})
+const buildInitialForm = () => {
+  if (props.user) {
+    return {
+      name: props.user.name || '',
+      email: props.user.email || '',
+      user_name: props.user.user_name || '',
+      password: '',
+      password_confirmation: '',
+      status: (props.user.status || 'active') as 'active' | 'inactive' | 'banned',
+      assignments: (props.user.assignments || []).map(a => ({
+        role_id: a.role_id,
+        organization_ids: a.organization_ids || [],
+      })),
+    }
+  }
+
+  return {
+    name: '',
+    email: '',
+    user_name: '',
+    password: '',
+    password_confirmation: '',
+    status: 'active' as 'active' | 'inactive' | 'banned',
+    assignments: [] as AssignmentRow[],
+  }
+}
+
+const formData = ref(buildInitialForm())
 
 const statusOptions = [
   { title: 'Hoạt động', value: 'active' },
@@ -92,22 +111,6 @@ const removeAssignment = (index: number) => {
   formData.value.assignments.splice(index, 1)
 }
 
-const resetForm = () => {
-  formData.value = {
-    name: '',
-    email: '',
-    user_name: '',
-    password: '',
-    password_confirmation: '',
-    status: 'active',
-    assignments: [],
-  }
-  serverErrors.value = {}
-  isPasswordVisible.value = false
-  isPasswordConfirmVisible.value = false
-  refVForm.value?.resetValidation()
-}
-
 const closeDrawer = () => {
   emit('update:isDrawerOpen', false)
 }
@@ -115,7 +118,10 @@ const closeDrawer = () => {
 const onSubmit = async () => {
   serverErrors.value = {}
 
-  const { valid } = await refVForm.value!.validate()
+  if (!refVForm.value)
+    return
+
+  const { valid } = await refVForm.value.validate()
   if (!valid)
     return
 
@@ -157,7 +163,8 @@ const onSubmit = async () => {
     const responseData = error?.response?.data
     if (responseData?.errors) {
       serverErrors.value = responseData.errors
-      await refVForm.value!.validate()
+      await nextTick()
+      await refVForm.value?.validate()
       showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
     }
     else {
@@ -169,52 +176,10 @@ const onSubmit = async () => {
   }
 }
 
-watch(() => props.user, usr => {
-  if (usr) {
-    formData.value = {
-      name: usr.name || '',
-      email: usr.email || '',
-      user_name: usr.user_name || '',
-      password: '',
-      password_confirmation: '',
-      status: usr.status || 'active',
-      assignments: (usr.assignments || []).map(a => ({
-        role_id: a.role_id,
-        organization_ids: a.organization_ids || [],
-      })),
-    }
-  }
-  else {
-    resetForm()
-  }
-}, { immediate: true })
-
-watch(() => props.isDrawerOpen, val => {
-  if (!val) {
-    resetForm()
-  }
-  else {
-    orgStore.fetchParentOptions()
-    if (!roleStore.roles.length)
-      roleStore.fetchRoles({ limit: 100 })
-    if (props.user) {
-      const usr = props.user
-
-      formData.value = {
-        name: usr.name || '',
-        email: usr.email || '',
-        user_name: usr.user_name || '',
-        password: '',
-        password_confirmation: '',
-        status: usr.status || 'active',
-        assignments: (usr.assignments || []).map(a => ({
-          role_id: a.role_id,
-          organization_ids: a.organization_ids || [],
-        })),
-      }
-      serverErrors.value = {}
-    }
-  }
+onMounted(() => {
+  orgStore.fetchParentOptions()
+  if (!roleStore.roles.length)
+    roleStore.fetchRoles({ limit: 100 })
 })
 </script>
 
@@ -242,7 +207,6 @@ watch(() => props.isDrawerOpen, val => {
         <VCardText>
           <VForm
             ref="refVForm"
-            @submit.prevent="onSubmit"
           >
             <VRow>
               <!-- Họ tên -->
@@ -391,9 +355,9 @@ watch(() => props.isDrawerOpen, val => {
               <!-- Actions -->
               <VCol cols="12">
                 <VBtn
-                  type="submit"
                   class="me-3"
                   :loading="isSubmitting"
+                  @click="onSubmit"
                 >
                   {{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}
                 </VBtn>
