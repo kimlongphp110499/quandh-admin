@@ -5,11 +5,11 @@ import { canNavigate } from '@layouts/plugins/casl'
 import { useCookie } from '@/@core/utils/cookie'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useAuthStore } from '@/store/modules/auth'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useSettingStore } from '@/store/modules/setting'
 
 export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]: any }>) => {
-  // 👉 router.beforeEach
-  // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
-  router.beforeEach(to => {
+  router.beforeEach(async to => {
     /*
      * If it's a public route, continue navigation. This kind of pages are allowed to visited by login & non-login users. Basically, without any restrictions.
      * Examples of public routes are, 404, under maintenance, etc.
@@ -25,6 +25,14 @@ export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]
      */
     const authStore = useAuthStore()
     const isLoggedIn = authStore.isAuthenticated || !!(useCookie('accessToken').value)
+
+    // Fetch settings một lần duy nhất khi đã đăng nhập
+    if (isLoggedIn) {
+      const settingStore = useSettingStore()
+
+      if (!Object.keys(settingStore.settings).length)
+        settingStore.fetchSettings().catch(() => {})
+    }
 
     /*
       If user is logged in and is trying to access login like page, redirect to home
