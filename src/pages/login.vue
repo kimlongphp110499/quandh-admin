@@ -1,20 +1,14 @@
 <!-- eslint-disable import/no-unresolved -->
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAbility } from '@casl/vue'
-import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
-import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
-import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
-import authV2LoginIllustrationDark from '@images/pages/auth-v2-login-illustration-dark.png'
-import authV2LoginIllustrationLight from '@images/pages/auth-v2-login-illustration-light.png'
-import authV2MaskDark from '@images/pages/misc-mask-dark.png'
-import authV2MaskLight from '@images/pages/misc-mask-light.png'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
-import { themeConfig } from '@themeConfig'
 
 // eslint-disable-next-line import/extensions
 import { useAuthStore } from '@/store/modules/auth'
+
+// eslint-disable-next-line import/extensions
+import { useSettingStore } from '@/store/modules/setting'
 
 // eslint-disable-next-line import/extensions
 import { type Rule } from '@/plugins/casl/ability'
@@ -30,9 +24,10 @@ const router = useRouter()
 const route = useRoute()
 const ability = useAbility()
 const authStore = useAuthStore()
+const settingStore = useSettingStore()
 
 const form = ref({
-  email: '',
+  login: '',
   password: '',
   remember: false,
 })
@@ -46,26 +41,42 @@ const isOrgDialogOpen = ref(false)
 const selectedOrgId = ref<number | null>(null)
 const orgDialogError = ref('')
 
-const authThemeImg = useGenerateImageVariant(
-  authV2LoginIllustrationLight,
-  authV2LoginIllustrationDark,
-  authV2LoginIllustrationBorderedLight,
-  authV2LoginIllustrationBorderedDark,
-  true)
+// ─── Settings computed ───────────────────────────────────────────
+const adminSettings = computed(() => settingStore.settings.admin_page ?? {})
+const generalSettings = computed(() => settingStore.settings.general ?? {})
+const socialSettings = computed(() => settingStore.settings.social ?? {})
 
-const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
+const appName = computed(() => adminSettings.value.admin_logo_title || adminSettings.value.admin_app_name || 'Hệ thống quản trị')
+const welcomeTitle = computed(() => adminSettings.value.admin_welcome_title || appName.value)
+const appDescription = computed(() => adminSettings.value.admin_app_description || '')
+const backgroundImage = computed(() => adminSettings.value.admin_background_image || '')
+const logoUrl = computed(() => generalSettings.value.logo || '')
+const faviconUrl = computed(() => generalSettings.value.icon || '')
 
+const socialLinks = computed(() => {
+  const s = socialSettings.value
+
+  return [
+    s.social_facebook ? { icon: 'tabler-brand-facebook', url: s.social_facebook, color: '#1877F2' } : null,
+    s.social_twitter ? { icon: 'tabler-brand-twitter', url: s.social_twitter, color: '#1DA1F2' } : null,
+    s.social_youtube ? { icon: 'tabler-brand-youtube', url: s.social_youtube, color: '#FF0000' } : null,
+    s.social_tiktok ? { icon: 'tabler-brand-tiktok', url: s.social_tiktok, color: '#000000' } : null,
+    s.social_gmail ? { icon: 'tabler-brand-google', url: `mailto:${s.social_gmail}`, color: '#EA4335' } : null,
+    s.social_email ? { icon: 'tabler-mail', url: `mailto:${s.social_email}`, color: '#6366F1' } : null,
+  ].filter(Boolean)
+})
+
+// ─── Handlers ───────────────────────────────────────────────────
 const handleLogin = async () => {
   try {
     errorMessage.value = ''
     isLoading.value = true
 
     await authStore.login({
-      email: form.value.email,
+      email: form.value.login,
       password: form.value.password,
     })
 
-    // Nếu cần chọn tổ chức → hiện dialog chọn org
     if (authStore.needsOrgSelection) {
       selectedOrgId.value = null
       orgDialogError.value = ''
@@ -78,7 +89,7 @@ const handleLogin = async () => {
     }
   }
   catch (error: any) {
-    errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.'
+    errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
   }
   finally {
     isLoading.value = false
@@ -95,7 +106,6 @@ const handleSelectOrg = async () => {
 
     await authStore.switchOrganization(selectedOrgId.value)
 
-    // Sau switch org, cập nhật CASL từ store
     const savedRules = localStorage.getItem('userAbilityRules')
 
     if (savedRules) {
@@ -117,132 +127,173 @@ const handleSelectOrg = async () => {
     isLoading.value = false
   }
 }
+
+onMounted(async () => {
+  if (!Object.keys(settingStore.settings).length)
+    await settingStore.fetchPublicSettings()
+})
 </script>
 
 <template>
-  <a href="javascript:void(0)">
-    <div class="auth-logo d-flex align-center gap-x-3">
-      <VNodeRenderer :nodes="themeConfig.app.logo" />
-      <h1 class="auth-title">
-        {{ themeConfig.app.title }}
-      </h1>
-    </div>
-  </a>
+  <!-- Fullscreen background -->
+  <div class="login-page-wrapper">
+    <!-- Background image -->
+    <div
+      class="login-bg"
+      :style="backgroundImage ? `background-image: url('${backgroundImage}')` : ''"
+    />
 
-  <VRow
-    no-gutters
-    class="auth-wrapper bg-surface"
-  >
-    <VCol
-      md="8"
-      class="d-none d-md-flex"
-    >
-      <div class="position-relative bg-background w-100 me-0">
-        <div
-          class="d-flex align-center justify-center w-100 h-100"
-          style="padding-inline: 6.25rem;"
-        >
-          <VImg
-            max-width="613"
-            :src="authThemeImg"
-            class="auth-illustration mt-16 mb-2"
-          />
-        </div>
-        <img
-          class="auth-footer-mask flip-in-rtl"
-          :src="authThemeMask"
-          alt="auth-footer-mask"
-          height="280"
-          width="100"
-        >
-      </div>
-    </VCol>
+    <!-- Overlay tối nhẹ -->
+    <div class="login-overlay" />
 
-    <VCol
-      cols="12"
-      md="4"
-      class="auth-card-v2 d-flex align-center justify-center"
-    >
+    <!-- Card trung tâm -->
+    <div class="login-card-wrapper">
       <VCard
-        flat
-        :max-width="500"
-        class="mt-12 mt-sm-0 pa-6"
+        class="login-card pa-6 pa-sm-8"
+        elevation="8"
+        rounded="lg"
+        max-width="420"
+        width="100%"
       >
-        <VCardText>
-          <h4 class="text-h4 mb-1">
-            Chào mừng đến với <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
-          </h4>
-          <p class="mb-0">
-            Vui lòng đăng nhập để tiếp tục
-          </p>
-        </VCardText>
-
-        <VCardText>
-          <VAlert
-            v-if="errorMessage"
-            type="error"
-            variant="tonal"
-            class="mb-4"
-            closable
-            @click:close="errorMessage = ''"
+        <!-- Logo + Tên -->
+        <div class="d-flex flex-column align-center mb-6">
+          <VAvatar
+            v-if="logoUrl"
+            size="64"
+            class="mb-3"
+            rounded
           >
-            {{ errorMessage }}
-          </VAlert>
+            <VImg
+              :src="logoUrl"
+              :alt="appName"
+            />
+          </VAvatar>
+          <VAvatar
+            v-else
+            size="64"
+            color="primary"
+            variant="tonal"
+            class="mb-3"
+            rounded
+          >
+            <VIcon
+              icon="tabler-building-community"
+              size="36"
+            />
+          </VAvatar>
 
-          <VForm @submit.prevent="handleLogin">
-            <VRow>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="form.email"
-                  autofocus
-                  label="Email"
-                  type="email"
-                  placeholder="admin@example.com"
+          <h5 class="text-h5 font-weight-bold text-center text-uppercase">
+            {{ appName }}
+          </h5>
+          <p
+            v-if="welcomeTitle"
+            class="text-body-1 font-weight-medium text-center mt-1 mb-0"
+          >
+            {{ welcomeTitle }}
+          </p>
+          <p
+            v-if="appDescription"
+            class="text-body-2 text-medium-emphasis text-center mt-1 mb-0"
+          >
+            {{ appDescription }}
+          </p>
+        </div>
+
+        <!-- Error alert -->
+        <VAlert
+          v-if="errorMessage"
+          type="error"
+          variant="tonal"
+          class="mb-4"
+          closable
+          density="compact"
+          @click:close="errorMessage = ''"
+        >
+          {{ errorMessage }}
+        </VAlert>
+
+        <!-- Form -->
+        <VForm @submit.prevent="handleLogin">
+          <VRow>
+            <VCol cols="12">
+              <AppTextField
+                v-model="form.login"
+                autofocus
+                label="Nhập tên đăng nhập hoặc email"
+                placeholder="Nhập thông tin đăng nhập"
+                prepend-inner-icon="tabler-user"
+                :disabled="isLoading"
+              />
+            </VCol>
+
+            <VCol cols="12">
+              <AppTextField
+                v-model="form.password"
+                label="Mật khẩu"
+                placeholder="············"
+                :type="isPasswordVisible ? 'text' : 'password'"
+                autocomplete="current-password"
+                :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                :disabled="isLoading"
+                @click:append-inner="isPasswordVisible = !isPasswordVisible"
+              />
+            </VCol>
+
+            <VCol cols="12">
+              <div class="d-flex align-center justify-space-between mb-4">
+                <VCheckbox
+                  v-model="form.remember"
+                  label="Ghi nhớ đăng nhập"
                   :disabled="isLoading"
+                  hide-details
+                  density="compact"
                 />
-              </VCol>
-
-              <VCol cols="12">
-                <AppTextField
-                  v-model="form.password"
-                  label="Mật khẩu"
-                  placeholder="············"
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                  autocomplete="current-password"
-                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
-                  :disabled="isLoading"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                />
-
-                <div class="d-flex align-center flex-wrap justify-space-between my-6">
-                  <VCheckbox
-                    v-model="form.remember"
-                    label="Ghi nhớ đăng nhập"
-                    :disabled="isLoading"
-                  />
-                  <RouterLink
-                    class="text-primary"
-                    to="/forgot-password"
-                  >
-                    Quên mật khẩu?
-                  </RouterLink>
-                </div>
-
-                <VBtn
-                  block
-                  type="submit"
-                  :loading="isLoading"
-                  :disabled="isLoading"
+                <RouterLink
+                  class="text-primary text-body-2"
+                  to="/forgot-password"
                 >
-                  Đăng nhập
-                </VBtn>
-              </VCol>
-            </VRow>
-          </VForm>
-        </VCardText>
+                  Quên mật khẩu?
+                </RouterLink>
+              </div>
+
+              <VBtn
+                block
+                type="submit"
+                size="large"
+                :loading="isLoading"
+              >
+                Đăng Nhập
+              </VBtn>
+            </VCol>
+          </VRow>
+        </VForm>
+
+        <!-- Social links -->
+        <template v-if="socialLinks.length">
+          <VDivider class="my-4">
+            <span class="text-caption text-medium-emphasis px-2">Theo dõi chúng tôi</span>
+          </VDivider>
+
+          <div class="d-flex justify-center gap-3">
+            <a
+              v-for="(link, i) in socialLinks"
+              :key="i"
+              :href="link!.url"
+              target="_blank"
+              rel="noopener"
+              class="social-icon-link"
+            >
+              <VIcon
+                :icon="link!.icon"
+                size="22"
+                :color="link!.color"
+              />
+            </a>
+          </div>
+        </template>
       </VCard>
-    </VCol>
-  </VRow>
+    </div>
+  </div>
 
   <!-- Dialog chọn tổ chức -->
   <VDialog
@@ -333,6 +384,51 @@ const handleSelectOrg = async () => {
   </VDialog>
 </template>
 
-<style lang="scss">
-@use "@core/scss/template/pages/page-auth";
+<style lang="scss" scoped>
+.login-page-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #1a2540;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.login-card-wrapper {
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  max-inline-size: 420px;
+  padding-inline: 1rem;
+}
+
+.login-card {
+  backdrop-filter: blur(4px);
+}
+
+.social-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
 </style>

@@ -20,6 +20,17 @@ export const useSettingStore = defineStore('setting', () => {
     }
   }
 
+  async function fetchPublicSettings() {
+    try {
+      const res = await settingApi.getPublic()
+
+      settings.value = res.data.data ?? {}
+    }
+    catch {
+      // silently fail on public page
+    }
+  }
+
   async function updateSettings(data: Record<string, any>) {
     isSaving.value = true
     try {
@@ -41,6 +52,7 @@ export const useSettingStore = defineStore('setting', () => {
     isLoading,
     isSaving,
     fetchSettings,
+    fetchPublicSettings,
     updateSettings,
     get,
   }

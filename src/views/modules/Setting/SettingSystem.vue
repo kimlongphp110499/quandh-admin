@@ -297,19 +297,29 @@ const timeFormatOptions = [
                   Biểu tượng trang (Favicon)
                 </div>
                 <div class="d-flex align-center gap-4">
-                  <VAvatar
-                    size="64"
-                    rounded
-                    :image="general.icon || undefined"
-                    color="surface-variant"
+                  <div
+                    class="setting-img-preview rounded"
+                    style="width:64px;height:64px;"
                   >
-                    <VIcon
-                      v-if="!general.icon"
-                      icon="tabler-photo"
-                      size="32"
-                      color="disabled"
+                    <VImg
+                      v-if="general.icon"
+                      :src="general.icon"
+                      width="64"
+                      height="64"
+                      cover
+                      class="rounded"
                     />
-                  </VAvatar>
+                    <div
+                      v-else
+                      class="d-flex align-center justify-center w-100 h-100 bg-surface-variant rounded"
+                    >
+                      <VIcon
+                        icon="tabler-photo"
+                        size="32"
+                        color="disabled"
+                      />
+                    </div>
+                  </div>
                   <div>
                     <AppTextField
                       v-model="general.icon"
@@ -331,19 +341,29 @@ const timeFormatOptions = [
                   Logo
                 </div>
                 <div class="d-flex align-center gap-4">
-                  <VAvatar
-                    size="80"
-                    rounded
-                    :image="general.logo || undefined"
-                    color="surface-variant"
+                  <div
+                    class="setting-img-preview rounded"
+                    style="width:80px;height:80px;"
                   >
-                    <VIcon
-                      v-if="!general.logo"
-                      icon="tabler-photo"
-                      size="32"
-                      color="disabled"
+                    <VImg
+                      v-if="general.logo"
+                      :src="general.logo"
+                      width="80"
+                      height="80"
+                      cover
+                      class="rounded"
                     />
-                  </VAvatar>
+                    <div
+                      v-else
+                      class="d-flex align-center justify-center w-100 h-100 bg-surface-variant rounded"
+                    >
+                      <VIcon
+                        icon="tabler-photo"
+                        size="32"
+                        color="disabled"
+                      />
+                    </div>
+                  </div>
                   <div>
                     <AppTextField
                       v-model="general.logo"
@@ -837,3 +857,11 @@ const timeFormatOptions = [
     </VSnackbar>
   </div>
 </template>
+
+<style scoped>
+.setting-img-preview {
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+}
+</style>
