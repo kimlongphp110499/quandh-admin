@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAbility } from '@casl/vue'
 import avatar1 from '@images/avatars/avatar-1.png'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useAuthStore } from '@/store/modules/auth'
-// eslint-disable-next-line import/extensions
-import { type Rule } from '@/plugins/casl/ability'
 
 const authStore = useAuthStore()
 const router = useRouter()
-const ability = useAbility()
 
 const userName = computed(() => authStore.user?.name || 'Người dùng')
 const userEmail = computed(() => authStore.user?.email || '')
@@ -60,6 +56,7 @@ const groupedPermissions = computed(() => {
 
 const isSwitchingOrg = ref(false)
 const switchError = ref('')
+const showSwitchOrgDialog = ref(false)
 
 async function handleSwitchOrg(orgId: number) {
   if (orgId === authStore.currentOrganizationId)
@@ -71,15 +68,10 @@ async function handleSwitchOrg(orgId: number) {
 
     await authStore.switchOrganization(orgId)
 
-    const savedRules = localStorage.getItem('userAbilityRules')
+    showSwitchOrgDialog.value = false
+    snackbar.value = { show: true, message: 'Đã chuyển tổ chức làm việc.', color: 'success' }
 
-    if (savedRules) {
-      const rules: Rule[] = JSON.parse(savedRules)
-
-      ability.update(rules)
-    }
-
-    router.push('/')
+    setTimeout(() => router.push('/'), 800)
   }
   catch (err: any) {
     switchError.value = err.response?.data?.message || 'Chuyển tổ chức thất bại.'
@@ -168,7 +160,7 @@ function getActionName(action: string): string {
 
           <div
             v-if="currentOrg"
-            class="d-flex align-center gap-1 text-body-2 text-medium-emphasis"
+            class="d-flex align-center gap-1 text-body-2 text-medium-emphasis mb-4"
           >
             <VIcon
               icon="tabler-building"
@@ -176,6 +168,17 @@ function getActionName(action: string): string {
             />
             {{ currentOrg.name }}
           </div>
+
+          <VBtn
+            v-if="availableOrgs.length >= 1"
+            variant="tonal"
+            color="primary"
+            size="small"
+            prepend-icon="tabler-building-community"
+            @click="showSwitchOrgDialog = true"
+          >
+            Đổi tổ chức
+          </VBtn>
         </VCardText>
       </VCard>
 
@@ -224,66 +227,6 @@ function getActionName(action: string): string {
       cols="12"
       md="8"
     >
-      <!-- Đổi tổ chức -->
-      <VCard
-        v-if="availableOrgs.length > 1"
-        class="mb-6"
-      >
-        <VCardTitle class="pa-6 pb-3">
-          Chuyển đổi tổ chức
-        </VCardTitle>
-
-        <VCardText>
-          <VAlert
-            v-if="switchError"
-            type="error"
-            variant="tonal"
-            class="mb-4"
-            closable
-            @click:close="switchError = ''"
-          >
-            {{ switchError }}
-          </VAlert>
-
-          <div class="d-flex flex-column gap-3">
-            <VCard
-              v-for="org in availableOrgs"
-              :key="org.id"
-              :variant="org.id === authStore.currentOrganizationId ? 'tonal' : 'outlined'"
-              :color="org.id === authStore.currentOrganizationId ? 'primary' : undefined"
-              class="cursor-pointer"
-              @click="handleSwitchOrg(org.id)"
-            >
-              <VCardText class="d-flex align-center gap-3 py-3">
-                <VAvatar
-                  color="primary"
-                  variant="tonal"
-                  size="36"
-                >
-                  <VIcon icon="tabler-building" />
-                </VAvatar>
-                <span class="font-weight-medium">{{ org.name }}</span>
-                <VSpacer />
-                <VChip
-                  v-if="org.id === authStore.currentOrganizationId"
-                  color="primary"
-                  size="small"
-                  label
-                >
-                  Đang dùng
-                </VChip>
-                <VProgressCircular
-                  v-else-if="isSwitchingOrg"
-                  indeterminate
-                  size="20"
-                  width="2"
-                />
-              </VCardText>
-            </VCard>
-          </div>
-        </VCardText>
-      </VCard>
-
       <!-- Vai trò & quyền hạn (chỉ xem) -->
       <VCard>
         <VTabs
@@ -406,6 +349,80 @@ function getActionName(action: string): string {
       </VCard>
     </VCol>
   </VRow>
+
+  <!-- Dialog đổi tổ chức -->
+  <VDialog
+    v-model="showSwitchOrgDialog"
+    max-width="480"
+  >
+    <VCard>
+      <VCardTitle class="pa-5 pb-3 d-flex align-center gap-2">
+        <VIcon icon="tabler-building-community" />
+        Chuyển đổi tổ chức
+      </VCardTitle>
+
+      <VDivider />
+
+      <VCardText class="pa-4">
+        <VAlert
+          v-if="switchError"
+          type="error"
+          variant="tonal"
+          class="mb-4"
+          closable
+          @click:close="switchError = ''"
+        >
+          {{ switchError }}
+        </VAlert>
+
+        <div class="d-flex flex-column gap-3">
+          <VCard
+            v-for="org in availableOrgs"
+            :key="org.id"
+            :variant="org.id === authStore.currentOrganizationId ? 'tonal' : 'outlined'"
+            :color="org.id === authStore.currentOrganizationId ? 'primary' : undefined"
+            :class="org.id === authStore.currentOrganizationId ? '' : 'cursor-pointer'"
+            @click="handleSwitchOrg(org.id)"
+          >
+            <VCardText class="d-flex align-center gap-3 py-3">
+              <VAvatar
+                color="primary"
+                variant="tonal"
+                size="36"
+              >
+                <VIcon icon="tabler-building" />
+              </VAvatar>
+              <span class="font-weight-medium">{{ org.name }}</span>
+              <VSpacer />
+              <VChip
+                v-if="org.id === authStore.currentOrganizationId"
+                color="primary"
+                size="small"
+                label
+              >
+                Đang dùng
+              </VChip>
+              <VProgressCircular
+                v-else-if="isSwitchingOrg"
+                indeterminate
+                size="20"
+                width="2"
+              />
+            </VCardText>
+          </VCard>
+        </div>
+      </VCardText>
+
+      <VCardActions class="pa-4 pt-0 justify-end">
+        <VBtn
+          variant="tonal"
+          @click="showSwitchOrgDialog = false"
+        >
+          Đóng
+        </VBtn>
+      </VCardActions>
+    </VCard>
+  </VDialog>
 
   <!-- Snackbar -->
   <VSnackbar

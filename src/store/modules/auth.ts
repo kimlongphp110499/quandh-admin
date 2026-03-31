@@ -64,6 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
 
         useCookie('accessToken').value = accessToken
         useCookie('userData').value = userData
+        localStorage.setItem('availableOrganizations', JSON.stringify(orgs))
 
         if (orgId) {
           useCookie('organizationId').value = String(orgId)
@@ -105,6 +106,7 @@ export const useAuthStore = defineStore('auth', () => {
       useCookie('userData').value = null
       useCookie('organizationId').value = null
       localStorage.removeItem('userAbilityRules')
+      localStorage.removeItem('availableOrganizations')
       ability.update([])
     }
   }
@@ -132,6 +134,12 @@ export const useAuthStore = defineStore('auth', () => {
         if (orgId)
           useCookie('organizationId').value = String(orgId)
 
+        // Cập nhật danh sách tổ chức nếu API trả về
+        if (data.available_organizations !== undefined) {
+          availableOrganizations.value = data.available_organizations
+          localStorage.setItem('availableOrganizations', JSON.stringify(data.available_organizations))
+        }
+
         if (abilities.length) {
           localStorage.setItem('userAbilityRules', JSON.stringify(abilities))
           ability.update(abilities)
@@ -157,6 +165,16 @@ export const useAuthStore = defineStore('auth', () => {
 
         currentOrganizationId.value = orgId
         useCookie('organizationId').value = String(orgId)
+
+        // Cập nhật roles & permissions của user theo tổ chức mới
+        if (user.value) {
+          user.value = {
+            ...user.value,
+            roles: data.roles ?? user.value.roles ?? [],
+            permissions: data.permissions ?? user.value.permissions ?? [],
+          }
+          useCookie('userData').value = user.value
+        }
 
         if (abilities.length) {
           const abilityRules: Rule[] = abilities
@@ -189,6 +207,15 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (savedOrgId)
         currentOrganizationId.value = Number(savedOrgId)
+
+      const savedOrgs = localStorage.getItem('availableOrganizations')
+
+      if (savedOrgs) {
+        try {
+          availableOrganizations.value = JSON.parse(savedOrgs)
+        }
+        catch {}
+      }
     }
   }
 
