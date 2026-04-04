@@ -162,6 +162,23 @@ export const useRoleStore = defineStore('role', () => {
     }
   }
 
+  async function importRoles(file: File) {
+    try {
+      isLoading.value = true
+
+      const response = await roleApi.import(file)
+      if (response.data.success)
+        return response.data.data
+    }
+    catch (err: any) {
+      error.value = err.response?.data?.message || 'Nhập dữ liệu thất bại'
+      throw err
+    }
+    finally {
+      isLoading.value = false
+    }
+  }
+
   function setFilters(newFilters: Partial<RoleFilters>) {
     filters.value = { ...filters.value, ...newFilters }
   }
@@ -187,6 +204,7 @@ export const useRoleStore = defineStore('role', () => {
     deleteRole,
     bulkDelete,
     exportRoles,
+    importRoles,
     setFilters,
     resetFilters,
   }

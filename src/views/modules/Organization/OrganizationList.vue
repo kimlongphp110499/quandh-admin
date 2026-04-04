@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import OrganizationFormDrawer from './OrganizationFormDrawer.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '@/store/modules/organization'
 // eslint-disable-next-line import/extensions, import/no-unresolved
@@ -28,6 +31,8 @@ const importFileInput = ref<HTMLInputElement>()
 const isImporting = ref(false)
 const isExporting = ref(false)
 const isDownloadingTemplate = ref(false)
+
+const hasActiveFilters = computed(() => !!searchQuery.value || !!selectedStatus.value)
 
 // Snackbar
 const snackbar = ref({ show: false, message: '', color: 'success' })
@@ -260,24 +265,28 @@ defineExpose({
     <VRow class="mb-6">
       <VCol
         cols="12"
-        sm="4"
+        sm="6"
+        md="4"
       >
-        <VCard>
+        <VCard
+          elevation="0"
+          border
+        >
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="primary"
               variant="tonal"
-              size="52"
+              size="48"
               rounded
             >
               <VIcon
                 icon="tabler-building"
-                size="28"
+                size="24"
               />
             </VAvatar>
             <div>
               <div class="text-h5 font-weight-bold">
-                {{ orgStore.stats?.total ?? '—' }}
+                {{ orgStore.stats?.total ?? 0 }}
               </div>
               <div class="text-body-2 text-medium-emphasis">
                 Tổng tổ chức
@@ -289,24 +298,28 @@ defineExpose({
 
       <VCol
         cols="12"
-        sm="4"
+        sm="6"
+        md="4"
       >
-        <VCard>
+        <VCard
+          elevation="0"
+          border
+        >
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="success"
               variant="tonal"
-              size="52"
+              size="48"
               rounded
             >
               <VIcon
                 icon="tabler-circle-check"
-                size="28"
+                size="24"
               />
             </VAvatar>
             <div>
               <div class="text-h5 font-weight-bold">
-                {{ orgStore.activeCount ?? '—' }}
+                {{ orgStore.activeCount ?? 0 }}
               </div>
               <div class="text-body-2 text-medium-emphasis">
                 Đang hoạt động
@@ -318,24 +331,28 @@ defineExpose({
 
       <VCol
         cols="12"
-        sm="4"
+        sm="6"
+        md="4"
       >
-        <VCard>
+        <VCard
+          elevation="0"
+          border
+        >
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
-              color="secondary"
+              color="warning"
               variant="tonal"
-              size="52"
+              size="48"
               rounded
             >
               <VIcon
                 icon="tabler-circle-x"
-                size="28"
+                size="24"
               />
             </VAvatar>
             <div>
               <div class="text-h5 font-weight-bold">
-                {{ orgStore.inactiveCount ?? '—' }}
+                {{ orgStore.inactiveCount ?? 0 }}
               </div>
               <div class="text-body-2 text-medium-emphasis">
                 Không hoạt động
@@ -346,117 +363,131 @@ defineExpose({
       </VCol>
     </VRow>
 
-    <!-- Table Card -->
-    <VCard>
-      <VCardText class="d-flex flex-wrap gap-4">
-        <!-- Items per page -->
-        <div class="d-flex gap-2 align-center">
-          <span class="text-body-1">Hiển thị</span>
-          <AppSelect
-            :model-value="itemsPerPage"
-            :items="[
-              { value: 10, title: '10' },
-              { value: 25, title: '25' },
-              { value: 50, title: '50' },
-              { value: -1, title: 'Tất cả' },
-            ]"
-            style="inline-size: 5.5rem;"
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-          />
-        </div>
-
-        <VSpacer />
-
-        <!-- Actions -->
-        <div class="d-flex align-center flex-wrap gap-4">
-          <!-- Bulk actions -->
-          <template v-if="selected.length > 0">
-            <span class="text-body-2 text-disabled">Đã chọn {{ selected.length }} mục</span>
-            <VBtn
-              color="error"
-              variant="tonal"
-              size="small"
-              prepend-icon="tabler-trash"
-              @click="confirmBulkDelete"
-            >
-              Xóa ({{ selected.length }})
-            </VBtn>
-            <VBtn
-              color="warning"
-              variant="tonal"
-              size="small"
-              prepend-icon="tabler-refresh"
-              @click="openBulkStatusDialog"
-            >
-              Cập nhật trạng thái
-            </VBtn>
-          </template>
-
-          <!-- Status Filter -->
-          <AppSelect
-            v-model="selectedStatus"
-            placeholder="Trạng thái"
-            :items="statusOptions"
-            clearable
-            style="inline-size: 12rem;"
-          />
-
-          <!-- Search -->
+    <!-- Filter & Actions Bar -->
+    <AppFilterBar :has-active-filters="hasActiveFilters">
+      <template #filters>
+        <!-- Search -->
+        <div style="min-inline-size: 240px; flex: 1;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Tìm kiếm tổ chức
+          </div>
           <AppTextField
             v-model="searchQuery"
-            placeholder="Tìm kiếm tổ chức..."
+            placeholder="Nhập tên tổ chức..."
             prepend-inner-icon="tabler-search"
-            style="inline-size: 15rem;"
+            density="compact"
+            hide-details
           />
-
-          <!-- Export -->
-          <VBtn
-            color="secondary"
-            variant="tonal"
-            prepend-icon="tabler-download"
-            :loading="isExporting"
-            @click="handleExport"
-          >
-            Xuất
-          </VBtn>
-
-          <!-- Download template -->
-          <VBtn
-            color="secondary"
-            variant="tonal"
-            prepend-icon="tabler-file-download"
-            :loading="isDownloadingTemplate"
-            @click="handleDownloadTemplate"
-          >
-            File mẫu
-          </VBtn>
-
-          <!-- Import -->
-          <VBtn
-            color="secondary"
-            variant="tonal"
-            prepend-icon="tabler-upload"
-            :loading="isImporting"
-            @click="triggerImport"
-          >
-            Nhập
-          </VBtn>
-          <input
-            ref="importFileInput"
-            type="file"
-            accept=".xlsx,.xls,.csv"
-            class="d-none"
-            @change="handleImportFile"
-          >
-
-          <!-- Add -->
-          <VBtn
-            prepend-icon="tabler-plus"
-            @click="openAddDrawer"
-          >
-            Thêm tổ chức
-          </VBtn>
         </div>
+
+        <!-- Status Filter -->
+        <div style="min-inline-size: 160px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Trạng thái
+          </div>
+          <AppSelect
+            v-model="selectedStatus"
+            placeholder="Chọn trạng thái"
+            :items="statusOptions"
+            clearable
+            density="compact"
+            hide-details
+          />
+        </div>
+      </template>
+
+      <template #actions>
+        <!-- Bulk actions -->
+        <template v-if="selected.length > 0">
+          <VBtn
+            color="error"
+            variant="tonal"
+            prepend-icon="tabler-trash"
+            size="small"
+            @click="confirmBulkDelete"
+          >
+            <span class="d-none d-sm-inline">Xóa</span>
+            ({{ selected.length }})
+          </VBtn>
+          <VBtn
+            color="warning"
+            variant="tonal"
+            prepend-icon="tabler-refresh"
+            size="small"
+            @click="openBulkStatusDialog"
+          >
+            <span class="d-none d-sm-inline">Cập nhật trạng thái</span>
+          </VBtn>
+        </template>
+
+        <!-- Export -->
+        <VBtn
+          color="secondary"
+          variant="tonal"
+          prepend-icon="tabler-download"
+          :loading="isExporting"
+          @click="handleExport"
+        >
+          <span class="d-none d-sm-inline">Xuất</span>
+        </VBtn>
+
+        <!-- Download template -->
+        <VBtn
+          color="secondary"
+          variant="tonal"
+          prepend-icon="tabler-file-download"
+          :loading="isDownloadingTemplate"
+          @click="handleDownloadTemplate"
+        >
+          <span class="d-none d-sm-inline">File mẫu</span>
+        </VBtn>
+
+        <!-- Import -->
+        <VBtn
+          color="secondary"
+          variant="tonal"
+          prepend-icon="tabler-upload"
+          :loading="isImporting"
+          @click="triggerImport"
+        >
+          <span class="d-none d-sm-inline">Nhập</span>
+        </VBtn>
+        <input
+          ref="importFileInput"
+          type="file"
+          accept=".xlsx,.xls,.csv"
+          class="d-none"
+          @change="handleImportFile"
+        >
+
+        <!-- Add -->
+        <VBtn
+          prepend-icon="tabler-plus"
+          @click="openAddDrawer"
+        >
+          <span class="d-none d-sm-inline">Thêm tổ chức</span>
+        </VBtn>
+      </template>
+    </AppFilterBar>
+
+    <!-- Table Card -->
+    <VCard
+      elevation="0"
+      border
+    >
+      <VCardText class="d-flex gap-2 align-center py-3">
+        <span class="text-body-2">Hiển thị</span>
+        <AppSelect
+          :model-value="itemsPerPage"
+          :items="[
+            { value: 10, title: '10' },
+            { value: 25, title: '25' },
+            { value: 50, title: '50' },
+            { value: -1, title: 'Tất cả' },
+          ]"
+          style="inline-size: 5.5rem;"
+          @update:model-value="itemsPerPage = parseInt($event, 10)"
+        />
       </VCardText>
 
       <VDivider />
@@ -590,51 +621,32 @@ defineExpose({
     />
 
     <!-- Delete Confirm Dialog -->
-    <VDialog
+    <AppConfirmDialog
       v-model="isDeleteDialogVisible"
-      max-width="450"
+      title="Xác nhận xóa"
+      confirm-text="Xóa"
+      :loading="isLoading"
+      @confirm="handleDeleteConfirm"
     >
-      <VCard>
-        <VCardTitle class="text-h6 pa-4">
-          Xác nhận xóa
-        </VCardTitle>
-        <VCardText>
-          <template v-if="deletingId !== null">
-            Bạn có chắc chắn muốn xóa tổ chức này? Hành động này không thể hoàn tác.
-          </template>
-          <template v-else>
-            Bạn có chắc chắn muốn xóa <strong>{{ selected.length }} tổ chức</strong> đã chọn?
-          </template>
-        </VCardText>
-        <VCardActions class="pa-4 pt-0">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            @click="isDeleteDialogVisible = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="error"
-            :loading="isLoading"
-            @click="handleDeleteConfirm"
-          >
-            Xóa
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
+      <template v-if="deletingId !== null">
+        Bạn có chắc chắn muốn xóa tổ chức này? Hành động này không thể hoàn tác.
+      </template>
+      <template v-else>
+        Bạn có chắc chắn muốn xóa <strong>{{ selected.length }} tổ chức</strong> đã chọn?
+      </template>
+    </AppConfirmDialog>
 
     <!-- Bulk Status Dialog -->
     <VDialog
       v-model="isBulkStatusDialogVisible"
-      max-width="450"
+      max-width="400"
+      persistent
     >
-      <VCard>
-        <VCardTitle class="text-h6 pa-4">
+      <VCard rounded="lg">
+        <VCardTitle class="pt-6 px-6">
           Cập nhật trạng thái hàng loạt
         </VCardTitle>
-        <VCardText>
+        <VCardText class="px-6">
           <p class="mb-4">
             Cập nhật trạng thái cho <strong>{{ selected.length }} tổ chức</strong> đã chọn:
           </p>
@@ -644,10 +656,11 @@ defineExpose({
             :items="bulkStatusOptions"
           />
         </VCardText>
-        <VCardActions class="pa-4 pt-0">
+        <VCardActions class="px-6 pb-6">
           <VSpacer />
           <VBtn
             variant="tonal"
+            color="secondary"
             @click="isBulkStatusDialogVisible = false"
           >
             Hủy
@@ -663,22 +676,11 @@ defineExpose({
       </VCard>
     </VDialog>
 
-    <!-- Toast Snackbar -->
-    <VSnackbar
+    <!-- Snackbar -->
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </section>
 </template>

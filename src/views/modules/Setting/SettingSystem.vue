@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useSettingStore } from '@/store/modules/setting'
 
@@ -173,11 +174,22 @@ const timeFormatOptions = [
       </div>
     </div>
 
+    <!-- Mobile nav tabs -->
+    <div class="d-md-none mb-4">
+      <AppSelect
+        v-model="activeTab"
+        :items="tabs"
+        item-title="label"
+        item-value="value"
+      />
+    </div>
+
     <VRow>
-      <!-- Left nav tabs -->
+      <!-- Left nav tabs (desktop only) -->
       <VCol
         cols="12"
         md="3"
+        class="d-none d-md-flex flex-column"
       >
         <VCard
           elevation="0"
@@ -839,22 +851,11 @@ const timeFormatOptions = [
       </VCol>
     </VRow>
 
-    <VSnackbar
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </div>
 </template>
 

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useActivityLogStore } from '@/store/modules/activity-log'
 import type { ActivityLog } from '@/api/modules/activity-log'
@@ -40,6 +43,10 @@ const confirmDialog = ref<{ show: boolean; title: string; message: string; onCon
 const deleteByDateDialog = ref(false)
 const deleteFromDate = ref('')
 const deleteToDate = ref('')
+
+const hasActiveFilters = computed(() =>
+  !!search.value || !!fromDate.value || !!toDate.value || !!methodType.value || !!statusCode.value,
+)
 
 // ── snackbar ──────────────────────────────────────────────────────
 const snackbar = ref({ show: false, message: '', color: 'success' as 'success' | 'error' })
@@ -103,6 +110,12 @@ async function load() {
 function applyFilters() {
   page.value = 1
   load()
+}
+
+let searchDebounceTimer: ReturnType<typeof setTimeout>
+function onSearchInput() {
+  clearTimeout(searchDebounceTimer)
+  searchDebounceTimer = setTimeout(applyFilters, 400)
 }
 
 function resetFilters() {
@@ -263,163 +276,151 @@ onMounted(load)
       </VCol>
     </VRow>
 
-    <!-- Filter -->
-    <VCard
-      elevation="0"
-      border
-      class="mb-4"
-    >
-      <VCardText>
-        <VRow
-          dense
-          align="center"
-        >
-          <VCol
-            cols="12"
-            md="3"
-          >
-            <AppTextField
-              v-model="search"
-              label="Tìm kiếm người dùng, IP, mô tả..."
-              prepend-inner-icon="tabler-search"
-              clearable
-              @keyup.enter="applyFilters"
-            />
-          </VCol>
-          <VCol
-            cols="6"
-            md="2"
-          >
-            <AppDateTimePicker
-              v-model="fromDate"
-              label="Từ ngày"
-              placeholder="Từ ngày"
-              :config="{
-                dateFormat: 'Y-m-d',
-                maxDate: toDate || undefined,
-              }"
-              style="inline-size: 10rem;"
-              clearable
-            />
-          </VCol>
-          <VCol
-            cols="6"
-            md="2"
-          >
-            <AppDateTimePicker
-              v-model="toDate"
-              label="Đến ngày"
-              placeholder="Đến ngày"
-              :config="{
-                dateFormat: 'Y-m-d',
-                minDate: fromDate || undefined,
-              }"
-              style="inline-size: 10rem;"
-              clearable
-            />
-          </VCol>
-          <VCol
-            cols="6"
-            md="2"
-          >
-            <AppSelect
-              v-model="methodType"
-              label="Phương thức HTTP"
-              :items="methodOptions"
-            />
-          </VCol>
-          <VCol
-            cols="6"
-            md="2"
-          >
-            <AppTextField
-              v-model="statusCode"
-              label="Mã trạng thái"
-              type="number"
-              placeholder="200"
-            />
-          </VCol>
-          <VCol
-            cols="12"
-            md="1"
-            class="d-flex gap-2"
-          >
-            <VBtn
-              icon="tabler-search"
-              color="primary"
-              variant="tonal"
-              :loading="store.isLoading"
-              @click="applyFilters"
-            />
-            <VBtn
-              icon="tabler-x"
-              color="secondary"
-              variant="tonal"
-              @click="resetFilters"
-            />
-          </VCol>
-        </VRow>
-      </VCardText>
-    </VCard>
-
-    <!-- Toolbar -->
-    <VCard
-      elevation="0"
-      border
-      class="mb-4"
-    >
-      <VCardText class="d-flex flex-wrap align-center gap-3 py-3">
-        <div class="text-body-2 text-medium-emphasis">
-          Bộ lọc: Tổ chức
-          <span class="font-weight-medium text-high-emphasis">
-            <VIcon
-              icon="tabler-chevron-right"
-              size="12"
-            />
-          </span>
-          Người dùng
+    <!-- Filter & Actions Bar -->
+    <AppFilterBar :has-active-filters="hasActiveFilters">
+      <template #filters>
+        <!-- Search -->
+        <div style="min-inline-size: 220px; flex: 1;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Tìm kiếm
+          </div>
+          <AppTextField
+            v-model="search"
+            placeholder="Nhập từ khóa..."
+            prepend-inner-icon="tabler-search"
+            clearable
+            density="compact"
+            hide-details
+            @input="onSearchInput"
+            @click:clear="applyFilters"
+          />
         </div>
 
-        <VSpacer />
+        <!-- From Date -->
+        <div style="min-inline-size: 160px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Từ ngày
+          </div>
+          <AppDateTimePicker
+            v-model="fromDate"
+            placeholder="Chọn ngày bắt đầu"
+            :config="{
+              dateFormat: 'Y-m-d',
+              maxDate: toDate || undefined,
+            }"
+            clearable
+            density="compact"
+            hide-details
+            @update:model-value="applyFilters"
+          />
+        </div>
 
+        <!-- To Date -->
+        <div style="min-inline-size: 160px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Đến ngày
+          </div>
+          <AppDateTimePicker
+            v-model="toDate"
+            placeholder="Chọn ngày kết thúc"
+            :config="{
+              dateFormat: 'Y-m-d',
+              minDate: fromDate || undefined,
+            }"
+            clearable
+            density="compact"
+            hide-details
+            @update:model-value="applyFilters"
+          />
+        </div>
+
+        <!-- HTTP Method -->
+        <div style="min-inline-size: 140px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Phương thức HTTP
+          </div>
+          <AppSelect
+            v-model="methodType"
+            placeholder="Chọn phương thức"
+            :items="methodOptions"
+            density="compact"
+            hide-details
+            @update:model-value="applyFilters"
+          />
+        </div>
+
+        <!-- Status Code -->
+        <div style="min-inline-size: 100px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Mã trạng thái
+          </div>
+          <AppTextField
+            v-model="statusCode"
+            placeholder="VD: 200"
+            type="number"
+            density="compact"
+            hide-details
+            @update:model-value="applyFilters"
+          />
+        </div>
+
+        <!-- Reset button -->
+        <div class="d-flex align-end gap-2">
+          <VBtn
+            icon="tabler-refresh"
+            color="secondary"
+            variant="tonal"
+            size="small"
+            @click="resetFilters"
+          />
+        </div>
+      </template>
+
+      <template #actions>
+        <!-- Bulk delete -->
         <VBtn
           v-if="selectedIds.length > 0"
           color="error"
           variant="tonal"
           prepend-icon="tabler-trash"
+          size="small"
           @click="handleBulkDelete"
         >
-          Xóa ({{ selectedIds.length }})
+          <span class="d-none d-sm-inline">Xóa</span>
+          ({{ selectedIds.length }})
         </VBtn>
 
         <VBtn
           color="warning"
           variant="tonal"
           prepend-icon="tabler-calendar-minus"
+          size="small"
           @click="deleteByDateDialog = true"
         >
-          Xóa theo ngày
+          <span class="d-none d-sm-inline">Xóa theo ngày</span>
         </VBtn>
 
         <VBtn
           color="error"
           variant="tonal"
           prepend-icon="tabler-trash-x"
+          size="small"
           @click="handleClearAll"
         >
-          Xóa tất cả
+          <span class="d-none d-sm-inline">Xóa tất cả</span>
         </VBtn>
 
         <VBtn
           color="secondary"
           variant="tonal"
           prepend-icon="tabler-download"
+          size="small"
           @click="handleExport"
         >
-          Xuất dữ liệu
+          <span class="d-none d-sm-inline">Xuất</span>
         </VBtn>
-      </VCardText>
-    </VCard>
+      </template>
+    </AppFilterBar>
 
     <!-- Table -->
     <VCard
@@ -800,9 +801,10 @@ onMounted(load)
     <!-- Delete by date dialog -->
     <VDialog
       v-model="deleteByDateDialog"
-      max-width="440"
+      max-width="400"
+      persistent
     >
-      <VCard>
+      <VCard rounded="lg">
         <VCardTitle class="pt-6 px-6">
           Xóa nhật ký theo khoảng thời gian
         </VCardTitle>
@@ -845,52 +847,18 @@ onMounted(load)
     </VDialog>
 
     <!-- Confirm dialog -->
-    <VDialog
+    <AppConfirmDialog
       v-model="confirmDialog.show"
-      max-width="440"
-    >
-      <VCard>
-        <VCardTitle class="pt-6 px-6">
-          {{ confirmDialog.title }}
-        </VCardTitle>
-        <VCardText class="px-6">
-          {{ confirmDialog.message }}
-        </VCardText>
-        <VCardActions class="px-6 pb-6">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            color="secondary"
-            @click="confirmDialog.show = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="error"
-            @click="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
-          >
-            Xác nhận
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
+      :title="confirmDialog.title"
+      :message="confirmDialog.message"
+      @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
+    />
 
     <!-- Snackbar -->
-    <VSnackbar
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </div>
 </template>

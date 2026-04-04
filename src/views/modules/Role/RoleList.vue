@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import RoleFormDrawer from './RoleFormDrawer.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useRoleStore } from '@/store/modules/role'
 import type { Role } from '@/api/modules/role'
 
@@ -9,10 +12,14 @@ const roleStore = useRoleStore()
 const isFormDrawerVisible = ref(false)
 const editingRole = ref<Role | null>(null)
 const selectedIds = ref<number[]>([])
+const importFileInput = ref<HTMLInputElement>()
+const isImporting = ref(false)
 
 const searchQuery = ref('')
 const snackbar = ref({ show: false, message: '', color: 'success' })
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
+
+const hasActiveFilters = computed(() => !!searchQuery.value)
 
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
@@ -124,6 +131,46 @@ const handleExport = async () => {
   }
 }
 
+const handleImportClick = () => {
+  importFileInput.value?.click()
+}
+
+const handleImportFile = async (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file)
+    return
+
+  // Check file type
+  const allowedTypes = [
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'text/csv',
+  ]
+
+  if (!allowedTypes.includes(file.type)) {
+    showToast('Chỉ chấp nhận file Excel (.xlsx, .xls) hoặc CSV!', 'error')
+    if (importFileInput.value)
+      importFileInput.value.value = ''
+    return
+  }
+
+  try {
+    isImporting.value = true
+    await roleStore.importRoles(file)
+    showToast('Nhập dữ liệu thành công!', 'success')
+    await Promise.all([loadRoles(), roleStore.fetchStats()])
+  }
+  catch (error: any) {
+    const errorMsg = error.response?.data?.message || 'Nhập dữ liệu thất bại!'
+    showToast(errorMsg, 'error')
+  }
+  finally {
+    isImporting.value = false
+    if (importFileInput.value)
+      importFileInput.value.value = ''
+  }
+}
+
 onMounted(async () => {
   await Promise.all([roleStore.fetchStats(), loadRoles()])
 })
@@ -166,32 +213,53 @@ onMounted(async () => {
       </VCol>
     </VRow>
 
-    <!-- Toolbar -->
-    <VCard
-      elevation="0"
-      border
-      class="mb-4"
-    >
-      <VCardText class="d-flex flex-wrap align-center gap-3 py-3">
-        <AppTextField
-          v-model="searchQuery"
-          placeholder="Tìm kiếm vai trò..."
-          prepend-inner-icon="tabler-search"
-          clearable
-          style="min-inline-size: 240px; max-inline-size: 320px;"
-        />
+    <!-- Filter & Actions Bar -->
+    <AppFilterBar :has-active-filters="hasActiveFilters">
+      <template #filters>
+        <div style="max-inline-size: 50%; flex: 1;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Tìm kiếm vai trò
+          </div>
+          <AppTextField
+            v-model="searchQuery"
+            placeholder="Nhập tên vai trò..."
+            prepend-inner-icon="tabler-search"
+            clearable
+            density="compact"
+            hide-details
+          />
+        </div>
+      </template>
 
-        <VSpacer />
-
+      <template #actions>
         <VBtn
           v-if="selectedIds.length > 0"
           variant="tonal"
           color="error"
           prepend-icon="tabler-trash"
+          size="small"
           @click="handleBulkDelete"
         >
-          Xóa ({{ selectedIds.length }})
+          <span class="d-none d-sm-inline">Xóa</span>
+          ({{ selectedIds.length }})
         </VBtn>
+
+        <VBtn
+          variant="tonal"
+          color="secondary"
+          prepend-icon="tabler-upload"
+          :loading="isImporting"
+          @click="handleImportClick"
+        >
+          <span class="d-none d-sm-inline">Nhập dữ liệu</span>
+        </VBtn>
+        <input
+          ref="importFileInput"
+          type="file"
+          accept=".xlsx,.xls,.csv"
+          class="d-none"
+          @change="handleImportFile"
+        >
 
         <VBtn
           variant="tonal"
@@ -199,17 +267,17 @@ onMounted(async () => {
           prepend-icon="tabler-download"
           @click="handleExport"
         >
-          Xuất dữ liệu
+          <span class="d-none d-sm-inline">Xuất dữ liệu</span>
         </VBtn>
 
         <VBtn
           prepend-icon="tabler-plus"
           @click="openCreateDrawer"
         >
-          Thêm mới
+          <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
-      </VCardText>
-    </VCard>
+      </template>
+    </AppFilterBar>
 
     <!-- Table -->
     <VCard
@@ -333,51 +401,18 @@ onMounted(async () => {
     />
 
     <!-- Confirm Dialog -->
-    <VDialog
+    <AppConfirmDialog
       v-model="confirmDialog.show"
-      max-width="440"
-    >
-      <VCard>
-        <VCardTitle class="pt-6 px-6">
-          {{ confirmDialog.title }}
-        </VCardTitle>
-        <VCardText class="px-6">
-          {{ confirmDialog.message }}
-        </VCardText>
-        <VCardActions class="px-6 pb-6">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            color="secondary"
-            @click="confirmDialog.show = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="error"
-            @click="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
-          >
-            Xác nhận
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
+      :title="confirmDialog.title"
+      :message="confirmDialog.message"
+      @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
+    />
 
-    <VSnackbar
+    <!-- Snackbar -->
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </div>
 </template>

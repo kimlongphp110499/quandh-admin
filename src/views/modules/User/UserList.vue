@@ -1,8 +1,11 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 import UserFormDrawer from './UserFormDrawer.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useUserStore } from '@/store/modules/user'
 import { useOrganizationStore } from '@/store/modules/organization'
 import { useAuthStore } from '@/store/modules/auth'
@@ -34,11 +37,16 @@ const showToast = (message: string, color: 'success' | 'error') => {
 }
 
 // Confirm dialog
-const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
+const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {}, loading: false })
 
 const showConfirm = (title: string, message: string, onConfirm: () => void) => {
-  confirmDialog.value = { show: true, title, message, onConfirm }
+  confirmDialog.value = { show: true, title, message, onConfirm, loading: false }
 }
+
+// Active filters check for filter badge
+const hasActiveFilters = computed(() =>
+  !!searchQuery.value || !!statusFilter.value || !!organizationFilter.value,
+)
 
 // Table headers
 const headers = [
@@ -413,75 +421,85 @@ watch(() => orgStore.parentOptions, opts => {
     </VRow>
 
     <!-- Filter & Actions Bar -->
-    <VCard
-      elevation="0"
-      border
-      class="mb-4"
-    >
-      <VCardText class="d-flex flex-wrap align-center gap-3 py-3">
+    <AppFilterBar :has-active-filters="hasActiveFilters">
+      <template #filters>
         <!-- Search -->
-        <AppTextField
-          v-model="searchQuery"
-          placeholder="Tìm kiếm người dùng..."
-          prepend-inner-icon="tabler-search"
-          clearable
-          style="min-inline-size: 240px; max-inline-size: 300px;"
-        />
+        <div style="min-inline-size: 240px; flex: 1;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Tìm kiếm người dùng
+          </div>
+          <AppTextField
+            v-model="searchQuery"
+            placeholder="Nhập tên, email..."
+            prepend-inner-icon="tabler-search"
+            clearable
+            density="compact"
+            hide-details
+          />
+        </div>
 
         <!-- Org filter -->
-        <AppSelect
-          v-model="organizationFilter"
-          :items="orgOptions"
-          placeholder="Tổ chức"
-          style="min-inline-size: 180px;"
-          clearable
-        />
+        <div style="min-inline-size: 180px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Tổ chức
+          </div>
+          <AppSelect
+            v-model="organizationFilter"
+            :items="orgOptions"
+            placeholder="Chọn tổ chức"
+            clearable
+            density="compact"
+            hide-details
+          />
+        </div>
 
         <!-- Status filter -->
-        <AppSelect
-          v-model="statusFilter"
-          :items="statusOptions"
-          placeholder="Trạng thái"
-          style="min-inline-size: 160px;"
-        />
+        <div style="min-inline-size: 160px;">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Trạng thái
+          </div>
+          <AppSelect
+            v-model="statusFilter"
+            :items="statusOptions"
+            placeholder="Chọn trạng thái"
+            density="compact"
+            hide-details
+          />
+        </div>
+      </template>
 
-        <!-- Reset -->
-        <VBtn
-          variant="tonal"
-          color="secondary"
-          prepend-icon="tabler-refresh"
-          @click="resetFilters"
-        >
-          Đặt lại
-        </VBtn>
-
-        <VSpacer />
-
+      <template #actions>
         <!-- Bulk actions -->
         <template v-if="selectedIds.length > 0">
           <VBtn
             variant="tonal"
             color="success"
             prepend-icon="tabler-user-check"
+            size="small"
             @click="handleBulkStatus('active')"
           >
-            Kích hoạt ({{ selectedIds.length }})
+            <span class="d-none d-sm-inline">Kích hoạt</span>
+            ({{ selectedIds.length }})
           </VBtn>
           <VBtn
             variant="tonal"
             color="warning"
             prepend-icon="tabler-user-off"
+            size="small"
             @click="handleBulkStatus('inactive')"
           >
-            Vô hiệu ({{ selectedIds.length }})
+            <span class="d-none d-sm-inline">Vô hiệu</span>
+            ({{ selectedIds.length }})
           </VBtn>
           <VBtn
             variant="tonal"
             color="error"
             prepend-icon="tabler-trash"
+            size="small"
             @click="handleBulkDelete"
           >
-            Xóa ({{ selectedIds.length }})
+            <span class="d-none d-sm-inline">Xóa</span>
+            ({{ selectedIds.length }})
           </VBtn>
         </template>
 
@@ -492,7 +510,7 @@ watch(() => orgStore.parentOptions, opts => {
           prepend-icon="tabler-upload"
           @click="handleImportClick"
         >
-          Nhập dữ liệu
+          <span class="d-none d-sm-inline">Nhập dữ liệu</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -509,7 +527,7 @@ watch(() => orgStore.parentOptions, opts => {
           prepend-icon="tabler-download"
           @click="handleExport"
         >
-          Xuất dữ liệu
+          <span class="d-none d-sm-inline">Xuất dữ liệu</span>
         </VBtn>
 
         <!-- Add new -->
@@ -517,10 +535,10 @@ watch(() => orgStore.parentOptions, opts => {
           prepend-icon="tabler-plus"
           @click="openCreateDrawer"
         >
-          Thêm mới
+          <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
-      </VCardText>
-    </VCard>
+      </template>
+    </AppFilterBar>
 
     <!-- Data Table -->
     <VCard
@@ -714,52 +732,18 @@ watch(() => orgStore.parentOptions, opts => {
     />
 
     <!-- Confirm Dialog -->
-    <VDialog
+    <AppConfirmDialog
       v-model="confirmDialog.show"
-      max-width="440"
-    >
-      <VCard>
-        <VCardTitle class="pt-6 px-6">
-          {{ confirmDialog.title }}
-        </VCardTitle>
-        <VCardText class="px-6">
-          {{ confirmDialog.message }}
-        </VCardText>
-        <VCardActions class="px-6 pb-6">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            color="secondary"
-            @click="confirmDialog.show = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="error"
-            @click="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
-          >
-            Xác nhận
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
+      :title="confirmDialog.title"
+      :message="confirmDialog.message"
+      @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
+    />
 
     <!-- Snackbar -->
-    <VSnackbar
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </div>
 </template>

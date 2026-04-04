@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 import PermissionFormDrawer from './PermissionFormDrawer.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 import { usePermissionStore } from '@/store/modules/permission'
 import type { Permission } from '@/api/modules/permission'
 
@@ -12,8 +16,22 @@ const importFileInput = ref<HTMLInputElement>()
 const selectedIds = ref<number[]>([])
 
 const searchQuery = ref('')
+const debouncedSearchQuery = ref('')
 const snackbar = ref({ show: false, message: '', color: 'success' })
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
+const expandedGroups = ref<Set<number>>(new Set())
+const loadingGroups = ref<Set<number>>(new Set())
+
+// Debounce search query
+const debouncedSearch = useDebounceFn((query: string) => {
+  debouncedSearchQuery.value = query
+}, 300)
+
+watch(() => searchQuery.value, (newVal) => {
+  debouncedSearch(newVal)
+})
+
+const hasActiveFilters = computed(() => !!debouncedSearchQuery.value)
 
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
@@ -23,9 +41,9 @@ const showConfirm = (title: string, message: string, onConfirm: () => void) => {
   confirmDialog.value = { show: true, title, message, onConfirm }
 }
 
-// Build flat list from tree for filtered display
+// Build flat list from tree for filtered display (with debounced search)
 const filteredTree = computed(() => {
-  const q = searchQuery.value.toLowerCase().trim()
+  const q = debouncedSearchQuery.value.toLowerCase().trim()
   if (!q)
     return permissionStore.permissionTree
 
@@ -62,6 +80,13 @@ const isIndeterminate = computed(() => {
 
 const toggleSelectAll = (val: boolean | null) => {
   selectedIds.value = val ? [...allChildIds.value] : []
+}
+
+const toggleGroupExpanded = (groupId: number) => {
+  if (expandedGroups.value.has(groupId))
+    expandedGroups.value.delete(groupId)
+  else
+    expandedGroups.value.add(groupId)
 }
 
 const openCreateDrawer = () => {
@@ -230,31 +255,35 @@ onMounted(async () => {
       </VCol>
     </VRow>
 
-    <!-- Toolbar -->
-    <VCard
-      elevation="0"
-      border
-      class="mb-4"
-    >
-      <VCardText class="d-flex flex-wrap align-center gap-3 py-3">
-        <AppTextField
-          v-model="searchQuery"
-          placeholder="Tìm kiếm quyền hạn..."
-          prepend-inner-icon="tabler-search"
-          clearable
-          style="min-inline-size: 280px; max-inline-size: 360px;"
-        />
+    <!-- Filter & Actions Bar -->
+    <AppFilterBar :has-active-filters="hasActiveFilters">
+      <template #filters>
+        <div style="min-inline-size: 280px; flex: 1; max-inline-size: 50%">
+          <div class="text-caption text-medium-emphasis mb-1">
+            Tìm kiếm quyền hạn
+          </div>
+          <AppTextField
+            v-model="searchQuery"
+            placeholder="Nhập tên quyền hạn..."
+            prepend-inner-icon="tabler-search"
+            clearable
+            density="compact"
+            hide-details
+          />
+        </div>
+      </template>
 
-        <VSpacer />
-
+      <template #actions>
         <VBtn
           v-if="selectedIds.length > 0"
           variant="tonal"
           color="error"
           prepend-icon="tabler-trash"
+          size="small"
           @click="handleBulkDelete"
         >
-          Xóa ({{ selectedIds.length }})
+          <span class="d-none d-sm-inline">Xóa</span>
+          ({{ selectedIds.length }})
         </VBtn>
 
         <VBtn
@@ -263,7 +292,7 @@ onMounted(async () => {
           prepend-icon="tabler-upload"
           @click="handleImportClick"
         >
-          Nhập dữ liệu
+          <span class="d-none d-sm-inline">Nhập dữ liệu</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -279,17 +308,17 @@ onMounted(async () => {
           prepend-icon="tabler-download"
           @click="handleExport"
         >
-          Xuất dữ liệu
+          <span class="d-none d-sm-inline">Xuất dữ liệu</span>
         </VBtn>
 
         <VBtn
           prepend-icon="tabler-plus"
           @click="openCreateDrawer"
         >
-          Thêm mới
+          <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
-      </VCardText>
-    </VCard>
+      </template>
+    </AppFilterBar>
 
     <!-- Grouped Permission Table -->
     <VCard
@@ -324,6 +353,7 @@ onMounted(async () => {
       <VTable
         v-else
         fixed-header
+        class="permission-table"
       >
         <thead>
           <tr>
@@ -356,34 +386,41 @@ onMounted(async () => {
             :key="group.id"
           >
             <!-- Group header row -->
-            <tr class="bg-surface-variant">
-              <td
-                colspan="6"
-                class="py-2 px-4"
-              >
-                <div class="d-flex align-center gap-2">
+            <tr class="group-header" @click="toggleGroupExpanded(group.id)">
+              <td class="group-expand-cell text-center">
+                <VIcon
+                  :icon="expandedGroups.has(group.id) ? 'tabler-chevron-down' : 'tabler-chevron-right'"
+                  size="18"
+                  class="group-chevron"
+                />
+              </td>
+              <td colspan="5" class="group-content-cell">
+                <div class="d-flex align-center gap-3 w-100">
                   <VIcon
-                    icon="tabler-folder"
-                    size="16"
-                    color=""
+                    icon="tabler-folder-open"
+                    size="20"
+                    color="info"
+                    class="group-icon"
                   />
-                  <span class="font-weight-semibold">{{ group.description }}</span>
+                  <span class="group-title">{{ group.description }}</span>
                   <VChip
-                    size="x-small"
-                    color="success"
+                    size="small"
+                    color="info"
                     variant="tonal"
+                    class="group-chip"
                   >
                     {{ (group.children ?? []).length }} quyền
                   </VChip>
                   <VSpacer />
-                  <div class="d-flex align-center gap-1">
+                  <div class="d-flex align-center gap-1 group-actions" @click.stop>
                     <IconBtn
                       size="small"
+                      class="group-action-btn"
                       @click="openEditDrawer(group)"
                     >
                       <VIcon
                         icon="tabler-edit"
-                        size="16"
+                        size="18"
                       />
                       <VTooltip
                         activator="parent"
@@ -395,11 +432,12 @@ onMounted(async () => {
                     <IconBtn
                       size="small"
                       color="error"
+                      class="group-action-btn"
                       @click="handleDelete(group)"
                     >
                       <VIcon
                         icon="tabler-trash"
-                        size="16"
+                        size="18"
                       />
                       <VTooltip
                         activator="parent"
@@ -413,105 +451,107 @@ onMounted(async () => {
               </td>
             </tr>
 
-            <!-- Child permission rows -->
-            <tr
-              v-for="perm in (group.children ?? [])"
-              :key="perm.id"
-            >
-              <td class="text-center text-medium-emphasis text-caption">
-                {{ perm.sort_order ?? '—' }}
-              </td>
-              <td>
-                <VCheckbox
-                  v-model="selectedIds"
-                  :value="perm.id"
-                  hide-details
-                  density="compact"
-                />
-              </td>
-              <td>
-                <div class="d-flex align-center gap-2 py-1">
-                  <VIcon
-                    icon="tabler-point"
-                    size="12"
-                    color="disabled"
+            <!-- Child permission rows (collapsible) -->
+            <template v-if="expandedGroups.has(group.id)">
+              <tr
+                v-for="perm in (group.children ?? [])"
+                :key="perm.id"
+              >
+                <td class="text-center text-medium-emphasis text-caption">
+                  {{ perm.sort_order ?? '—' }}
+                </td>
+                <td>
+                  <VCheckbox
+                    v-model="selectedIds"
+                    :value="perm.id"
+                    hide-details
+                    density="compact"
                   />
-                  <div>
-                    <div class="text-body-2 font-weight-medium">
-                      {{ perm.name }}
-                    </div>
-                    <div
-                      v-if="perm.description"
-                      class="text-caption text-disabled"
-                    >
-                      {{ perm.description }}
+                </td>
+                <td>
+                  <div class="d-flex align-center gap-2 py-1">
+                    <VIcon
+                      icon="tabler-point"
+                      size="12"
+                      color="disabled"
+                    />
+                    <div>
+                      <div class="text-body-2 font-weight-medium">
+                        {{ perm.name }}
+                      </div>
+                      <div
+                        v-if="perm.description"
+                        class="text-caption text-disabled"
+                      >
+                        {{ perm.description }}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div
-                  v-if="perm.roles && perm.roles.length"
-                  class="d-flex flex-wrap gap-1 py-1"
-                >
-                  <VChip
-                    v-for="role in perm.roles"
-                    :key="role.id"
-                    size="x-small"
-                    color="primary"
-                    variant="tonal"
+                </td>
+                <td>
+                  <div
+                    v-if="perm.roles && perm.roles.length"
+                    class="d-flex flex-wrap gap-1 py-1"
                   >
-                    {{ role.name }}
-                  </VChip>
-                </div>
-                <span
-                  v-else
-                  class="text-caption text-disabled"
-                >—</span>
-              </td>
-              <td class="text-body-2 text-medium-emphasis">
-                {{ perm.created_at }}
-              </td>
-              <td>
-                <div class="d-flex align-center gap-1">
-                  <IconBtn
-                    size="small"
-                    @click="openEditDrawer(perm)"
-                  >
-                    <VIcon
-                      icon="tabler-edit"
-                      size="18"
-                    />
-                    <VTooltip
-                      activator="parent"
-                      location="top"
+                    <VChip
+                      v-for="role in perm.roles"
+                      :key="role.id"
+                      size="x-small"
+                      color="primary"
+                      variant="tonal"
                     >
-                      Chỉnh sửa
-                    </VTooltip>
-                  </IconBtn>
-                  <IconBtn
-                    size="small"
-                    color="error"
-                    @click="handleDelete(perm)"
-                  >
-                    <VIcon
-                      icon="tabler-trash"
-                      size="18"
-                    />
-                    <VTooltip
-                      activator="parent"
-                      location="top"
+                      {{ role.name }}
+                    </VChip>
+                  </div>
+                  <span
+                    v-else
+                    class="text-caption text-disabled"
+                  >—</span>
+                </td>
+                <td class="text-body-2 text-medium-emphasis">
+                  {{ perm.created_at }}
+                </td>
+                <td>
+                  <div class="d-flex align-center gap-1">
+                    <IconBtn
+                      size="small"
+                      @click="openEditDrawer(perm)"
                     >
-                      Xóa
-                    </VTooltip>
-                  </IconBtn>
-                </div>
-              </td>
-            </tr>
+                      <VIcon
+                        icon="tabler-edit"
+                        size="18"
+                      />
+                      <VTooltip
+                        activator="parent"
+                        location="top"
+                      >
+                        Chỉnh sửa
+                      </VTooltip>
+                    </IconBtn>
+                    <IconBtn
+                      size="small"
+                      color="error"
+                      @click="handleDelete(perm)"
+                    >
+                      <VIcon
+                        icon="tabler-trash"
+                        size="18"
+                      />
+                      <VTooltip
+                        activator="parent"
+                        location="top"
+                      >
+                        Xóa
+                      </VTooltip>
+                    </IconBtn>
+                  </div>
+                </td>
+              </tr>
+            </template>
 
-            <!-- Empty group -->
+            <!-- Empty group (shown when no children and expanded) -->
             <tr
-              v-if="!(group.children ?? []).length"
+              v-if="!(group.children ?? []).length && expandedGroups.has(group.id)"
               :key="`${group.id}-empty`"
             >
               <td
@@ -534,51 +574,100 @@ onMounted(async () => {
     />
 
     <!-- Confirm Dialog -->
-    <VDialog
+    <AppConfirmDialog
       v-model="confirmDialog.show"
-      max-width="440"
-    >
-      <VCard>
-        <VCardTitle class="pt-6 px-6">
-          {{ confirmDialog.title }}
-        </VCardTitle>
-        <VCardText class="px-6">
-          {{ confirmDialog.message }}
-        </VCardText>
-        <VCardActions class="px-6 pb-6">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            color="secondary"
-            @click="confirmDialog.show = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="error"
-            @click="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
-          >
-            Xác nhận
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
+      :title="confirmDialog.title"
+      :message="confirmDialog.message"
+      @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
+    />
 
-    <VSnackbar
+    <!-- Snackbar -->
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </div>
 </template>
+
+<style scoped>
+.permission-table :deep(tbody tr.group-header) {
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: linear-gradient(90deg, rgba(33, 150, 243, 0.08) 0%, rgba(33, 150, 243, 0.04) 100%);
+  border-left: 4px solid #2196f3;
+}
+
+.permission-table :deep(tbody tr.group-header:hover) {
+  background: linear-gradient(90deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0.08) 100%);
+  border-left-color: #1976d2;
+  box-shadow: inset 0 1px 3px rgba(33, 150, 243, 0.1);
+}
+
+.permission-table :deep(.group-expand-cell) {
+  width: 48px !important;
+  padding: 0.75rem 0.5rem !important;
+  font-weight: 600;
+  color: #2196f3;
+  background: rgba(33, 150, 243, 0.05);
+}
+
+.permission-table :deep(.group-content-cell) {
+  padding: 0.875rem 1rem !important;
+  font-weight: 500;
+}
+
+.permission-table :deep(.group-chevron) {
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  color: #2196f3 !important;
+}
+
+.permission-table :deep(tbody tr.group-header .group-chevron) {
+  font-weight: 700;
+}
+
+.permission-table :deep(.group-icon) {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 2px rgba(33, 150, 243, 0.3));
+}
+
+.permission-table :deep(.group-title) {
+  font-size: 0.975rem;
+  font-weight: 600;
+  color: #1a237e;
+  letter-spacing: 0.3px;
+  min-width: fit-content;
+}
+
+.permission-table :deep(.group-chip) {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2) !important;
+}
+
+.permission-table :deep(.group-actions) {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.permission-table :deep(tbody tr.group-header:hover .group-actions) {
+  opacity: 1;
+}
+
+.permission-table :deep(.group-action-btn) {
+  transition: all 0.2s ease;
+}
+
+.permission-table :deep(tbody tr.group-header:hover .group-action-btn:hover) {
+  transform: scale(1.15);
+  background: rgba(33, 150, 243, 0.1) !important;
+}
+
+.permission-table :deep(tbody tr) {
+  transition: background-color 0.15s ease;
+}
+
+.permission-table :deep(tbody tr:not(.group-header):hover) {
+  background-color: rgba(33, 150, 243, 0.04) !important;
+}
+</style>
