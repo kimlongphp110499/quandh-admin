@@ -156,17 +156,6 @@ const encryptionOptions = [
 
 <template>
   <div>
-    <!-- Header -->
-    <div class="d-flex align-center justify-space-between mb-6">
-      <div>
-        <h4 class="text-h4 font-weight-bold">
-          Cấu hình thông báo
-        </h4>
-        <p class="text-body-2 text-medium-emphasis mt-1 mb-0">
-          Quản lý cấu hình các kênh gửi thông báo
-        </p>
-      </div>
-    </div>
 
     <VRow>
       <!-- Left nav -->

@@ -2,6 +2,7 @@
 import { useConfigStore } from '@core/stores/config'
 import { AppContentLayoutNav } from '@layouts/enums'
 import { switchToVerticalNavOnLtOverlayNavBreakpoint } from '@layouts/utils'
+import GlobalLoadingOverlay from '@/components/GlobalLoadingOverlay.vue'
 
 const DefaultLayoutWithHorizontalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithHorizontalNav.vue'))
 const DefaultLayoutWithVerticalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithVerticalNav.vue'))
@@ -37,6 +38,7 @@ watch([isFallbackStateActive, refLoadingIndicator], () => {
     :is="configStore.appContentLayoutNav === AppContentLayoutNav.Vertical ? DefaultLayoutWithVerticalNav : DefaultLayoutWithHorizontalNav"
   >
     <AppLoadingIndicator ref="refLoadingIndicator" />
+    <GlobalLoadingOverlay />
 
     <RouterView v-slot="{ Component }">
       <Suspense

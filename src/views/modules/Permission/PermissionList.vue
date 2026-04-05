@@ -7,6 +7,7 @@ import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import { usePermissionStore } from '@/store/modules/permission'
 import type { Permission } from '@/api/modules/permission'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 
 const permissionStore = usePermissionStore()
 
@@ -20,7 +21,6 @@ const debouncedSearchQuery = ref('')
 const snackbar = ref({ show: false, message: '', color: 'success' })
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
 const expandedGroups = ref<Set<number>>(new Set())
-const loadingGroups = ref<Set<number>>(new Set())
 
 // Debounce search query
 const debouncedSearch = useDebounceFn((query: string) => {
@@ -189,76 +189,22 @@ onMounted(async () => {
 <template>
   <div>
     <!-- Stats -->
-    <VRow class="mb-6">
-      <VCol
-        cols="12"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-key"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ permissionStore.stats?.total ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Tổng số quyền hạn
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="info"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-folder"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ permissionStore.permissionTree?.length ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Tổng số nhóm quyền hạn
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
+      <!-- System Page Header -->
+      <AppSystemPageHeader
+        title="Quyền hạn"
+        :total="permissionStore.stats?.total ?? 0"
+        :total-group="permissionStore.permissionTree?.length ?? 0"
+        total-label="Tổng số quyền hạn"
+        total-group-label="Tổng số nhóm quyền hạn"
+        total-icon="tabler-key"
+        total-group-icon="tabler-folder"
+        @settings="() => {}"
+      />
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
-        <div style="min-inline-size: 280px; flex: 1; max-inline-size: 50%">
+        <div style="min-inline-size: 280px; flex: 1; max-inline-size: 100%">
           <div class="text-caption text-medium-emphasis mb-1">
             Tìm kiếm quyền hạn
           </div>
@@ -267,7 +213,6 @@ onMounted(async () => {
             placeholder="Nhập tên quyền hạn..."
             prepend-inner-icon="tabler-search"
             clearable
-            density="compact"
             hide-details
           />
         </div>
@@ -279,7 +224,6 @@ onMounted(async () => {
           variant="tonal"
           color="error"
           prepend-icon="tabler-trash"
-          size="small"
           @click="handleBulkDelete"
         >
           <span class="d-none d-sm-inline">Xóa</span>
@@ -325,18 +269,9 @@ onMounted(async () => {
       elevation="0"
       border
     >
-      <div
-        v-if="permissionStore.isLoading"
-        class="d-flex justify-center align-center py-12"
-      >
-        <VProgressCircular
-          indeterminate
-          color="primary"
-        />
-      </div>
 
       <div
-        v-else-if="filteredTree.length === 0"
+        v-if="filteredTree.length === 0"
         class="text-center py-12"
       >
         <VIcon

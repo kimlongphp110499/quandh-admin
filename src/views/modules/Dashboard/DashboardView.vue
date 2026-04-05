@@ -166,47 +166,6 @@ const quickNavItems = computed(() => {
 </script>
 
 <template>
-  <!-- ── Header ─────────────────────────────────────────────────────────── -->
-  <VRow class="mb-2">
-    <VCol cols="12">
-      <VCard>
-        <VCardText class="d-flex align-center justify-space-between flex-wrap gap-4 py-4">
-          <div class="d-flex align-center gap-3">
-            <VAvatar color="primary" variant="tonal" size="48" rounded>
-              <VIcon icon="tabler-layout-dashboard" size="26" />
-            </VAvatar>
-            <div>
-              <h5 class="text-h5 font-weight-bold mb-0">Bảng điều khiển</h5>
-              <span class="text-body-2 text-medium-emphasis">
-                Xin chào,
-                <span class="font-weight-semibold text-high-emphasis">{{ userData?.name || userData?.email }}</span>
-                <template v-if="currentOrg">
-                  &nbsp;&mdash;&nbsp;
-                  <VIcon icon="tabler-building" size="13" class="me-1" />{{ currentOrg.name }}
-                </template>
-              </span>
-            </div>
-          </div>
-          <div class="d-flex flex-wrap gap-2">
-            <VChip
-              v-for="item in quickNavItems"
-              :key="item.title"
-              :color="item.color"
-              :to="item.to as any"
-              :prepend-icon="item.icon"
-              variant="tonal"
-              size="small"
-              label
-              link
-            >
-              {{ item.title }}
-            </VChip>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-  </VRow>
-
   <!-- ── No permissions ─────────────────────────────────────────────────── -->
   <VRow v-if="!hasAnyPermission && !isLoadingStats">
     <VCol cols="12">
@@ -222,7 +181,7 @@ const quickNavItems = computed(() => {
 
   <template v-if="hasAnyPermission">
     <!-- ── Stat cards ──────────────────────────────────────────────────────── -->
-    <VRow class="mb-1">
+    <VRow>
       <VCol v-for="card in statCards" :key="card.title" cols="12" sm="6" :lg="statCards.length >= 4 ? 3 : 6">
         <VCard class="h-100">
           <VCardText class="pb-2">
@@ -254,7 +213,7 @@ const quickNavItems = computed(() => {
 
     <!-- ── Charts row ──────────────────────────────────────────────────────── -->
     <VRow class="mt-2">
-      <VCol v-if="canSeeUsers" cols="12" md="4">
+      <VCol v-if="canSeeUsers" cols="12" md="6" lg="6">
         <VCard class="h-100">
           <VCardTitle class="pa-4 pb-0 text-body-1 font-weight-semibold">
             <VIcon icon="tabler-users" size="18" color="primary" class="me-2" />
@@ -275,7 +234,7 @@ const quickNavItems = computed(() => {
         </VCard>
       </VCol>
 
-      <VCol v-if="canSeeOrgs" cols="12" md="4">
+      <VCol v-if="canSeeOrgs" cols="12" md="6" lg="6">
         <VCard class="h-100">
           <VCardTitle class="pa-4 pb-0 text-body-1 font-weight-semibold">
             <VIcon icon="tabler-building" size="18" color="info" class="me-2" />

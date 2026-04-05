@@ -1,0 +1,126 @@
+{
+  "Dashboard": "Dashboard",
+  "Settings": "Settings",
+  "Profile": "Profile",
+  "Logout": "Logout",
+  "Login": "Login",
+  "Search": "Search",
+  "Notifications": "Notifications",
+  "Mark all as read": "Mark all as read",
+  "View all notifications": "View all notifications",
+  "No notifications": "No notifications",
+  "Shortcuts": "Shortcuts",
+  "Account Settings": "Account Settings",
+  "FAQ": "FAQ",
+  "Pricing": "Pricing",
+  "User Profile": "User Profile",
+  "Actions": "Actions",
+  "Add": "Add",
+  "Edit": "Edit",
+  "Delete": "Delete",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Confirm": "Confirm",
+  "Close": "Close",
+  "Yes": "Yes",
+  "No": "No",
+  "Submit": "Submit",
+  "Reset": "Reset",
+  "Back": "Back",
+  "Next": "Next",
+  "Previous": "Previous",
+  "Loading": "Loading",
+  "Error": "Error",
+  "Success": "Success",
+  "Warning": "Warning",
+  "Info": "Info",
+  "Name": "Name",
+  "Email": "Email",
+  "Password": "Password",
+  "Username": "Username",
+  "Status": "Status",
+  "Active": "Active",
+  "Inactive": "Inactive",
+  "Created At": "Created At",
+  "Updated At": "Updated At",
+  "Description": "Description",
+  "Role": "Role",
+  "Permissions": "Permissions",
+  "Users": "Users",
+  "List": "List",
+  "Customizer": {
+    "title": "Theme Customizer",
+    "subtitle": "Customize & Preview in Real Time",
+    "skins": "Skins",
+    "theme": "Theme",
+    "semiDarkMenu": "Semi Dark Menu",
+    "layout": "Layout",
+    "content": "Content",
+    "direction": "Direction",
+    "primaryColor": "Primary Color",
+    "reset": "Reset"
+  },
+  "Total": "Total",
+  "Active": "Active",
+  "Inactive": "Inactive",
+  "Group": "Group",
+  "Light": "Light",
+  "Dark": "Dark",
+  "System": "System",
+  "Default": "Default",
+  "Bordered": "Bordered",
+  "Vertical": "Vertical",
+  "Collapsed": "Collapsed",
+  "Horizontal": "Horizontal",
+  "Compact": "Compact",
+  "Wide": "Wide",
+  "Left to right": "Left to right",
+  "Right to left": "Right to left",
+  "$vuetify": {
+    "badge": "Badge",
+    "noDataText": "No data available",
+    "close": "Close",
+    "open": "open",
+    "loading": "loading",
+    "carousel": {
+      "ariaLabel": {
+        "delimiter": "delimiter"
+      }
+    },
+    "dataFooter": {
+      "itemsPerPageText": "Items per page:",
+      "itemsPerPageAll": "All",
+      "pageText": "{0}-{1} of {2}",
+      "firstPage": "First Page",
+      "prevPage": "Previous Page",
+      "nextPage": "Next Page",
+      "lastPage": "Last Page"
+    },
+    "pagination": {
+      "ariaLabel": {
+        "root": "root",
+        "previous": "previous",
+        "first": "first",
+        "last": "last",
+        "next": "next",
+        "currentPage": "currentPage",
+        "page": "page"
+      }
+    },
+    "input": {
+      "clear": "clear",
+      "appendAction": "appendAction",
+      "prependAction": "prependAction",
+      "counterSize": "counterSize",
+      "otp": "otp"
+    },
+    "fileInput": {
+      "counterSize": "counterSize"
+    },
+    "rating": {
+      "ariaLabel": {
+        "item": "item"
+      }
+    }
+  }
+}

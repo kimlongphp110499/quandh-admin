@@ -6,6 +6,8 @@ import UserFormDrawer from './UserFormDrawer.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
+import AppPagination from '@/components/AppPagination.vue'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useUserStore } from '@/store/modules/user'
 import { useOrganizationStore } from '@/store/modules/organization'
 import { useAuthStore } from '@/store/modules/auth'
@@ -130,15 +132,13 @@ const loadUsers = async () => {
 
 const handleTableUpdate = (options: any) => {
   const sortBy = options.sortBy?.[0]
+  const newSortBy = sortBy?.key as any || 'created_at'
+  const newSortOrder = sortBy?.order || 'desc'
 
-  userStore.setFilters({
-    page: options.page,
-    limit: options.itemsPerPage,
-    sort_by: sortBy?.key as any || 'created_at',
-    sort_order: sortBy?.order || 'desc',
-  })
-
-  loadUsers()
+  if (newSortBy !== userStore.filters.sort_by || newSortOrder !== userStore.filters.sort_order) {
+    userStore.setFilters({ sort_by: newSortBy, sort_order: newSortOrder })
+    loadUsers()
+  }
 }
 
 // Filter watchers
@@ -321,104 +321,20 @@ watch(() => orgStore.parentOptions, opts => {
 
 <template>
   <div>
-    <!-- Stats Cards -->
-    <VRow class="mb-6">
-      <VCol
-        cols="12"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-users"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ userStore.stats?.total ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Tổng số người dùng
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="success"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-user-check"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ userStore.stats?.active ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Người dùng đang hoạt động
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="warning"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-user-off"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ userStore.stats?.inactive ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Người dùng không hoạt động
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
+    <!-- System Page Header -->
+    <AppSystemPageHeader
+      title="Người dùng"
+      :total="userStore.stats?.total ?? 0"
+      :active="userStore.stats?.active ?? 0"
+      :inactive="userStore.stats?.inactive ?? 0"
+      total-label="Tổng người dùng"
+      active-label="Đang hoạt động"
+      inactive-label="Không hoạt động"
+      total-icon="tabler-users"
+      active-icon="tabler-user-check"
+      inactive-icon="tabler-user-off"
+      @settings="() => {}"
+    />
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
@@ -433,7 +349,6 @@ watch(() => orgStore.parentOptions, opts => {
             placeholder="Nhập tên, email..."
             prepend-inner-icon="tabler-search"
             clearable
-            density="compact"
             hide-details
           />
         </div>
@@ -448,7 +363,6 @@ watch(() => orgStore.parentOptions, opts => {
             :items="orgOptions"
             placeholder="Chọn tổ chức"
             clearable
-            density="compact"
             hide-details
           />
         </div>
@@ -462,7 +376,6 @@ watch(() => orgStore.parentOptions, opts => {
             v-model="statusFilter"
             :items="statusOptions"
             placeholder="Chọn trạng thái"
-            density="compact"
             hide-details
           />
         </div>
@@ -475,7 +388,6 @@ watch(() => orgStore.parentOptions, opts => {
             variant="tonal"
             color="success"
             prepend-icon="tabler-user-check"
-            size="small"
             @click="handleBulkStatus('active')"
           >
             <span class="d-none d-sm-inline">Kích hoạt</span>
@@ -485,7 +397,6 @@ watch(() => orgStore.parentOptions, opts => {
             variant="tonal"
             color="warning"
             prepend-icon="tabler-user-off"
-            size="small"
             @click="handleBulkStatus('inactive')"
           >
             <span class="d-none d-sm-inline">Vô hiệu</span>
@@ -495,7 +406,6 @@ watch(() => orgStore.parentOptions, opts => {
             variant="tonal"
             color="error"
             prepend-icon="tabler-trash"
-            size="small"
             @click="handleBulkDelete"
           >
             <span class="d-none d-sm-inline">Xóa</span>
@@ -550,7 +460,6 @@ watch(() => orgStore.parentOptions, opts => {
         :headers="headers"
         :items="userStore.users"
         :items-length="userStore.total"
-        :loading="userStore.isLoading"
         :items-per-page="userStore.filters.limit || 10"
         :page="userStore.filters.page || 1"
         item-value="id"
@@ -719,6 +628,18 @@ watch(() => orgStore.parentOptions, opts => {
               Không có người dùng nào
             </div>
           </div>
+        </template>
+
+        <template #bottom>
+          <AppPagination
+            :page="userStore.filters.page || 1"
+            :limit="userStore.filters.limit || 15"
+            :total="userStore.total"
+            :limit-options="[10, 15, 20, 50, 100]"
+            :loading="userStore.isLoading"
+            @update:page="(p) => { userStore.setFilters({ page: p }); loadUsers() }"
+            @update:limit="(l) => { userStore.setFilters({ limit: l, page: 1 }); loadUsers() }"
+          />
         </template>
       </VDataTableServer>
     </VCard>

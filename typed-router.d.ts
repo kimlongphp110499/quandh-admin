@@ -42,5 +42,6 @@ declare module 'vue-router/auto-routes' {
     'system-settings': RouteRecordInfo<'system-settings', '/system/settings', Record<never, never>, Record<never, never>>,
     'system-settings-notification': RouteRecordInfo<'system-settings-notification', '/system/settings-notification', Record<never, never>, Record<never, never>>,
     'system-users': RouteRecordInfo<'system-users', '/system/users', Record<never, never>, Record<never, never>>,
+    'task-assignment-departments': RouteRecordInfo<'task-assignment-departments', '/task-assignment/departments', Record<never, never>, Record<never, never>>,
   }
 }

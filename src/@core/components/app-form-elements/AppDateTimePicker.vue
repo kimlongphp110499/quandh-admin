@@ -18,6 +18,23 @@ defineOptions({
   inheritAttrs: false,
 })
 
+// Vietnamese locale configuration for flatpickr
+const vietnameseLocale = {
+  weekdays: {
+    shorthand: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+    longhand: ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'],
+  },
+  months: {
+    shorthand: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
+    longhand: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+  },
+  daysInMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  firstDayOfWeek: 0,
+  ordinal: () => '',
+  time_24hr: true,
+  amPM: ['AM', 'PM'],
+}
+
 const props = defineProps({
   autofocus: Boolean,
   counter: [Boolean, Number, String] as PropType<true | number | string>,
@@ -73,6 +90,7 @@ if (compAttrs.config && compAttrs.config.inline) {
 
 compAttrs.config = {
   ...compAttrs.config,
+  locale: vietnameseLocale,
   prevArrow: '<i class="tabler-chevron-left v-icon" style="font-size: 20px; height: 20px; width: 20px;"></i>',
   nextArrow: '<i class="tabler-chevron-right v-icon" style="font-size: 20px; height: 20px; width: 20px;"></i>',
 }

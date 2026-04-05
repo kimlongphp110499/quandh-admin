@@ -3,6 +3,8 @@ import { computed, onMounted, ref } from 'vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
+import AppPagination from '@/components/AppPagination.vue'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useActivityLogStore } from '@/store/modules/activity-log'
 import type { ActivityLog } from '@/api/modules/activity-log'
@@ -133,7 +135,8 @@ function onPageChange(p: number) {
   load()
 }
 
-function onLimitChange() {
+function onLimitChange(newLimit: number) {
+  limit.value = newLimit
   page.value = 1
   load()
 }
@@ -241,46 +244,26 @@ onMounted(load)
 
 <template>
   <div>
-    <!-- Header stats -->
-    <VRow class="mb-6">
-      <VCol
-        cols="12"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-history"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ store.total }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Tổng số nhật ký
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
+    <!-- System Page Header -->
+    <AppSystemPageHeader
+      title="Nhật ký hoạt động"
+      :total="store.total"
+      :active="0"
+      :inactive="0"
+      total-label="Tổng nhật ký"
+      active-label="Hôm nay"
+      inactive-label="Hôm qua"
+      total-icon="tabler-history"
+      active-icon="tabler-calendar-check"
+      inactive-icon="tabler-calendar-x"
+      @settings="() => {}"
+    />
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <!-- Search -->
-        <div style="min-inline-size: 220px; flex: 1;">
+        <div style="min-inline-size: 240px; flex: 1;">
           <div class="text-caption text-medium-emphasis mb-1">
             Tìm kiếm
           </div>
@@ -289,10 +272,9 @@ onMounted(load)
             placeholder="Nhập từ khóa..."
             prepend-inner-icon="tabler-search"
             clearable
-            density="compact"
             hide-details
             @input="onSearchInput"
-            @click:clear="applyFilters"
+            @click:clear="applyFilters" 
           />
         </div>
 
@@ -303,13 +285,11 @@ onMounted(load)
           </div>
           <AppDateTimePicker
             v-model="fromDate"
-            placeholder="Chọn ngày bắt đầu"
             :config="{
               dateFormat: 'Y-m-d',
               maxDate: toDate || undefined,
             }"
             clearable
-            density="compact"
             hide-details
             @update:model-value="applyFilters"
           />
@@ -322,13 +302,11 @@ onMounted(load)
           </div>
           <AppDateTimePicker
             v-model="toDate"
-            placeholder="Chọn ngày kết thúc"
             :config="{
               dateFormat: 'Y-m-d',
               minDate: fromDate || undefined,
             }"
             clearable
-            density="compact"
             hide-details
             @update:model-value="applyFilters"
           />
@@ -343,7 +321,6 @@ onMounted(load)
             v-model="methodType"
             placeholder="Chọn phương thức"
             :items="methodOptions"
-            density="compact"
             hide-details
             @update:model-value="applyFilters"
           />
@@ -358,7 +335,6 @@ onMounted(load)
             v-model="statusCode"
             placeholder="VD: 200"
             type="number"
-            density="compact"
             hide-details
             @update:model-value="applyFilters"
           />
@@ -370,7 +346,6 @@ onMounted(load)
             icon="tabler-refresh"
             color="secondary"
             variant="tonal"
-            size="small"
             @click="resetFilters"
           />
         </div>
@@ -383,7 +358,6 @@ onMounted(load)
           color="error"
           variant="tonal"
           prepend-icon="tabler-trash"
-          size="small"
           @click="handleBulkDelete"
         >
           <span class="d-none d-sm-inline">Xóa</span>
@@ -394,7 +368,6 @@ onMounted(load)
           color="warning"
           variant="tonal"
           prepend-icon="tabler-calendar-minus"
-          size="small"
           @click="deleteByDateDialog = true"
         >
           <span class="d-none d-sm-inline">Xóa theo ngày</span>
@@ -404,7 +377,6 @@ onMounted(load)
           color="error"
           variant="tonal"
           prepend-icon="tabler-trash-x"
-          size="small"
           @click="handleClearAll"
         >
           <span class="d-none d-sm-inline">Xóa tất cả</span>
@@ -414,7 +386,6 @@ onMounted(load)
           color="secondary"
           variant="tonal"
           prepend-icon="tabler-download"
-          size="small"
           @click="handleExport"
         >
           <span class="d-none d-sm-inline">Xuất</span>
@@ -427,18 +398,9 @@ onMounted(load)
       elevation="0"
       border
     >
-      <div
-        v-if="store.isLoading"
-        class="d-flex justify-center align-center py-12"
-      >
-        <VProgressCircular
-          indeterminate
-          color="primary"
-        />
-      </div>
 
       <div
-        v-else-if="store.logs.length === 0"
+        v-if="store.logs.length === 0"
         class="text-center py-12"
       >
         <VIcon
@@ -452,7 +414,7 @@ onMounted(load)
         </div>
       </div>
 
-      <VTable
+      <VDataTableServer
         v-else
         fixed-header
         hover
@@ -604,36 +566,20 @@ onMounted(load)
             </td>
           </tr>
         </tbody>
-      </VTable>
 
-      <!-- Pagination -->
-      <div
-        v-if="store.logs.length > 0"
-        class="d-flex align-center justify-space-between px-4 py-3 border-t"
-      >
-        <div class="d-flex align-center gap-3">
-          <span class="text-body-2 text-medium-emphasis">Hiển thị:</span>
-          <AppSelect
-            v-model="limit"
-            :items="limitOptions"
-            density="compact"
-            style="min-inline-size: 80px;"
-            hide-details
-            @update:model-value="onLimitChange"
+        <!-- Pagination -->
+        <template #bottom>
+          <AppPagination
+            :page="page"
+            :limit="limit"
+            :total="store.total"
+            :loading="store.isLoading"
+            :limit-options="[10, 15, 20, 50, 100]"
+            @update:page="onPageChange"
+            @update:limit="onLimitChange"
           />
-          <span class="text-body-2 text-medium-emphasis">
-            Tổng: {{ store.total }} nhật ký
-          </span>
-        </div>
-
-        <VPagination
-          v-model="page"
-          :length="totalPages"
-          :total-visible="6"
-          density="compact"
-          @update:model-value="onPageChange"
-        />
-      </div>
+        </template>
+      </VDataTableServer>
     </VCard>
 
     <!-- Detail Dialog -->
@@ -811,17 +757,27 @@ onMounted(load)
         <VCardText class="px-6">
           <VRow dense>
             <VCol cols="6">
-              <AppTextField
+              <AppDateTimePicker
                 v-model="deleteFromDate"
                 label="Từ ngày"
-                type="date"
+                :config="{
+                  dateFormat: 'Y-m-d',
+                  maxDate: toDate || undefined,
+                }"
+                clearable
+                hide-details
               />
             </VCol>
             <VCol cols="6">
-              <AppTextField
+              <AppDateTimePicker
                 v-model="deleteToDate"
                 label="Đến ngày"
-                type="date"
+                :config="{
+                  dateFormat: 'Y-m-d',
+                  maxDate: toDate || undefined,
+                }"
+                clearable
+                hide-details
               />
             </VCol>
           </VRow>

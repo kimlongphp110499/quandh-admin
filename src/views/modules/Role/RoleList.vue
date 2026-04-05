@@ -4,6 +4,8 @@ import RoleFormDrawer from './RoleFormDrawer.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
+import AppPagination from '@/components/AppPagination.vue'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useRoleStore } from '@/store/modules/role'
 import type { Role } from '@/api/modules/role'
 
@@ -49,14 +51,13 @@ const loadRoles = async () => {
 
 const handleTableUpdate = (options: any) => {
   const sortBy = options.sortBy?.[0]
+  const newSortBy = sortBy?.key as any || 'created_at'
+  const newSortOrder = sortBy?.order || 'desc'
 
-  roleStore.setFilters({
-    page: options.page,
-    limit: options.itemsPerPage,
-    sort_by: sortBy?.key as any || 'created_at',
-    sort_order: sortBy?.order || 'desc',
-  })
-  loadRoles()
+  if (newSortBy !== roleStore.filters.sort_by || newSortOrder !== roleStore.filters.sort_order) {
+    roleStore.setFilters({ sort_by: newSortBy, sort_order: newSortOrder })
+    loadRoles()
+  }
 }
 
 let searchTimeout: ReturnType<typeof setTimeout>
@@ -178,45 +179,11 @@ onMounted(async () => {
 
 <template>
   <div>
-    <!-- Stats -->
-    <VRow class="mb-6">
-      <VCol
-        cols="12"
-        md="6"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-shield-half"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ roleStore.stats?.total ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Tổng số vai trò
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
-        <div style="max-inline-size: 50%; flex: 1;">
+        <div style="max-inline-size: 100%; flex: 1;">
           <div class="text-caption text-medium-emphasis mb-1">
             Tìm kiếm vai trò
           </div>
@@ -225,7 +192,6 @@ onMounted(async () => {
             placeholder="Nhập tên vai trò..."
             prepend-inner-icon="tabler-search"
             clearable
-            density="compact"
             hide-details
           />
         </div>
@@ -237,7 +203,6 @@ onMounted(async () => {
           variant="tonal"
           color="error"
           prepend-icon="tabler-trash"
-          size="small"
           @click="handleBulkDelete"
         >
           <span class="d-none d-sm-inline">Xóa</span>
@@ -289,7 +254,6 @@ onMounted(async () => {
         :headers="headers"
         :items="roleStore.roles"
         :items-length="roleStore.total"
-        :loading="roleStore.isLoading"
         :items-per-page="roleStore.filters.limit || 15"
         :page="roleStore.filters.page || 1"
         item-value="id"
@@ -389,6 +353,18 @@ onMounted(async () => {
               Không có vai trò nào
             </div>
           </div>
+        </template>
+
+        <template #bottom>
+          <AppPagination
+            :page="roleStore.filters.page || 1"
+            :limit="roleStore.filters.limit || 15"
+            :total="roleStore.total"
+            :limit-options="[10, 15, 20, 50, 100]"
+            :loading="roleStore.isLoading"
+            @update:page="(p) => { roleStore.setFilters({ page: p }); loadRoles() }"
+            @update:limit="(l) => { roleStore.setFilters({ limit: l, page: 1 }); loadRoles() }"
+          />
         </template>
       </VDataTableServer>
     </VCard>

@@ -93,27 +93,6 @@ defineExpose({ reload: loadTree })
 
 <template>
   <div>
-    <!-- Header -->
-    <div class="d-flex align-center justify-space-between mb-6">
-      <div>
-        <h5 class="text-h5 font-weight-bold">
-          Cây tổ chức
-        </h5>
-        <p class="text-body-2 text-medium-emphasis mb-0">
-          Toàn bộ cấu trúc phân cấp tổ chức trong hệ thống
-        </p>
-      </div>
-      <VBtn
-        variant="tonal"
-        color="primary"
-        prepend-icon="tabler-refresh"
-        :loading="isLoading"
-        @click="loadTree"
-      >
-        Làm mới
-      </VBtn>
-    </div>
-
     <!-- Toolbar -->
     <VCard
       elevation="0"
@@ -148,21 +127,9 @@ defineExpose({ reload: loadTree })
       </VCardText>
     </VCard>
 
-    <!-- Loading -->
-    <div
-      v-if="isLoading"
-      class="d-flex justify-center align-center py-16"
-    >
-      <VProgressCircular
-        indeterminate
-        size="48"
-        color="primary"
-      />
-    </div>
-
     <!-- Empty -->
     <VCard
-      v-else-if="!filteredTree.length"
+      v-if="!filteredTree.length"
       elevation="0"
       border
     >

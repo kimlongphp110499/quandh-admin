@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '@/store/modules/organization'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 
 const orgStore = useOrganizationStore()
 
@@ -31,26 +32,6 @@ defineExpose({ reload: loadStats })
 
 <template>
   <div>
-    <!-- Header -->
-    <div class="d-flex align-center justify-space-between mb-6">
-      <div>
-        <h5 class="text-h5 font-weight-bold">
-          Thống kê tổ chức
-        </h5>
-        <p class="text-body-2 text-medium-emphasis mb-0">
-          Tổng quan về toàn bộ tổ chức trong hệ thống
-        </p>
-      </div>
-      <VBtn
-        variant="tonal"
-        color="primary"
-        prepend-icon="tabler-refresh"
-        :loading="isLoading"
-        @click="loadStats"
-      >
-        Làm mới
-      </VBtn>
-    </div>
 
     <!-- Loading state -->
     <div
@@ -65,120 +46,20 @@ defineExpose({ reload: loadStats })
     </div>
 
     <template v-else>
-      <!-- Stat Cards -->
-      <VRow class="mb-6">
-        <!-- Tổng tổ chức -->
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VCard elevation="0" border>
-            <VCardText class="pa-6">
-              <div class="d-flex align-center justify-space-between mb-4">
-                <VAvatar
-                  color="primary"
-                  variant="tonal"
-                  size="56"
-                  rounded
-                >
-                  <VIcon
-                    icon="tabler-building"
-                    size="30"
-                  />
-                </VAvatar>
-                <VChip
-                  color="primary"
-                  variant="tonal"
-                  size="small"
-                >
-                  100%
-                </VChip>
-              </div>
-              <div class="text-h3 font-weight-bold mb-1">
-                {{ total }}
-              </div>
-              <div class="text-body-1 text-medium-emphasis">
-                Tổng tổ chức
-              </div>
-            </VCardText>
-          </VCard>
-        </VCol>
-
-        <!-- Đang hoạt động -->
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VCard elevation="0" border>
-            <VCardText class="pa-6">
-              <div class="d-flex align-center justify-space-between mb-4">
-                <VAvatar
-                  color="success"
-                  variant="tonal"
-                  size="56"
-                  rounded
-                >
-                  <VIcon
-                    icon="tabler-circle-check"
-                    size="30"
-                  />
-                </VAvatar>
-                <VChip
-                  color="success"
-                  variant="tonal"
-                  size="small"
-                >
-                  {{ activePercent }}%
-                </VChip>
-              </div>
-              <div class="text-h3 font-weight-bold mb-1">
-                {{ active }}
-              </div>
-              <div class="text-body-1 text-medium-emphasis">
-                Đang hoạt động
-              </div>
-            </VCardText>
-          </VCard>
-        </VCol>
-
-        <!-- Không hoạt động -->
-        <VCol
-          cols="12"
-          sm="4"
-        >
-          <VCard elevation="0" border>
-            <VCardText class="pa-6">
-              <div class="d-flex align-center justify-space-between mb-4">
-                <VAvatar
-                  color="error"
-                  variant="tonal"
-                  size="56"
-                  rounded
-                >
-                  <VIcon
-                    icon="tabler-circle-x"
-                    size="30"
-                  />
-                </VAvatar>
-                <VChip
-                  color="error"
-                  variant="tonal"
-                  size="small"
-                >
-                  {{ inactivePercent }}%
-                </VChip>
-              </div>
-              <div class="text-h3 font-weight-bold mb-1">
-                {{ inactive }}
-              </div>
-              <div class="text-body-1 text-medium-emphasis">
-                Không hoạt động
-              </div>
-            </VCardText>
-          </VCard>
-        </VCol>
-      </VRow>
-
+        <!-- System Page Header -->
+      <AppSystemPageHeader
+        title="Tổ chức"
+        :total="orgStore.stats?.total ?? 0"
+        :active="orgStore.activeCount ?? 0"
+        :inactive="orgStore.inactiveCount ?? 0"
+        total-label="Tổng tổ chức"
+        active-label="Đang hoạt động"
+        inactive-label="Không hoạt động"
+        total-icon="tabler-building"
+        active-icon="tabler-circle-check"
+        inactive-icon="tabler-circle-x"
+        @settings="() => {}"
+      />
       <!-- Tỷ lệ biểu đồ -->
       <VRow>
         <VCol cols="12" md="6">

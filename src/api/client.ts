@@ -1,6 +1,12 @@
 import axios, { type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
+// Global loading store (increment/decrement counter on requests)
+// Use a lazy import inside interceptors to avoid circular startup issues
+// eslint-disable-next-line import/extensions, import/no-unresolved
+// Import global loading store
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useGlobalLoadingStore } from '@/store/modules/global-loading'
 
 // Base API URL - cấu hình theo environment
 const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001/api'
@@ -31,7 +37,12 @@ const apiClient: AxiosInstance = axios.create({
 
 // Request Interceptor - tự động thêm Bearer Token
 apiClient.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  async (config: InternalAxiosRequestConfig) => {
+    try {
+      useGlobalLoadingStore().startRequest()
+    }
+    catch {}
+
     const token = useCookie('accessToken').value
 
     if (token && config.headers)
@@ -45,6 +56,11 @@ apiClient.interceptors.request.use(
     return config
   },
   error => {
+    try {
+      useGlobalLoadingStore().endRequest()
+    }
+    catch {}
+
     return Promise.reject(error)
   },
 )
@@ -52,10 +68,23 @@ apiClient.interceptors.request.use(
 // Response Interceptor - xử lý lỗi tập trung
 apiClient.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
+
+    // decrement global loading counter
+    try {
+      useGlobalLoadingStore().endRequest()
+    }
+    catch {}
+
     // Trả về data từ response.data.data (chuẩn Backend)
     return response
   },
   error => {
+    // ensure we decrement
+    try {
+      useGlobalLoadingStore().endRequest()
+    }
+    catch {}
+
     // Xử lý lỗi 401 - chuyển về trang login (trừ khi đang ở login endpoint)
     if (error.response?.status === 401 && !error.config?.url?.includes('/auth/login')) {
       useCookie('accessToken').value = null

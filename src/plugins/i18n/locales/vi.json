@@ -1,0 +1,126 @@
+{
+  "Dashboard": "Bảng điều khiển",
+  "Settings": "Cài đặt",
+  "Profile": "Hồ sơ",
+  "Logout": "Đăng xuất",
+  "Login": "Đăng nhập",
+  "Search": "Tìm kiếm",
+  "Notifications": "Thông báo",
+  "Mark all as read": "Đánh dấu tất cả đã đọc",
+  "View all notifications": "Xem tất cả thông báo",
+  "No notifications": "Không có thông báo",
+  "Shortcuts": "Phím tắt",
+  "Account Settings": "Cài đặt tài khoản",
+  "FAQ": "Câu hỏi thường gặp",
+  "Pricing": "Bảng giá",
+  "User Profile": "Hồ sơ người dùng",
+  "Actions": "Hành động",
+  "Add": "Thêm mới",
+  "Edit": "Chỉnh sửa",
+  "Delete": "Xóa",
+  "Save": "Lưu",
+  "Cancel": "Hủy",
+  "Confirm": "Xác nhận",
+  "Close": "Đóng",
+  "Yes": "Có",
+  "No": "Không",
+  "Submit": "Gửi",
+  "Reset": "Đặt lại",
+  "Back": "Quay lại",
+  "Next": "Tiếp theo",
+  "Previous": "Trước đó",
+  "Loading": "Đang tải",
+  "Error": "Lỗi",
+  "Success": "Thành công",
+  "Warning": "Cảnh báo",
+  "Info": "Thông tin",
+  "Name": "Tên",
+  "Email": "Email",
+  "Password": "Mật khẩu",
+  "Username": "Tên đăng nhập",
+  "Status": "Trạng thái",
+  "Active": "Hoạt động",
+  "Inactive": "Không hoạt động",
+  "Created At": "Ngày tạo",
+  "Updated At": "Ngày cập nhật",
+  "Description": "Mô tả",
+  "Role": "Vai trò",
+  "Permissions": "Phân quyền",
+  "Users": "Người dùng",
+  "List": "Danh sách",
+  "Customizer": {
+    "title": "Tuỳ chỉnh giao diện",
+    "subtitle": "Tùy chỉnh & Xem trước theo thời gian thực",
+    "skins": "Giao diện",
+    "theme": "Chủ đề",
+    "semiDarkMenu": "Menu bán tối",
+    "layout": "Bố cục",
+    "content": "Nội dung",
+    "direction": "Hướng",
+    "primaryColor": "Màu chính",
+    "reset": "Đặt lại"
+  },
+  "Total": "Tổng",
+  "Active": "Đang hoạt động",
+  "Inactive": "Không hoạt động",
+  "Group": "Nhóm",
+  "Light": "Sáng",
+  "Dark": "Tối",
+  "System": "Hệ thống",
+  "Default": "Mặc định",
+  "Bordered": "Giao diện có khung",
+  "Vertical": "Dọc",
+  "Collapsed": "Thu gọn",
+  "Horizontal": "Ngang",
+  "Compact": "Gọn",
+  "Wide": "Rộng",
+  "Left to right": "Từ trái sang phải",
+  "Right to left": "Từ phải sang trái",
+  "$vuetify": {
+    "badge": "Huy hiệu",
+    "noDataText": "Không có dữ liệu",
+    "close": "Đóng",
+    "open": "Mở",
+    "loading": "Đang tải",
+    "carousel": {
+      "ariaLabel": {
+        "delimiter": "phân tách"
+      }
+    },
+    "dataFooter": {
+      "itemsPerPageText": "Số hàng mỗi trang:",
+      "itemsPerPageAll": "Tất cả",
+      "pageText": "{0}-{1} trong {2}",
+      "firstPage": "Trang đầu",
+      "prevPage": "Trang trước",
+      "nextPage": "Trang sau",
+      "lastPage": "Trang cuối"
+    },
+    "pagination": {
+      "ariaLabel": {
+        "root": "phân trang",
+        "previous": "trước",
+        "first": "đầu",
+        "last": "cuối",
+        "next": "sau",
+        "currentPage": "trang hiện tại",
+        "page": "trang"
+      }
+    },
+    "input": {
+      "clear": "xóa",
+      "appendAction": "thêm hành động",
+      "prependAction": "thêm hành động trước",
+      "counterSize": "số ký tự",
+      "otp": "otp"
+    },
+    "fileInput": {
+      "counterSize": "số file"
+    },
+    "rating": {
+      "ariaLabel": {
+        "item": "mục"
+      }
+    }
+  }
+}

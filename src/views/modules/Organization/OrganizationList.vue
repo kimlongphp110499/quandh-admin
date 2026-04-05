@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import OrganizationFormDrawer from './OrganizationFormDrawer.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
+import AppPagination from '@/components/AppPagination.vue'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '@/store/modules/organization'
 // eslint-disable-next-line import/extensions, import/no-unresolved
@@ -41,11 +43,6 @@ const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
-// Table options
-const itemsPerPage = ref(10)
-const page = ref(1)
-const sortBy = ref([{ key: 'sort_order', order: 'asc' }])
-
 const headers = [
   { title: '', key: 'data-table-select', sortable: false },
   { title: 'Tên tổ chức', key: 'name', sortable: true },
@@ -76,12 +73,10 @@ const bulkStatusOptions = [
 // Methods
 const fetchOrganizations = async () => {
   await orgStore.fetchOrganizations({
-    page: page.value,
-    limit: itemsPerPage.value,
+    page: orgStore.filters.page,
+    limit: orgStore.filters.limit,
     search: searchQuery.value || undefined,
     status: selectedStatus.value || undefined,
-    sort_by: sortBy.value[0]?.key || 'sort_order',
-    sort_order: (sortBy.value[0]?.order as 'asc' | 'desc') || 'asc',
   })
 }
 
@@ -222,34 +217,25 @@ const handleImportFile = async (event: Event) => {
   }
 }
 
-const updateOptions = (options: any) => {
-  page.value = options.page
-  itemsPerPage.value = options.itemsPerPage
-  sortBy.value = options.sortBy
-}
-
-// Watchers
-// Dùng debounce để tránh double-fetch khi search/filter thay đổi đồng thời kích hoạt page watcher
-let fetchDebounceTimer: ReturnType<typeof setTimeout> | null = null
-
-const debouncedFetch = () => {
-  if (fetchDebounceTimer)
-    clearTimeout(fetchDebounceTimer)
-  fetchDebounceTimer = setTimeout(fetchOrganizations, 80)
-}
-
-watch([searchQuery, selectedStatus], () => {
-  page.value = 1
-  debouncedFetch()
+let searchTimeout: ReturnType<typeof setTimeout>
+watch(searchQuery, () => {
+  clearTimeout(searchTimeout)
+  searchTimeout = setTimeout(() => {
+    orgStore.setFilters({ page: 1 })
+    fetchOrganizations()
+  }, 400)
 })
 
-watch([page, itemsPerPage, sortBy], () => {
-  debouncedFetch()
-}, { deep: true })
+watch(selectedStatus, () => {
+  orgStore.setFilters({ page: 1 })
+  fetchOrganizations()
+})
 
 // Init
-fetchOrganizations()
-orgStore.fetchStats()
+onMounted(() => {
+  fetchOrganizations()
+  orgStore.fetchStats()
+})
 
 defineExpose({
   reload: () => {
@@ -261,107 +247,20 @@ defineExpose({
 
 <template>
   <section>
-    <!-- Stats Cards -->
-    <VRow class="mb-6">
-      <VCol
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-building"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ orgStore.stats?.total ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Tổng tổ chức
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="success"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-circle-check"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ orgStore.activeCount ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Đang hoạt động
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <VCard
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-4">
-            <VAvatar
-              color="warning"
-              variant="tonal"
-              size="48"
-              rounded
-            >
-              <VIcon
-                icon="tabler-circle-x"
-                size="24"
-              />
-            </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ orgStore.inactiveCount ?? 0 }}
-              </div>
-              <div class="text-body-2 text-medium-emphasis">
-                Không hoạt động
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
+    <!-- System Page Header -->
+    <AppSystemPageHeader
+      title="Tổ chức"
+      :total="orgStore.stats?.total ?? 0"
+      :active="orgStore.activeCount ?? 0"
+      :inactive="orgStore.inactiveCount ?? 0"
+      total-label="Tổng tổ chức"
+      active-label="Đang hoạt động"
+      inactive-label="Không hoạt động"
+      total-icon="tabler-building"
+      active-icon="tabler-circle-check"
+      inactive-icon="tabler-circle-x"
+      @settings="() => {}"
+    />
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
@@ -375,7 +274,6 @@ defineExpose({
             v-model="searchQuery"
             placeholder="Nhập tên tổ chức..."
             prepend-inner-icon="tabler-search"
-            density="compact"
             hide-details
           />
         </div>
@@ -390,7 +288,6 @@ defineExpose({
             placeholder="Chọn trạng thái"
             :items="statusOptions"
             clearable
-            density="compact"
             hide-details
           />
         </div>
@@ -403,7 +300,6 @@ defineExpose({
             color="error"
             variant="tonal"
             prepend-icon="tabler-trash"
-            size="small"
             @click="confirmBulkDelete"
           >
             <span class="d-none d-sm-inline">Xóa</span>
@@ -413,7 +309,6 @@ defineExpose({
             color="warning"
             variant="tonal"
             prepend-icon="tabler-refresh"
-            size="small"
             @click="openBulkStatusDialog"
           >
             <span class="d-none d-sm-inline">Cập nhật trạng thái</span>
@@ -475,36 +370,18 @@ defineExpose({
       elevation="0"
       border
     >
-      <VCardText class="d-flex gap-2 align-center py-3">
-        <span class="text-body-2">Hiển thị</span>
-        <AppSelect
-          :model-value="itemsPerPage"
-          :items="[
-            { value: 10, title: '10' },
-            { value: 25, title: '25' },
-            { value: 50, title: '50' },
-            { value: -1, title: 'Tất cả' },
-          ]"
-          style="inline-size: 5.5rem;"
-          @update:model-value="itemsPerPage = parseInt($event, 10)"
-        />
-      </VCardText>
 
       <VDivider />
 
       <VDataTableServer
         v-model="selected"
-        v-model:items-per-page="itemsPerPage"
-        v-model:page="page"
         :headers="headers"
         :items="organizations"
         :items-length="total"
-        :loading="isLoading"
         item-value="id"
         show-select
         return-object
         class="text-no-wrap"
-        @update:options="updateOptions"
       >
         <!-- Tên tổ chức -->
         <template #item.name="{ item }">
@@ -588,14 +465,6 @@ defineExpose({
           </div>
         </template>
 
-        <!-- Loading -->
-        <template #loading>
-          <VProgressLinear
-            indeterminate
-            color="primary"
-          />
-        </template>
-
         <!-- No Data -->
         <template #no-data>
           <div class="text-center py-10">
@@ -609,6 +478,18 @@ defineExpose({
               Không có tổ chức nào
             </div>
           </div>
+        </template>
+
+        <template #bottom>
+          <AppPagination
+            :page="orgStore.filters?.page || 1"
+            :limit="orgStore.filters?.limit || 10"
+            :total="total"
+            :limit-options="[10, 15, 20, 50, 100]"
+            :loading="isLoading"
+            @update:page="(p) => { orgStore.setFilters({ page: p }); fetchOrganizations() }"
+            @update:limit="(l) => { orgStore.setFilters({ limit: l, page: 1 }); fetchOrganizations() }"
+          />
         </template>
       </VDataTableServer>
     </VCard>

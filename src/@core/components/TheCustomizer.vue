@@ -2,6 +2,8 @@
 import { useStorage } from '@vueuse/core'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 import { useTheme } from 'vuetify'
+import { useI18n } from 'vue-i18n'
+import { getCurrentInstance } from 'vue'
 import { staticPrimaryColor, staticPrimaryDarkenColor } from '@/plugins/vuetify/theme'
 import { Direction, Layout, Skins, Theme } from '@core/enums'
 import { useConfigStore } from '@core/stores/config'
@@ -65,17 +67,17 @@ const themeMode = computed(() => {
     {
       bgImage: 'tabler-sun',
       value: Theme.Light,
-      label: 'Light',
+      label: t('Light'),
     },
     {
       bgImage: 'tabler-moon-stars',
       value: Theme.Dark,
-      label: 'Dark',
+      label: t('Dark'),
     },
     {
       bgImage: 'tabler-device-desktop-analytics',
       value: Theme.System,
-      label: 'System',
+      label: t('System'),
     },
   ]
 })
@@ -86,12 +88,12 @@ const themeSkin = computed(() => {
     {
       bgImage: defaultSkin,
       value: Skins.Default,
-      label: 'Default',
+      label: t('Default'),
     },
     {
       bgImage: borderSkin,
       value: Skins.Bordered,
-      label: 'Bordered',
+      label: t('Bordered'),
     },
   ]
 })
@@ -104,17 +106,17 @@ const layouts = computed(() => {
     {
       bgImage: defaultSkin,
       value: Layout.Vertical,
-      label: 'Vertical',
+      label: t('Vertical'),
     },
     {
       bgImage: collapsed,
       value: Layout.Collapsed,
-      label: 'Collapsed',
+      label: t('Collapsed'),
     },
     {
       bgImage: horizontalLight,
       value: Layout.Horizontal,
-      label: 'Horizontal',
+      label: t('Horizontal'),
     },
   ]
 })
@@ -146,12 +148,12 @@ const contentWidth = computed(() => {
     {
       bgImage: compact,
       value: ContentWidth.Boxed,
-      label: 'Compact',
+      label: t('Compact'),
     },
     {
       bgImage: wideSvg,
       value: ContentWidth.Fluid,
-      label: 'Wide',
+      label: t('Wide'),
     },
   ]
 })
@@ -164,12 +166,12 @@ const direction = computed(() => {
     {
       bgImage: ltrSvg,
       value: Direction.Ltr,
-      label: 'Left to right',
+      label: t('Left to right'),
     },
     {
       bgImage: rtlSvg,
       value: Direction.Rtl,
-      label: 'Right to left',
+      label: t('Right to left'),
     },
   ]
 })
@@ -185,18 +187,47 @@ watch(currentDir, () => {
 // check if any value set in cookie
 const isCookieHasAnyValue = ref(false)
 
-const { locale } = useI18n({ useScope: 'global' })
+let locale = ref('en')
+let t = (s: string) => s
+try {
+  const i18n = useI18n({ useScope: 'global' })
+  ({ locale } = i18n)
+  if (i18n && typeof i18n.t === 'function')
+    t = i18n.t as any
+}
+catch (e) {
+  // If useI18n isn't available (plugin not provided at this time),
+  // try to use the app's global $t if present. This avoids falling
+  // back to identity strings like "Customizer.title".
+  const inst = getCurrentInstance()
+  const gp = inst?.appContext?.config?.globalProperties as any | undefined
+  if (gp && typeof gp.$t === 'function') {
+    t = gp.$t.bind(gp)
+    try {
+      // some setups expose $i18n
+      locale.value = gp.$i18n?.locale ?? locale.value
+    }
+    catch {}
+  }
+  else {
+    console.warn('i18n not setup, using default locale/fallbacks')
+  }
+}
 
 const isActiveLangRTL = computed(() => {
-  const lang = themeConfig.app.i18n.langConfig.find(l => l.i18nLang === locale.value)
-
-  return lang?.isRTL ?? false
+  try {
+    const lang = themeConfig.app.i18n.langConfig.find(l => l.i18nLang === locale.value)
+    return lang?.isRTL ?? false
+  }
+  catch {
+    return false
+  }
 })
 
 watch([
   () => vuetifyTheme.current.value.colors.primary,
   configStore.$state,
-  locale,
+  () => locale.value,
 ], () => {
   const initialConfigValue = [
     staticPrimaryColor,
@@ -290,35 +321,40 @@ const resetCustomizer = async () => {
       <div class="customizer-heading d-flex align-center justify-space-between">
         <div>
           <h6 class="text-h6">
-            Theme Customizer
+            {{ t('Customizer.title') }}
           </h6>
           <p class="text-body-2 mb-0">
-            Customize & Preview in Real Time
+            {{ t('Customizer.subtitle') }}
           </p>
         </div>
 
         <div class="d-flex align-center gap-1">
-          <VBtn
-            icon
-            variant="text"
-            size="small"
-            color="medium-emphasis"
-            @click="resetCustomizer"
-          >
-            <VBadge
-              v-show="isCookieHasAnyValue"
-              dot
-              color="error"
-              offset-x="-29"
-              offset-y="-14"
-            />
+          <VTooltip :text="t('Customizer.reset')">
+            <template #activator="{ props }">
+              <VBtn
+                v-bind="props"
+                icon
+                variant="text"
+                size="small"
+                color="medium-emphasis"
+                @click="resetCustomizer"
+              >
+                <VBadge
+                  v-show="isCookieHasAnyValue"
+                  dot
+                  color="error"
+                  offset-x="-29"
+                  offset-y="-14"
+                />
 
-            <VIcon
-              size="24"
-              color="high-emphasis"
-              icon="tabler-refresh"
-            />
-          </VBtn>
+                <VIcon
+                  size="24"
+                  color="high-emphasis"
+                  icon="tabler-refresh"
+                />
+              </VBtn>
+            </template>
+          </VTooltip>
 
           <VBtn
             icon
@@ -343,14 +379,14 @@ const resetCustomizer = async () => {
         :options="{ wheelPropagation: false }"
       >
         <!-- SECTION Theming -->
-        <CustomizerSection
-          title="Theming"
+          <CustomizerSection
+          :title="t('Customizer.theme')"
           :divider="false"
         >
           <!-- 👉 Primary Color -->
           <div class="d-flex flex-column gap-2">
             <h6 class="text-h6">
-              Primary Color
+              {{ t('Customizer.primaryColor') }}
             </h6>
 
             <div
@@ -422,7 +458,7 @@ const resetCustomizer = async () => {
           <!-- 👉 Theme -->
           <div class="d-flex flex-column gap-2">
             <h6 class="text-h6">
-              Theme
+              {{ t('Customizer.theme') }}
             </h6>
 
             <CustomRadiosWithImage
@@ -454,7 +490,7 @@ const resetCustomizer = async () => {
           <!-- 👉 Skin -->
           <div class="d-flex flex-column gap-2">
             <h6 class="text-h6">
-              Skins
+              {{ t('Customizer.skins') }}
             </h6>
 
             <CustomRadiosWithImage
@@ -470,7 +506,7 @@ const resetCustomizer = async () => {
           </div>
 
           <!-- 👉 Semi Dark -->
-          <div
+            <div
             class="align-center justify-space-between"
             :class="vuetifyTheme.global.name.value === 'light' && configStore.appContentLayoutNav === AppContentLayoutNav.Vertical ? 'd-flex' : 'd-none'"
           >
@@ -478,7 +514,7 @@ const resetCustomizer = async () => {
               for="customizer-semi-dark"
               class="text-h6 text-high-emphasis"
             >
-              Semi Dark Menu
+              {{ t('Customizer.semiDarkMenu') }}
             </VLabel>
 
             <div>
@@ -493,7 +529,7 @@ const resetCustomizer = async () => {
         <!-- !SECTION -->
 
         <!-- SECTION LAYOUT -->
-        <CustomizerSection title="Layout">
+        <CustomizerSection :title="t('Customizer.layout')">
           <!-- 👉 Layouts -->
           <div class="d-flex flex-column gap-2">
             <h6 class="text-base font-weight-medium">
@@ -515,7 +551,7 @@ const resetCustomizer = async () => {
           <!-- 👉 Content Width -->
           <div class="d-flex flex-column gap-2">
             <h6 class="text-base font-weight-medium">
-              Content
+              {{ t('Customizer.content') }}
             </h6>
 
             <CustomRadiosWithImage
@@ -533,7 +569,7 @@ const resetCustomizer = async () => {
           <!-- 👉 Direction -->
           <div class="d-flex flex-column gap-2">
             <h6 class="text-base font-weight-medium">
-              Direction
+              {{ t('Customizer.direction') }}
             </h6>
 
             <CustomRadiosWithImage

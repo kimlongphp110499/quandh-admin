@@ -16,6 +16,7 @@ export const useOrganizationStore = defineStore('organization', () => {
   const meta = ref<any>(null)
 
   const filters = ref<OrganizationFilters>({
+    page: 1,
     limit: 10,
     sort_by: 'sort_order',
     sort_order: 'asc',

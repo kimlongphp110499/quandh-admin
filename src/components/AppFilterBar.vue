@@ -32,10 +32,6 @@ const isFilterExpanded = ref(false)
           :color="props.hasActiveFilters ? 'primary' : undefined"
           size="18"
         />
-        <span
-          class="text-body-3 font-weight-semibold"
-          :class="props.hasActiveFilters ? 'text-primary' : ''"
-        >{{ props.title }}</span>
         <VBadge
           v-if="props.hasActiveFilters"
           color="primary"
@@ -71,7 +67,7 @@ const isFilterExpanded = ref(false)
       <VSpacer />
 
       <!-- Action buttons — always visible on right -->
-      <div class="d-flex align-center gap-2 flex-wrap">
+      <div class="d-flex align-center gap-1 gap-md-2 flex-wrap" style="max-width: 100%;">
         <slot name="actions" />
       </div>
     </div>
