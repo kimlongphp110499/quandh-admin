@@ -212,11 +212,11 @@ onMounted(async () => {
         <VBtn
           variant="tonal"
           color="secondary"
-          prepend-icon="tabler-upload"
           :loading="isImporting"
           @click="handleImportClick"
         >
-          <span class="d-none d-sm-inline">Nhập dữ liệu</span>
+          <VIcon icon="tabler-upload" />
+          <span class="d-none d-sm-inline ms-1">Nhập dữ liệu</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -229,17 +229,17 @@ onMounted(async () => {
         <VBtn
           variant="tonal"
           color="secondary"
-          prepend-icon="tabler-download"
           @click="handleExport"
         >
-          <span class="d-none d-sm-inline">Xuất dữ liệu</span>
+          <VIcon icon="tabler-download" />
+          <span class="d-none d-sm-inline ms-1">Xuất dữ liệu</span>
         </VBtn>
 
         <VBtn
-          prepend-icon="tabler-plus"
           @click="openCreateDrawer"
         >
-          <span class="d-none d-sm-inline">Thêm mới</span>
+          <VIcon icon="tabler-plus" />
+          <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
     </AppFilterBar>

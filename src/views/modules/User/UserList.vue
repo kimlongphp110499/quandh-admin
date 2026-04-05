@@ -417,10 +417,10 @@ watch(() => orgStore.parentOptions, opts => {
         <VBtn
           variant="tonal"
           color="secondary"
-          prepend-icon="tabler-upload"
           @click="handleImportClick"
         >
-          <span class="d-none d-sm-inline">Nhập dữ liệu</span>
+         <VIcon icon="tabler-upload" />
+          <span class="d-none d-sm-inline ms-1">Nhập dữ liệu</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -434,17 +434,17 @@ watch(() => orgStore.parentOptions, opts => {
         <VBtn
           variant="tonal"
           color="secondary"
-          prepend-icon="tabler-download"
           @click="handleExport"
         >
-          <span class="d-none d-sm-inline">Xuất dữ liệu</span>
+          <VIcon icon="tabler-download" />
+          <span class="d-none d-sm-inline　msｰ1">Xuất dữ liệu</span>
         </VBtn>
 
         <!-- Add new -->
         <VBtn
-          prepend-icon="tabler-plus"
           @click="openCreateDrawer"
         >
+          <VIcon icon="tabler-plus" />
           <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
       </template>

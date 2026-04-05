@@ -308,44 +308,41 @@ defineExpose({
           <VBtn
             color="warning"
             variant="tonal"
-            prepend-icon="tabler-refresh"
             @click="openBulkStatusDialog"
           >
-            <span class="d-none d-sm-inline">Cập nhật trạng thái</span>
+            <VIcon icon="tabler-refresh" />
+            <span class="d-none d-sm-inline ms-1">Cập nhật trạng thái</span>
           </VBtn>
         </template>
-
-        <!-- Export -->
-        <VBtn
-          color="secondary"
-          variant="tonal"
-          prepend-icon="tabler-download"
-          :loading="isExporting"
-          @click="handleExport"
-        >
-          <span class="d-none d-sm-inline">Xuất</span>
-        </VBtn>
-
-        <!-- Download template -->
-        <VBtn
-          color="secondary"
-          variant="tonal"
-          prepend-icon="tabler-file-download"
-          :loading="isDownloadingTemplate"
-          @click="handleDownloadTemplate"
-        >
-          <span class="d-none d-sm-inline">File mẫu</span>
-        </VBtn>
-
         <!-- Import -->
         <VBtn
           color="secondary"
           variant="tonal"
-          prepend-icon="tabler-upload"
           :loading="isImporting"
           @click="triggerImport"
         >
-          <span class="d-none d-sm-inline">Nhập</span>
+          <VIcon icon="tabler-upload" />
+          <span class="d-none d-sm-inline ms-1">Nhập</span>
+        </VBtn>
+        <!-- Download template -->
+        <VBtn
+          color="secondary"
+          variant="tonal"
+          :loading="isDownloadingTemplate"
+          @click="handleDownloadTemplate"
+        >
+          <VIcon icon="tabler-file-download" />
+          <span class="d-none d-sm-inline ms-1">File mẫu</span>
+        </VBtn>
+        <!-- Export -->
+        <VBtn
+          color="secondary"
+          variant="tonal"
+          :loading="isExporting"
+          @click="handleExport"
+        >
+          <VIcon icon="tabler-download" />
+          <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -357,10 +354,10 @@ defineExpose({
 
         <!-- Add -->
         <VBtn
-          prepend-icon="tabler-plus"
           @click="openAddDrawer"
         >
-          <span class="d-none d-sm-inline">Thêm tổ chức</span>
+          <VIcon icon="tabler-plus" />
+          <span class="d-none d-sm-inline ms-1">Thêm tổ chức</span>
         </VBtn>
       </template>
     </AppFilterBar>

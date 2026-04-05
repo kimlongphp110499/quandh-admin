@@ -367,28 +367,28 @@ onMounted(load)
         <VBtn
           color="warning"
           variant="tonal"
-          prepend-icon="tabler-calendar-minus"
           @click="deleteByDateDialog = true"
         >
-          <span class="d-none d-sm-inline">Xóa theo ngày</span>
+          <VIcon icon="tabler-calendar-minus" />
+          <span class="d-none d-sm-inline ms-1">Xóa theo ngày</span>
         </VBtn>
 
         <VBtn
           color="error"
           variant="tonal"
-          prepend-icon="tabler-trash-x"
           @click="handleClearAll"
         >
-          <span class="d-none d-sm-inline">Xóa tất cả</span>
+          <VIcon icon="tabler-trash-x" />
+          <span class="d-none d-sm-inline ms-1">Xóa tất cả</span>
         </VBtn>
 
         <VBtn
           color="secondary"
           variant="tonal"
-          prepend-icon="tabler-download"
           @click="handleExport"
         >
-          <span class="d-none d-sm-inline">Xuất</span>
+          <VIcon icon="tabler-download" />
+          <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
       </template>
     </AppFilterBar>

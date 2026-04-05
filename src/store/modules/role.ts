@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { type Role, type RoleFilters, type RoleFormData, type RoleStats, roleApi } from '@/api/modules/role'
 
 export const useRoleStore = defineStore('role', () => {
