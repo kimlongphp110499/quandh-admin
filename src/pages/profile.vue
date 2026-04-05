@@ -87,7 +87,6 @@ function getModuleName(module: string): string {
     'roles': 'Vai trò',
     'permissions': 'Quyền hạn',
     'organizations': 'Tổ chức',
-    'meetings': 'Cuộc họp',
     'posts': 'Bài viết',
     'settings': 'Cài đặt',
     'log-activities': 'Nhật ký',

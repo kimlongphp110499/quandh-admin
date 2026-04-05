@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { authApi } from '@/api/modules'
 
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
 
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { type Rule, ability } from '@/plugins/casl/ability'
 
 export interface Organization {
