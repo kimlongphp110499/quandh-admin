@@ -13,6 +13,14 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
 import NavBarI18n from '@core/components/I18n.vue'
 import { HorizontalNavLayout } from '@layouts'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
+import { useSettingStore } from '@/store/modules/setting'
+import { useLayoutConfigStore } from '@layouts/stores/config'
+
+const settingStore = useSettingStore()
+const configStore = useLayoutConfigStore()
+
+const logoUrl = computed(() => settingStore.settings.general?.logo || '')
+const appTitle = computed(() => settingStore.settings.admin_page?.admin_logo_title || settingStore.settings.admin_page?.admin_app_name || themeConfig.app.title)
 </script>
 
 <template>
@@ -23,10 +31,15 @@ import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
         to="/"
         class="app-logo d-flex align-center gap-x-3"
       >
-        <VNodeRenderer :nodes="themeConfig.app.logo" />
+        <img
+          v-if="logoUrl"
+          :src="logoUrl"
+          :alt="appTitle"
+          style="block-size:28px;inline-size:auto;object-fit:contain;"
+        >
 
         <h1 class="app-title font-weight-bold leading-normal text-xl text-capitalize">
-          {{ themeConfig.app.title }}
+          {{ appTitle }}
         </h1>
       </RouterLink>
       <VSpacer />

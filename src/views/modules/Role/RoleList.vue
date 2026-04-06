@@ -8,6 +8,7 @@ import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useRoleStore } from '@/store/modules/role'
 import type { Role } from '@/api/modules/role'
+import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 
 const roleStore = useRoleStore()
 
@@ -216,7 +217,7 @@ onMounted(async () => {
           @click="handleImportClick"
         >
           <VIcon icon="tabler-upload" />
-          <span class="d-none d-sm-inline ms-1">Nhập dữ liệu</span>
+          <span class="d-none d-sm-inline ms-1">Nhập</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -232,7 +233,7 @@ onMounted(async () => {
           @click="handleExport"
         >
           <VIcon icon="tabler-download" />
-          <span class="d-none d-sm-inline ms-1">Xuất dữ liệu</span>
+          <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
 
         <VBtn
@@ -301,7 +302,10 @@ onMounted(async () => {
         </template>
 
         <template #item.created_at="{ item }">
-          <span class="text-body-2 text-medium-emphasis">{{ item.created_at }}</span>
+          <AppUserDateInfo
+            :user="item.created_by"
+            :date="item.created_at"
+          />
         </template>
 
         <template #item.actions="{ item }">

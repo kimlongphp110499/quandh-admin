@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import { useTheme } from 'vuetify'
+import { useConfigStore } from '@core/stores/config'
+import { AppContentLayoutNav } from '@layouts/enums'
 
 const isNavDrawerOpen = ref(false)
+
+const configStore = useConfigStore()
 
 // 👉 Primary Color
 const vuetifyTheme = useTheme()
@@ -49,8 +53,8 @@ const themeSkin = computed(() => {
   ]
 })
 
-// 👉 Layout
-const layout = ref('vertical')
+// 👉 Layout — sync với configStore.appContentLayoutNav
+const layout = ref(configStore.appContentLayoutNav)
 const layouts = computed(() => {
   return [
     {
@@ -91,7 +95,7 @@ const setPrimaryColor = (color: { main: string; darken: string }) => {
 const resetCustomizer = async () => {
   theme.value = 'light'
   skin.value = 'default'
-  layout.value = 'vertical'
+  layout.value = AppContentLayoutNav.Vertical
   direction.value = 'ltr'
   customPrimaryColor.value = '#5e35b1'
   setPrimaryColor({ main: '#5e35b1', darken: '#512da8' })
@@ -110,6 +114,15 @@ watch(
   () => direction.value,
   (newDirection) => {
     document.documentElement.dir = newDirection
+  },
+)
+
+watch(
+  () => layout.value,
+  (newLayout) => {
+    configStore.appContentLayoutNav = newLayout === 'horizontal'
+      ? AppContentLayoutNav.Horizontal
+      : AppContentLayoutNav.Vertical
   },
 )
 </script>

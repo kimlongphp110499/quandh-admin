@@ -339,16 +339,6 @@ onMounted(load)
             @update:model-value="applyFilters"
           />
         </div>
-
-        <!-- Reset button -->
-        <div class="d-flex align-end gap-2">
-          <VBtn
-            icon="tabler-refresh"
-            color="secondary"
-            variant="tonal"
-            @click="resetFilters"
-          />
-        </div>
       </template>
 
       <template #actions>

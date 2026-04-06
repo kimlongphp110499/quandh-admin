@@ -73,5 +73,18 @@ export default [
       },
     ],
   },
+  {
+    title: 'Phân công công việc',
+    icon: { icon: 'tabler-checklist' },
+    children: [
+      {
+        title: 'Phòng ban',
+        to: { name: 'task-assignment-departments' },
+        icon: { icon: 'tabler-building-warehouse' },
+        action: 'index',
+        subject: 'TaskAssignmentDepartments',
+      },
+    ],
+  },
 
 ]

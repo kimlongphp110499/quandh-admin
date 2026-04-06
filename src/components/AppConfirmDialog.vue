@@ -53,19 +53,19 @@ const onConfirm = () => {
       <VCardActions class="px-6 pb-6">
         <VSpacer />
         <VBtn
+          :color="props.confirmColor"
+          :loading="props.loading"
+          @click="onConfirm"
+        >
+          {{ props.confirmText }}
+        </VBtn>
+        <VBtn
           variant="tonal"
           color="secondary"
           :disabled="props.loading"
           @click="onCancel"
         >
           {{ props.cancelText }}
-        </VBtn>
-        <VBtn
-          :color="props.confirmColor"
-          :loading="props.loading"
-          @click="onConfirm"
-        >
-          {{ props.confirmText }}
         </VBtn>
       </VCardActions>
     </VCard>

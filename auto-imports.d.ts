@@ -54,6 +54,7 @@ declare global {
   const formatCurrency: typeof import('./src/utils/formatters')['formatCurrency']
   const formatDate: typeof import('./src/utils/formatters')['formatDate']
   const formatDateTime: typeof import('./src/utils/formatters')['formatDateTime']
+  const formatDateTimeVN: typeof import('./src/utils/formatters')['formatDateTimeVN']
   const formatDateTimeWithSeconds: typeof import('./src/utils/formatters')['formatDateTimeWithSeconds']
   const formatDateToMonthShort: typeof import('./src/@core/utils/formatters')['formatDateToMonthShort']
   const formatNumber: typeof import('./src/utils/formatters')['formatNumber']
@@ -62,6 +63,7 @@ declare global {
   const getCookie: typeof import('./src/@core/utils/cookie')['getCookie']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getUserInitials: typeof import('./src/utils/formatters')['getUserInitials']
   const h: typeof import('vue')['h']
   const hexToRgb: typeof import('./src/@core/utils/colorConverter')['hexToRgb']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -434,6 +436,7 @@ declare module 'vue' {
     readonly formatDate: UnwrapRef<typeof import('./src/@core/utils/formatters')['formatDate']>
     readonly formatDate: UnwrapRef<typeof import('./src/utils/formatters')['formatDate']>
     readonly formatDateTime: UnwrapRef<typeof import('./src/utils/formatters')['formatDateTime']>
+    readonly formatDateTimeVN: UnwrapRef<typeof import('./src/utils/formatters')['formatDateTimeVN']>
     readonly formatDateTimeWithSeconds: UnwrapRef<typeof import('./src/utils/formatters')['formatDateTimeWithSeconds']>
     readonly formatDateToMonthShort: UnwrapRef<typeof import('./src/@core/utils/formatters')['formatDateToMonthShort']>
     readonly formatNumber: UnwrapRef<typeof import('./src/utils/formatters')['formatNumber']>
@@ -442,6 +445,7 @@ declare module 'vue' {
     readonly getCookie: UnwrapRef<typeof import('./src/@core/utils/cookie')['getCookie']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getUserInitials: UnwrapRef<typeof import('./src/utils/formatters')['getUserInitials']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexToRgb: UnwrapRef<typeof import('./src/@core/utils/colorConverter')['hexToRgb']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>

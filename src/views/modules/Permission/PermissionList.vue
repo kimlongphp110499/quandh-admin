@@ -236,7 +236,7 @@ onMounted(async () => {
           @click="handleImportClick"
         >
         <VIcon icon="tabler-upload" />
-          <span class="d-none d-sm-inline ms-1">Nhập dữ liệu</span>
+          <span class="d-none d-sm-inline ms-1">Nhập</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -252,7 +252,7 @@ onMounted(async () => {
           @click="handleExport"
         >
           <VIcon icon="tabler-download"/>
-          <span class="d-none d-sm-inline ms-1">Xuất dữ liệu</span>
+          <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
 
         <VBtn

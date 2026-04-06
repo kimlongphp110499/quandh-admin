@@ -11,6 +11,7 @@ import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useUserStore } from '@/store/modules/user'
 import { useOrganizationStore } from '@/store/modules/organization'
 import { useAuthStore } from '@/store/modules/auth'
+import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 
 // eslint-disable-next-line import/no-unresolved
 import { type User, userApi } from '@/api/modules/user'
@@ -56,7 +57,8 @@ const headers = [
   { title: 'TÊN NGƯỜI DÙNG', key: 'name', sortable: true, minWidth: '200px' },
   { title: 'EMAIL', key: 'email', sortable: true, minWidth: '180px' },
   { title: 'TỔ CHỨC & VAI TRÒ', key: 'assignments', sortable: false, minWidth: '200px' },
-  { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '160px' },
+  { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '200px' },
+  { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '200px' },
   { title: 'TRẠNG THÁI', key: 'status', sortable: false, width: '130px' },
   { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px' },
 ]
@@ -65,7 +67,6 @@ const statusOptions = [
   { title: 'Tất cả trạng thái', value: '' },
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
-  { title: 'Bị khóa', value: 'banned' },
 ]
 
 const orgOptions = ref<{ title: string; value: number | null }[]>([{ title: 'Tất cả tổ chức', value: null }])
@@ -73,20 +74,10 @@ const orgOptions = ref<{ title: string; value: number | null }[]>([{ title: 'T�
 const statusColor = (status: string) => {
   if (status === 'active')
     return 'success'
-  if (status === 'banned')
-    return 'error'
 
   return 'warning'
 }
 
-const statusLabel = (status: string) => {
-  if (status === 'active')
-    return 'Hoạt động'
-  if (status === 'banned')
-    return 'Bị khóa'
-
-  return 'Không HĐ'
-}
 
 const formatDate = (dateStr: string) => {
   if (!dateStr)
@@ -201,25 +192,14 @@ const handleDelete = (user: User) => {
 }
 
 // Status toggle
-const handleToggleStatus = async (user: User) => {
-  try {
-    const newStatus = user.status === 'active' ? 'inactive' : 'active'
 
-    await userStore.changeStatus(user.id, newStatus)
-    showToast('Cập nhật trạng thái thành công!', 'success')
-    await loadUsers()
-  }
-  catch {
-    showToast('Cập nhật trạng thái thất bại!', 'error')
-  }
-}
 
 // Bulk actions
-const handleBulkStatus = (status: 'active' | 'inactive' | 'banned') => {
+const handleBulkStatus = (status: 'active' | 'inactive') => {
   if (!selectedIds.value.length)
     return
 
-  const label = status === 'active' ? 'kích hoạt' : status === 'inactive' ? 'vô hiệu hóa' : 'khóa'
+  const label = status === 'active' ? 'hoạt động' : status === 'inactive' ? 'không hoạt động' : 'vô hiệu hoá'
 
   showConfirm(
     'Cập nhật trạng thái hàng loạt',
@@ -296,6 +276,41 @@ const handleImportFile = async (event: Event) => {
     if (importFileInput.value)
       importFileInput.value.value = ''
   }
+}
+
+const statusLabel = (status: string) => {
+  if (status === 'active')
+    return 'Hoạt động'
+
+  return 'Không hoạt động'
+}
+
+const statusToggleId = ref<number | null>(null)
+
+const handleToggleStatus = (user: User) => {
+  if (user.id === authStore.user?.id)
+    return
+
+  const newStatus = user.status === 'active' ? 'inactive' : 'active'
+
+  showConfirm(
+    'Xác nhận thay đổi trạng thái',
+    `Bạn có chắc muốn đổi trạng thái của người dùng "${user.name}" từ "${statusLabel(user.status)}" sang "${statusLabel(newStatus)}"?`,
+    async () => {
+      try {
+        statusToggleId.value = user.id
+        await userStore.changeStatus(user.id, newStatus)
+        showToast('Cập nhật trạng thái thành công!', 'success')
+        await Promise.all([loadUsers(), userStore.fetchStats()])
+      }
+      catch {
+        showToast('Cập nhật trạng thái thất bại!', 'error')
+      }
+      finally {
+        statusToggleId.value = null
+      }
+    },
+  )
 }
 
 onMounted(async () => {
@@ -390,7 +405,7 @@ watch(() => orgStore.parentOptions, opts => {
             prepend-icon="tabler-user-check"
             @click="handleBulkStatus('active')"
           >
-            <span class="d-none d-sm-inline">Kích hoạt</span>
+            <span class="d-none d-sm-inline">Hoạt động</span>
             ({{ selectedIds.length }})
           </VBtn>
           <VBtn
@@ -399,7 +414,7 @@ watch(() => orgStore.parentOptions, opts => {
             prepend-icon="tabler-user-off"
             @click="handleBulkStatus('inactive')"
           >
-            <span class="d-none d-sm-inline">Vô hiệu</span>
+            <span class="d-none d-sm-inline">Không hoạt động</span>
             ({{ selectedIds.length }})
           </VBtn>
           <VBtn
@@ -420,7 +435,7 @@ watch(() => orgStore.parentOptions, opts => {
           @click="handleImportClick"
         >
          <VIcon icon="tabler-upload" />
-          <span class="d-none d-sm-inline ms-1">Nhập dữ liệu</span>
+          <span class="d-none d-sm-inline ms-1">Nhập</span>
         </VBtn>
         <input
           ref="importFileInput"
@@ -437,7 +452,7 @@ watch(() => orgStore.parentOptions, opts => {
           @click="handleExport"
         >
           <VIcon icon="tabler-download" />
-          <span class="d-none d-sm-inline　msｰ1">Xuất dữ liệu</span>
+          <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
 
         <!-- Add new -->
@@ -538,37 +553,33 @@ watch(() => orgStore.parentOptions, opts => {
           >Chưa phân công</span>
         </template>
 
-        <!-- Updated at -->
+        <!-- Created at --> 
+        <template #item.created_at="{ item }">
+         <AppUserDateInfo
+            :user="item.created_by"
+            :date="item.created_at"
+          />
+        </template>
+
+        <!-- Updated at --> 
         <template #item.updated_at="{ item }">
-          <div class="d-flex flex-column gap-1 py-1">
-            <div
-              v-if="item.updated_by && item.updated_by !== 'N/A'"
-              class="d-flex align-center gap-1"
-            >
-              <VAvatar
-                size="18"
-                color="secondary"
-                variant="tonal"
-              >
-                <span style="font-size: 9px; font-weight: 600;">{{ getUserInitials(item.updated_by) }}</span>
-              </VAvatar>
-              <span class="text-caption text-disabled">{{ item.updated_by }}</span>
-            </div>
-            <span class="text-body-2 text-medium-emphasis">{{ formatDate(item.updated_at) }}</span>
-          </div>
+         <AppUserDateInfo
+            :user="item.updated_by"
+            :date="item.updated_at"
+          />
         </template>
 
         <!-- Status -->
         <template #item.status="{ item }">
-          <VChip
-            :color="statusColor(item.status)"
-            size="small"
-            :class="item.id !== authStore.user?.id ? 'cursor-pointer' : ''"
-            :disabled="item.id === authStore.user?.id"
-            @click="item.id !== authStore.user?.id && handleToggleStatus(item)"
-          >
-            {{ statusLabel(item.status) }}
-          </VChip>
+         <VSwitch
+          :model-value="item.status === 'active'"
+          inset
+          hide-details
+          density="compact"
+          :disabled="item.id === authStore.user?.id || statusToggleId === item.id"
+          :loading="statusToggleId === item.id"
+          @update:model-value="handleToggleStatus(item)"
+        />
         </template>
 
         <!-- Actions -->

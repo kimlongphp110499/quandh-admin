@@ -6,6 +6,7 @@ import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
+import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '@/store/modules/organization'
 // eslint-disable-next-line import/extensions, import/no-unresolved
@@ -28,6 +29,10 @@ const bulkStatusValue = ref<'active' | 'inactive'>('active')
 const isDeleteDialogVisible = ref(false)
 const deletingId = ref<number | null>(null)
 
+// Status toggle confirmation dialog
+const isStatusToggleDialogVisible = ref(false)
+const statusToggleItem = ref<Organization | null>(null)
+
 // Import
 const importFileInput = ref<HTMLInputElement>()
 const isImporting = ref(false)
@@ -45,12 +50,12 @@ const showToast = (message: string, color: 'success' | 'error') => {
 
 const headers = [
   { title: '', key: 'data-table-select', sortable: false },
-  { title: 'Tên tổ chức', key: 'name', sortable: true },
-  { title: 'Tổ chức cha', key: 'parent', sortable: false },
-  { title: 'Cấp', key: 'depth', sortable: true },
-  { title: 'Thứ tự', key: 'sort_order', sortable: true },
-  { title: 'Trạng thái', key: 'status', sortable: true },
-  { title: 'Thao tác', key: 'actions', sortable: false },
+  { title: 'STT', key: 'index', sortable: false, align: 'center' as const },
+  { title: 'Tên tổ chức', key: 'name', sortable: true, align: 'start' as const },
+  { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const },
+  { title: 'Ngày tạo', key: 'created_info', sortable: false, align: 'start' as const },
+  { title: 'Ngày cập nhật', key: 'updated_info', sortable: false, align: 'start' as const },
+  { title: 'Thao tác', key: 'actions', sortable: false, align: 'center' as const },
 ]
 
 // Computed
@@ -58,6 +63,7 @@ const organizations = computed(() => orgStore.organizations)
 const total = computed(() => orgStore.total)
 const isLoading = computed(() => orgStore.isLoading)
 const selectedIds = computed(() => selected.value.map(o => o.id))
+const indexOffset = computed(() => ((orgStore.filters.page ?? 1) - 1) * (orgStore.filters.limit ?? 10))
 
 const statusOptions = [
   { title: 'Tất cả', value: '' },
@@ -131,15 +137,27 @@ const handleDeleteConfirm = async () => {
 }
 
 const handleToggleStatus = async (org: Organization) => {
-  try {
-    const newStatus = org.status === 'active' ? 'inactive' : 'active'
+  statusToggleItem.value = org
+  isStatusToggleDialogVisible.value = true
+}
 
-    await orgStore.changeStatus(org.id, newStatus)
+const handleStatusToggleConfirm = async () => {
+  if (!statusToggleItem.value)
+    return
+
+  try {
+    const newStatus = statusToggleItem.value.status === 'active' ? 'inactive' : 'active'
+
+    await orgStore.changeStatus(statusToggleItem.value.id, newStatus)
     showToast('Cập nhật trạng thái thành công!', 'success')
-    await orgStore.fetchStats()
+    await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
   }
   catch {
     showToast('Cập nhật trạng thái thất bại!', 'error')
+  }
+  finally {
+    isStatusToggleDialogVisible.value = false
+    statusToggleItem.value = null
   }
 }
 
@@ -380,54 +398,43 @@ defineExpose({
         return-object
         class="text-no-wrap"
       >
+        <!-- STT -->
+        <template #item.index="{ index }">
+          <span>{{ indexOffset + index + 1 }}</span>
+        </template>
+
         <!-- Tên tổ chức -->
         <template #item.name="{ item }">
           <div class="d-flex flex-column">
-            <span class="font-weight-medium text-high-emphasis">{{ item.name }}</span>
-            <small
-              v-if="item.description"
-              class="text-disabled"
-            >
-              {{ item.description.substring(0, 60) }}{{ item.description.length > 60 ? '...' : '' }}
-            </small>
+            <span class="font-weight-medium">{{"-".repeat(item.depth)}} {{ item.name }}</span>
           </div>
         </template>
 
-        <!-- Tổ chức cha -->
-        <template #item.parent="{ item }">
-          <span
-            v-if="item.parent"
-            class="text-body-2"
-          >
-            {{ item.parent.name }}
-          </span>
-          <span
-            v-else
-            class="text-disabled text-body-2"
-          >—</span>
-        </template>
-
-        <!-- Cấp -->
-        <template #item.depth="{ item }">
-          <VChip
-            size="small"
-            variant="tonal"
-            color="primary"
-          >
-            Cấp {{ item.depth + 1 }}
-          </VChip>
-        </template>
 
         <!-- Trạng thái -->
         <template #item.status="{ item }">
-          <VChip
-            :color="resolveStatusVariant(item.status)"
-            size="small"
-            class="cursor-pointer"
+          <VSwitch
+            :model-value="item.status === 'active'"
+            :loading="statusToggleItem?.id === item.id && isStatusToggleDialogVisible"
             @click="handleToggleStatus(item)"
-          >
-            {{ resolveStatusLabel(item.status) }}
-          </VChip>
+            @update:model-value="handleToggleStatus(item)"
+          />
+        </template>
+
+        <!-- Người tạo / Ngày tạo -->
+        <template #item.created_info="{ item }">
+          <AppUserDateInfo
+            :user="item.created_by"
+            :date="item.created_at"
+          />
+        </template>
+
+        <!-- Người cập nhật / Ngày cập nhật -->
+        <template #item.updated_info="{ item }">
+          <AppUserDateInfo
+            :user="item.updated_by"
+            :date="item.updated_at"
+          />
         </template>
 
         <!-- Thao tác -->
@@ -553,6 +560,21 @@ defineExpose({
         </VCardActions>
       </VCard>
     </VDialog>
+
+    <!-- Status Toggle Confirmation Dialog -->
+    <AppConfirmDialog
+      v-model="isStatusToggleDialogVisible"
+      title="Xác nhận thay đổi trạng thái"
+      confirm-text="Thay đổi"
+      :loading="isLoading"
+      @confirm="handleStatusToggleConfirm"
+    >
+      <template v-if="statusToggleItem">
+        Bạn có chắc chắn muốn thay đổi trạng thái của <strong>{{ statusToggleItem.name }}</strong>
+        từ <strong>{{ resolveStatusLabel(statusToggleItem.status) }}</strong>
+        sang <strong>{{ resolveStatusLabel(statusToggleItem.status === 'active' ? 'inactive' : 'active') }}</strong>?
+      </template>
+    </AppConfirmDialog>
 
     <!-- Snackbar -->
     <AppSnackbar

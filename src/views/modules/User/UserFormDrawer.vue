@@ -49,7 +49,7 @@ const buildInitialForm = () => {
       user_name: props.user.user_name || '',
       password: '',
       password_confirmation: '',
-      status: (props.user.status || 'active') as 'active' | 'inactive' | 'banned',
+      status: (props.user.status || 'active') as 'active' | 'inactive',
       assignments: (props.user.assignments || []).map(a => ({
         role_id: a.role_id,
         organization_ids: a.organization_ids || [],
@@ -63,7 +63,7 @@ const buildInitialForm = () => {
     user_name: '',
     password: '',
     password_confirmation: '',
-    status: 'active' as 'active' | 'inactive' | 'banned',
+    status: 'active' as 'active' | 'inactive',
     assignments: [] as AssignmentRow[],
   }
 }
@@ -73,7 +73,6 @@ const formData = ref(buildInitialForm())
 const statusOptions = [
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
-  { title: 'Bị khóa', value: 'banned' },
 ]
 
 const orgSelectItems = computed(() =>
