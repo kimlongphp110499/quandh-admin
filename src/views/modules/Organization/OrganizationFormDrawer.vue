@@ -1,9 +1,12 @@
 <script setup lang="ts">
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '@/store/modules/organization'
-
+// eslint-disable-next-line import/no-unresolved
+import AppSnackbar from '@/components/AppSnackbar.vue'
 import type { Organization } from '@/api/modules/organization'
 
 interface Props {
@@ -105,6 +108,10 @@ const onSubmit = async () => {
     closeDrawer()
   }
   catch (error: any) {
+    if (error?.response?.status === 403) {
+      showToast('Người dùng không có quyền.', 'error')
+      return
+    }
     const responseData = error?.response?.data
     if (responseData?.errors) {
       serverErrors.value = responseData.errors
@@ -112,7 +119,7 @@ const onSubmit = async () => {
       showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
     }
     else {
-      showToast(responseData?.message || 'Có lỗi xảy ra, vui lòng thử lại.', 'error')
+      showToast(getErrorMessage(error, 'Có lỗi xảy ra, vui lòng thử lại.'), 'error')
     }
   }
   finally {
@@ -193,12 +200,12 @@ onMounted(() => {
               />
             </VCol>
 
-            <!-- Tổ chức cha -->
+            <!-- Tổ chức cấp cao -->
             <VCol cols="12">
               <AppSelect
                 v-model="formData.parent_id"
-                label="Tổ chức cha"
-                placeholder="-- Không có (tổ chức gốc) --"
+                label="Tổ chức cấp cao"
+                placeholder="Không có tổ chức cấp cap"
                 :items="parentSelectItems"
                 clearable
                 :rules="[serverErrorRule('parent_id')]"
@@ -255,20 +262,9 @@ onMounted(() => {
     </PerfectScrollbar>
   </VNavigationDrawer>
 
-  <VSnackbar
+  <AppSnackbar
     v-model="snackbar.show"
+    :message="snackbar.message"
     :color="snackbar.color"
-    location="top end"
-    :timeout="3000"
-  >
-    {{ snackbar.message }}
-    <template #actions>
-      <VBtn
-        variant="text"
-        @click="snackbar.show = false"
-      >
-        Đóng
-      </VBtn>
-    </template>
-  </VSnackbar>
+  />
 </template>

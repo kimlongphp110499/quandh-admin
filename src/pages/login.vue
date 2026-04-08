@@ -45,12 +45,16 @@ const orgDialogError = ref('')
 const adminSettings = computed(() => settingStore.settings.admin_page ?? {})
 const generalSettings = computed(() => settingStore.settings.general ?? {})
 const socialSettings = computed(() => settingStore.settings.social ?? {})
+const orgSelectPage = computed(() => settingStore.settings.org_select_page ?? {})
 
 const appName = computed(() => adminSettings.value.admin_logo_title || adminSettings.value.admin_app_name || 'Hệ thống quản trị')
 const welcomeTitle = computed(() => adminSettings.value.admin_welcome_title || appName.value)
 const appDescription = computed(() => adminSettings.value.admin_app_description || '')
 const backgroundImage = computed(() => adminSettings.value.admin_background_image || '')
 const logoUrl = computed(() => generalSettings.value.logo || '')
+const orgSelectTitle = computed(() => orgSelectPage.value.org_select_title || '')
+const orgSelectDescription = computed(() => orgSelectPage.value.org_select_description || '')
+
 const faviconUrl = computed(() => generalSettings.value.icon || '')
 
 const socialLinks = computed(() => {
@@ -157,40 +161,43 @@ onMounted(async () => {
       >
         <!-- Logo + Tên -->
         <div class="d-flex flex-column align-center mb-6">
-          <VAvatar
-            v-if="logoUrl"
-            size="64"
-            class="mb-3"
-            rounded
-          >
-            <VImg
-              :src="logoUrl"
-              :alt="appName"
-            />
-          </VAvatar>
-          <VAvatar
-            v-else
-            size="64"
-            color="primary"
-            variant="tonal"
-            class="mb-3"
-            rounded
-          >
-            <VIcon
-              icon="tabler-building-community"
-              size="36"
-            />
-          </VAvatar>
+          <div class="d-flex align-center justify-center gap-3 mb-3">
+            <VAvatar
+              v-if="logoUrl"
+              size="56"
+              rounded
+            >
+              <VImg
+                :src="logoUrl"
+                :alt="appName"
+              />
+            </VAvatar>
 
-          <h5 class="text-h5 font-weight-bold text-center text-uppercase">
-            {{ appName }}
-          </h5>
+            <VAvatar
+              v-else
+              size="56"
+              color="primary"
+              variant="tonal"
+              rounded
+            >
+              <VIcon
+                icon="tabler-building-community"
+                size="30"
+              />
+            </VAvatar>
+
+            <h5 class="text-h5 font-weight-bold text-center text-uppercase mb-0">
+              {{ appName }}
+            </h5>
+          </div>
+
           <p
             v-if="welcomeTitle"
             class="text-body-1 font-weight-medium text-center mt-1 mb-0"
           >
             {{ welcomeTitle }}
           </p>
+
           <p
             v-if="appDescription"
             class="text-body-2 text-medium-emphasis text-center mt-1 mb-0"
@@ -302,21 +309,47 @@ onMounted(async () => {
     persistent
   >
     <VCard>
-      <VCardTitle class="d-flex align-center gap-3 pt-6 px-6">
-        <VAvatar
-          color="primary"
-          variant="tonal"
-          size="40"
-          rounded
-        >
-          <VIcon icon="tabler-building" />
-        </VAvatar>
-        <div>
-          <div class="text-h6">
-            Chọn tổ chức làm việc
+      <VCardTitle class="pt-6 px-6">
+        <div class="w-100">
+          <div class="d-flex align-center justify-center gap-3 mb-3">
+            <VAvatar
+              v-if="logoUrl"
+              size="48"
+              rounded
+            >
+              <VImg
+                :src="logoUrl"
+                :alt="appName"
+              />
+            </VAvatar>
+
+            <VAvatar
+              v-else
+              size="48"
+              color="primary"
+              variant="tonal"
+              rounded
+            >
+              <VIcon
+                icon="tabler-building-community"
+                size="24"
+              />
+            </VAvatar>
+
+            <div class="text-h4 font-weight-bold">
+              {{ appName }}
+            </div>
           </div>
-          <div class="text-body-2 text-medium-emphasis font-weight-regular">
-            Tài khoản của bạn thuộc nhiều tổ chức
+
+          <div class="text-h4 text-center">
+            {{ orgSelectTitle || 'Chọn tổ chức' }}
+          </div>
+
+          <div
+            v-if="orgSelectDescription"
+            class="text-body-1 text-medium-emphasis font-weight-regular text-center mt-1"
+          >
+            {{ orgSelectDescription }}
           </div>
         </div>
       </VCardTitle>
@@ -369,7 +402,7 @@ onMounted(async () => {
         </div>
       </VCardText>
 
-      <VCardActions class="px-6 pb-6 pt-2">
+      <VCardActions class="px-6 pb-6 pt-2 d-flex flex-column gap-2">
         <VBtn
           block
           size="large"
@@ -378,6 +411,16 @@ onMounted(async () => {
           @click="handleSelectOrg"
         >
           Vào hệ thống
+        </VBtn>
+        <VBtn
+          block
+          variant="tonal"
+          color="secondary"
+          :disabled="isLoading"
+          prepend-icon="tabler-logout"
+          @click="authStore.logout().then(() => router.replace('/login'))"
+        >
+          Đăng xuất
         </VBtn>
       </VCardActions>
     </VCard>

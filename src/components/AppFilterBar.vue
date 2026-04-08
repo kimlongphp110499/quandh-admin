@@ -29,14 +29,7 @@ const isFilterExpanded = ref(false)
       >
         <VIcon
           :icon="isFilterExpanded ? 'tabler-filter-off' : 'tabler-filter'"
-          :color="props.hasActiveFilters ? 'primary' : undefined"
           size="18"
-        />
-        <VBadge
-          v-if="props.hasActiveFilters"
-          color="primary"
-          dot
-          inline
         />
         <VIcon
           :icon="isFilterExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'"
@@ -49,19 +42,9 @@ const isFilterExpanded = ref(false)
       <div class="d-none d-md-flex align-center gap-1">
         <VIcon
           icon="tabler-filter"
-          :color="props.hasActiveFilters ? 'primary' : undefined"
           size="18"
         />
-        <span
-          class="text-body-3 font-weight-semibold"
-          :class="props.hasActiveFilters ? 'text-primary' : ''"
-        >{{ props.title }}</span>
-        <VBadge
-          v-if="props.hasActiveFilters"
-          color="primary"
-          dot
-          inline
-        />
+        <span class="text-body-3 font-weight-semibold">{{ props.title }}</span>
       </div>
 
       <VSpacer />

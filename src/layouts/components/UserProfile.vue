@@ -69,24 +69,6 @@ async function handleLogout() {
             <VListItemSubtitle>{{ userRole || userEmail }}</VListItemSubtitle>
           </VListItem>
 
-          <!-- Tổ chức hiện tại -->
-          <VListItem
-            v-if="currentOrg"
-            density="compact"
-            class="text-caption text-medium-emphasis"
-          >
-            <template #prepend>
-              <VIcon
-                icon="tabler-building"
-                size="16"
-                class="me-2 opacity-60"
-              />
-            </template>
-            <VListItemTitle class="text-caption">
-              {{ currentOrg.name }}
-            </VListItemTitle>
-          </VListItem>
-
           <VDivider class="my-2" />
 
           <!-- Trang cá nhân -->

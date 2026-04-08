@@ -23,6 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
   const error = ref<string | null>(null)
   const availableOrganizations = ref<Organization[]>([])
   const currentOrganizationId = ref<number | null>(null)
+  const currentOrganizationName = ref<string | null>(null)
 
   // Getters
   const isAuthenticated = computed(() => !!token.value)
@@ -36,6 +37,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const currentOrganization = computed(
     () => availableOrganizations.value.find(o => o.id === currentOrganizationId.value) ?? null,
+  )
+
+  const currentOrganizationDisplayName = computed(
+    () => currentOrganizationName.value ?? currentOrganization.value?.name ?? null,
   )
 
   // Actions
@@ -65,9 +70,14 @@ export const useAuthStore = defineStore('auth', () => {
         availableOrganizations.value = orgs
         currentOrganizationId.value = orgId
 
+        const orgName = orgs.find((o: Organization) => o.id === orgId)?.name ?? null
+        currentOrganizationName.value = orgName
+
         useCookie('accessToken').value = accessToken
         useCookie('userData').value = userData
         localStorage.setItem('availableOrganizations', JSON.stringify(orgs))
+        if (orgName)
+          localStorage.setItem('currentOrganizationName', orgName)
 
         if (orgId) {
           useCookie('organizationId').value = String(orgId)
@@ -105,11 +115,13 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = null
       availableOrganizations.value = []
       currentOrganizationId.value = null
+      currentOrganizationName.value = null
       useCookie('accessToken').value = null
       useCookie('userData').value = null
       useCookie('organizationId').value = null
       localStorage.removeItem('userAbilityRules')
       localStorage.removeItem('availableOrganizations')
+      localStorage.removeItem('currentOrganizationName')
       ability.update([])
     }
   }
@@ -137,10 +149,19 @@ export const useAuthStore = defineStore('auth', () => {
         if (orgId)
           useCookie('organizationId').value = String(orgId)
 
-        // Cập nhật danh sách tổ chức nếu API trả về
-        if (data.available_organizations !== undefined) {
+        // Cập nhật danh sách tổ chức nếu API trả về dữ liệu (không ghi đè khi trả về mảng rỗng)
+        if (Array.isArray(data.available_organizations) && data.available_organizations.length > 0) {
           availableOrganizations.value = data.available_organizations
           localStorage.setItem('availableOrganizations', JSON.stringify(data.available_organizations))
+        }
+
+        // Cập nhật tên tổ chức hiện tại (ưu tiên dữ liệu từ API, fallback sang danh sách)
+        const orgNameFromData = data.current_organization?.name ?? data.organization?.name ?? null
+        const orgNameFromList = availableOrganizations.value.find(o => o.id === orgId)?.name ?? null
+        const resolvedOrgName = orgNameFromData ?? orgNameFromList ?? null
+        if (resolvedOrgName) {
+          currentOrganizationName.value = resolvedOrgName
+          localStorage.setItem('currentOrganizationName', resolvedOrgName)
         }
 
         if (abilities.length) {
@@ -168,6 +189,16 @@ export const useAuthStore = defineStore('auth', () => {
 
         currentOrganizationId.value = orgId
         useCookie('organizationId').value = String(orgId)
+
+        // Cập nhật tên tổ chức sau khi switch
+        const switchedOrgName = availableOrganizations.value.find(o => o.id === orgId)?.name
+          ?? data.current_organization?.name
+          ?? data.organization?.name
+          ?? null
+        if (switchedOrgName) {
+          currentOrganizationName.value = switchedOrgName
+          localStorage.setItem('currentOrganizationName', switchedOrgName)
+        }
 
         // Cập nhật roles & permissions của user theo tổ chức mới
         if (user.value) {
@@ -219,6 +250,10 @@ export const useAuthStore = defineStore('auth', () => {
         }
         catch {}
       }
+
+      const savedOrgName = localStorage.getItem('currentOrganizationName')
+      if (savedOrgName)
+        currentOrganizationName.value = savedOrgName
     }
   }
 
@@ -229,11 +264,13 @@ export const useAuthStore = defineStore('auth', () => {
     error,
     availableOrganizations,
     currentOrganizationId,
+    currentOrganizationName,
     isAuthenticated,
     userPermissions,
     userRoles,
     needsOrgSelection,
     currentOrganization,
+    currentOrganizationDisplayName,
     login,
     logout,
     fetchUser,

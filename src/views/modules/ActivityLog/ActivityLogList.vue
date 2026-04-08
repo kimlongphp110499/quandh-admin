@@ -1,6 +1,8 @@
+<!-- eslint-disable import/no-unresolved -->
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
@@ -8,8 +10,12 @@ import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useActivityLogStore } from '@/store/modules/activity-log'
 import type { ActivityLog } from '@/api/modules/activity-log'
+// eslint-disable-next-line import/extensions
+import { useOrganizationStore } from '@/store/modules/organization'
 
 const store = useActivityLogStore()
+
+const orgStore = useOrganizationStore()
 
 // ── filters ──────────────────────────────────────────────────────
 const search = ref('')
@@ -31,6 +37,7 @@ const methodOptions = [
 const selectedIds = ref<number[]>([])
 const page = ref(1)
 const limit = ref(10)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const limitOptions = [10, 20, 50, 100]
 
 // ── detail dialog ─────────────────────────────────────────────────
@@ -107,6 +114,7 @@ async function load() {
     status_code: statusCode.value ? Number(statusCode.value) : undefined,
   })
   selectedIds.value = []
+  await orgStore.fetchOrganizations()
 }
 
 function applyFilters() {
@@ -239,6 +247,21 @@ async function handleExport() {
   }
 }
 
+const organizationMap = computed(() => {
+  return new Map(
+    (orgStore.organizations ?? []).map((org: any) => [
+      org.id ?? org.organization_id,
+      org.name ?? org.organization_name,
+    ]),
+  )
+})
+
+function getOrganizationName(organizationId: number | null) {
+  if (!organizationId)
+    return '—'
+
+  return organizationMap.value.get(organizationId) ?? `#${organizationId}`
+}
 onMounted(load)
 </script>
 
@@ -248,14 +271,8 @@ onMounted(load)
     <AppSystemPageHeader
       title="Nhật ký hoạt động"
       :total="store.total"
-      :active="0"
-      :inactive="0"
       total-label="Tổng nhật ký"
-      active-label="Hôm nay"
-      inactive-label="Hôm qua"
       total-icon="tabler-history"
-      active-icon="tabler-calendar-check"
-      inactive-icon="tabler-calendar-x"
       @settings="() => {}"
     />
 
@@ -274,7 +291,7 @@ onMounted(load)
             clearable
             hide-details
             @input="onSearchInput"
-            @click:clear="applyFilters" 
+            @click:clear="applyFilters"
           />
         </div>
 
@@ -286,7 +303,7 @@ onMounted(load)
           <AppDateTimePicker
             v-model="fromDate"
             :config="{
-              dateFormat: 'Y-m-d',
+              dateFormat: 'd/m/Y',
               maxDate: toDate || undefined,
             }"
             clearable
@@ -303,7 +320,7 @@ onMounted(load)
           <AppDateTimePicker
             v-model="toDate"
             :config="{
-              dateFormat: 'Y-m-d',
+              dateFormat: 'd/m/Y',
               minDate: fromDate || undefined,
             }"
             clearable
@@ -388,7 +405,6 @@ onMounted(load)
       elevation="0"
       border
     >
-
       <div
         v-if="store.logs.length === 0"
         class="text-center py-12"
@@ -423,16 +439,16 @@ onMounted(load)
             <th>TÊN NGƯỜI DÙNG</th>
             <th>TỔ CHỨC</th>
             <th>MÔ TẢ</th>
-            <th style="width: 130px;">
+            <th style="width: 130px; min-width: 130px;">
               PHƯƠNG THỨC HTTP
             </th>
-            <th style="width: 120px;">
+            <th style="width: 120px; min-width: 120px;">
               ĐỊA CHỈ IP
             </th>
-            <th style="width: 160px;">
+            <th style="width: 160px; min-width: 160px;">
               THỜI GIAN TRUY CẬP
             </th>
-            <th style="width: 80px;">
+            <th style="width: 130px; min-width: 130px; text-align: left;">
               HÀNH ĐỘNG
             </th>
           </tr>
@@ -474,7 +490,7 @@ onMounted(load)
               </div>
             </td>
             <td class="text-body-2 text-medium-emphasis">
-              {{ log.organization_id ?? '—' }}
+              {{ log.organization_id ? getOrganizationName(log.organization_id) : '—' }}
             </td>
             <td>
               <div
@@ -516,10 +532,12 @@ onMounted(load)
                 {{ log.ip_address ?? '—' }}
               </span>
             </td>
-            <td class="text-body-2 text-medium-emphasis">
-              {{ log.created_at }}
+            <td>
+              <div style="max-width: 160px; overflow: hidden;">
+                <AppUserDateInfo :date="log.created_at" />
+              </div>
             </td>
-            <td @click.stop>
+            <td class="text-no-wrap" @click.stop>
               <div class="d-flex align-center gap-1">
                 <IconBtn
                   size="small"
@@ -611,7 +629,7 @@ onMounted(load)
                 Tổ chức
               </div>
               <div class="text-body-2">
-                {{ selectedLog.organization_id ?? '—' }}
+                {{ selectedLog.organization_id ? `${getOrganizationName(selectedLog.organization_id)}` : '' }}
               </div>
             </VCol>
 
@@ -751,7 +769,7 @@ onMounted(load)
                 v-model="deleteFromDate"
                 label="Từ ngày"
                 :config="{
-                  dateFormat: 'Y-m-d',
+                  dateFormat: 'd/m/Y',
                   maxDate: toDate || undefined,
                 }"
                 clearable
@@ -763,7 +781,7 @@ onMounted(load)
                 v-model="deleteToDate"
                 label="Đến ngày"
                 :config="{
-                  dateFormat: 'Y-m-d',
+                  dateFormat: 'd/m/Y',
                   maxDate: toDate || undefined,
                 }"
                 clearable
@@ -808,3 +826,9 @@ onMounted(load)
     />
   </div>
 </template>
+
+<style scoped>
+:deep(tbody tr) {
+  height: 64px;
+}
+</style>

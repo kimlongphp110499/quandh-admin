@@ -1,8 +1,13 @@
 <script setup lang="ts">
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
+// eslint-disable-next-line import/extensions
 import { usePermissionStore } from '@/store/modules/permission'
 import type { Permission } from '@/api/modules/permission'
+// eslint-disable-next-line import/no-unresolved
+import AppSnackbar from '@/components/AppSnackbar.vue'
 
 interface Props {
   isDrawerOpen: boolean
@@ -75,6 +80,16 @@ const resetForm = () => {
   refVForm.value?.resetValidation()
 }
 
+const populateForm = (perm: Permission) => {
+  formData.value = {
+    name: perm.name || '',
+    guard_name: perm.guard_name || 'web',
+    description: perm.description || '',
+    sort_order: perm.sort_order ?? 0,
+    parent_id: perm.parent_id || null,
+  }
+}
+
 const closeDrawer = () => {
   emit('update:isDrawerOpen', false)
 }
@@ -107,6 +122,10 @@ const onSubmit = async () => {
     closeDrawer()
   }
   catch (error: any) {
+    if (error?.response?.status === 403) {
+      showToast('Người dùng không có quyền.', 'error')
+      return
+    }
     const responseData = error?.response?.data
     if (responseData?.errors) {
       serverErrors.value = responseData.errors
@@ -114,7 +133,7 @@ const onSubmit = async () => {
       showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
     }
     else {
-      showToast(responseData?.message || 'Có lỗi xảy ra, vui lòng thử lại.', 'error')
+      showToast(getErrorMessage(error, 'Có lỗi xảy ra, vui lòng thử lại.'), 'error')
     }
   }
   finally {
@@ -123,25 +142,22 @@ const onSubmit = async () => {
 }
 
 watch(() => props.permission, perm => {
-  if (perm) {
-    formData.value = {
-      name: perm.name || '',
-      guard_name: perm.guard_name || 'web',
-      description: perm.description || '',
-      sort_order: perm.sort_order ?? 0,
-      parent_id: perm.parent_id || null,
-    }
-  }
-  else {
+  if (perm)
+    populateForm(perm)
+  else
     resetForm()
-  }
 }, { immediate: true })
 
 watch(() => props.isDrawerOpen, async val => {
-  if (!val)
+  if (!val) {
     resetForm()
-  else if (!permissionStore.permissionTree.length)
-    await permissionStore.fetchTree()
+  }
+  else {
+    if (!permissionStore.permissionTree.length)
+      await permissionStore.fetchTree()
+    if (props.permission)
+      populateForm(props.permission)
+  }
 })
 </script>
 
@@ -249,20 +265,9 @@ watch(() => props.isDrawerOpen, async val => {
     </div>
   </VNavigationDrawer>
 
-  <VSnackbar
+  <AppSnackbar
     v-model="snackbar.show"
+    :message="snackbar.message"
     :color="snackbar.color"
-    location="top end"
-    :timeout="3000"
-  >
-    {{ snackbar.message }}
-    <template #actions>
-      <VBtn
-        variant="text"
-        @click="snackbar.show = false"
-      >
-        Đóng
-      </VBtn>
-    </template>
-  </VSnackbar>
+  />
 </template>

@@ -1,4 +1,8 @@
 import apiClient, { type ApiResponse } from '../client'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+dayjs.extend(customParseFormat)
 
 export interface ActivityLog {
   id: number
@@ -30,9 +34,28 @@ export interface ActivityLogFilters {
   status_code?: number | null
 }
 
+function normalizeDate(raw?: string): string | undefined {
+  if (!raw)
+    return raw
+
+  if (dayjs(raw, 'DD/MM/YYYY', true).isValid())
+    return dayjs(raw, 'DD/MM/YYYY').format('YYYY-MM-DD')
+
+  if (dayjs(raw, 'DD/MM/YYYY HH:mm:ss', true).isValid())
+    return dayjs(raw, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+
+  return raw
+}
+
 export const activityLogApi = {
   list(filters?: ActivityLogFilters) {
-    return apiClient.get<ApiResponse<ActivityLog[]>>('/log-activities', { params: filters })
+    return apiClient.get<ApiResponse<ActivityLog[]>>('/log-activities', {
+      params: {
+        ...filters,
+        from_date: normalizeDate(filters?.from_date),
+        to_date: normalizeDate(filters?.to_date),
+      },
+    })
   },
 
   show(id: number) {
@@ -49,8 +72,10 @@ export const activityLogApi = {
 
   // eslint-disable-next-line camelcase
   deleteByDate(from_date: string, to_date: string) {
-    // eslint-disable-next-line camelcase
-    return apiClient.post<ApiResponse>('/log-activities/delete-by-date', { from_date, to_date })
+    return apiClient.post<ApiResponse>('/log-activities/delete-by-date', {
+      from_date: normalizeDate(from_date),
+      to_date: normalizeDate(to_date),
+    })
   },
 
   clear() {
@@ -58,12 +83,22 @@ export const activityLogApi = {
   },
 
   stats(filters?: ActivityLogFilters) {
-    return apiClient.get<ApiResponse<{ total: number }>>('/log-activities/stats', { params: filters })
+    return apiClient.get<ApiResponse<{ total: number }>>('/log-activities/stats', {
+      params: {
+        ...filters,
+        from_date: normalizeDate(filters?.from_date),
+        to_date: normalizeDate(filters?.to_date),
+      },
+    })
   },
 
   export(filters?: ActivityLogFilters) {
     return apiClient.get('/log-activities/export', {
-      params: filters,
+      params: {
+        ...filters,
+        from_date: normalizeDate(filters?.from_date),
+        to_date: normalizeDate(filters?.to_date),
+      },
       responseType: 'blob',
     })
   },

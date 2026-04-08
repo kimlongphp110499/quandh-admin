@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import OrganizationFormDrawer from './OrganizationFormDrawer.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
@@ -9,7 +10,7 @@ import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '@/store/modules/organization'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import type { Organization } from '@/api/modules/organization'
 
 const orgStore = useOrganizationStore()
@@ -50,12 +51,12 @@ const showToast = (message: string, color: 'success' | 'error') => {
 
 const headers = [
   { title: '', key: 'data-table-select', sortable: false },
-  { title: 'STT', key: 'index', sortable: false, align: 'center' as const },
-  { title: 'Tên tổ chức', key: 'name', sortable: true, align: 'start' as const },
-  { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const },
-  { title: 'Ngày tạo', key: 'created_info', sortable: false, align: 'start' as const },
-  { title: 'Ngày cập nhật', key: 'updated_info', sortable: false, align: 'start' as const },
-  { title: 'Thao tác', key: 'actions', sortable: false, align: 'center' as const },
+  { title: 'STT', key: 'index', sortable: false, align: 'center' as const, width: '60px', minWidth: '60px' },
+  { title: 'Tên tổ chức', key: 'name', sortable: true, align: 'start' as const, minWidth: '200px' },
+  { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '120px', minWidth: '120px' },
+  { title: 'Ngày tạo', key: 'created_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
+  { title: 'Ngày cập nhật', key: 'updated_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
+  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '130px' },
 ]
 
 // Computed
@@ -130,8 +131,8 @@ const handleDeleteConfirm = async () => {
     isDeleteDialogVisible.value = false
     await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
   }
-  catch {
-    showToast('Xóa thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Xóa thất bại!'), 'error')
     isDeleteDialogVisible.value = false
   }
 }
@@ -152,8 +153,8 @@ const handleStatusToggleConfirm = async () => {
     showToast('Cập nhật trạng thái thành công!', 'success')
     await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
   }
-  catch {
-    showToast('Cập nhật trạng thái thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
   }
   finally {
     isStatusToggleDialogVisible.value = false
@@ -168,6 +169,37 @@ const openBulkStatusDialog = () => {
   isBulkStatusDialogVisible.value = true
 }
 
+// Bulk actions
+const handleBulkStatus = (status: 'active' | 'inactive') => {
+  if (!selectedIds.value.length)
+    return
+
+  const label = status === 'active' ? 'hoạt động' : status === 'inactive' ? 'không hoạt động' : 'vô hiệu hoá'
+
+  showConfirm(
+    'Cập nhật trạng thái hàng loạt',
+    `Bạn có chắc muốn ${label} ${selectedIds.value.length} tổ chức đã chọn?`,
+    async () => {
+      try {
+        await orgStore.bulkUpdateStatus(selectedIds.value, status)
+        selected.value = []
+        showToast('Cập nhật trạng thái thành công!', 'success')
+        await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
+      }
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
+      }
+    },
+  )
+}
+
+// Confirm dialog
+const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {}, loading: false })
+
+const showConfirm = (title: string, message: string, onConfirm: () => void) => {
+  confirmDialog.value = { show: true, title, message, onConfirm, loading: false }
+}
+
 const handleBulkUpdateStatus = async () => {
   try {
     await orgStore.bulkUpdateStatus(selectedIds.value, bulkStatusValue.value)
@@ -176,8 +208,8 @@ const handleBulkUpdateStatus = async () => {
     isBulkStatusDialogVisible.value = false
     await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
   }
-  catch {
-    showToast('Cập nhật trạng thái thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
     isBulkStatusDialogVisible.value = false
   }
 }
@@ -191,24 +223,11 @@ const handleExport = async () => {
     })
     showToast('Xuất file thành công!', 'success')
   }
-  catch {
-    showToast('Xuất file thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Xuất file thất bại!'), 'error')
   }
   finally {
     isExporting.value = false
-  }
-}
-
-const handleDownloadTemplate = async () => {
-  isDownloadingTemplate.value = true
-  try {
-    await orgStore.downloadImportTemplate()
-  }
-  catch {
-    showToast('Tải file mẫu thất bại!', 'error')
-  }
-  finally {
-    isDownloadingTemplate.value = false
   }
 }
 
@@ -226,7 +245,7 @@ const handleImportFile = async (event: Event) => {
     await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
   }
   catch (err: any) {
-    showToast(err?.response?.data?.message || 'Nhập dữ liệu thất bại!', 'error')
+    showToast(getErrorMessage(err, 'Nhập dữ liệu thất bại!'), 'error')
   }
   finally {
     isImporting.value = false
@@ -313,23 +332,33 @@ defineExpose({
 
       <template #actions>
         <!-- Bulk actions -->
-        <template v-if="selected.length > 0">
+        <template v-if="selectedIds.length > 0">
           <VBtn
-            color="error"
             variant="tonal"
+            color="success"
+            prepend-icon="tabler-user-check"
+            @click="handleBulkStatus('active')"
+          >
+            <span class="d-none d-sm-inline">Hoạt động</span>
+            ({{ selectedIds.length }})
+          </VBtn>
+          <VBtn
+            variant="tonal"
+            color="warning"
+            prepend-icon="tabler-user-off"
+            @click="handleBulkStatus('inactive')"
+          >
+            <span class="d-none d-sm-inline">Không hoạt động</span>
+            ({{ selectedIds.length }})
+          </VBtn>
+          <VBtn
+            variant="tonal"
+            color="error"
             prepend-icon="tabler-trash"
             @click="confirmBulkDelete"
           >
             <span class="d-none d-sm-inline">Xóa</span>
-            ({{ selected.length }})
-          </VBtn>
-          <VBtn
-            color="warning"
-            variant="tonal"
-            @click="openBulkStatusDialog"
-          >
-            <VIcon icon="tabler-refresh" />
-            <span class="d-none d-sm-inline ms-1">Cập nhật trạng thái</span>
+            ({{ selectedIds.length }})
           </VBtn>
         </template>
         <!-- Import -->
@@ -341,16 +370,6 @@ defineExpose({
         >
           <VIcon icon="tabler-upload" />
           <span class="d-none d-sm-inline ms-1">Nhập</span>
-        </VBtn>
-        <!-- Download template -->
-        <VBtn
-          color="secondary"
-          variant="tonal"
-          :loading="isDownloadingTemplate"
-          @click="handleDownloadTemplate"
-        >
-          <VIcon icon="tabler-file-download" />
-          <span class="d-none d-sm-inline ms-1">File mẫu</span>
         </VBtn>
         <!-- Export -->
         <VBtn
@@ -371,11 +390,9 @@ defineExpose({
         >
 
         <!-- Add -->
-        <VBtn
-          @click="openAddDrawer"
-        >
+        <VBtn @click="openAddDrawer">
           <VIcon icon="tabler-plus" />
-          <span class="d-none d-sm-inline ms-1">Thêm tổ chức</span>
+          <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
     </AppFilterBar>
@@ -385,7 +402,6 @@ defineExpose({
       elevation="0"
       border
     >
-
       <VDivider />
 
       <VDataTableServer
@@ -394,27 +410,30 @@ defineExpose({
         :items="organizations"
         :items-length="total"
         item-value="id"
+        item-height="64"
         show-select
         return-object
         class="text-no-wrap"
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span>{{ indexOffset + index + 1 }}</span>
+          <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên tổ chức -->
         <template #item.name="{ item }">
           <div class="d-flex flex-column">
-            <span class="font-weight-medium">{{"-".repeat(item.depth)}} {{ item.name }}</span>
+            <span class="font-weight-medium">{{ "-".repeat(item.depth) }} {{ item.name }}</span>
           </div>
         </template>
-
 
         <!-- Trạng thái -->
         <template #item.status="{ item }">
           <VSwitch
             :model-value="item.status === 'active'"
+            inset
+            hide-details
+            density="compact"
             :loading="statusToggleItem?.id === item.id && isStatusToggleDialogVisible"
             @click="handleToggleStatus(item)"
             @update:model-value="handleToggleStatus(item)"
@@ -423,28 +442,35 @@ defineExpose({
 
         <!-- Người tạo / Ngày tạo -->
         <template #item.created_info="{ item }">
-          <AppUserDateInfo
-            :user="item.created_by"
-            :date="item.created_at"
-          />
+          <div style="max-width: 160px; overflow: hidden;">
+            <AppUserDateInfo
+              :user="item.created_by"
+              :date="item.created_at"
+            />
+          </div>
         </template>
 
         <!-- Người cập nhật / Ngày cập nhật -->
         <template #item.updated_info="{ item }">
-          <AppUserDateInfo
-            :user="item.updated_by"
-            :date="item.updated_at"
-          />
+          <div style="max-width: 160px; overflow: hidden;">
+            <AppUserDateInfo
+              :user="item.updated_by"
+              :date="item.updated_at"
+            />
+          </div>
         </template>
 
         <!-- Thao tác -->
         <template #item.actions="{ item }">
-          <div class="d-flex gap-1">
+          <div class="d-flex align-center gap-1">
             <IconBtn
               size="small"
               @click="openEditDrawer(item)"
             >
-              <VIcon icon="tabler-edit" />
+              <VIcon
+                icon="tabler-edit"
+                size="18"
+              />
               <VTooltip
                 activator="parent"
                 location="top"
@@ -458,7 +484,10 @@ defineExpose({
               color="error"
               @click="confirmDeleteSingle(item.id)"
             >
-              <VIcon icon="tabler-trash" />
+              <VIcon
+                icon="tabler-trash"
+                size="18"
+              />
               <VTooltip
                 activator="parent"
                 location="top"
@@ -471,7 +500,7 @@ defineExpose({
 
         <!-- No Data -->
         <template #no-data>
-          <div class="text-center py-10">
+          <div class="text-center py-8">
             <VIcon
               icon="tabler-building-off"
               size="48"
@@ -560,8 +589,6 @@ defineExpose({
         </VCardActions>
       </VCard>
     </VDialog>
-
-    <!-- Status Toggle Confirmation Dialog -->
     <AppConfirmDialog
       v-model="isStatusToggleDialogVisible"
       title="Xác nhận thay đổi trạng thái"
@@ -575,6 +602,13 @@ defineExpose({
         sang <strong>{{ resolveStatusLabel(statusToggleItem.status === 'active' ? 'inactive' : 'active') }}</strong>?
       </template>
     </AppConfirmDialog>
+    <!-- Confirm Dialog -->
+    <AppConfirmDialog
+      v-model="confirmDialog.show"
+      :title="confirmDialog.title"
+      :message="confirmDialog.message"
+      @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
+    />
 
     <!-- Snackbar -->
     <AppSnackbar
@@ -584,3 +618,9 @@ defineExpose({
     />
   </section>
 </template>
+
+<style scoped>
+:deep(.v-data-table__tr) {
+  height: 64px;
+}
+</style>

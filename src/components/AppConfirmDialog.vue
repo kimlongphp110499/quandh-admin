@@ -15,12 +15,13 @@ interface Emits {
   (e: 'cancel'): void
 }
 
+// Gán giá trị mặc định cho props
 const props = withDefaults(defineProps<Props>(), {
   title: 'Xác nhận',
-  message: '',
+  message: 'Bạn có chắc chắn muốn thực hiện hành động này?',
   confirmText: 'Xác nhận',
   cancelText: 'Hủy',
-  confirmColor: 'error',
+  confirmColor: 'primary',
   loading: false,
 })
 
@@ -38,36 +39,51 @@ const onConfirm = () => {
 
 <template>
   <VDialog
-    :model-value="modelValue"
-    max-width="400"
+    :model-value="props.modelValue"
+    max-width="500"
     persistent
-    @update:model-value="emit('update:modelValue', $event)"
+    @update:model-value="val => emit('update:modelValue', val)"
   >
-    <VCard rounded="lg">
-      <VCardTitle class="pt-6 px-6">
-        {{ props.title }}
-      </VCardTitle>
-      <VCardText class="px-6">
-        <slot>{{ props.message }}</slot>
+    <VCard class="text-center px-10 py-8" rounded="lg">
+      <VCardText>
+        <VBtn
+          icon
+          variant="outlined"
+          color="warning"
+          class="mb-4"
+          style="block-size: 80px; inline-size: 80px; pointer-events: none;"
+        >
+          <span class="text-5xl">!</span>
+        </VBtn>
+
+        <h3 class="text-h5 mb-2">
+          {{ props.title }}
+        </h3>
+        
+        <p class="text-body-1 text-secondary">
+          <slot>{{ props.message }}</slot>
+        </p>
       </VCardText>
-      <VCardActions class="px-6 pb-6">
-        <VSpacer />
+
+      <VCardText class="d-flex align-center justify-center gap-3">
         <VBtn
           :color="props.confirmColor"
+          variant="elevated"
           :loading="props.loading"
           @click="onConfirm"
         >
           {{ props.confirmText }}
         </VBtn>
+
         <VBtn
-          variant="tonal"
           color="secondary"
+          variant="tonal"
           :disabled="props.loading"
           @click="onCancel"
         >
           {{ props.cancelText }}
         </VBtn>
-      </VCardActions>
+      </VCardText>
     </VCard>
   </VDialog>
 </template>

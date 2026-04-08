@@ -24,6 +24,11 @@ export const setupGuards = (router: _RouterTyped<RouteNamedMap & { [key: string]
      * Note: userData cookie is NOT checked here as it may be too large and silently fail to persist.
      */
     const authStore = useAuthStore()
+
+    // Khôi phục state từ cookie/localStorage khi reload trang (store bị reset)
+    if (!authStore.isAuthenticated && useCookie('accessToken').value)
+      authStore.initializeFromCookie()
+
     const isLoggedIn = authStore.isAuthenticated || !!(useCookie('accessToken').value)
 
     // Fetch settings một lần duy nhất khi đã đăng nhập

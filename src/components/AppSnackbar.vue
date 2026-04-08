@@ -24,19 +24,10 @@ const emit = defineEmits<Emits>()
 <template>
   <VSnackbar
     :model-value="modelValue"
-    :color="props.color"
-    :location="props.location as any"
+    location="top end"
     :timeout="props.timeout"
     @update:model-value="emit('update:modelValue', $event)"
   >
     {{ props.message }}
-    <template #actions>
-      <VBtn
-        variant="text"
-        @click="emit('update:modelValue', false)"
-      >
-        Đóng
-      </VBtn>
-    </template>
   </VSnackbar>
 </template>

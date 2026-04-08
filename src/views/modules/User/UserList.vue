@@ -1,5 +1,7 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import UserFormDrawer from './UserFormDrawer.vue'
@@ -14,7 +16,7 @@ import { useAuthStore } from '@/store/modules/auth'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 
 // eslint-disable-next-line import/no-unresolved
-import { type User, userApi } from '@/api/modules/user'
+import { type User } from '@/api/modules/user'
 
 const userStore = useUserStore()
 const orgStore = useOrganizationStore()
@@ -53,18 +55,18 @@ const hasActiveFilters = computed(() =>
 
 // Table headers
 const headers = [
-  { title: 'STT', key: 'stt', sortable: false, width: '60px' },
+  { title: 'STT', key: 'stt', sortable: false, width: '60px', minWidth: '60px' },
   { title: 'TÊN NGƯỜI DÙNG', key: 'name', sortable: true, minWidth: '200px' },
   { title: 'EMAIL', key: 'email', sortable: true, minWidth: '180px' },
   { title: 'TỔ CHỨC & VAI TRÒ', key: 'assignments', sortable: false, minWidth: '200px' },
-  { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '200px' },
-  { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '200px' },
-  { title: 'TRẠNG THÁI', key: 'status', sortable: false, width: '130px' },
-  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px' },
+  { title: 'TRẠNG THÁI', key: 'status', sortable: false, width: '120px', minWidth: '120px' },
+  { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '160px', minWidth: '160px' },
+  { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '160px', minWidth: '160px' },
+  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px', minWidth: '130px' },
 ]
 
 const statusOptions = [
-  { title: 'Tất cả trạng thái', value: '' },
+  { title: 'Tất cả', value: '' },
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
 ]
@@ -77,7 +79,6 @@ const statusColor = (status: string) => {
 
   return 'warning'
 }
-
 
 const formatDate = (dateStr: string) => {
   if (!dateStr)
@@ -184,15 +185,14 @@ const handleDelete = (user: User) => {
         showToast('Xóa người dùng thành công!', 'success')
         await Promise.all([loadUsers(), userStore.fetchStats()])
       }
-      catch {
-        showToast('Xóa người dùng thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Xóa người dùng thất bại!'), 'error')
       }
     },
   )
 }
 
 // Status toggle
-
 
 // Bulk actions
 const handleBulkStatus = (status: 'active' | 'inactive') => {
@@ -211,8 +211,8 @@ const handleBulkStatus = (status: 'active' | 'inactive') => {
         showToast('Cập nhật trạng thái thành công!', 'success')
         await Promise.all([loadUsers(), userStore.fetchStats()])
       }
-      catch {
-        showToast('Cập nhật trạng thái thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
       }
     },
   )
@@ -232,8 +232,8 @@ const handleBulkDelete = () => {
         showToast('Xóa hàng loạt thành công!', 'success')
         await Promise.all([loadUsers(), userStore.fetchStats()])
       }
-      catch {
-        showToast('Xóa hàng loạt thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Xóa hàng loạt thất bại!'), 'error')
       }
     },
   )
@@ -249,8 +249,8 @@ const handleExport = async () => {
     })
     showToast('Xuất dữ liệu thành công!', 'success')
   }
-  catch {
-    showToast('Xuất dữ liệu thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Xuất dữ liệu thất bại!'), 'error')
   }
 }
 
@@ -269,8 +269,8 @@ const handleImportFile = async (event: Event) => {
     showToast('Nhập dữ liệu thành công!', 'success')
     await Promise.all([loadUsers(), userStore.fetchStats()])
   }
-  catch {
-    showToast('Nhập dữ liệu thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Nhập dữ liệu thất bại!'), 'error')
   }
   finally {
     if (importFileInput.value)
@@ -303,8 +303,8 @@ const handleToggleStatus = (user: User) => {
         showToast('Cập nhật trạng thái thành công!', 'success')
         await Promise.all([loadUsers(), userStore.fetchStats()])
       }
-      catch {
-        showToast('Cập nhật trạng thái thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
       }
       finally {
         statusToggleId.value = null
@@ -434,7 +434,7 @@ watch(() => orgStore.parentOptions, opts => {
           color="secondary"
           @click="handleImportClick"
         >
-         <VIcon icon="tabler-upload" />
+          <VIcon icon="tabler-upload" />
           <span class="d-none d-sm-inline ms-1">Nhập</span>
         </VBtn>
         <input
@@ -456,9 +456,7 @@ watch(() => orgStore.parentOptions, opts => {
         </VBtn>
 
         <!-- Add new -->
-        <VBtn
-          @click="openCreateDrawer"
-        >
+        <VBtn @click="openCreateDrawer">
           <VIcon icon="tabler-plus" />
           <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
@@ -478,6 +476,7 @@ watch(() => orgStore.parentOptions, opts => {
         :items-per-page="userStore.filters.limit || 10"
         :page="userStore.filters.page || 1"
         item-value="id"
+        item-height="64"
         show-select
         @update:options="handleTableUpdate"
       >
@@ -552,35 +551,38 @@ watch(() => orgStore.parentOptions, opts => {
             class="text-disabled text-caption"
           >Chưa phân công</span>
         </template>
-
-        <!-- Created at --> 
-        <template #item.created_at="{ item }">
-         <AppUserDateInfo
-            :user="item.created_by"
-            :date="item.created_at"
-          />
-        </template>
-
-        <!-- Updated at --> 
-        <template #item.updated_at="{ item }">
-         <AppUserDateInfo
-            :user="item.updated_by"
-            :date="item.updated_at"
-          />
-        </template>
-
         <!-- Status -->
         <template #item.status="{ item }">
-         <VSwitch
-          :model-value="item.status === 'active'"
-          inset
-          hide-details
-          density="compact"
-          :disabled="item.id === authStore.user?.id || statusToggleId === item.id"
-          :loading="statusToggleId === item.id"
-          @update:model-value="handleToggleStatus(item)"
-        />
+          <VSwitch
+            :model-value="item.status === 'active'"
+            inset
+            hide-details
+            density="compact"
+            :disabled="item.id === authStore.user?.id || statusToggleId === item.id"
+            :loading="statusToggleId === item.id"
+            @update:model-value="handleToggleStatus(item)"
+          />
         </template>
+        <!-- Created at -->
+        <template #item.created_at="{ item }">
+          <div style="max-width: 160px; overflow: hidden;">
+            <AppUserDateInfo
+              :user="item.created_by"
+              :date="item.created_at"
+            />
+          </div>
+        </template>
+
+        <!-- Updated at -->
+        <template #item.updated_at="{ item }">
+          <div style="max-width: 160px; overflow: hidden;">
+            <AppUserDateInfo
+              :user="item.updated_by"
+              :date="item.updated_at"
+            />
+          </div>
+        </template>
+
 
         <!-- Actions -->
         <template #item.actions="{ item }">
@@ -679,3 +681,9 @@ watch(() => orgStore.parentOptions, opts => {
     />
   </div>
 </template>
+
+<style scoped>
+:deep(.v-data-table__tr) {
+  height: 64px;
+}
+</style>

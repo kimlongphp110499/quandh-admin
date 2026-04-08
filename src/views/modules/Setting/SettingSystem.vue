@@ -130,10 +130,10 @@ onMounted(async () => {
 async function save(data: Record<string, any>) {
   try {
     await settingStore.updateSettings(data)
-    showToast('Lưu cấu hình thành công!', 'success')
+    showToast('Cập nhật cấu hình thành công!', 'success')
   }
   catch {
-    showToast('Lưu cấu hình thất bại!', 'error')
+    showToast('Cập nhật cấu hình thất bại!', 'error')
   }
 }
 
@@ -244,7 +244,7 @@ const timeFormatOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...general })"
             >
-              Lưu
+              Cập nhật
             </VBtn>
           </VCardText>
 
@@ -407,7 +407,7 @@ const timeFormatOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...adminPage })"
             >
-              Lưu
+              Cập nhật
             </VBtn>
           </VCardText>
 
@@ -478,7 +478,7 @@ const timeFormatOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...orgSelect })"
             >
-              Lưu
+              Cập nhật
             </VBtn>
           </VCardText>
 
@@ -486,7 +486,7 @@ const timeFormatOptions = [
             <VRow>
               <VCol cols="12">
                 <AppTextField
-                  v-model="orgSelect.org_select_title"
+                  v-model="orgSelect.org_select_title" 
                   label="Tiêu đề trang"
                   placeholder="Chọn tổ chức"
                 />
@@ -535,7 +535,7 @@ const timeFormatOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...social })"
             >
-              Lưu
+              Cập nhật
             </VBtn>
           </VCardText>
 
@@ -636,7 +636,7 @@ const timeFormatOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...api })"
             >
-              Lưu
+              Cập nhật
             </VBtn>
           </VCardText>
 
@@ -815,7 +815,7 @@ const timeFormatOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...log })"
             >
-              Lưu
+              Cập nhật
             </VBtn>
           </VCardText>
 

@@ -20,6 +20,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
+
   // Do not default numeric props (total/active/inactive/totalGroup) to 0
   // so we can detect whether the parent passed them and only render
   // the cards when a value is provided.
@@ -41,17 +42,25 @@ const emit = defineEmits<{
 // Count how many cards will be rendered
 const cardCount = computed(() => {
   let count = 0
-  if (props.total !== undefined && props.total !== null) count++
-  if (props.active !== undefined && props.active !== null) count++
-  if (props.totalGroup !== undefined && props.totalGroup !== null) count++
-  if (props.inactive !== undefined && props.inactive !== null) count++
+  if (props.total !== undefined && props.total !== null)
+    count++
+  if (props.active !== undefined && props.active !== null)
+    count++
+  if (props.totalGroup !== undefined && props.totalGroup !== null)
+    count++
+  if (props.inactive !== undefined && props.inactive !== null)
+    count++
+
   return count
 })
 
 // Compute column breakpoints based on card count
 const colProps = computed(() => {
-  if (cardCount.value === 1) return { cols: '12', sm: '12', lg: '4' }
-  if (cardCount.value === 2) return { cols: '12', sm: '12', lg: '6' }
+  if (cardCount.value === 1)
+    return { cols: '6' }
+  if (cardCount.value === 2)
+    return { cols: '12', sm: '12', lg: '6' }
+
   // 3 or 4 cards
   return { cols: '12', sm: '6', lg: '4' }
 })
@@ -63,9 +72,9 @@ const colProps = computed(() => {
     <VRow class="mb-2 align-stretch">
       <!-- Total Card -->
       <VCol
+        v-if="total !== undefined && total !== null"
         v-bind="colProps"
         class="d-flex"
-        v-if="total !== undefined && total !== null"
       >
         <VCard
           elevation="0"
@@ -98,9 +107,9 @@ const colProps = computed(() => {
 
       <!-- Active Card -->
       <VCol
+        v-if="active !== undefined && active !== null"
         v-bind="colProps"
         class="d-flex"
-        v-if="active !== undefined && active !== null"
       >
         <VCard
           elevation="0"
@@ -132,9 +141,9 @@ const colProps = computed(() => {
       </VCol>
       <!-- Group Card -->
       <VCol
+        v-if="totalGroup !== undefined && totalGroup !== null"
         v-bind="colProps"
         class="d-flex"
-        v-if="totalGroup !== undefined && totalGroup !== null"
       >
         <VCard
           elevation="0"
@@ -167,9 +176,9 @@ const colProps = computed(() => {
 
       <!-- Inactive Card -->
       <VCol
+        v-if="inactive !== undefined && inactive !== null"
         v-bind="colProps"
         class="d-flex"
-        v-if="inactive !== undefined && inactive !== null"
       >
         <VCard
           elevation="0"

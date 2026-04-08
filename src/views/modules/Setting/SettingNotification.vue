@@ -3,7 +3,8 @@
 import { onMounted, reactive, ref, watch } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import { useSettingStore } from '@/store/modules/setting'
-
+// eslint-disable-next-line import/no-unresolved
+import AppSnackbar from '@/components/AppSnackbar.vue'
 const settingStore = useSettingStore()
 
 const snackbar = reactive({ show: false, message: '', color: 'success' as 'success' | 'error' })
@@ -112,10 +113,10 @@ onMounted(async () => {
 async function save(data: Record<string, any>) {
   try {
     await settingStore.updateSettings(data)
-    showToast('Lưu cấu hình thành công!', 'success')
+    showToast('Cập nhật cấu hình thành công!', 'success')
   }
   catch {
-    showToast('Lưu cấu hình thất bại!', 'error')
+    showToast('Cập nhật cấu hình thất bại!', 'error')
   }
 }
 
@@ -237,7 +238,7 @@ const encryptionOptions = [
               :loading="settingStore.isSaving"
               @click="save({ ...email })"
             >
-              Cập Nhật
+              Cập nhật
             </VBtn>
           </VCardText>
 
@@ -597,21 +598,10 @@ const encryptionOptions = [
       </VCol>
     </VRow>
 
-    <VSnackbar
+    <AppSnackbar
       v-model="snackbar.show"
+      :message="snackbar.message"
       :color="snackbar.color"
-      location="top end"
-      :timeout="3000"
-    >
-      {{ snackbar.message }}
-      <template #actions>
-        <VBtn
-          variant="text"
-          @click="snackbar.show = false"
-        >
-          Đóng
-        </VBtn>
-      </template>
-    </VSnackbar>
+    />
   </div>
 </template>

@@ -1,12 +1,15 @@
 <script setup lang="ts">
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import PermissionFormDrawer from './PermissionFormDrawer.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
+import { type Permission, permissionApi } from '@/api/modules/permission'
+import { type Role, roleApi } from '@/api/modules/role'
 import { usePermissionStore } from '@/store/modules/permission'
-import type { Permission } from '@/api/modules/permission'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 
 const permissionStore = usePermissionStore()
@@ -21,17 +24,139 @@ const debouncedSearchQuery = ref('')
 const snackbar = ref({ show: false, message: '', color: 'success' })
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
 const expandedGroups = ref<Set<number>>(new Set())
+const createdAtByPermissionId = ref<Record<number, string>>({})
+const rolesByPermissionId = ref<Record<number, { id: number; name: string }[]>>({})
 
 // Debounce search query
 const debouncedSearch = useDebounceFn((query: string) => {
   debouncedSearchQuery.value = query
 }, 300)
 
-watch(() => searchQuery.value, (newVal) => {
+watch(() => searchQuery.value, newVal => {
   debouncedSearch(newVal)
 })
 
 const hasActiveFilters = computed(() => !!debouncedSearchQuery.value)
+
+const normalizeName = (value: string) => value.trim().toLowerCase()
+
+const fetchAllRoles = async () => {
+  const all: Role[] = []
+  let page = 1
+  let lastPage = 1
+  const limit = 100
+
+  do {
+    const response = await roleApi.list({ page, limit, sort_by: 'id', sort_order: 'asc' })
+    if (!response.data.success)
+      break
+
+    all.push(...(response.data.data || []))
+    lastPage = response.data.meta?.last_page ?? 1
+    page += 1
+  } while (page <= lastPage)
+
+  return all
+}
+
+const flattenPermissionIds = (nodes: Permission[]): number[] => {
+  return nodes.flatMap(node => {
+    const childIds = flattenPermissionIds(node.children ?? [])
+
+    return [node.id, ...childIds]
+  })
+}
+
+const fetchPermissionDetails = async () => {
+  const ids = Array.from(new Set(flattenPermissionIds(permissionStore.permissionTree)))
+
+  const responses = await Promise.all(ids.map(async id => {
+    try {
+      const response = await permissionApi.show(id)
+
+      return response.data.success ? response.data.data : null
+    }
+    catch {
+      return null
+    }
+  }))
+
+  return responses.filter((item): item is Permission => !!item)
+}
+
+const extractRolePermissionNames = (role: Role): string[] => {
+  const rolePermissions = role.permissions as unknown
+  if (!Array.isArray(rolePermissions))
+    return []
+
+  return rolePermissions
+    .map(permission => {
+      if (typeof permission === 'string')
+        return permission
+
+      if (permission && typeof permission === 'object' && 'name' in permission) {
+        const name = (permission as { name?: unknown }).name
+
+        return typeof name === 'string' ? name : ''
+      }
+
+      return ''
+    })
+    .filter(Boolean)
+}
+
+const hydratePermissionExtraData = async () => {
+  const [permissions, roles] = await Promise.all([fetchPermissionDetails(), fetchAllRoles()])
+
+  const createdAtMap: Record<number, string> = {}
+  const permissionNameToIds = new Map<string, number[]>()
+  const roleMapByPermissionId = new Map<number, Map<number, { id: number; name: string }>>()
+
+  const addRoleForPermission = (permissionId: number, role: { id: number; name: string }) => {
+    const roleMap = roleMapByPermissionId.get(permissionId) ?? new Map<number, { id: number; name: string }>()
+
+    roleMap.set(role.id, role)
+    roleMapByPermissionId.set(permissionId, roleMap)
+  }
+
+  permissions.forEach(permission => {
+    if (permission.created_at)
+      createdAtMap[permission.id] = permission.created_at
+
+    const key = normalizeName(permission.name)
+    const ids = permissionNameToIds.get(key) ?? []
+
+    ids.push(permission.id)
+    permissionNameToIds.set(key, ids)
+
+    ;(permission.roles ?? []).forEach(role => addRoleForPermission(permission.id, role))
+  })
+
+  roles.forEach(role => {
+    extractRolePermissionNames(role).forEach(permissionName => {
+      const ids = permissionNameToIds.get(normalizeName(permissionName)) ?? []
+
+      ids.forEach(permissionId => addRoleForPermission(permissionId, { id: role.id, name: role.name }))
+    })
+  })
+
+  const rolesMap: Record<number, { id: number; name: string }[]> = {}
+
+  roleMapByPermissionId.forEach((roleMap, permissionId) => {
+    rolesMap[permissionId] = Array.from(roleMap.values())
+  })
+
+  createdAtByPermissionId.value = createdAtMap
+  rolesByPermissionId.value = rolesMap
+}
+
+const reloadData = async () => {
+  await Promise.all([
+    permissionStore.fetchStats(),
+    permissionStore.fetchTree(),
+  ])
+  await hydratePermissionExtraData()
+}
 
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
@@ -65,9 +190,26 @@ const filteredTree = computed(() => {
   return filterNodes(permissionStore.permissionTree)
 })
 
+const displayedTree = computed(() => {
+  const enrich = (nodes: Permission[]): Permission[] => {
+    return nodes.map(node => {
+      const children = node.children ? enrich(node.children) : node.children
+
+      return {
+        ...node,
+        children,
+        created_at: createdAtByPermissionId.value[node.id] ?? node.created_at,
+        roles: rolesByPermissionId.value[node.id] ?? node.roles,
+      }
+    })
+  }
+
+  return enrich(filteredTree.value)
+})
+
 // Cache all child IDs for select all checkbox (avoid recalculating on every render)
 const allChildIds = computed(() => {
-  return filteredTree.value.flatMap(g => (g.children ?? []).map(p => p.id))
+  return displayedTree.value.flatMap(g => (g.children ?? []).map(p => p.id))
 })
 
 const isAllSelected = computed(() => {
@@ -101,10 +243,7 @@ const openEditDrawer = (permission: Permission) => {
 
 const handleFormSubmit = async () => {
   isFormDrawerVisible.value = false
-  await Promise.all([
-    permissionStore.fetchStats(),
-    permissionStore.fetchTree(),
-  ])
+  await reloadData()
 }
 
 const handleDelete = (permission: Permission) => {
@@ -116,10 +255,10 @@ const handleDelete = (permission: Permission) => {
         await permissionStore.deletePermission(permission.id)
         selectedIds.value = selectedIds.value.filter(id => id !== permission.id)
         showToast('Xóa quyền thành công!', 'success')
-        await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
+        await reloadData()
       }
-      catch {
-        showToast('Xóa quyền thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Xóa quyền thất bại!'), 'error')
       }
     },
   )
@@ -137,10 +276,10 @@ const handleBulkDelete = () => {
         await permissionStore.bulkDelete(selectedIds.value)
         selectedIds.value = []
         showToast('Xóa hàng loạt thành công!', 'success')
-        await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
+        await reloadData()
       }
-      catch {
-        showToast('Xóa hàng loạt thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Xóa hàng loạt thất bại!'), 'error')
       }
     },
   )
@@ -151,8 +290,8 @@ const handleExport = async () => {
     await permissionStore.exportPermissions({ search: searchQuery.value || undefined })
     showToast('Xuất dữ liệu thành công!', 'success')
   }
-  catch {
-    showToast('Xuất dữ liệu thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Xuất dữ liệu thất bại!'), 'error')
   }
 }
 
@@ -168,10 +307,10 @@ const handleImportFile = async (event: Event) => {
   try {
     await permissionStore.fetchTree()
     showToast('Nhập dữ liệu thành công!', 'success')
-    await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
+    await reloadData()
   }
-  catch {
-    showToast('Nhập dữ liệu thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Nhập dữ liệu thất bại!'), 'error')
   }
   finally {
     if (importFileInput.value)
@@ -182,24 +321,24 @@ const handleImportFile = async (event: Event) => {
 // Search is handled by computed filteredTree, no need for watch
 
 onMounted(async () => {
-  await Promise.all([permissionStore.fetchStats(), permissionStore.fetchTree()])
+  await reloadData()
 })
 </script>
 
 <template>
   <div>
     <!-- Stats -->
-      <!-- System Page Header -->
-      <AppSystemPageHeader
-        title="Quyền hạn"
-        :total="permissionStore.stats?.total ?? 0"
-        :total-group="permissionStore.permissionTree?.length ?? 0"
-        total-label="Tổng số quyền hạn"
-        total-group-label="Tổng số nhóm quyền hạn"
-        total-icon="tabler-key"
-        total-group-icon="tabler-folder"
-        @settings="() => {}"
-      />
+    <!-- System Page Header -->
+    <AppSystemPageHeader
+      title="Quyền hạn"
+      :total="permissionStore.stats?.total ?? 0"
+      :total-group="permissionStore.permissionTree?.length ?? 0"
+      total-label="Tổng số quyền hạn"
+      total-group-label="Tổng số nhóm quyền hạn"
+      total-icon="tabler-key"
+      total-group-icon="tabler-folder"
+      @settings="() => {}"
+    />
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
@@ -235,7 +374,7 @@ onMounted(async () => {
           color="secondary"
           @click="handleImportClick"
         >
-        <VIcon icon="tabler-upload" />
+          <VIcon icon="tabler-upload" />
           <span class="d-none d-sm-inline ms-1">Nhập</span>
         </VBtn>
         <input
@@ -251,14 +390,12 @@ onMounted(async () => {
           color="secondary"
           @click="handleExport"
         >
-          <VIcon icon="tabler-download"/>
+          <VIcon icon="tabler-download" />
           <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
 
-        <VBtn
-          @click="openCreateDrawer"
-        >
-          <VIcon icon="tabler-plus"/>
+        <VBtn @click="openCreateDrawer">
+          <VIcon icon="tabler-plus" />
           <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
       </template>
@@ -269,9 +406,8 @@ onMounted(async () => {
       elevation="0"
       border
     >
-
       <div
-        v-if="filteredTree.length === 0"
+        v-if="displayedTree.length === 0"
         class="text-center py-12"
       >
         <VIcon
@@ -306,10 +442,10 @@ onMounted(async () => {
             <th style="width: 220px;">
               THUỘC VAI TRÒ
             </th>
-            <th style="width: 160px;">
+            <th style="width: 160px; min-width: 160px;">
               NGÀY TẠO
             </th>
-            <th style="width: 100px;">
+            <th style="width: 130px; min-width: 130px; text-align: left;">
               HÀNH ĐỘNG
             </th>
           </tr>
@@ -317,11 +453,14 @@ onMounted(async () => {
 
         <tbody>
           <template
-            v-for="group in filteredTree"
+            v-for="group in displayedTree"
             :key="group.id"
           >
             <!-- Group header row -->
-            <tr class="group-header" @click="toggleGroupExpanded(group.id)">
+            <tr
+              class="group-header"
+              @click="toggleGroupExpanded(group.id)"
+            >
               <td class="group-expand-cell text-center">
                 <VIcon
                   :icon="expandedGroups.has(group.id) ? 'tabler-chevron-down' : 'tabler-chevron-right'"
@@ -329,8 +468,11 @@ onMounted(async () => {
                   class="group-chevron"
                 />
               </td>
-              <td colspan="5" class="group-content-cell">
-                <div class="d-flex align-center gap-3 w-100">
+              <td
+                colspan="4"
+                class="group-content-cell"
+              >
+                <div class="d-flex align-center gap-3">
                   <VIcon
                     icon="tabler-folder-open"
                     size="20"
@@ -346,42 +488,44 @@ onMounted(async () => {
                   >
                     {{ (group.children ?? []).length }} quyền
                   </VChip>
-                  <VSpacer />
-                  <div class="d-flex align-center gap-1 group-actions" @click.stop>
-                    <IconBtn
-                      size="small"
-                      class="group-action-btn"
-                      @click="openEditDrawer(group)"
+                </div>
+              </td>
+              <td
+                class="text-no-wrap"
+                @click.stop
+              >
+                <div class="d-flex align-center gap-1 group-actions">
+                  <IconBtn
+                    size="small"
+                    @click="openEditDrawer(group)"
+                  >
+                    <VIcon
+                      icon="tabler-edit"
+                      size="18"
+                    />
+                    <VTooltip
+                      activator="parent"
+                      location="top"
                     >
-                      <VIcon
-                        icon="tabler-edit"
-                        size="18"
-                      />
-                      <VTooltip
-                        activator="parent"
-                        location="top"
-                      >
-                        Chỉnh sửa nhóm
-                      </VTooltip>
-                    </IconBtn>
-                    <IconBtn
-                      size="small"
-                      color="error"
-                      class="group-action-btn"
-                      @click="handleDelete(group)"
+                      Chỉnh sửa nhóm
+                    </VTooltip>
+                  </IconBtn>
+                  <IconBtn
+                    size="small"
+                    color="error"
+                    @click="handleDelete(group)"
+                  >
+                    <VIcon
+                      icon="tabler-trash"
+                      size="18"
+                    />
+                    <VTooltip
+                      activator="parent"
+                      location="top"
                     >
-                      <VIcon
-                        icon="tabler-trash"
-                        size="18"
-                      />
-                      <VTooltip
-                        activator="parent"
-                        location="top"
-                      >
-                        Xóa nhóm
-                      </VTooltip>
-                    </IconBtn>
-                  </div>
+                      Xóa nhóm
+                    </VTooltip>
+                  </IconBtn>
                 </div>
               </td>
             </tr>
@@ -446,7 +590,7 @@ onMounted(async () => {
                 <td class="text-body-2 text-medium-emphasis">
                   {{ perm.created_at }}
                 </td>
-                <td>
+                <td class="text-no-wrap">
                   <div class="d-flex align-center gap-1">
                     <IconBtn
                       size="small"
@@ -585,17 +729,12 @@ onMounted(async () => {
   transition: opacity 0.2s ease;
 }
 
+.permission-table :deep(tbody tr:not(.group-header)) {
+  height: 64px;
+}
+
 .permission-table :deep(tbody tr.group-header:hover .group-actions) {
   opacity: 1;
-}
-
-.permission-table :deep(.group-action-btn) {
-  transition: all 0.2s ease;
-}
-
-.permission-table :deep(tbody tr.group-header:hover .group-action-btn:hover) {
-  transform: scale(1.15);
-  background: rgba(33, 150, 243, 0.1) !important;
 }
 
 .permission-table :deep(tbody tr) {

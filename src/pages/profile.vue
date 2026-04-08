@@ -4,16 +4,29 @@ import { useRouter } from 'vue-router'
 import avatar1 from '@images/avatars/avatar-1.png'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useAuthStore } from '@/store/modules/auth'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useSettingStore } from '@/store/modules/setting'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { organizationApi } from '@/api/modules/organization'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useCookie } from '@/@core/utils/cookie'
 
 const authStore = useAuthStore()
+const settingStore = useSettingStore()
 const router = useRouter()
+
+const adminSettings = computed(() => settingStore.settings.admin_page ?? {})
+const generalSettings = computed(() => settingStore.settings.general ?? {})
+const orgSelectPage = computed(() => settingStore.settings.org_select_page ?? {})
+const appName = computed(() => (adminSettings.value as any).admin_logo_title || (adminSettings.value as any).admin_app_name || 'Hệ thống quản trị')
+const logoUrl = computed(() => (generalSettings.value as any).logo || '')
+const orgSelectTitle = computed(() => (orgSelectPage.value as any).org_select_title || '')
+const orgSelectDescription = computed(() => (orgSelectPage.value as any).org_select_description || '')
 
 const userName = computed(() => authStore.user?.name || 'Người dùng')
 const userEmail = computed(() => authStore.user?.email || '')
 const userRoles = computed(() => authStore.userRoles)
 const userPermissions = computed(() => authStore.userPermissions)
-const currentOrg = computed(() => authStore.currentOrganization)
-const availableOrgs = computed(() => authStore.availableOrganizations)
 
 const activeTab = ref('roles')
 const snackbar = ref({ show: false, message: '', color: 'success' })
@@ -34,6 +47,23 @@ watch(() => authStore.user, user => {
 
 onMounted(async () => {
   await authStore.fetchUser()
+
+  // Lấy đúng tên tổ chức hiện tại từ API (fallback sang cookie nếu fetchUser không trả về orgId)
+  const orgId = authStore.currentOrganizationId
+    ?? (Number(useCookie('organizationId').value) || null)
+
+  if (orgId) {
+    try {
+      const res = await organizationApi.show(orgId)
+      if (res.data.success && res.data.data?.name) {
+        authStore.currentOrganizationName = res.data.data.name
+        localStorage.setItem('currentOrganizationName', res.data.data.name)
+      }
+    }
+    catch (e) {
+      console.error('Lấy tên tổ chức thất bại:', e)
+    }
+  }
 })
 
 const profileError = ref('')
@@ -57,16 +87,46 @@ const groupedPermissions = computed(() => {
 const isSwitchingOrg = ref(false)
 const switchError = ref('')
 const showSwitchOrgDialog = ref(false)
+const selectedOrgId = ref<number | null>(null)
 
-async function handleSwitchOrg(orgId: number) {
-  if (orgId === authStore.currentOrganizationId)
+async function openSwitchOrgDialog() {
+  switchError.value = ''
+  selectedOrgId.value = authStore.currentOrganizationId ?? null
+  showSwitchOrgDialog.value = true
+  try {
+    const res = await organizationApi.publicOptions()
+    if (res.data.success && res.data.data) {
+      const freshNames = new Map(res.data.data.map((o: { id: number; name: string }) => [o.id, o.name]))
+      authStore.availableOrganizations.splice(
+        0,
+        authStore.availableOrganizations.length,
+        ...authStore.availableOrganizations.map((org: any) => ({
+          ...org,
+          name: freshNames.get(org.id) ?? org.name,
+        })),
+      )
+    }
+  }
+  catch {}
+}
+
+async function handleSwitchOrg() {
+  if (!selectedOrgId.value || selectedOrgId.value === authStore.currentOrganizationId)
     return
 
   try {
     isSwitchingOrg.value = true
     switchError.value = ''
 
-    await authStore.switchOrganization(orgId)
+    const orgName = authStore.availableOrganizations.find(o => o.id === selectedOrgId.value)?.name ?? null
+
+    await authStore.switchOrganization(selectedOrgId.value)
+
+    // Gán tên tổ chức mới ngay lập tức, tránh bị fetchUser ghi đè
+    if (orgName) {
+      authStore.currentOrganizationName = orgName
+      localStorage.setItem('currentOrganizationName', orgName)
+    }
 
     showSwitchOrgDialog.value = false
     snackbar.value = { show: true, message: 'Đã chuyển tổ chức làm việc.', color: 'success' }
@@ -158,23 +218,23 @@ function getActionName(action: string): string {
           </div>
 
           <div
-            v-if="currentOrg"
+            v-if="authStore.currentOrganizationDisplayName"
             class="d-flex align-center gap-1 text-body-2 text-medium-emphasis mb-4"
           >
             <VIcon
               icon="tabler-building"
               size="16"
             />
-            {{ currentOrg.name }}
+            {{ authStore.currentOrganizationDisplayName }}
           </div>
 
           <VBtn
-            v-if="availableOrgs.length >= 1"
+            v-if="authStore.availableOrganizations.length >= 1"
             variant="tonal"
             color="primary"
             size="small"
             prepend-icon="tabler-building-community"
-            @click="showSwitchOrgDialog = true"
+            @click="openSwitchOrgDialog"
           >
             Đổi tổ chức
           </VBtn>
@@ -353,16 +413,31 @@ function getActionName(action: string): string {
   <VDialog
     v-model="showSwitchOrgDialog"
     max-width="480"
+    persistent
   >
     <VCard>
-      <VCardTitle class="pa-5 pb-3 d-flex align-center gap-2">
-        <VIcon icon="tabler-building-community" />
-        Chuyển đổi tổ chức
+      <VCardTitle class="pt-6 px-6">
+        <div class="d-flex align-center justify-center gap-3 mb-3">
+          <VAvatar
+            size="48"
+            color="primary"
+            variant="tonal"
+            rounded
+          >
+            <VIcon
+              icon="tabler-building-community"
+              size="24"
+            />
+          </VAvatar>
+        </div>
+        <div class="text-h4 text-center">
+          Chuyển đổi tổ chức
+        </div>
       </VCardTitle>
 
-      <VDivider />
+      <VDivider class="mt-4" />
 
-      <VCardText class="pa-4">
+      <VCardText class="px-6 pt-4">
         <VAlert
           v-if="switchError"
           type="error"
@@ -374,47 +449,55 @@ function getActionName(action: string): string {
           {{ switchError }}
         </VAlert>
 
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-2">
           <VCard
-            v-for="org in availableOrgs"
+            v-for="org in authStore.availableOrganizations"
             :key="org.id"
-            :variant="org.id === authStore.currentOrganizationId ? 'tonal' : 'outlined'"
-            :color="org.id === authStore.currentOrganizationId ? 'primary' : undefined"
-            :class="org.id === authStore.currentOrganizationId ? '' : 'cursor-pointer'"
-            @click="handleSwitchOrg(org.id)"
+            :variant="selectedOrgId === org.id ? 'tonal' : 'outlined'"
+            :color="selectedOrgId === org.id ? 'primary' : undefined"
+            class="cursor-pointer"
+            @click="selectedOrgId = org.id"
           >
             <VCardText class="d-flex align-center gap-3 py-3">
               <VAvatar
                 color="primary"
                 variant="tonal"
                 size="36"
+                rounded
               >
-                <VIcon icon="tabler-building" />
+                <VIcon
+                  icon="tabler-building"
+                  size="18"
+                />
               </VAvatar>
               <span class="font-weight-medium">{{ org.name }}</span>
               <VSpacer />
-              <VChip
-                v-if="org.id === authStore.currentOrganizationId"
+              <VIcon
+                v-if="selectedOrgId === org.id"
+                icon="tabler-circle-check-filled"
                 color="primary"
-                size="small"
-                label
-              >
-                Đang dùng
-              </VChip>
-              <VProgressCircular
-                v-else-if="isSwitchingOrg"
-                indeterminate
                 size="20"
-                width="2"
               />
             </VCardText>
           </VCard>
         </div>
       </VCardText>
 
-      <VCardActions class="pa-4 pt-0 justify-end">
+      <VCardActions class="px-6 pb-6 pt-2 d-flex flex-column gap-2">
         <VBtn
+          block
+          size="large"
+          :loading="isSwitchingOrg"
+          :disabled="isSwitchingOrg || !selectedOrgId || selectedOrgId === authStore.currentOrganizationId"
+          @click="handleSwitchOrg"
+        >
+          Vào hệ thống
+        </VBtn>
+        <VBtn
+          block
           variant="tonal"
+          color="secondary"
+          :disabled="isSwitchingOrg"
           @click="showSwitchOrgDialog = false"
         >
           Đóng

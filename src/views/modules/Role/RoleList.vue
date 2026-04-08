@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 import RoleFormDrawer from './RoleFormDrawer.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -33,11 +35,11 @@ const showConfirm = (title: string, message: string, onConfirm: () => void) => {
 }
 
 const headers = [
-  { title: 'STT', key: 'stt', sortable: false, width: '64px' },
-  { title: 'TÊN VAI TRÒ', key: 'name', sortable: true },
-  { title: 'TỔNG NGƯỜI DÙNG', key: 'users_count', sortable: false, width: '160px' },
-  { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '160px' },
-  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px' },
+  { title: 'STT', key: 'stt', sortable: false, width: '60px', minWidth: '60px' },
+  { title: 'TÊN VAI TRÒ', key: 'name', sortable: true, minWidth: '200px' },
+  { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '160px', minWidth: '160px' },
+  { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '160px', minWidth: '160px' },
+  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '130px', minWidth: '130px' },
 ]
 
 const loadRoles = async () => {
@@ -95,8 +97,8 @@ const handleDelete = (role: Role) => {
         showToast('Xóa vai trò thành công!', 'success')
         await Promise.all([loadRoles(), roleStore.fetchStats()])
       }
-      catch {
-        showToast('Xóa vai trò thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Xóa vai trò thất bại!'), 'error')
       }
     },
   )
@@ -116,8 +118,8 @@ const handleBulkDelete = () => {
         showToast('Xóa hàng loạt thành công!', 'success')
         await Promise.all([loadRoles(), roleStore.fetchStats()])
       }
-      catch {
-        showToast('Xóa hàng loạt thất bại!', 'error')
+      catch (err: any) {
+        showToast(getErrorMessage(err, 'Xóa hàng loạt thất bại!'), 'error')
       }
     },
   )
@@ -128,8 +130,8 @@ const handleExport = async () => {
     await roleStore.exportRoles({ search: searchQuery.value || undefined })
     showToast('Xuất dữ liệu thành công!', 'success')
   }
-  catch {
-    showToast('Xuất dữ liệu thất bại!', 'error')
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Xuất dữ liệu thất bại!'), 'error')
   }
 }
 
@@ -163,7 +165,7 @@ const handleImportFile = async (event: Event) => {
     await Promise.all([loadRoles(), roleStore.fetchStats()])
   }
   catch (error: any) {
-    const errorMsg = error.response?.data?.message || 'Nhập dữ liệu thất bại!'
+    const errorMsg = getErrorMessage(error, 'Nhập dữ liệu thất bại!')
     showToast(errorMsg, 'error')
   }
   finally {
@@ -258,6 +260,7 @@ onMounted(async () => {
         :items-per-page="roleStore.filters.limit || 15"
         :page="roleStore.filters.page || 1"
         item-value="id"
+        item-height="64"
         show-select
         @update:options="handleTableUpdate"
       >
@@ -291,21 +294,22 @@ onMounted(async () => {
           </div>
         </template>
 
-        <template #item.users_count="{ item }">
-          <VChip
-            size="small"
-            color="info"
-            variant="tonal"
-          >
-            {{ item.users_count ?? 0 }} người dùng
-          </VChip>
+        <template #item.created_at="{ item }">
+          <div style="max-width: 160px; overflow: hidden;">
+            <AppUserDateInfo
+              :user="item.created_by"
+              :date="item.created_at"
+            />
+          </div>
         </template>
 
-        <template #item.created_at="{ item }">
-          <AppUserDateInfo
-            :user="item.created_by"
-            :date="item.created_at"
-          />
+        <template #item.updated_at="{ item }">
+          <div style="max-width: 160px; overflow: hidden;">
+            <AppUserDateInfo
+              :user="item.updated_by"
+              :date="item.updated_at"
+            />
+          </div>
         </template>
 
         <template #item.actions="{ item }">
@@ -396,3 +400,9 @@ onMounted(async () => {
     />
   </div>
 </template>
+
+<style scoped>
+:deep(.v-data-table__tr) {
+  height: 64px;
+}
+</style>

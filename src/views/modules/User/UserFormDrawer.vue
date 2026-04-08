@@ -1,7 +1,11 @@
+<!-- eslint-disable import/no-unresolved -->
+<!-- eslint-disable import/extensions -->
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
-
+import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useUserStore } from '@/store/modules/user'
 import { useOrganizationStore } from '@/store/modules/organization'
 import { useRoleStore } from '@/store/modules/role'
@@ -110,9 +114,20 @@ const removeAssignment = (index: number) => {
   formData.value.assignments.splice(index, 1)
 }
 
+const resetForm = () => {
+  formData.value = buildInitialForm()
+  serverErrors.value = {}
+  refVForm.value?.resetValidation()
+}
+
 const closeDrawer = () => {
   emit('update:isDrawerOpen', false)
 }
+
+watch(() => props.isDrawerOpen, val => {
+  if (!val)
+    resetForm()
+})
 
 const onSubmit = async () => {
   serverErrors.value = {}
@@ -159,6 +174,10 @@ const onSubmit = async () => {
     closeDrawer()
   }
   catch (error: any) {
+    if (error?.response?.status === 403) {
+      showToast('Người dùng không có quyền.', 'error')
+      return
+    }
     const responseData = error?.response?.data
     if (responseData?.errors) {
       serverErrors.value = responseData.errors
@@ -167,7 +186,7 @@ const onSubmit = async () => {
       showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
     }
     else {
-      showToast(responseData?.message || 'Có lỗi xảy ra, vui lòng thử lại.', 'error')
+      showToast(getErrorMessage(error, 'Có lỗi xảy ra, vui lòng thử lại.'), 'error')
     }
   }
   finally {
@@ -375,20 +394,10 @@ onMounted(() => {
     </div>
   </VNavigationDrawer>
 
-  <VSnackbar
+  <!-- Snackbar -->
+  <AppSnackbar
     v-model="snackbar.show"
+    :message="snackbar.message"
     :color="snackbar.color"
-    location="top end"
-    :timeout="3000"
-  >
-    {{ snackbar.message }}
-    <template #actions>
-      <VBtn
-        variant="text"
-        @click="snackbar.show = false"
-      >
-        Đóng
-      </VBtn>
-    </template>
-  </VSnackbar>
+  />
 </template>
