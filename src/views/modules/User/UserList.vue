@@ -355,6 +355,7 @@ onMounted(async () => {
             v-model="statusFilter"
             :items="statusOptions"
             placeholder="Chọn trạng thái"
+            clearable
             hide-details
           />
         </div>
@@ -422,7 +423,7 @@ onMounted(async () => {
         <!-- Add new -->
         <VBtn @click="openCreateDrawer">
           <VIcon icon="tabler-plus" />
-          <span class="d-none d-sm-inline">Thêm mới</span>
+          <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
     </AppFilterBar>
@@ -463,10 +464,10 @@ onMounted(async () => {
               <span class="text-caption font-weight-bold">{{ getUserInitials(item.name) }}</span>
             </VAvatar>
             <div>
-              <div class="font-weight-medium text-high-emphasis">
+              <div class="text-body-2 font-weight-medium">
                 {{ item.name }}
               </div>
-              <div class="text-caption text-disabled">
+              <div class="text-body-2 font-weight-medium">
                 @{{ item.user_name || item.email.split('@')[0] }}
               </div>
             </div>
@@ -475,7 +476,7 @@ onMounted(async () => {
 
         <!-- Email -->
         <template #item.email="{ item }">
-          <span class="text-body-2">{{ item.email }}</span>
+          <span class="text-body-2 font-weight-medium">{{ item.email }}</span>
         </template>
 
         <!-- Assignments -->

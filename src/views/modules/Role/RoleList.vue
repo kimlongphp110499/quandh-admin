@@ -284,7 +284,7 @@ onMounted(async () => {
               />
             </VAvatar>
             <div>
-              <div class="font-weight-medium">
+              <div class="text-body-2 font-weight-medium">
                 {{ item.name }}
               </div>
               <div class="text-caption text-disabled">

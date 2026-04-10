@@ -91,6 +91,13 @@ export default [
         action: 'index',
         subject: 'TaskAssignmentItemTypes',
       },
+      {
+        title: 'Loại văn bản',
+        to: { name: 'task-assignment-types' },
+        icon: { icon: 'tabler-file-description' },
+        action: 'index',
+        subject: 'TaskAssignmentTypes',
+      },
     ],
   },
 
