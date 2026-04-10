@@ -84,6 +84,13 @@ export default [
         action: 'index',
         subject: 'TaskAssignmentDepartments',
       },
+      {
+        title: 'Loại công việc',
+        to: { name: 'task-assignment-item-types' },
+        icon: { icon: 'tabler-list' },
+        action: 'index',
+        subject: 'TaskAssignmentItemTypes',
+      },
     ],
   },
 

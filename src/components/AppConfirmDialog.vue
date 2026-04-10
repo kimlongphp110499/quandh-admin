@@ -59,7 +59,6 @@ const onConfirm = () => {
         <h3 class="text-h5 mb-2">
           {{ props.title }}
         </h3>
-        
         <p class="text-body-1 text-secondary">
           <slot>{{ props.message }}</slot>
         </p>

@@ -44,7 +44,9 @@ const isFilterExpanded = ref(false)
           icon="tabler-filter"
           size="18"
         />
-        <span class="text-body-3 font-weight-semibold">{{ props.title }}</span>
+        <span
+          class="text-body-3 font-weight-semibold"
+        >{{ props.title }}</span>
       </div>
 
       <VSpacer />

@@ -14,7 +14,7 @@ export const useRoleStore = defineStore('role', () => {
 
   const filters = ref<RoleFilters>({
     page: 1,
-    limit: 15,
+    limit: 10,
     sort_by: 'created_at',
     sort_order: 'desc',
   })

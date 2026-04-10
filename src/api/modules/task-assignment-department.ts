@@ -67,6 +67,11 @@ export const taskAssignmentDepartmentApi = {
     return apiClient.post<ApiResponse>('/task-assignment-departments/bulk-delete', { ids })
   },
 
+  // Đổi trạng thái
+  changeStatus(id: number, status: 'active' | 'inactive') {
+    return apiClient.patch<ApiResponse<TaskAssignmentDepartment>>(`/task-assignment-departments/${id}/status`, { status })
+  },
+
   bulkUpdateStatus(ids: number[], status: 'active' | 'inactive') {
     return apiClient.patch<ApiResponse>('/task-assignment-departments/bulk-status', { ids, status })
   },
@@ -74,6 +79,12 @@ export const taskAssignmentDepartmentApi = {
   export(filters?: TaskAssignmentDepartmentFilters) {
     return apiClient.get('/task-assignment-departments/export', {
       params: filters,
+      responseType: 'blob',
+    })
+  },
+
+  downloadTemplate() {
+    return apiClient.get('/task-assignment-departments/import/template', {
       responseType: 'blob',
     })
   },

@@ -11,7 +11,6 @@ import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useUserStore } from '@/store/modules/user'
-import { useOrganizationStore } from '@/store/modules/organization'
 import { useAuthStore } from '@/store/modules/auth'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 
@@ -19,7 +18,6 @@ import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import { type User } from '@/api/modules/user'
 
 const userStore = useUserStore()
-const orgStore = useOrganizationStore()
 const authStore = useAuthStore()
 
 // State
@@ -32,7 +30,6 @@ const importFileInput = ref<HTMLInputElement>()
 // Filters
 const searchQuery = ref('')
 const statusFilter = ref<string>('')
-const organizationFilter = ref<number | null>(null)
 
 // Snackbar
 const snackbar = ref({ show: false, message: '', color: 'success' })
@@ -50,7 +47,7 @@ const showConfirm = (title: string, message: string, onConfirm: () => void) => {
 
 // Active filters check for filter badge
 const hasActiveFilters = computed(() =>
-  !!searchQuery.value || !!statusFilter.value || !!organizationFilter.value,
+  !!searchQuery.value || !!statusFilter.value,
 )
 
 // Table headers
@@ -59,7 +56,7 @@ const headers = [
   { title: 'TÊN NGƯỜI DÙNG', key: 'name', sortable: true, minWidth: '200px' },
   { title: 'EMAIL', key: 'email', sortable: true, minWidth: '180px' },
   { title: 'TỔ CHỨC & VAI TRÒ', key: 'assignments', sortable: false, minWidth: '200px' },
-  { title: 'TRẠNG THÁI', key: 'status', sortable: false, width: '120px', minWidth: '120px' },
+  { title: 'TRẠNG THÁI', key: 'status', sortable: true, width: '120px', minWidth: '120px' },
   { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '160px', minWidth: '160px' },
   { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '160px', minWidth: '160px' },
   { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px', minWidth: '130px' },
@@ -70,8 +67,6 @@ const statusOptions = [
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
 ]
-
-const orgOptions = ref<{ title: string; value: number | null }[]>([{ title: 'Tất cả tổ chức', value: null }])
 
 const statusColor = (status: string) => {
   if (status === 'active')
@@ -116,7 +111,6 @@ const loadUsers = async () => {
     limit: userStore.filters.limit,
     search: searchQuery.value || undefined,
     status: statusFilter.value as any || undefined,
-    organization_id: organizationFilter.value || undefined,
     sort_by: userStore.filters.sort_by,
     sort_order: userStore.filters.sort_order,
   })
@@ -143,7 +137,7 @@ watch(searchQuery, () => {
   }, 400)
 })
 
-watch([statusFilter, organizationFilter], () => {
+watch([statusFilter], () => {
   userStore.setFilters({ page: 1 })
   loadUsers()
 })
@@ -152,7 +146,6 @@ watch([statusFilter, organizationFilter], () => {
 const resetFilters = () => {
   searchQuery.value = ''
   statusFilter.value = ''
-  organizationFilter.value = null
   userStore.resetFilters()
   loadUsers()
 }
@@ -245,7 +238,8 @@ const handleExport = async () => {
     await userStore.exportUsers({
       search: searchQuery.value || undefined,
       status: statusFilter.value as any || undefined,
-      organization_id: organizationFilter.value || undefined,
+      from_date: fromDate.value || undefined,
+      to_date: toDate.value || undefined,
     })
     showToast('Xuất dữ liệu thành công!', 'success')
   }
@@ -314,24 +308,8 @@ const handleToggleStatus = (user: User) => {
 }
 
 onMounted(async () => {
-  await Promise.all([
-    userStore.fetchStats(),
-    loadUsers(),
-    orgStore.fetchParentOptions(),
-  ])
-
-  orgOptions.value = [
-    { title: 'Tất cả tổ chức', value: null },
-    ...orgStore.parentOptions.map(o => ({ title: o.name, value: o.id })),
-  ]
+  await Promise.all([userStore.fetchStats(), loadUsers()])
 })
-
-watch(() => orgStore.parentOptions, opts => {
-  orgOptions.value = [
-    { title: 'Tất cả tổ chức', value: null },
-    ...opts.map(o => ({ title: o.name, value: o.id })),
-  ]
-}, { deep: true })
 </script>
 
 <template>
@@ -363,20 +341,6 @@ watch(() => orgStore.parentOptions, opts => {
             v-model="searchQuery"
             placeholder="Nhập tên, email..."
             prepend-inner-icon="tabler-search"
-            clearable
-            hide-details
-          />
-        </div>
-
-        <!-- Org filter -->
-        <div style="min-inline-size: 180px;">
-          <div class="text-caption text-medium-emphasis mb-1">
-            Tổ chức
-          </div>
-          <AppSelect
-            v-model="organizationFilter"
-            :items="orgOptions"
-            placeholder="Chọn tổ chức"
             clearable
             hide-details
           />

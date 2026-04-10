@@ -1,70 +1,72 @@
+<!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import OrganizationFormDrawer from './OrganizationFormDrawer.vue'
+import TaskAssignmentItemTypeFormDrawer from './TaskAssignmentItemTypeFormDrawer.vue'
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
+// eslint-disable-next-line import/no-unresolved
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { useOrganizationStore } from '@/store/modules/organization'
+// eslint-disable-next-line import/no-unresolved
+import AppImportDialog from '@/components/AppImportDialog.vue'
+import AppExportDialog from '@/components/AppExportDialog.vue'
+// eslint-disable-next-line import/no-unresolved
+import { useTaskAssignmentItemTypeStore } from '@/store/modules/task-assignment-item-type'
 
-import type { Organization } from '@/api/modules/organization'
+import type { TaskAssignmentItemType } from '@/api/modules/task-assignment-item-type'
 
-const orgStore = useOrganizationStore()
+const store = useTaskAssignmentItemTypeStore()
 
-// State
-const searchQuery = ref('')
-const selectedStatus = ref<'active' | 'inactive' | ''>('')
 const isFormDrawerVisible = ref(false)
-const editingOrg = ref<Organization | null>(null)
-const selected = ref<Organization[]>([])
-
-// Bulk status dialog
-const isBulkStatusDialogVisible = ref(false)
-const bulkStatusValue = ref<'active' | 'inactive'>('active')
-
-// Delete dialog
-const isDeleteDialogVisible = ref(false)
-const deletingId = ref<number | null>(null)
-
-// Status toggle confirmation dialog
-const isStatusToggleDialogVisible = ref(false)
-const statusToggleItem = ref<Organization | null>(null)
-
-// Import
-const importFileInput = ref<HTMLInputElement>()
+const editingItemType = ref<TaskAssignmentItemType | null>(null)
+const selected = ref<TaskAssignmentItemType[]>([])
+const isImportDialogVisible = ref(false)
+const isExportDialogVisible = ref(false)
 const isImporting = ref(false)
 const isExporting = ref(false)
 const isDownloadingTemplate = ref(false)
+const importErrors = ref<{ row: number; errors: string[] }[]>([])
 
-const hasActiveFilters = computed(() => !!searchQuery.value || !!selectedStatus.value)
+const searchQuery = ref('')
+const statusFilter = ref<'active' | 'inactive' | ''>('')
+const fromDate = ref('')
+const toDate = ref('')
 
-// Snackbar
+const isDeleteDialogVisible = ref(false)
+const deletingId = ref<number | null>(null)
+
+const isStatusToggleDialogVisible = ref(false)
+const statusToggleItem = ref<TaskAssignmentItemType | null>(null)
+
 const snackbar = ref({ show: false, message: '', color: 'success' })
+const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {}, loading: false })
 
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
+const showConfirm = (title: string, message: string, onConfirm: () => void) => {
+  confirmDialog.value = { show: true, title, message, onConfirm, loading: false }
+}
+
+const hasActiveFilters = computed(() => !!searchQuery.value || !!statusFilter.value || !!fromDate.value || !!toDate.value)
+const isLoading = computed(() => store.isLoading)
+const selectedIds = computed(() => selected.value.map(t => t.id))
+const indexOffset = computed(() => ((store.filters.page ?? 1) - 1) * (store.filters.limit ?? 15))
+
 const headers = [
   { title: '', key: 'data-table-select', sortable: false },
   { title: 'STT', key: 'index', sortable: false, align: 'center' as const, width: '60px', minWidth: '60px' },
-  { title: 'Tên tổ chức', key: 'name', sortable: true, align: 'start' as const, minWidth: '200px' },
+  { title: 'Tên loại công việc', key: 'name', sortable: true, align: 'start' as const, minWidth: '240px' },
   { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '120px', minWidth: '120px' },
-  { title: 'Ngày tạo', key: 'created_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Ngày cập nhật', key: 'updated_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
+  { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
+  { title: 'Ngày cập nhật', key: 'updated_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '130px' },
 ]
-
-// Computed
-const organizations = computed(() => orgStore.organizations)
-const total = computed(() => orgStore.total)
-const isLoading = computed(() => orgStore.isLoading)
-const selectedIds = computed(() => selected.value.map(o => o.id))
-const indexOffset = computed(() => ((orgStore.filters.page ?? 1) - 1) * (orgStore.filters.limit ?? 10))
 
 const statusOptions = [
   { title: 'Tất cả', value: '' },
@@ -72,37 +74,45 @@ const statusOptions = [
   { title: 'Không hoạt động', value: 'inactive' },
 ]
 
-const bulkStatusOptions = [
-  { title: 'Hoạt động', value: 'active' },
-  { title: 'Không hoạt động', value: 'inactive' },
-]
+const resolveStatusLabel = (status: string) => status === 'active' ? 'Hoạt động' : 'Không hoạt động'
 
-// Methods
-const fetchOrganizations = async () => {
-  await orgStore.fetchOrganizations({
-    page: orgStore.filters.page,
-    limit: orgStore.filters.limit,
+const loadItemTypes = async () => {
+  await store.fetchItemTypes({
+    page: store.filters.page,
+    limit: store.filters.limit,
     search: searchQuery.value || undefined,
-    status: selectedStatus.value || undefined,
+    status: statusFilter.value || undefined,
+    from_date: fromDate.value || undefined,
+    to_date: toDate.value || undefined,
+    sort_by: store.filters.sort_by,
+    sort_order: store.filters.sort_order,
   })
 }
 
-const resolveStatusVariant = (status: string) => status === 'active' ? 'success' : 'secondary'
-const resolveStatusLabel = (status: string) => status === 'active' ? 'Hoạt động' : 'Không hoạt động'
+const handleTableUpdate = (options: any) => {
+  const sortBy = options.sortBy?.[0]
+  const newSortBy = sortBy?.key as any || 'created_at'
+  const newSortOrder = sortBy?.order || 'desc'
 
-const openAddDrawer = () => {
-  editingOrg.value = null
+  if (newSortBy !== store.filters.sort_by || newSortOrder !== store.filters.sort_order) {
+    store.setFilters({ sort_by: newSortBy, sort_order: newSortOrder })
+    loadItemTypes()
+  }
+}
+
+const openCreateDrawer = () => {
+  editingItemType.value = null
   isFormDrawerVisible.value = true
 }
 
-const openEditDrawer = (org: Organization) => {
-  editingOrg.value = org
+const openEditDrawer = (itemType: TaskAssignmentItemType) => {
+  editingItemType.value = itemType
   isFormDrawerVisible.value = true
 }
 
 const handleFormSubmit = async () => {
   isFormDrawerVisible.value = false
-  await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
+  await Promise.all([loadItemTypes(), store.fetchStats()])
 }
 
 const confirmDeleteSingle = (id: number) => {
@@ -120,16 +130,16 @@ const confirmBulkDelete = () => {
 const handleDeleteConfirm = async () => {
   try {
     if (deletingId.value !== null) {
-      await orgStore.deleteOrganization(deletingId.value)
-      showToast('Xóa tổ chức thành công!', 'success')
+      await store.deleteItemType(deletingId.value)
+      showToast('Xóa loại công việc thành công!', 'success')
     }
     else {
-      await orgStore.bulkDelete(selectedIds.value)
-      showToast(`Đã xóa ${selectedIds.value.length} tổ chức!`, 'success')
+      await store.bulkDelete(selectedIds.value)
+      showToast(`Đã xóa ${selectedIds.value.length} loại công việc!`, 'success')
       selected.value = []
     }
     isDeleteDialogVisible.value = false
-    await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
+    await Promise.all([loadItemTypes(), store.fetchStats()])
   }
   catch (err: any) {
     showToast(getErrorMessage(err, 'Xóa thất bại!'), 'error')
@@ -137,8 +147,12 @@ const handleDeleteConfirm = async () => {
   }
 }
 
-const handleToggleStatus = async (org: Organization) => {
-  statusToggleItem.value = org
+const statusToggleLoadingId = ref<number | null>(null)
+
+const handleToggleStatus = (itemType: TaskAssignmentItemType) => {
+  if (isStatusToggleDialogVisible.value)
+    return
+  statusToggleItem.value = itemType
   isStatusToggleDialogVisible.value = true
 }
 
@@ -146,45 +160,40 @@ const handleStatusToggleConfirm = async () => {
   if (!statusToggleItem.value)
     return
 
+  statusToggleLoadingId.value = statusToggleItem.value.id
+
   try {
     const newStatus = statusToggleItem.value.status === 'active' ? 'inactive' : 'active'
 
-    await orgStore.changeStatus(statusToggleItem.value.id, newStatus)
+    await store.changeStatus(statusToggleItem.value.id, newStatus)
     showToast('Cập nhật trạng thái thành công!', 'success')
-    await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
+    await Promise.all([loadItemTypes(), store.fetchStats()])
   }
   catch (err: any) {
     showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
   }
   finally {
+    statusToggleLoadingId.value = null
     isStatusToggleDialogVisible.value = false
     statusToggleItem.value = null
   }
 }
 
-const openBulkStatusDialog = () => {
-  if (!selectedIds.value.length)
-    return
-  bulkStatusValue.value = 'active'
-  isBulkStatusDialogVisible.value = true
-}
-
-// Bulk actions
 const handleBulkStatus = (status: 'active' | 'inactive') => {
   if (!selectedIds.value.length)
     return
 
-  const label = status === 'active' ? 'hoạt động' : status === 'inactive' ? 'không hoạt động' : 'vô hiệu hoá'
+  const label = status === 'active' ? 'hoạt động' : 'không hoạt động'
 
   showConfirm(
     'Cập nhật trạng thái hàng loạt',
-    `Bạn có chắc muốn ${label} ${selectedIds.value.length} tổ chức đã chọn?`,
+    `Bạn có chắc muốn ${label} ${selectedIds.value.length} loại công việc đã chọn?`,
     async () => {
       try {
-        await orgStore.bulkUpdateStatus(selectedIds.value, status)
+        await store.bulkUpdateStatus(selectedIds.value, status)
         selected.value = []
         showToast('Cập nhật trạng thái thành công!', 'success')
-        await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
+        await Promise.all([loadItemTypes(), store.fetchStats()])
       }
       catch (err: any) {
         showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
@@ -193,35 +202,21 @@ const handleBulkStatus = (status: 'active' | 'inactive') => {
   )
 }
 
-// Confirm dialog
-const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {}, loading: false })
-
-const showConfirm = (title: string, message: string, onConfirm: () => void) => {
-  confirmDialog.value = { show: true, title, message, onConfirm, loading: false }
-}
-
-const handleBulkUpdateStatus = async () => {
-  try {
-    await orgStore.bulkUpdateStatus(selectedIds.value, bulkStatusValue.value)
-    showToast(`Đã cập nhật trạng thái ${selectedIds.value.length} tổ chức!`, 'success')
-    selected.value = []
-    isBulkStatusDialogVisible.value = false
-    await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
-  }
-  catch (err: any) {
-    showToast(getErrorMessage(err, 'Cập nhật trạng thái thất bại!'), 'error')
-    isBulkStatusDialogVisible.value = false
-  }
-}
-
-const handleExport = async () => {
+const handleExport = async (scope: string) => {
   isExporting.value = true
   try {
-    await orgStore.exportOrganizations({
-      search: searchQuery.value || undefined,
-      status: selectedStatus.value || undefined,
-    })
+    await store.exportItemTypes(
+      scope === 'all'
+        ? undefined
+        : {
+            search: searchQuery.value || undefined,
+            status: statusFilter.value || undefined,
+            from_date: fromDate.value || undefined,
+            to_date: toDate.value || undefined,
+          },
+    )
     showToast('Xuất file thành công!', 'success')
+    isExportDialogVisible.value = false
   }
   catch (err: any) {
     showToast(getErrorMessage(err, 'Xuất file thất bại!'), 'error')
@@ -231,26 +226,42 @@ const handleExport = async () => {
   }
 }
 
-const triggerImport = () => importFileInput.value?.click()
-
-const handleImportFile = async (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file)
-    return
-
+const handleImport = async (file: File) => {
   isImporting.value = true
+  importErrors.value = []
   try {
-    await orgStore.importOrganizations(file)
-    showToast('Nhập dữ liệu thành công!', 'success')
-    await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
+    const result = await store.importItemTypes(file)
+    if (result?.errors?.length) {
+      importErrors.value = result.errors
+      if (result.imported > 0) {
+        showToast(`Đã nhập ${result.imported} dòng. Một số dòng bị lỗi, vui lòng kiểm tra.`, 'error')
+        await Promise.all([loadItemTypes(), store.fetchStats()])
+      }
+    }
+    else {
+      showToast('Nhập dữ liệu thành công!', 'success')
+      isImportDialogVisible.value = false
+      await Promise.all([loadItemTypes(), store.fetchStats()])
+    }
   }
   catch (err: any) {
     showToast(getErrorMessage(err, 'Nhập dữ liệu thất bại!'), 'error')
   }
   finally {
     isImporting.value = false
-    if (importFileInput.value)
-      importFileInput.value.value = ''
+  }
+}
+
+const handleDownloadTemplate = async () => {
+  isDownloadingTemplate.value = true
+  try {
+    await store.downloadTemplate()
+  }
+  catch (err: any) {
+    showToast(getErrorMessage(err, 'Tải file mẫu thất bại!'), 'error')
+  }
+  finally {
+    isDownloadingTemplate.value = false
   }
 }
 
@@ -258,27 +269,18 @@ let searchTimeout: ReturnType<typeof setTimeout>
 watch(searchQuery, () => {
   clearTimeout(searchTimeout)
   searchTimeout = setTimeout(() => {
-    orgStore.setFilters({ page: 1 })
-    fetchOrganizations()
+    store.setFilters({ page: 1 })
+    loadItemTypes()
   }, 400)
 })
 
-watch(selectedStatus, () => {
-  orgStore.setFilters({ page: 1 })
-  fetchOrganizations()
+watch([statusFilter, fromDate, toDate], () => {
+  store.setFilters({ page: 1 })
+  loadItemTypes()
 })
 
-// Init
-onMounted(() => {
-  fetchOrganizations()
-  orgStore.fetchStats()
-})
-
-defineExpose({
-  reload: () => {
-    fetchOrganizations()
-    orgStore.fetchStats()
-  },
+onMounted(async () => {
+  await Promise.all([store.fetchStats(), loadItemTypes()])
 })
 </script>
 
@@ -286,14 +288,14 @@ defineExpose({
   <section>
     <!-- System Page Header -->
     <AppSystemPageHeader
-      title="Tổ chức"
-      :total="orgStore.stats?.total ?? 0"
-      :active="orgStore.activeCount ?? 0"
-      :inactive="orgStore.inactiveCount ?? 0"
-      total-label="Tổng tổ chức"
+      title="Loại công việc"
+      :total="store.stats?.total ?? 0"
+      :active="store.stats?.active ?? 0"
+      :inactive="store.stats?.inactive ?? 0"
+      total-label="Tổng loại công việc"
       active-label="Đang hoạt động"
       inactive-label="Không hoạt động"
-      total-icon="tabler-building"
+      total-icon="tabler-list"
       active-icon="tabler-circle-check"
       inactive-icon="tabler-circle-x"
       @settings="() => {}"
@@ -305,11 +307,11 @@ defineExpose({
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
           <div class="text-caption text-medium-emphasis mb-1">
-            Tìm kiếm tổ chức
+            Tìm kiếm loại công việc
           </div>
           <AppTextField
             v-model="searchQuery"
-            placeholder="Nhập tên tổ chức..."
+            placeholder="Tên loại công việc..."
             prepend-inner-icon="tabler-search"
             hide-details
           />
@@ -321,7 +323,7 @@ defineExpose({
             Trạng thái
           </div>
           <AppSelect
-            v-model="selectedStatus"
+            v-model="statusFilter"
             placeholder="Chọn trạng thái"
             :items="statusOptions"
             clearable
@@ -361,36 +363,29 @@ defineExpose({
             ({{ selectedIds.length }})
           </VBtn>
         </template>
+
         <!-- Import -->
         <VBtn
           color="secondary"
           variant="tonal"
-          :loading="isImporting"
-          @click="triggerImport"
+          @click="isImportDialogVisible = true"
         >
           <VIcon icon="tabler-upload" />
           <span class="d-none d-sm-inline ms-1">Nhập</span>
         </VBtn>
+
         <!-- Export -->
         <VBtn
           color="secondary"
           variant="tonal"
-          :loading="isExporting"
-          @click="handleExport"
+          @click="isExportDialogVisible = true"
         >
           <VIcon icon="tabler-download" />
           <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
-        <input
-          ref="importFileInput"
-          type="file"
-          accept=".xlsx,.xls,.csv"
-          class="d-none"
-          @change="handleImportFile"
-        >
 
         <!-- Add -->
-        <VBtn @click="openAddDrawer">
+        <VBtn @click="openCreateDrawer">
           <VIcon icon="tabler-plus" />
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
@@ -407,41 +402,46 @@ defineExpose({
       <VDataTableServer
         v-model="selected"
         :headers="headers"
-        :items="organizations"
-        :items-length="total"
+        :items="store.itemTypes"
+        :items-length="store.total"
         item-value="id"
         item-height="64"
         show-select
         return-object
         class="text-no-wrap"
+        @update:options="handleTableUpdate"
       >
         <!-- STT -->
         <template #item.index="{ index }">
           <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
-        <!-- Tên tổ chức -->
+        <!-- Tên loại công việc -->
         <template #item.name="{ item }">
-          <div class="d-flex flex-column">
-            <span class="text-body-2 font-weight-medium">{{ "-".repeat(item.depth) }} {{ item.name }}</span>
+          <div class="d-flex flex-column py-2">
+            <span class="font-weight-medium">{{ item.name }}</span>
           </div>
         </template>
 
         <!-- Trạng thái -->
         <template #item.status="{ item }">
-          <VSwitch
-            :model-value="item.status === 'active'"
-            inset
-            hide-details
-            density="compact"
-            :loading="statusToggleItem?.id === item.id && isStatusToggleDialogVisible"
-            @click="handleToggleStatus(item)"
-            @update:model-value="handleToggleStatus(item)"
-          />
+          <div
+            class="d-inline-flex"
+            @click.stop="handleToggleStatus(item)"
+          >
+            <VSwitch
+              :model-value="item.status === 'active'"
+              inset
+              hide-details
+              density="compact"
+              readonly
+              :loading="statusToggleLoadingId === item.id"
+            />
+          </div>
         </template>
 
-        <!-- Người tạo / Ngày tạo -->
-        <template #item.created_info="{ item }">
+        <!-- Ngày tạo -->
+        <template #item.created_at="{ item }">
           <div style="max-width: 160px; overflow: hidden;">
             <AppUserDateInfo
               :user="item.created_by"
@@ -450,8 +450,8 @@ defineExpose({
           </div>
         </template>
 
-        <!-- Người cập nhật / Ngày cập nhật -->
-        <template #item.updated_info="{ item }">
+        <!-- Ngày cập nhật -->
+        <template #item.updated_at="{ item }">
           <div style="max-width: 160px; overflow: hidden;">
             <AppUserDateInfo
               :user="item.updated_by"
@@ -460,7 +460,7 @@ defineExpose({
           </div>
         </template>
 
-        <!-- Thao tác -->
+        <!-- Hành động -->
         <template #item.actions="{ item }">
           <div class="d-flex align-center gap-1">
             <IconBtn
@@ -502,35 +502,35 @@ defineExpose({
         <template #no-data>
           <div class="text-center py-8">
             <VIcon
-              icon="tabler-building-off"
+              icon="tabler-list-off"
               size="48"
               color="disabled"
               class="mb-4"
             />
             <div class="text-body-1 text-disabled">
-              Không có tổ chức nào
+              Không có loại công việc nào
             </div>
           </div>
         </template>
 
         <template #bottom>
           <AppPagination
-            :page="orgStore.filters?.page || 1"
-            :limit="orgStore.filters?.limit || 10"
-            :total="total"
+            :page="store.filters.page || 1"
+            :limit="store.filters.limit || 15"
+            :total="store.total"
             :limit-options="[10, 15, 20, 50, 100]"
             :loading="isLoading"
-            @update:page="(p) => { orgStore.setFilters({ page: p }); fetchOrganizations() }"
-            @update:limit="(l) => { orgStore.setFilters({ limit: l, page: 1 }); fetchOrganizations() }"
+            @update:page="(p) => { store.setFilters({ page: p }); loadItemTypes() }"
+            @update:limit="(l) => { store.setFilters({ limit: l, page: 1 }); loadItemTypes() }"
           />
         </template>
       </VDataTableServer>
     </VCard>
 
     <!-- Form Drawer -->
-    <OrganizationFormDrawer
+    <TaskAssignmentItemTypeFormDrawer
       v-model:is-drawer-open="isFormDrawerVisible"
-      :organization="editingOrg"
+      :item-type="editingItemType"
       @submit="handleFormSubmit"
     />
 
@@ -543,52 +543,14 @@ defineExpose({
       @confirm="handleDeleteConfirm"
     >
       <template v-if="deletingId !== null">
-        Bạn có chắc chắn muốn xóa tổ chức này? Hành động này không thể hoàn tác.
+        Bạn có chắc chắn muốn xóa loại công việc này? Hành động này không thể hoàn tác.
       </template>
       <template v-else>
-        Bạn có chắc chắn muốn xóa <strong>{{ selected.length }} tổ chức</strong> đã chọn?
+        Bạn có chắc chắn muốn xóa <strong>{{ selected.length }} loại công việc</strong> đã chọn?
       </template>
     </AppConfirmDialog>
 
-    <!-- Bulk Status Dialog -->
-    <VDialog
-      v-model="isBulkStatusDialogVisible"
-      max-width="400"
-      persistent
-    >
-      <VCard rounded="lg">
-        <VCardTitle class="pt-6 px-6">
-          Cập nhật trạng thái hàng loạt
-        </VCardTitle>
-        <VCardText class="px-6">
-          <p class="mb-4">
-            Cập nhật trạng thái cho <strong>{{ selected.length }} tổ chức</strong> đã chọn:
-          </p>
-          <AppSelect
-            v-model="bulkStatusValue"
-            label="Trạng thái mới"
-            :items="bulkStatusOptions"
-          />
-        </VCardText>
-        <VCardActions class="px-6 pb-6">
-          <VSpacer />
-          <VBtn
-            variant="tonal"
-            color="secondary"
-            @click="isBulkStatusDialogVisible = false"
-          >
-            Hủy
-          </VBtn>
-          <VBtn
-            color="primary"
-            :loading="isLoading"
-            @click="handleBulkUpdateStatus"
-          >
-            Cập nhật
-          </VBtn>
-        </VCardActions>
-      </VCard>
-    </VDialog>
+    <!-- Status Toggle Confirm Dialog -->
     <AppConfirmDialog
       v-model="isStatusToggleDialogVisible"
       title="Xác nhận thay đổi trạng thái"
@@ -602,12 +564,34 @@ defineExpose({
         sang <strong>{{ resolveStatusLabel(statusToggleItem.status === 'active' ? 'inactive' : 'active') }}</strong>?
       </template>
     </AppConfirmDialog>
-    <!-- Confirm Dialog -->
+
+    <!-- Bulk / general Confirm Dialog -->
     <AppConfirmDialog
       v-model="confirmDialog.show"
       :title="confirmDialog.title"
       :message="confirmDialog.message"
       @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
+    />
+
+    <!-- Import Dialog -->
+    <AppImportDialog
+      v-model="isImportDialogVisible"
+      title="Nhập danh sách loại công việc"
+      description="Hỗ trợ tệp Excel hoặc CSV theo mẫu. Bạn có thể tải file mẫu trước khi nhập."
+      column-hint="Cột bắt buộc: name. Cột tùy chọn: description, status (active/inactive)."
+      :loading="isImporting"
+      :downloading-template="isDownloadingTemplate"
+      :import-errors="importErrors"
+      @import="handleImport"
+      @download-template="handleDownloadTemplate"
+    />
+
+    <!-- Export Dialog -->
+    <AppExportDialog
+      v-model="isExportDialogVisible"
+      title="Xuất dữ liệu loại công việc"
+      :loading="isExporting"
+      @export="handleExport"
     />
 
     <!-- Snackbar -->
