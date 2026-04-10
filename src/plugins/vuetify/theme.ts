@@ -71,6 +71,9 @@ export const themes: Record<string, ThemeDefinition> = {
 
       // Shadows
       'shadow-key-umbra-color': '#2F2B3D',
+      'shadow-key-umbra-opacity': 0.10,
+      'shadow-key-penumbra-opacity': 0.07,
+      'shadow-key-ambient-opacity': 0.06,
       'shadow-xs-opacity': 0.10,
       'shadow-sm-opacity': 0.12,
       'shadow-md-opacity': 0.14,
@@ -143,6 +146,9 @@ export const themes: Record<string, ThemeDefinition> = {
 
       // Shadows
       'shadow-key-umbra-color': '#131120',
+      'shadow-key-umbra-opacity': 0.16,
+      'shadow-key-penumbra-opacity': 0.11,
+      'shadow-key-ambient-opacity': 0.09,
       'shadow-xs-opacity': 0.16,
       'shadow-sm-opacity': 0.18,
       'shadow-md-opacity': 0.2,

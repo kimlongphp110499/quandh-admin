@@ -1,4 +1,7 @@
 export default {
+  VCard: {
+    elevation: 6,
+  },
   IconBtn: {
     icon: true,
     color: 'default',

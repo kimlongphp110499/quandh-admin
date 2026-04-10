@@ -128,3 +128,21 @@ export function toISOString(date: Date | string | null | undefined): string | nu
 
   return dayjs(date).toISOString()
 }
+
+/**
+ * Chuẩn hóa chuỗi ngày từ định dạng hiển thị VN (dd/mm/yyyy hoặc dd/mm/yyyy hh:mm:ss)
+ * sang định dạng ISO mà server chấp nhận (yyyy-mm-dd hoặc yyyy-mm-dd hh:mm:ss).
+ * Nếu chuỗi đã đúng định dạng ISO hoặc không hợp lệ, trả về nguyên bản.
+ */
+export function normalizeDate(raw?: string): string | undefined {
+  if (!raw)
+    return raw
+
+  if (dayjs(raw, 'DD/MM/YYYY', true).isValid())
+    return dayjs(raw, 'DD/MM/YYYY').format('YYYY-MM-DD')
+
+  if (dayjs(raw, 'DD/MM/YYYY HH:mm:ss', true).isValid())
+    return dayjs(raw, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+
+  return raw
+}
