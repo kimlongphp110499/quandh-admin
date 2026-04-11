@@ -123,7 +123,7 @@ export const taskAssignmentDocumentApi = {
   addAttachments(id: number, files: File[]) {
     const formData = new FormData()
 
-    files.forEach(file => formData.append('attachments[]', file))
+    files.forEach(file => formData.append('files[]', file))
 
     return apiClient.post<ApiResponse<TaskAssignmentDocument>>(`/task-assignment-documents/${id}/attachments`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },

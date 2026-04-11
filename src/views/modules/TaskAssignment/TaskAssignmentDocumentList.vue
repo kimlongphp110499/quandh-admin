@@ -3,6 +3,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import TaskAssignmentDocumentFormDrawer from './TaskAssignmentDocumentFormDrawer.vue'
+import TaskAssignmentDocumentAttachmentDialog from './TaskAssignmentDocumentAttachmentDialog.vue'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { normalizeDate } from '@/utils/formatters'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -21,6 +22,14 @@ const store = useTaskAssignmentDocumentStore()
 
 const isFormDrawerVisible = ref(false)
 const editingDocument = ref<TaskAssignmentDocument | null>(null)
+const isAttachmentDialogVisible = ref(false)
+const attachmentDocument = ref<TaskAssignmentDocument | null>(null)
+
+const openAttachmentDialog = (doc: TaskAssignmentDocument) => {
+  attachmentDocument.value = doc
+  isAttachmentDialogVisible.value = true
+}
+
 const selected = ref<TaskAssignmentDocument[]>([])
 const isImportDialogVisible = ref(false)
 const isExportDialogVisible = ref(false)
@@ -269,12 +278,13 @@ const handleBulkStatus = (status: 'draft' | 'issued') => {
 const handleExport = async (scope: string) => {
   isExporting.value = true
   try {
-    const exportFilters = scope === 'all'
-      ? undefined
-      : {
-          search: searchQuery.value || undefined,
-          status: statusFilter.value || undefined,
-        }
+    let exportFilters
+    if (scope !== 'all') {
+      exportFilters = {
+        search: searchQuery.value || undefined,
+        status: statusFilter.value || undefined,
+      }
+    }
 
     await store.exportDocuments(exportFilters)
     showToast('Xuất file thành công!', 'success')
@@ -341,7 +351,7 @@ onMounted(async () => {
       :total="store.stats?.total ?? 0"
       :active="store.stats?.issued ?? 0"
       :inactive="store.stats?.draft ?? 0"
-      total-label="Tổng văn bản"
+      total-label="Tổng văn bản giao việc"
       active-label="Ban hành"
       inactive-label="Bản nháp"
       total-icon="tabler-file-text"
@@ -619,6 +629,23 @@ onMounted(async () => {
                 Xóa
               </VTooltip>
             </IconBtn>
+
+            <IconBtn
+              size="small"
+              color="primary"
+              @click="openAttachmentDialog(item)"
+            >
+              <VIcon
+                icon="tabler-paperclip"
+                size="18"
+              />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Tệp đính kèm
+              </VTooltip>
+            </IconBtn>
           </div>
         </template>
 
@@ -716,6 +743,13 @@ onMounted(async () => {
       title="Xuất dữ liệu văn bản giao việc"
       :loading="isExporting"
       @export="handleExport"
+    />
+
+    <!-- Attachment Dialog -->
+    <TaskAssignmentDocumentAttachmentDialog
+      v-model="isAttachmentDialogVisible"
+      :document="attachmentDocument"
+      @updated="loadDocuments"
     />
 
     <!-- Snackbar -->

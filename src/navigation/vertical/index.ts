@@ -92,19 +92,19 @@ export default [
         subject: 'TaskAssignmentItemTypes',
       },
       {
+        title: 'Văn bản giao việc',
+        to: { name: 'task-assignment-documents' },
+        icon: { icon: 'tabler-file-text' },
+        action: 'index',
+        subject: 'TaskAssignmentDocuments',
+      },
+      {
         title: 'Loại văn bản',
         to: { name: 'task-assignment-types' },
         icon: { icon: 'tabler-file-description' },
         action: 'index',
         subject: 'TaskAssignmentTypes',
       },
-      // {
-      //   title: 'Văn bản giao việc',
-      //   to: { name: 'task-assignment-documents' },
-      //   icon: { icon: 'tabler-file-text' },
-      //   action: 'index',
-      //   subject: 'TaskAssignmentDocuments',
-      // },
     ],
   },
 
