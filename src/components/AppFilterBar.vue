@@ -52,7 +52,7 @@ const isFilterExpanded = ref(false)
       <VSpacer />
 
       <!-- Action buttons — always visible on right -->
-      <div class="d-flex align-center gap-1 gap-md-2 flex-wrap" style="max-width: 100%;">
+      <div class="d-flex align-center gap-1 gap-md-2 flex-wrap" style="max-width: 90%;">
         <slot name="actions" />
       </div>
     </div>

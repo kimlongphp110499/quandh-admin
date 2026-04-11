@@ -90,7 +90,7 @@ if (compAttrs.config && compAttrs.config.inline) {
 
 compAttrs.config = {
   ...compAttrs.config,
-  locale: vietnameseLocale,
+  locale: { ...vietnameseLocale, rangeSeparator: ' - ' },
   prevArrow: '<i class="tabler-chevron-left v-icon" style="font-size: 20px; height: 20px; width: 20px;"></i>',
   nextArrow: '<i class="tabler-chevron-right v-icon" style="font-size: 20px; height: 20px; width: 20px;"></i>',
 }

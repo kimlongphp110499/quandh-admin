@@ -60,9 +60,10 @@ const colProps = computed(() => {
     return { cols: '6' }
   if (cardCount.value === 2)
     return { cols: '12', sm: '12', lg: '6' }
+  if (cardCount.value === 3)
+    return { cols: '12', sm: '6', lg: '4' }
 
-  // 3 or 4 cards
-  return { cols: '12', sm: '6', lg: '4' }
+  return { cols: '12', sm: '6', lg: '3' }
 })
 </script>
 

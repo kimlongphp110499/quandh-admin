@@ -85,6 +85,13 @@ export default [
         subject: 'TaskAssignmentDepartments',
       },
       {
+        title: 'Công việc',
+        to: { name: 'task-assignment-items' },
+        icon: { icon: 'tabler-checklist' },
+        action: 'index',
+        subject: 'TaskAssignmentItems',
+      },
+      {
         title: 'Loại công việc',
         to: { name: 'task-assignment-item-types' },
         icon: { icon: 'tabler-list' },
