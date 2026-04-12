@@ -334,7 +334,7 @@ onMounted(async () => {
       <template #filters>
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm người dùng
           </div>
           <AppTextField
@@ -348,7 +348,7 @@ onMounted(async () => {
 
         <!-- Status filter -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Trạng thái
           </div>
           <AppSelect
@@ -429,10 +429,7 @@ onMounted(async () => {
     </AppFilterBar>
 
     <!-- Data Table -->
-    <VCard
-      elevation="0"
-      border
-    >
+    <VCard>
       <VDataTableServer
         v-model="selectedIds"
         :headers="headers"
@@ -447,7 +444,7 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.stt="{ index }">
-          <span class="text-body-2 text-medium-emphasis">
+          <span class="text-sm text-medium-emphasis">
             {{ ((userStore.filters.page || 1) - 1) * (userStore.filters.limit || 10) + index + 1 }}
           </span>
         </template>
@@ -461,13 +458,13 @@ onMounted(async () => {
               size="36"
               rounded
             >
-              <span class="text-caption font-weight-bold">{{ getUserInitials(item.name) }}</span>
+              <span class="text-xs font-weight-bold">{{ getUserInitials(item.name) }}</span>
             </VAvatar>
             <div>
-              <div class="text-body-2 font-weight-medium">
+              <div class="text-sm font-weight-medium">
                 {{ item.name }}
               </div>
-              <div class="text-body-2 font-weight-medium">
+              <div class="text-sm text-medium-emphasis">
                 @{{ item.user_name || item.email.split('@')[0] }}
               </div>
             </div>
@@ -476,7 +473,7 @@ onMounted(async () => {
 
         <!-- Email -->
         <template #item.email="{ item }">
-          <span class="text-body-2 font-weight-medium">{{ item.email }}</span>
+          <span class="text-sm font-weight-medium">{{ item.email }}</span>
         </template>
 
         <!-- Assignments -->
@@ -513,7 +510,7 @@ onMounted(async () => {
           </div>
           <span
             v-else
-            class="text-disabled text-caption"
+            class="text-disabled text-xs"
           >Chưa phân công</span>
         </template>
         <!-- Status -->
@@ -588,7 +585,7 @@ onMounted(async () => {
             </template>
             <span
               v-else
-              class="text-caption text-disabled"
+              class="text-xs text-disabled"
             >—</span>
           </div>
         </template>
@@ -602,7 +599,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-3"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có người dùng nào
             </div>
           </div>

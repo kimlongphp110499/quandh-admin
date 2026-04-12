@@ -135,6 +135,7 @@ const headers = [
   { title: 'Loại văn bản', key: 'type', sortable: false, align: 'start' as const, minWidth: '160px' },
   { title: 'Ngày ban hành', key: 'issue_date', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
   { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
+  { title: 'Thời điểm ban hành', key: 'issued_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày cập nhật', key: 'updated_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '130px' },
@@ -365,7 +366,7 @@ onMounted(async () => {
       <template #filters>
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm văn bản giao việc
           </div>
           <AppTextField
@@ -378,7 +379,7 @@ onMounted(async () => {
 
         <!-- Loại văn bản Filter -->
         <div style="min-inline-size: 200px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Loại văn bản
           </div>
           <VAutocomplete
@@ -411,7 +412,7 @@ onMounted(async () => {
 
         <!-- Ngày ban hành Filter (range) -->
         <div style="min-inline-size: 260px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Ngày ban hành
           </div>
           <AppDateTimePicker
@@ -427,7 +428,7 @@ onMounted(async () => {
         </div>
         <!-- Status Filter -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Trạng thái
           </div>
           <AppSelect
@@ -502,8 +503,6 @@ onMounted(async () => {
 
     <!-- Table Card -->
     <VCard
-      elevation="2"
-      border
     >
       <VDivider />
 
@@ -521,13 +520,13 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên văn bản -->
         <template #item.name="{ item }">
           <div>
-            <div class="text-body-2 font-weight-medium">
+            <div class="text-sm font-weight-medium">
               {{ item.name }}
             </div>
           </div>
@@ -537,11 +536,11 @@ onMounted(async () => {
         <template #item.type="{ item }">
           <span
             v-if="item.type"
-            class="text-body-2"
+            class="text-sm"
           >{{ item.type.name }}</span>
           <span
             v-else
-            class="text-caption text-disabled"
+            class="text-xs text-disabled"
           >—</span>
         </template>
 
@@ -549,11 +548,11 @@ onMounted(async () => {
         <template #item.issue_date="{ item }">
           <span
             v-if="item.issue_date"
-            class="text-body-2"
+            class="text-sm"
           >{{ item.issue_date }}</span>
           <span
             v-else
-            class="text-caption text-disabled"
+            class="text-xs text-disabled"
           >—</span>
         </template>
 
@@ -572,6 +571,18 @@ onMounted(async () => {
               :loading="statusToggleLoadingId === item.id"
             />
           </div>
+        </template>
+
+        <!-- Thời điểm ban hành -->
+        <template #item.issued_at="{ item }">
+          <span
+            v-if="item.issued_at"
+            class="text-sm"
+          >{{ item.issued_at }}</span>
+          <span
+            v-else
+            class="text-xs text-disabled"
+          >—</span>
         </template>
 
         <!-- Ngày tạo -->
@@ -658,7 +669,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-4"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có văn bản giao việc nào
             </div>
           </div>

@@ -15,11 +15,7 @@ const isFilterExpanded = ref(false)
 </script>
 
 <template>
-  <VCard
-    elevation="0"
-    border
-    class="mb-4"
-  >
+  <VCard class="mb-4">
     <!-- Header row: title (left) + actions (right) — always visible -->
     <div class="d-flex align-center gap-2 px-4 py-3">
       <!-- Mobile: clickable to expand/collapse filters -->
@@ -44,15 +40,16 @@ const isFilterExpanded = ref(false)
           icon="tabler-filter"
           size="18"
         />
-        <span
-          class="text-body-3 font-weight-semibold"
-        >{{ props.title }}</span>
+        <span class="text-body-3 font-weight-semibold">{{ props.title }}</span>
       </div>
 
       <VSpacer />
 
       <!-- Action buttons — always visible on right -->
-      <div class="d-flex align-center gap-1 gap-md-2 flex-wrap" style="max-width: 90%;">
+      <div
+        class="d-flex align-center gap-1 gap-md-2 flex-wrap"
+        style="max-width: 90%;"
+      >
         <slot name="actions" />
       </div>
     </div>

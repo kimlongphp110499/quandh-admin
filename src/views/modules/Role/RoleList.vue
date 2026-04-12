@@ -187,7 +187,7 @@ onMounted(async () => {
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <div style="max-inline-size: 100%; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm vai trò
           </div>
           <AppTextField
@@ -249,8 +249,6 @@ onMounted(async () => {
 
     <!-- Table -->
     <VCard
-      elevation="0"
-      border
     >
       <VDataTableServer
         v-model="selectedIds"
@@ -265,7 +263,7 @@ onMounted(async () => {
         @update:options="handleTableUpdate"
       >
         <template #item.stt="{ index }">
-          <span class="text-body-2 text-medium-emphasis">
+          <span class="text-sm text-medium-emphasis">
             {{ ((roleStore.filters.page || 1) - 1) * (roleStore.filters.limit || 15) + index + 1 }}
           </span>
         </template>
@@ -284,10 +282,10 @@ onMounted(async () => {
               />
             </VAvatar>
             <div>
-              <div class="text-body-2 font-weight-medium">
+              <div class="text-sm font-weight-medium">
                 {{ item.name }}
               </div>
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 {{ item.guard_name || 'web' }}
               </div>
             </div>
@@ -357,7 +355,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-3"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có vai trò nào
             </div>
           </div>

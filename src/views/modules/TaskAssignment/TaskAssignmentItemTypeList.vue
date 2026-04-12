@@ -306,7 +306,7 @@ onMounted(async () => {
       <template #filters>
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm loại công việc
           </div>
           <AppTextField
@@ -319,7 +319,7 @@ onMounted(async () => {
 
         <!-- Status Filter -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Trạng thái
           </div>
           <AppSelect
@@ -394,8 +394,6 @@ onMounted(async () => {
 
     <!-- Table Card -->
     <VCard
-      elevation="0"
-      border
     >
       <VDivider />
 
@@ -413,7 +411,7 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên loại công việc -->
@@ -507,7 +505,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-4"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có loại công việc nào
             </div>
           </div>

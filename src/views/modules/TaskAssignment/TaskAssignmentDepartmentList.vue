@@ -297,7 +297,7 @@ onMounted(async () => {
       <template #filters>
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm phòng ban
           </div>
           <AppTextField
@@ -310,7 +310,7 @@ onMounted(async () => {
 
         <!-- Status Filter -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Trạng thái
           </div>
           <AppSelect
@@ -385,8 +385,6 @@ onMounted(async () => {
 
     <!-- Table Card -->
     <VCard
-      elevation="0"
-      border
     >
       <VDivider />
 
@@ -404,18 +402,18 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Mã phòng ban -->
         <template #item.code="{ item }">
-          <span class="text-body-2 font-weight-medium">{{ item.code }}</span>
+          <span class="text-sm font-weight-medium">{{ item.code }}</span>
         </template>
 
         <!-- Tên phòng ban -->
         <template #item.name="{ item }">
           <div class="d-flex align-center gap-2">
-            <span class="text-body-2 font-weight-medium">{{ item.name }}</span>
+            <span class="text-sm font-weight-medium">{{ item.name }}</span>
           </div>
         </template>
 
@@ -503,7 +501,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-4"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có phòng ban nào
             </div>
           </div>

@@ -108,7 +108,15 @@ const buildInitialForm = () => {
 const formData = ref(buildInitialForm())
 
 const isEditMode = computed(() => !!props.document?.id)
-const drawerTitle = computed(() => isEditMode.value ? 'Chỉnh sửa văn bản giao việc' : 'Thêm văn bản giao việc mới')
+
+const isIssued = computed(() => props.document?.status === 'issued')
+
+const drawerTitle = computed(() => {
+  if (!isEditMode.value)
+    return 'Thêm văn bản giao việc mới'
+
+  return isIssued.value ? 'Xem văn bản giao việc (Đã ban hành)' : 'Chỉnh sửa văn bản giao việc'
+})
 
 const requiredRule = (v: string) => !!v?.trim() || 'Trường này là bắt buộc'
 
@@ -219,6 +227,7 @@ const onSubmit = async () => {
                   v-model="formData.name"
                   label="Tên văn bản giao việc"
                   placeholder="Nhập tên văn bản giao việc"
+                  :readonly="isIssued"
                   :rules="[requiredRule, serverErrorRule('name')]"
                 />
               </VCol>
@@ -236,6 +245,7 @@ const onSubmit = async () => {
                   item-title="title"
                   item-value="value"
                   clearable
+                  :readonly="isIssued"
                   :rules="[serverErrorRule('task_assignment_type_id')]"
                 >
                   <!-- Sentinel cuối danh sách để trigger load thêm -->
@@ -264,6 +274,7 @@ const onSubmit = async () => {
                   :config="{
                     dateFormat: 'd/m/Y',
                   }"
+                  :readonly="isIssued"
                   :rules="[serverErrorRule('issue_date')]"
                 />
               </VCol>
@@ -274,6 +285,7 @@ const onSubmit = async () => {
                   v-model="formData.status"
                   label="Trạng thái"
                   :items="statusOptions"
+                  :readonly="isIssued"
                   :rules="[requiredRule, serverErrorRule('status')]"
                 />
               </VCol>
@@ -285,12 +297,16 @@ const onSubmit = async () => {
                   label="Tóm tắt nội dung"
                   placeholder="Nhập tóm tắt nội dung văn bản"
                   rows="4"
+                  :readonly="isIssued"
                   :rules="[serverErrorRule('summary')]"
                 />
               </VCol>
 
               <!-- Actions -->
-              <VCol cols="12">
+              <VCol
+                v-if="!isIssued"
+                cols="12"
+              >
                 <VBtn
                   class="me-3"
                   :loading="isSubmitting"
@@ -304,6 +320,18 @@ const onSubmit = async () => {
                   @click="closeDrawer"
                 >
                   Hủy
+                </VBtn>
+              </VCol>
+              <VCol
+                v-else
+                cols="12"
+              >
+                <VBtn
+                  variant="tonal"
+                  color="secondary"
+                  @click="closeDrawer"
+                >
+                  Đóng
                 </VBtn>
               </VCol>
             </VRow>

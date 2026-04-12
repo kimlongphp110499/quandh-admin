@@ -58,11 +58,11 @@ const formattedDate = computed(() => {
       >
         <span style="font-size: 9px; font-weight: 600;">{{ getUserInitials(props.user) }}</span>
       </VAvatar>
-      <span class="text-caption text-disabled">{{ props.user }}</span>
+      <span class="text-sm">{{ props.user }}</span>
     </div>
     <span
       v-if="props.date"
-      class="text-body-2 text-medium-emphasis"
+      class="text-sm text-medium-emphasis"
     >{{ formattedDate }}</span>
   </div>
 </template>

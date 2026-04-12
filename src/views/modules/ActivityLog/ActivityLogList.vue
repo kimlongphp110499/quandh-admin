@@ -281,7 +281,7 @@ onMounted(load)
       <template #filters>
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm
           </div>
           <AppTextField
@@ -297,7 +297,7 @@ onMounted(load)
 
         <!-- From Date -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Từ ngày
           </div>
           <AppDateTimePicker
@@ -314,7 +314,7 @@ onMounted(load)
 
         <!-- To Date -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Đến ngày
           </div>
           <AppDateTimePicker
@@ -331,7 +331,7 @@ onMounted(load)
 
         <!-- HTTP Method -->
         <div style="min-inline-size: 140px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Phương thức HTTP
           </div>
           <AppSelect
@@ -345,7 +345,7 @@ onMounted(load)
 
         <!-- Status Code -->
         <div style="min-inline-size: 100px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Mã trạng thái
           </div>
           <AppTextField
@@ -402,8 +402,6 @@ onMounted(load)
 
     <!-- Table -->
     <VCard
-      elevation="0"
-      border
     >
       <div
         v-if="store.logs.length === 0"
@@ -415,7 +413,7 @@ onMounted(load)
           color="disabled"
           class="mb-3"
         />
-        <div class="text-body-1 text-disabled">
+        <div class="text-sm text-disabled">
           Không có nhật ký nào
         </div>
       </div>
@@ -475,32 +473,32 @@ onMounted(load)
                   color="primary"
                   variant="tonal"
                 >
-                  <span class="text-caption font-weight-bold">
+                  <span class="text-xs font-weight-bold">
                     {{ (log.user_name ?? 'G').slice(0, 2).toUpperCase() }}
                   </span>
                 </VAvatar>
                 <div>
-                  <div class="text-body-2 font-weight-medium">
+                  <div class="text-sm font-weight-medium">
                     {{ log.user_name }}
                   </div>
-                  <div class="text-caption text-disabled">
+                  <div class="text-xs text-disabled">
                     {{ log.user_type }}
                   </div>
                 </div>
               </div>
             </td>
-            <td class="text-body-2 text-medium-emphasis">
+            <td class="text-sm text-medium-emphasis">
               {{ log.organization_id ? getOrganizationName(log.organization_id) : '—' }}
             </td>
             <td>
               <div
-                class="text-body-2 text-truncate"
+                class="text-sm text-truncate"
                 style="max-inline-size: 260px;"
               >
                 {{ log.description }}
               </div>
               <div
-                class="text-caption text-disabled text-truncate"
+                class="text-xs text-disabled text-truncate"
                 style="max-inline-size: 260px;"
               >
                 {{ log.route }}
@@ -526,7 +524,7 @@ onMounted(load)
             </td>
             <td>
               <span
-                class="text-caption font-weight-medium"
+                class="text-xs font-weight-medium"
                 :class="log.ip_address ? 'text-warning' : 'text-disabled'"
               >
                 {{ log.ip_address ?? '—' }}
@@ -609,26 +607,26 @@ onMounted(load)
         <VCardText class="px-6 py-4">
           <VRow dense>
             <VCol cols="4">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Người dùng
               </div>
-              <div class="text-body-2 font-weight-medium">
+              <div class="text-sm font-weight-medium">
                 {{ selectedLog.user_name }}
               </div>
             </VCol>
             <VCol cols="4">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Loại người dùng
               </div>
-              <div class="text-body-2">
+              <div class="text-sm">
                 {{ selectedLog.user_type }}
               </div>
             </VCol>
             <VCol cols="4">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Tổ chức
               </div>
-              <div class="text-body-2">
+              <div class="text-sm">
                 {{ selectedLog.organization_id ? `${getOrganizationName(selectedLog.organization_id)}` : '' }}
               </div>
             </VCol>
@@ -638,25 +636,25 @@ onMounted(load)
             </VCol>
 
             <VCol cols="12">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Mô tả
               </div>
-              <div class="text-body-2">
+              <div class="text-sm">
                 {{ selectedLog.description }}
               </div>
             </VCol>
 
             <VCol cols="12">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Route
               </div>
-              <div class="text-body-2 text-break">
+              <div class="text-sm text-break">
                 {{ selectedLog.route }}
               </div>
             </VCol>
 
             <VCol cols="3">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Phương thức
               </div>
               <VChip
@@ -670,7 +668,7 @@ onMounted(load)
             </VCol>
 
             <VCol cols="3">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Mã trạng thái
               </div>
               <VChip
@@ -684,19 +682,19 @@ onMounted(load)
             </VCol>
 
             <VCol cols="3">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Địa chỉ IP
               </div>
-              <div class="text-body-2 font-weight-medium text-warning">
+              <div class="text-sm font-weight-medium text-warning">
                 {{ selectedLog.ip_address }}
               </div>
             </VCol>
 
             <VCol cols="3">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Quốc gia
               </div>
-              <div class="text-body-2">
+              <div class="text-sm">
                 {{ selectedLog.country ?? '—' }}
               </div>
             </VCol>
@@ -706,10 +704,10 @@ onMounted(load)
             </VCol>
 
             <VCol cols="12">
-              <div class="text-caption text-disabled mb-1">
+              <div class="text-xs text-disabled mb-1">
                 User Agent
               </div>
-              <div class="text-caption text-medium-emphasis">
+              <div class="text-xs text-medium-emphasis">
                 {{ selectedLog.user_agent }}
               </div>
             </VCol>
@@ -718,11 +716,11 @@ onMounted(load)
               v-if="selectedLog.request_data"
               cols="12"
             >
-              <div class="text-caption text-disabled mb-1">
+              <div class="text-xs text-disabled mb-1">
                 Request Data
               </div>
               <pre
-                class="text-caption bg-surface-variant pa-3 rounded"
+                class="text-xs bg-surface-variant pa-3 rounded"
                 style="overflow-x: auto; white-space: pre-wrap;"
               >{{ JSON.stringify(selectedLog.request_data, null, 2) }}</pre>
             </VCol>
@@ -732,18 +730,18 @@ onMounted(load)
             </VCol>
 
             <VCol cols="6">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Thời gian tạo
               </div>
-              <div class="text-body-2">
+              <div class="text-sm">
                 {{ selectedLog.created_at }}
               </div>
             </VCol>
             <VCol cols="6">
-              <div class="text-caption text-disabled">
+              <div class="text-xs text-disabled">
                 Cập nhật lần cuối
               </div>
-              <div class="text-body-2">
+              <div class="text-sm">
                 {{ selectedLog.updated_at }}
               </div>
             </VCol>

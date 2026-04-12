@@ -188,6 +188,7 @@ const onUserFilterIntersect = (isIntersecting: boolean) => {
 const isLoading = computed(() => store.isLoading)
 const selectedIds = computed(() => selected.value.map(d => d.id))
 const indexOffset = computed(() => ((store.filters.page ?? 1) - 1) * (store.filters.limit ?? 15))
+const selectedHasIssued = computed(() => selected.value.some(d => d.document?.status === 'issued'))
 
 const hasActiveFilters = computed(() =>
   !!searchQuery.value
@@ -540,8 +541,11 @@ onMounted(async () => {
           dense
           style="width: 100%;"
         >
-          <VCol cols="12" md="6">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Tìm kiếm công việc
             </div>
             <AppTextField
@@ -551,8 +555,11 @@ onMounted(async () => {
               hide-details
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Mức độ ưu tiên
             </div>
             <AppSelect
@@ -563,8 +570,11 @@ onMounted(async () => {
               hide-details
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Loại thời hạn
             </div>
             <AppSelect
@@ -582,10 +592,13 @@ onMounted(async () => {
           dense
           style="width: 100%;"
         >
-          <VCol cols="6" md="3">
+          <VCol
+            cols="6"
+            md="3"
+          >
             <div class="d-flex gap-2">
               <div style="flex: 1; min-width: 0;">
-                <div class="text-caption text-medium-emphasis mb-1">
+                <div class="text-sm text-medium-emphasis mb-1">
                   % Từ
                 </div>
                 <AppTextField
@@ -596,7 +609,7 @@ onMounted(async () => {
                 />
               </div>
               <div style="flex: 1; min-width: 0;">
-                <div class="text-caption text-medium-emphasis mb-1">
+                <div class="text-sm text-medium-emphasis mb-1">
                   % Đến
                 </div>
                 <AppTextField
@@ -608,8 +621,11 @@ onMounted(async () => {
               </div>
             </div>
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Ngày bắt đầu
             </div>
             <AppDateTimePicker
@@ -620,8 +636,11 @@ onMounted(async () => {
               hide-details
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Ngày kết thúc
             </div>
             <AppDateTimePicker
@@ -632,8 +651,11 @@ onMounted(async () => {
               hide-details
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Ngày ban hành
             </div>
             <AppDateTimePicker
@@ -651,8 +673,11 @@ onMounted(async () => {
           dense
           style="width: 100%;"
         >
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Văn bản giao việc
             </div>
             <VAutocomplete
@@ -682,8 +707,11 @@ onMounted(async () => {
               </template>
             </VAutocomplete>
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Loại văn bản
             </div>
             <VAutocomplete
@@ -698,8 +726,11 @@ onMounted(async () => {
               hide-no-data
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Loại công việc
             </div>
             <VAutocomplete
@@ -714,8 +745,11 @@ onMounted(async () => {
               hide-no-data
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Phòng ban
             </div>
             <VAutocomplete
@@ -737,8 +771,11 @@ onMounted(async () => {
           dense
           style="width: 100%;"
         >
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Người được giao
             </div>
             <VAutocomplete
@@ -768,8 +805,11 @@ onMounted(async () => {
               </template>
             </VAutocomplete>
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Vai trò giao việc
             </div>
             <AppSelect
@@ -784,8 +824,11 @@ onMounted(async () => {
               hide-details
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Trạng thái nhận việc
             </div>
             <AppSelect
@@ -802,8 +845,11 @@ onMounted(async () => {
               hide-details
             />
           </VCol>
-          <VCol cols="6" md="3">
-            <div class="text-caption text-medium-emphasis mb-1">
+          <VCol
+            cols="6"
+            md="3"
+          >
+            <div class="text-sm text-medium-emphasis mb-1">
               Trạng thái xử lý
             </div>
             <AppSelect
@@ -824,15 +870,24 @@ onMounted(async () => {
             variant="tonal"
             color="success"
             prepend-icon="tabler-circle-check"
+            :disabled="selectedHasIssued"
             @click="handleBulkStatus('done')"
           >
             <span class="d-none d-sm-inline">Hoàn thành</span>
             ({{ selectedIds.length }})
+            <VTooltip
+              v-if="selectedHasIssued"
+              activator="parent"
+              location="top"
+            >
+              Có công việc thuộc văn bản đã ban hành
+            </VTooltip>
           </VBtn>
           <VBtn
             variant="tonal"
             color="info"
             prepend-icon="tabler-loader"
+            :disabled="selectedHasIssued"
             @click="handleBulkStatus('in_progress')"
           >
             <span class="d-none d-sm-inline">Đang thực hiện</span>
@@ -842,6 +897,7 @@ onMounted(async () => {
             variant="tonal"
             color="error"
             prepend-icon="tabler-alert-circle"
+            :disabled="selectedHasIssued"
             @click="handleBulkStatus('overdue')"
           >
             <span class="d-none d-sm-inline">Quá hạn</span>
@@ -851,6 +907,7 @@ onMounted(async () => {
             variant="tonal"
             color="warning"
             prepend-icon="tabler-player-pause"
+            :disabled="selectedHasIssued"
             @click="handleBulkStatus('paused')"
           >
             <span class="d-none d-sm-inline">Tạm dừng</span>
@@ -860,6 +917,7 @@ onMounted(async () => {
             variant="tonal"
             color="secondary"
             prepend-icon="tabler-x"
+            :disabled="selectedHasIssued"
             @click="handleBulkStatus('cancelled')"
           >
             <span class="d-none d-sm-inline">Đã hủy</span>
@@ -869,6 +927,7 @@ onMounted(async () => {
             variant="tonal"
             color="error"
             prepend-icon="tabler-trash"
+            :disabled="selectedHasIssued"
             @click="confirmBulkDelete"
           >
             <span class="d-none d-sm-inline">Xóa</span>
@@ -905,10 +964,7 @@ onMounted(async () => {
     </AppFilterBar>
 
     <!-- Table Card -->
-    <VCard
-      elevation="2"
-      border
-    >
+    <VCard>
       <VDivider />
 
       <VDataTableServer
@@ -925,14 +981,14 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên công việc -->
         <template #item.name="{ item }">
           <div>
             <div class="d-flex flex-column">
-              <span class="text-body-2 font-weight-medium"> {{ item.name }} </span>
+              <span class="text-sm font-weight-medium"> {{ item.name }} </span>
             </div>
           </div>
         </template>
@@ -942,11 +998,11 @@ onMounted(async () => {
           <div class="d-flex flex-column">
             <span
               v-if="item.document"
-              class="text-body-2 font-weight-medium"
+              class="text-sm font-weight-medium"
             >{{ item.document.name }}</span>
             <span
               v-else
-              class="text-caption text-disabled"
+              class="text-xs text-disabled"
             >—</span>
           </div>
         </template>
@@ -967,7 +1023,7 @@ onMounted(async () => {
           </div>
           <span
             v-else
-            class="text-caption text-disabled"
+            class="text-xs text-disabled"
           >—</span>
         </template>
 
@@ -994,7 +1050,7 @@ onMounted(async () => {
           </VChip>
           <span
             v-else
-            class="text-caption text-disabled"
+            class="text-xs text-disabled"
           >—</span>
         </template>
 
@@ -1002,18 +1058,18 @@ onMounted(async () => {
         <template #item.end_at="{ item }">
           <span
             v-if="item.end_at && item.deadline_type !== 'no_deadline' "
-            class="text-body-2"
+            class="text-sm"
           >{{ dayjs(item.end_at, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY') }} </span>
           <span
             v-else
-            class="text-caption text-disabled"
+            class="text-xs text-disabled"
           >--</span>
         </template>
 
         <!-- % Hoàn thành -->
         <template #item.completion_percent="{ item }">
           <div class="d-flex flex-column align-center gap-1">
-            <span class="text-body-1 font-weight-medium">{{ item.completion_percent }}%</span>
+            <span class="text-sm font-weight-medium">{{ item.completion_percent }}%</span>
             <!--
               <VProgressLinear
               :model-value="item.completion_percent"
@@ -1054,21 +1110,22 @@ onMounted(async () => {
               @click="openEditDrawer(item)"
             >
               <VIcon
-                icon="tabler-edit"
+                :icon="item.document?.status === 'issued' ? 'tabler-eye' : 'tabler-edit'"
                 size="18"
               />
               <VTooltip
                 activator="parent"
                 location="top"
               >
-                Sửa
+                {{ item.document?.status === 'issued' ? 'Xem (đã ban hành)' : 'Sửa' }}
               </VTooltip>
             </IconBtn>
 
             <IconBtn
               size="small"
               color="error"
-              @click="confirmDeleteSingle(item.id)"
+              :disabled="item.document?.status === 'issued'"
+              @click="item.document?.status !== 'issued' && confirmDeleteSingle(item.id)"
             >
               <VIcon
                 icon="tabler-trash"
@@ -1078,7 +1135,7 @@ onMounted(async () => {
                 activator="parent"
                 location="top"
               >
-                Xóa
+                {{ item.document?.status === 'issued' ? 'Không thể xóa (đã ban hành)' : 'Xóa' }}
               </VTooltip>
             </IconBtn>
           </div>
@@ -1093,7 +1150,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-4"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có công việc nào
             </div>
           </div>

@@ -304,7 +304,7 @@ defineExpose({
       <template #filters>
         <!-- Search -->
         <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm tổ chức
           </div>
           <AppTextField
@@ -317,7 +317,7 @@ defineExpose({
 
         <!-- Status Filter -->
         <div style="min-inline-size: 160px;">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Trạng thái
           </div>
           <AppSelect
@@ -398,10 +398,7 @@ defineExpose({
     </AppFilterBar>
 
     <!-- Table Card -->
-    <VCard
-      elevation="0"
-      border
-    >
+    <VCard>
       <VDivider />
 
       <VDataTableServer
@@ -417,13 +414,13 @@ defineExpose({
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-2 text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên tổ chức -->
         <template #item.name="{ item }">
           <div class="d-flex flex-column">
-            <span class="text-body-2 font-weight-medium">{{ "-".repeat(item.depth) }} {{ item.name }}</span>
+            <span class="text-sm font-weight-medium">{{ "-".repeat(item.depth) }} {{ item.name }}</span>
           </div>
         </template>
 
@@ -507,7 +504,7 @@ defineExpose({
               color="disabled"
               class="mb-4"
             />
-            <div class="text-body-1 text-disabled">
+            <div class="text-sm text-disabled">
               Không có tổ chức nào
             </div>
           </div>

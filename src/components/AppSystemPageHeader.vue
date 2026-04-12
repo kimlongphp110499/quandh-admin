@@ -77,11 +77,7 @@ const colProps = computed(() => {
         v-bind="colProps"
         class="d-flex"
       >
-        <VCard
-          elevation="0"
-          border
-          class="w-100"
-        >
+        <VCard class="w-100">
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="primary"
@@ -98,7 +94,7 @@ const colProps = computed(() => {
               <div class="text-h5 font-weight-bold">
                 {{ total }}
               </div>
-              <div class="text-body-2 text-medium-emphasis">
+              <div class="text-sm text-medium-emphasis">
                 {{ totalLabel }}
               </div>
             </div>
@@ -112,11 +108,7 @@ const colProps = computed(() => {
         v-bind="colProps"
         class="d-flex"
       >
-        <VCard
-          elevation="0"
-          border
-          class="w-100"
-        >
+        <VCard class="w-100">
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="success"
@@ -133,7 +125,7 @@ const colProps = computed(() => {
               <div class="text-h5 font-weight-bold">
                 {{ active }}
               </div>
-              <div class="text-body-2 text-medium-emphasis">
+              <div class="text-sm text-medium-emphasis">
                 {{ activeLabel }}
               </div>
             </div>
@@ -146,11 +138,7 @@ const colProps = computed(() => {
         v-bind="colProps"
         class="d-flex"
       >
-        <VCard
-          elevation="0"
-          border
-          class="w-100"
-        >
+        <VCard class="w-100">
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="warning"
@@ -167,7 +155,7 @@ const colProps = computed(() => {
               <div class="text-h5 font-weight-bold">
                 {{ totalGroup }}
               </div>
-              <div class="text-body-2 text-medium-emphasis">
+              <div class="text-sm text-medium-emphasis">
                 {{ totalGroupLabel }}
               </div>
             </div>
@@ -181,11 +169,7 @@ const colProps = computed(() => {
         v-bind="colProps"
         class="d-flex"
       >
-        <VCard
-          elevation="0"
-          border
-          class="w-100"
-        >
+        <VCard class="w-100">
           <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="warning"
@@ -202,7 +186,7 @@ const colProps = computed(() => {
               <div class="text-h5 font-weight-bold">
                 {{ inactive }}
               </div>
-              <div class="text-body-2 text-medium-emphasis">
+              <div class="text-sm text-medium-emphasis">
                 {{ inactiveLabel }}
               </div>
             </div>

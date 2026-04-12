@@ -21,7 +21,7 @@ const aliases: Partial<IconAliases> = {
   cancel: 'tabler-x',
   close: 'tabler-x',
   delete: 'tabler-circle-x-filled',
-  clear: 'tabler-circle-x',
+  clear: 'tabler-x',
   success: 'tabler-circle-check',
   info: 'tabler-info-circle',
   warning: 'tabler-alert-triangle',

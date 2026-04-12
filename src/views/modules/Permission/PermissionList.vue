@@ -344,7 +344,7 @@ onMounted(async () => {
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <div style="min-inline-size: 280px; flex: 1; max-inline-size: 100%">
-          <div class="text-caption text-medium-emphasis mb-1">
+          <div class="text-sm text-medium-emphasis mb-1">
             Tìm kiếm quyền hạn
           </div>
           <AppTextField
@@ -403,8 +403,6 @@ onMounted(async () => {
 
     <!-- Grouped Permission Table -->
     <VCard
-      elevation="0"
-      border
     >
       <div
         v-if="displayedTree.length === 0"
@@ -416,7 +414,7 @@ onMounted(async () => {
           color="disabled"
           class="mb-3"
         />
-        <div class="text-body-1 text-disabled">
+        <div class="text-sm text-disabled">
           Không có quyền hạn nào
         </div>
       </div>
@@ -536,7 +534,7 @@ onMounted(async () => {
                 v-for="perm in (group.children ?? [])"
                 :key="perm.id"
               >
-                <td class="text-center text-medium-emphasis text-caption">
+                <td class="text-center text-medium-emphasis text-xs">
                   {{ perm.sort_order ?? '—' }}
                 </td>
                 <td>
@@ -555,12 +553,12 @@ onMounted(async () => {
                       color="disabled"
                     />
                     <div>
-                      <div class="text-body-2 font-weight-medium">
+                      <div class="text-sm font-weight-medium">
                         {{ perm.name }}
                       </div>
                       <div
                         v-if="perm.description"
-                        class="text-caption text-disabled"
+                        class="text-xs text-disabled"
                       >
                         {{ perm.description }}
                       </div>
@@ -584,10 +582,10 @@ onMounted(async () => {
                   </div>
                   <span
                     v-else
-                    class="text-caption text-disabled"
+                    class="text-xs text-disabled"
                   >—</span>
                 </td>
-                <td class="text-body-2 text-medium-emphasis">
+                <td class="text-sm text-medium-emphasis">
                   {{ perm.created_at }}
                 </td>
                 <td class="text-no-wrap">
@@ -635,7 +633,7 @@ onMounted(async () => {
             >
               <td
                 colspan="6"
-                class="text-center text-caption text-disabled py-3"
+                class="text-center text-xs text-disabled py-3"
               >
                 Nhóm chưa có quyền nào
               </td>
