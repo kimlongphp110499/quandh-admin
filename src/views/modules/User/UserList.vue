@@ -29,7 +29,7 @@ const importFileInput = ref<HTMLInputElement>()
 
 // Filters
 const searchQuery = ref('')
-const statusFilter = ref<string>('')
+const statusFilter = ref<string | null>(null)
 
 // Snackbar
 const snackbar = ref({ show: false, message: '', color: 'success' })
@@ -63,7 +63,6 @@ const headers = [
 ]
 
 const statusOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
 ]
@@ -110,7 +109,7 @@ const loadUsers = async () => {
     page: userStore.filters.page,
     limit: userStore.filters.limit,
     search: searchQuery.value || undefined,
-    status: statusFilter.value as any || undefined,
+    status: statusFilter.value ?? undefined,
     sort_by: userStore.filters.sort_by,
     sort_order: userStore.filters.sort_order,
   })
@@ -145,7 +144,7 @@ watch([statusFilter], () => {
 // Reset filters
 const resetFilters = () => {
   searchQuery.value = ''
-  statusFilter.value = ''
+  statusFilter.value = null
   userStore.resetFilters()
   loadUsers()
 }
@@ -333,10 +332,11 @@ onMounted(async () => {
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <!-- Search -->
-        <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm người dùng
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="6"
+        >
           <AppTextField
             v-model="searchQuery"
             placeholder="Nhập tên, email..."
@@ -344,21 +344,23 @@ onMounted(async () => {
             clearable
             hide-details
           />
-        </div>
+        </VCol>
 
         <!-- Status filter -->
-        <div style="min-inline-size: 160px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Trạng thái
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="6"
+        >
           <AppSelect
             v-model="statusFilter"
             :items="statusOptions"
             placeholder="Chọn trạng thái"
             clearable
+            clear-icon="tabler-x"
             hide-details
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -426,10 +428,8 @@ onMounted(async () => {
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Data Table -->
-    <VCard>
+      <!-- Table (default slot — gắn liền với filter card) -->
       <VDataTableServer
         v-model="selectedIds"
         :headers="headers"
@@ -444,26 +444,26 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.stt="{ index }">
-          <span class="text-sm text-medium-emphasis">
+          <span class="text-body-1 text-high-emphasis">
             {{ ((userStore.filters.page || 1) - 1) * (userStore.filters.limit || 10) + index + 1 }}
           </span>
         </template>
 
         <!-- Name + username -->
         <template #item.name="{ item }">
-          <div class="d-flex align-center gap-3">
+          <div class="d-flex align-center gap-x-4">
             <VAvatar
               :color="avatarColor(item.id)"
               variant="tonal"
-              size="36"
+              size="34"
               rounded
             >
-              <span class="text-xs font-weight-bold">{{ getUserInitials(item.name) }}</span>
+              <span class="text-sm font-weight-bold">{{ getUserInitials(item.name) }}</span>
             </VAvatar>
-            <div>
-              <div class="text-sm font-weight-medium">
+            <div class="d-flex flex-column">
+              <h6 class="text-base font-weight-medium text-high-emphasis">
                 {{ item.name }}
-              </div>
+              </h6>
               <div class="text-sm text-medium-emphasis">
                 @{{ item.user_name || item.email.split('@')[0] }}
               </div>
@@ -473,7 +473,7 @@ onMounted(async () => {
 
         <!-- Email -->
         <template #item.email="{ item }">
-          <span class="text-sm font-weight-medium">{{ item.email }}</span>
+          <span class="text-body-1 text-high-emphasis">{{ item.email }}</span>
         </template>
 
         <!-- Assignments -->
@@ -548,46 +548,56 @@ onMounted(async () => {
 
         <!-- Actions -->
         <template #item.actions="{ item }">
-          <div class="d-flex align-center gap-1">
-            <template v-if="item.id !== authStore.user?.id">
-              <IconBtn
-                size="small"
-                @click="openEditDrawer(item)"
-              >
-                <VIcon
-                  icon="tabler-edit"
-                  size="18"
-                />
-                <VTooltip
-                  activator="parent"
-                  location="top"
-                >
-                  Sửa
-                </VTooltip>
-              </IconBtn>
+          <template v-if="item.id !== authStore.user?.id">
+            <IconBtn @click="openEditDrawer(item)">
+              <VIcon icon="tabler-edit" />
+            </IconBtn>
 
-              <IconBtn
-                size="small"
-                color="error"
-                @click="handleDelete(item)"
-              >
-                <VIcon
-                  icon="tabler-trash"
-                  size="18"
-                />
-                <VTooltip
-                  activator="parent"
-                  location="top"
-                >
-                  Xóa
-                </VTooltip>
-              </IconBtn>
-            </template>
-            <span
-              v-else
-              class="text-xs text-disabled"
-            >—</span>
-          </div>
+            <IconBtn
+              color="error"
+              @click="handleDelete(item)"
+            >
+              <VIcon icon="tabler-trash" />
+            </IconBtn>
+
+            <VBtn
+              icon
+              variant="text"
+              color="medium-emphasis"
+            >
+              <VIcon icon="tabler-dots-vertical" />
+              <VMenu activator="parent">
+                <VList>
+                  <VListItem @click="openEditDrawer(item)">
+                    <template #prepend>
+                      <VIcon icon="tabler-edit" />
+                    </template>
+                    <VListItemTitle>Sửa</VListItemTitle>
+                  </VListItem>
+
+                  <VListItem @click="handleToggleStatus(item)">
+                    <template #prepend>
+                      <VIcon :icon="item.status === 'active' ? 'tabler-toggle-right' : 'tabler-toggle-left'" />
+                    </template>
+                    <VListItemTitle>
+                      {{ item.status === 'active' ? 'Tắt hoạt động' : 'Bật hoạt động' }}
+                    </VListItemTitle>
+                  </VListItem>
+
+                  <VListItem @click="handleDelete(item)">
+                    <template #prepend>
+                      <VIcon icon="tabler-trash" />
+                    </template>
+                    <VListItemTitle>Xóa</VListItemTitle>
+                  </VListItem>
+                </VList>
+              </VMenu>
+            </VBtn>
+          </template>
+          <span
+            v-else
+            class="text-body-2 text-disabled"
+          >—</span>
         </template>
 
         <!-- No data -->
@@ -617,7 +627,7 @@ onMounted(async () => {
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <UserFormDrawer

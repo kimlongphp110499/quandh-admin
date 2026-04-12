@@ -57,142 +57,159 @@ const cardCount = computed(() => {
 // Compute column breakpoints based on card count
 const colProps = computed(() => {
   if (cardCount.value === 1)
-    return { cols: '6' }
+    return { cols: '12', sm: '6' }
   if (cardCount.value === 2)
-    return { cols: '12', sm: '12', lg: '6' }
+    return { cols: '12', sm: '6' }
   if (cardCount.value === 3)
-    return { cols: '12', sm: '6', lg: '4' }
+    return { cols: '12', sm: '6', md: '4' }
 
-  return { cols: '12', sm: '6', lg: '3' }
+  return { cols: '12', sm: '6', md: '3' }
 })
 </script>
 
 <template>
-  <div>
-    <!-- Stats Cards -->
-    <VRow class="mb-2 align-stretch">
-      <!-- Total Card -->
-      <VCol
-        v-if="total !== undefined && total !== null"
-        v-bind="colProps"
-        class="d-flex"
-      >
-        <VCard class="w-100">
-          <VCardText class="d-flex align-center gap-4">
+  <VRow class="mb-6">
+    <!-- Total Card -->
+    <VCol
+      v-if="total !== undefined && total !== null"
+      v-bind="colProps"
+    >
+      <VCard>
+        <VCardText>
+          <div class="d-flex justify-space-between">
+            <div class="d-flex flex-column gap-y-1">
+              <div class="text-body-1 text-high-emphasis">
+                {{ totalLabel }}
+              </div>
+              <h4 class="text-h4">
+                {{ total }}
+              </h4>
+              <div
+                v-if="title"
+                class="text-sm text-medium-emphasis"
+              >
+                Tổng số {{ title.toLowerCase() }}
+              </div>
+            </div>
             <VAvatar
               color="primary"
               variant="tonal"
-              size="48"
               rounded
+              size="42"
             >
               <VIcon
                 :icon="totalIcon"
-                size="24"
+                size="26"
               />
             </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ total }}
+          </div>
+        </VCardText>
+      </VCard>
+    </VCol>
+
+    <!-- Active Card -->
+    <VCol
+      v-if="active !== undefined && active !== null"
+      v-bind="colProps"
+    >
+      <VCard>
+        <VCardText>
+          <div class="d-flex justify-space-between">
+            <div class="d-flex flex-column gap-y-1">
+              <div class="text-body-1 text-high-emphasis">
+                {{ activeLabel }}
               </div>
+              <h4 class="text-h4">
+                {{ active }}
+              </h4>
               <div class="text-sm text-medium-emphasis">
-                {{ totalLabel }}
+                Đang hoạt động
               </div>
             </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <!-- Active Card -->
-      <VCol
-        v-if="active !== undefined && active !== null"
-        v-bind="colProps"
-        class="d-flex"
-      >
-        <VCard class="w-100">
-          <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="success"
               variant="tonal"
-              size="48"
               rounded
+              size="42"
             >
               <VIcon
                 :icon="activeIcon"
-                size="24"
+                size="26"
               />
             </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ active }}
+          </div>
+        </VCardText>
+      </VCard>
+    </VCol>
+
+    <!-- Group Card -->
+    <VCol
+      v-if="totalGroup !== undefined && totalGroup !== null"
+      v-bind="colProps"
+    >
+      <VCard>
+        <VCardText>
+          <div class="d-flex justify-space-between">
+            <div class="d-flex flex-column gap-y-1">
+              <div class="text-body-1 text-high-emphasis">
+                {{ totalGroupLabel }}
               </div>
+              <h4 class="text-h4">
+                {{ totalGroup }}
+              </h4>
               <div class="text-sm text-medium-emphasis">
-                {{ activeLabel }}
+                Tổng số nhóm
               </div>
             </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-      <!-- Group Card -->
-      <VCol
-        v-if="totalGroup !== undefined && totalGroup !== null"
-        v-bind="colProps"
-        class="d-flex"
-      >
-        <VCard class="w-100">
-          <VCardText class="d-flex align-center gap-4">
             <VAvatar
               color="warning"
               variant="tonal"
-              size="48"
               rounded
+              size="42"
             >
               <VIcon
                 :icon="totalGroupIcon"
-                size="24"
+                size="26"
               />
             </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ totalGroup }}
+          </div>
+        </VCardText>
+      </VCard>
+    </VCol>
+
+    <!-- Inactive Card -->
+    <VCol
+      v-if="inactive !== undefined && inactive !== null"
+      v-bind="colProps"
+    >
+      <VCard>
+        <VCardText>
+          <div class="d-flex justify-space-between">
+            <div class="d-flex flex-column gap-y-1">
+              <div class="text-body-1 text-high-emphasis">
+                {{ inactiveLabel }}
               </div>
+              <h4 class="text-h4">
+                {{ inactive }}
+              </h4>
               <div class="text-sm text-medium-emphasis">
-                {{ totalGroupLabel }}
+                Không hoạt động
               </div>
             </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <!-- Inactive Card -->
-      <VCol
-        v-if="inactive !== undefined && inactive !== null"
-        v-bind="colProps"
-        class="d-flex"
-      >
-        <VCard class="w-100">
-          <VCardText class="d-flex align-center gap-4">
             <VAvatar
-              color="warning"
+              color="error"
               variant="tonal"
-              size="48"
               rounded
+              size="42"
             >
               <VIcon
                 :icon="inactiveIcon"
-                size="24"
+                size="26"
               />
             </VAvatar>
-            <div>
-              <div class="text-h5 font-weight-bold">
-                {{ inactive }}
-              </div>
-              <div class="text-sm text-medium-emphasis">
-                {{ inactiveLabel }}
-              </div>
-            </div>
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
-  </div>
+          </div>
+        </VCardText>
+      </VCard>
+    </VCol>
+  </VRow>
 </template>

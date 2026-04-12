@@ -17,7 +17,8 @@ const orgStore = useOrganizationStore()
 
 // State
 const searchQuery = ref('')
-const selectedStatus = ref<'active' | 'inactive' | ''>('')
+const selectedStatus = ref<string | null>(null)
+
 const isFormDrawerVisible = ref(false)
 const editingOrg = ref<Organization | null>(null)
 const selected = ref<Organization[]>([])
@@ -67,7 +68,6 @@ const selectedIds = computed(() => selected.value.map(o => o.id))
 const indexOffset = computed(() => ((orgStore.filters.page ?? 1) - 1) * (orgStore.filters.limit ?? 10))
 
 const statusOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
 ]
@@ -303,31 +303,35 @@ defineExpose({
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <!-- Search -->
-        <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm tổ chức
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="6"
+        >
           <AppTextField
             v-model="searchQuery"
             placeholder="Nhập tên tổ chức..."
             prepend-inner-icon="tabler-search"
             hide-details
+            clearable
           />
-        </div>
+        </VCol>
 
         <!-- Status Filter -->
-        <div style="min-inline-size: 160px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Trạng thái
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="6"
+        >
           <AppSelect
             v-model="selectedStatus"
             placeholder="Chọn trạng thái"
             :items="statusOptions"
             clearable
+            clear-icon="tabler-x"
             hide-details
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -395,12 +399,8 @@ defineExpose({
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Table Card -->
-    <VCard>
-      <VDivider />
-
+      <!-- Table (default slot — gắn liền với filter card) -->
       <VDataTableServer
         v-model="selected"
         :headers="headers"
@@ -414,13 +414,15 @@ defineExpose({
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên tổ chức -->
         <template #item.name="{ item }">
           <div class="d-flex flex-column">
-            <span class="text-sm font-weight-medium">{{ "-".repeat(item.depth) }} {{ item.name }}</span>
+            <span class="text-base font-weight-medium text-high-emphasis">
+              {{ '-'.repeat(item.depth) }} {{ item.name }}
+            </span>
           </div>
         </template>
 
@@ -459,40 +461,50 @@ defineExpose({
 
         <!-- Thao tác -->
         <template #item.actions="{ item }">
-          <div class="d-flex align-center gap-1">
-            <IconBtn
-              size="small"
-              @click="openEditDrawer(item)"
-            >
-              <VIcon
-                icon="tabler-edit"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Sửa
-              </VTooltip>
-            </IconBtn>
+          <IconBtn @click="openEditDrawer(item)">
+            <VIcon icon="tabler-edit" />
+          </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="error"
-              @click="confirmDeleteSingle(item.id)"
-            >
-              <VIcon
-                icon="tabler-trash"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Xóa
-              </VTooltip>
-            </IconBtn>
-          </div>
+          <IconBtn
+            color="error"
+            @click="confirmDeleteSingle(item.id)"
+          >
+            <VIcon icon="tabler-trash" />
+          </IconBtn>
+
+          <VBtn
+            icon
+            variant="text"
+            color="medium-emphasis"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem @click="openEditDrawer(item)">
+                  <template #prepend>
+                    <VIcon icon="tabler-edit" />
+                  </template>
+                  <VListItemTitle>Sửa</VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="handleToggleStatus(item)">
+                  <template #prepend>
+                    <VIcon :icon="item.status === 'active' ? 'tabler-toggle-right' : 'tabler-toggle-left'" />
+                  </template>
+                  <VListItemTitle>
+                    {{ item.status === 'active' ? 'Tắt hoạt động' : 'Bật hoạt động' }}
+                  </VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="confirmDeleteSingle(item.id)">
+                  <template #prepend>
+                    <VIcon icon="tabler-trash" />
+                  </template>
+                  <VListItemTitle>Xóa</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+          </VBtn>
         </template>
 
         <!-- No Data -->
@@ -522,7 +534,7 @@ defineExpose({
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <OrganizationFormDrawer

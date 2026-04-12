@@ -1,6 +1,6 @@
 <!-- eslint-disable import/no-unresolved -->
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
@@ -21,11 +21,27 @@ const orgStore = useOrganizationStore()
 const search = ref('')
 const fromDate = ref('')
 const toDate = ref('')
-const methodType = ref('')
-const statusCode = ref<string>('')
+const dateRange = ref('')
+
+watch(dateRange, val => {
+  if (val && val.includes(' - ')) {
+    const [from, to] = val.split(' - ')
+
+    fromDate.value = from.trim()
+    toDate.value = to.trim()
+  }
+  else {
+    fromDate.value = val || ''
+    toDate.value = ''
+  }
+
+  applyFilters()
+})
+
+const methodType = ref<string | null>(null)
+const statusCode = ref<string | null>(null)
 
 const methodOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'GET', value: 'GET' },
   { title: 'POST', value: 'POST' },
   { title: 'PUT', value: 'PUT' },
@@ -133,7 +149,7 @@ function resetFilters() {
   fromDate.value = ''
   toDate.value = ''
   methodType.value = ''
-  statusCode.value = ''
+  statusCode.value = null
   page.value = 1
   load()
 }
@@ -280,10 +296,11 @@ onMounted(load)
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <!-- Search -->
-        <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppTextField
             v-model="search"
             placeholder="Nhập từ khóa..."
@@ -293,69 +310,57 @@ onMounted(load)
             @input="onSearchInput"
             @click:clear="applyFilters"
           />
-        </div>
+        </VCol>
 
-        <!-- From Date -->
-        <div style="min-inline-size: 160px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Từ ngày
-          </div>
+        <!-- Date Range -->
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppDateTimePicker
-            v-model="fromDate"
+            v-model="dateRange"
             :config="{
+              mode: 'range',
               dateFormat: 'd/m/Y',
-              maxDate: toDate || undefined,
             }"
             clearable
             hide-details
-            @update:model-value="applyFilters"
+            placeholder="Từ ngày - Đến ngày"
           />
-        </div>
-
-        <!-- To Date -->
-        <div style="min-inline-size: 160px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Đến ngày
-          </div>
-          <AppDateTimePicker
-            v-model="toDate"
-            :config="{
-              dateFormat: 'd/m/Y',
-              minDate: fromDate || undefined,
-            }"
-            clearable
-            hide-details
-            @update:model-value="applyFilters"
-          />
-        </div>
+        </VCol>
 
         <!-- HTTP Method -->
-        <div style="min-inline-size: 140px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Phương thức HTTP
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppSelect
             v-model="methodType"
             placeholder="Chọn phương thức"
             :items="methodOptions"
             hide-details
+            clearable
             @update:model-value="applyFilters"
           />
-        </div>
+        </VCol>
 
         <!-- Status Code -->
-        <div style="min-inline-size: 100px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Mã trạng thái
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppTextField
             v-model="statusCode"
-            placeholder="VD: 200"
+            placeholder="Mã Trạng thái VD: 200"
             type="number"
             hide-details
+            clearable
             @update:model-value="applyFilters"
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -398,11 +403,8 @@ onMounted(load)
           <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Table -->
-    <VCard
-    >
+      <!-- Table (default slot) -->
       <div
         v-if="store.logs.length === 0"
         class="text-center py-12"
@@ -478,7 +480,7 @@ onMounted(load)
                   </span>
                 </VAvatar>
                 <div>
-                  <div class="text-sm font-weight-medium">
+                  <div class="text-base font-weight-medium text-high-emphasis">
                     {{ log.user_name }}
                   </div>
                   <div class="text-xs text-disabled">
@@ -536,39 +538,41 @@ onMounted(load)
               </div>
             </td>
             <td class="text-no-wrap" @click.stop>
-              <div class="d-flex align-center gap-1">
-                <IconBtn
-                  size="small"
-                  @click="openDetail(log)"
-                >
-                  <VIcon
-                    icon="tabler-eye"
-                    size="18"
-                  />
-                  <VTooltip
-                    activator="parent"
-                    location="top"
-                  >
-                    Xem chi tiết
-                  </VTooltip>
-                </IconBtn>
-                <IconBtn
-                  size="small"
-                  color="error"
-                  @click="handleDelete(log)"
-                >
-                  <VIcon
-                    icon="tabler-trash"
-                    size="18"
-                  />
-                  <VTooltip
-                    activator="parent"
-                    location="top"
-                  >
-                    Xóa
-                  </VTooltip>
-                </IconBtn>
-              </div>
+              <IconBtn @click="openDetail(log)">
+                <VIcon icon="tabler-eye" />
+              </IconBtn>
+
+              <IconBtn
+                color="error"
+                @click="handleDelete(log)"
+              >
+                <VIcon icon="tabler-trash" />
+              </IconBtn>
+
+              <VBtn
+                icon
+                variant="text"
+                color="medium-emphasis"
+              >
+                <VIcon icon="tabler-dots-vertical" />
+                <VMenu activator="parent">
+                  <VList>
+                    <VListItem @click="openDetail(log)">
+                      <template #prepend>
+                        <VIcon icon="tabler-eye" />
+                      </template>
+                      <VListItemTitle>Xem chi tiết</VListItemTitle>
+                    </VListItem>
+
+                    <VListItem @click="handleDelete(log)">
+                      <template #prepend>
+                        <VIcon icon="tabler-trash" />
+                      </template>
+                      <VListItemTitle>Xóa</VListItemTitle>
+                    </VListItem>
+                  </VList>
+                </VMenu>
+              </VBtn>
             </td>
           </tr>
         </tbody>
@@ -586,7 +590,7 @@ onMounted(load)
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Detail Dialog -->
     <VDialog

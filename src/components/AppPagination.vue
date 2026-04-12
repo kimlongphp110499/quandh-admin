@@ -22,59 +22,46 @@ const emit = defineEmits<{
 const totalPages = computed(() => Math.ceil(props.total / props.limit) || 1)
 const startItem = computed(() => props.total === 0 ? 0 : (props.page - 1) * props.limit + 1)
 const endItem = computed(() => Math.min(props.page * props.limit, props.total))
-
-const handleLimitChange = (newLimit: number) => {
-  emit('update:limit', newLimit)
-}
-
-const handlePageChange = (newPage: number) => {
-  emit('update:page', newPage)
-}
 </script>
 
 <template>
   <div
     v-if="total > 0"
-    class="d-flex align-center justify-space-between px-4 py-3 border-t gap-2"
+    class="d-flex align-center justify-space-between flex-wrap px-4 py-3 gap-4"
   >
-    <!-- Left: Limit selector and total -->
-    <div class="d-flex align-center gap-2 gap-md-3">
-      <span class="d-none d-md-inline text-body-2 text-medium-emphasis">Hiển thị:</span>
+    <!-- Left: items per page + showing info -->
+    <div class="d-flex align-center gap-3">
+      <span class="text-body-2 text-medium-emphasis">Hiển thị</span>
       <VSelect
         :model-value="limit"
         :items="limitOptions"
         density="compact"
-        style="min-inline-size: 70px;"
+        style="min-inline-size: 75px;"
         hide-details
         :disabled="loading"
-        @update:model-value="handleLimitChange"
+        @update:model-value="emit('update:limit', parseInt(String($event), 10))"
       />
-      <span class="d-none d-md-inline text-body-2 text-medium-emphasis">
-        Tổng: {{ total }}
+      <span class="text-body-2 text-medium-emphasis">
+        trong <strong>{{ total }}</strong> kết quả
+        <span class="d-none d-sm-inline">
+          ({{ startItem }}–{{ endItem }})
+        </span>
       </span>
     </div>
 
-    <!-- Right: Page selector -->
-    <div class="d-flex align-center gap-2">
-      <VPagination
-        :model-value="page"
-        :length="totalPages"
-        :total-visible="5"
-        density="compact"
-        :disabled="loading"
-        show-first-last-page
-        first-icon="tabler-chevrons-left"
-        prev-icon="tabler-chevron-left"
-        next-icon="tabler-chevron-right"
-        last-icon="tabler-chevrons-right"
-        @update:model-value="handlePageChange"
-      />
-    </div>
+    <!-- Right: page navigation -->
+    <VPagination
+      :model-value="page"
+      :length="totalPages"
+      :total-visible="5"
+      density="compact"
+      :disabled="loading"
+      show-first-last-page
+      first-icon="tabler-chevrons-left"
+      prev-icon="tabler-chevron-left"
+      next-icon="tabler-chevron-right"
+      last-icon="tabler-chevrons-right"
+      @update:model-value="emit('update:page', $event)"
+    />
   </div>
 </template>
-
-<style scoped>
-.border-t {
-  border-top: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
-}
-</style>

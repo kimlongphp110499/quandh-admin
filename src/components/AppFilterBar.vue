@@ -6,7 +6,7 @@ interface Props {
   title?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   hasActiveFilters: false,
   title: 'Bộ lọc',
 })
@@ -15,62 +15,64 @@ const isFilterExpanded = ref(false)
 </script>
 
 <template>
-  <VCard class="mb-4">
-    <!-- Header row: title (left) + actions (right) — always visible -->
-    <div class="d-flex align-center gap-2 px-4 py-3">
-      <!-- Mobile: clickable to expand/collapse filters -->
-      <div
-        class="d-flex d-md-none align-center gap-2 cursor-pointer"
-        @click="isFilterExpanded = !isFilterExpanded"
-      >
-        <VIcon
-          :icon="isFilterExpanded ? 'tabler-filter-off' : 'tabler-filter'"
-          size="18"
-        />
-        <VIcon
-          :icon="isFilterExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'"
-          size="14"
-          color="medium-emphasis"
-        />
-      </div>
+  <VCard class="mb-6">
+    <!-- ── Desktop: Vuexy-style title row ── -->
+    <VCardItem class="pb-4 d-none d-md-flex">
+      <VCardTitle>{{ title }}</VCardTitle>
+    </VCardItem>
 
-      <!-- Desktop: static label -->
-      <div class="d-none d-md-flex align-center gap-1">
-        <VIcon
-          icon="tabler-filter"
-          size="18"
-        />
-        <span class="text-body-3 font-weight-semibold">{{ props.title }}</span>
-      </div>
-
+    <!-- ── Mobile: clickable header to toggle filters ── -->
+    <div
+      class="d-flex d-md-none align-center gap-2 px-4 py-3 cursor-pointer"
+      @click="isFilterExpanded = !isFilterExpanded"
+    >
+      <VIcon
+        :icon="isFilterExpanded ? 'tabler-filter-off' : 'tabler-filter'"
+        size="18"
+      />
+      <span class="text-body-2 font-weight-semibold">{{ title }}</span>
       <VSpacer />
-
-      <!-- Action buttons — always visible on right -->
-      <div
-        class="d-flex align-center gap-1 gap-md-2 flex-wrap"
-        style="max-width: 90%;"
-      >
-        <slot name="actions" />
-      </div>
+      <VIcon
+        :icon="isFilterExpanded ? 'tabler-chevron-up' : 'tabler-chevron-down'"
+        size="14"
+        color="medium-emphasis"
+      />
     </div>
 
-    <!-- Desktop: filter fields always visible below header -->
-    <div class="d-none d-md-block">
-      <div class="d-flex flex-wrap align-end gap-3 px-4 py-5">
+    <!-- ── Desktop: filters always visible ── -->
+    <VCardText class="d-none d-md-block">
+      <VRow>
         <slot name="filters" />
-      </div>
-    </div>
+      </VRow>
+    </VCardText>
 
-    <!-- Mobile: filter fields collapsible -->
+    <!-- ── Mobile: filters collapsible ── -->
     <VExpandTransition>
       <div
         v-show="isFilterExpanded"
         class="d-md-none"
       >
-        <div class="d-flex flex-column gap-3 px-4 py-3">
-          <slot name="filters" />
-        </div>
+        <VCardText>
+          <VRow>
+            <slot name="filters" />
+          </VRow>
+        </VCardText>
       </div>
     </VExpandTransition>
+
+    <VDivider />
+
+    <!-- ── Actions bar ── -->
+    <VCardText class="d-flex flex-wrap gap-4">
+      <VSpacer />
+      <div class="d-flex align-center flex-wrap gap-4">
+        <slot name="actions" />
+      </div>
+    </VCardText>
+
+    <VDivider />
+
+    <!-- ── Table content (default slot) ── -->
+    <slot />
   </VCard>
 </template>

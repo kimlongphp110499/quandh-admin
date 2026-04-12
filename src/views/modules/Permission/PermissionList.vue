@@ -343,10 +343,11 @@ onMounted(async () => {
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
-        <div style="min-inline-size: 280px; flex: 1; max-inline-size: 100%">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm quyền hạn
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="12"
+        >
           <AppTextField
             v-model="searchQuery"
             placeholder="Nhập tên quyền hạn..."
@@ -354,7 +355,7 @@ onMounted(async () => {
             clearable
             hide-details
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -399,11 +400,8 @@ onMounted(async () => {
           <span class="d-none d-sm-inline">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Grouped Permission Table -->
-    <VCard
-    >
+      <!-- Grouped Permission Table (default slot) -->
       <div
         v-if="displayedTree.length === 0"
         class="text-center py-12"
@@ -641,7 +639,7 @@ onMounted(async () => {
           </template>
         </tbody>
       </VTable>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <PermissionFormDrawer

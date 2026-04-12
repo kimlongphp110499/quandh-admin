@@ -7,7 +7,6 @@ import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
-import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useRoleStore } from '@/store/modules/role'
 import type { Role } from '@/api/modules/role'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
@@ -186,10 +185,11 @@ onMounted(async () => {
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
-        <div style="max-inline-size: 100%; flex: 1;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm vai trò
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="12"
+        >
           <AppTextField
             v-model="searchQuery"
             placeholder="Nhập tên vai trò..."
@@ -197,7 +197,7 @@ onMounted(async () => {
             clearable
             hide-details
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -245,11 +245,8 @@ onMounted(async () => {
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Table -->
-    <VCard
-    >
+      <!-- Table (default slot) -->
       <VDataTableServer
         v-model="selectedIds"
         :headers="headers"
@@ -263,17 +260,17 @@ onMounted(async () => {
         @update:options="handleTableUpdate"
       >
         <template #item.stt="{ index }">
-          <span class="text-sm text-medium-emphasis">
+          <span class="text-body-1 text-high-emphasis">
             {{ ((roleStore.filters.page || 1) - 1) * (roleStore.filters.limit || 15) + index + 1 }}
           </span>
         </template>
 
         <template #item.name="{ item }">
-          <div class="d-flex align-center gap-3">
+          <div class="d-flex align-center gap-x-4">
             <VAvatar
               color="primary"
               variant="tonal"
-              size="36"
+              size="34"
               rounded
             >
               <VIcon
@@ -281,11 +278,11 @@ onMounted(async () => {
                 size="18"
               />
             </VAvatar>
-            <div>
-              <div class="text-sm font-weight-medium">
+            <div class="d-flex flex-column">
+              <h6 class="text-base font-weight-medium text-high-emphasis">
                 {{ item.name }}
-              </div>
-              <div class="text-xs text-disabled">
+              </h6>
+              <div class="text-sm text-medium-emphasis">
                 {{ item.guard_name || 'web' }}
               </div>
             </div>
@@ -311,40 +308,41 @@ onMounted(async () => {
         </template>
 
         <template #item.actions="{ item }">
-          <div class="d-flex align-center gap-1">
-            <IconBtn
-              size="small"
-              @click="openEditDrawer(item)"
-            >
-              <VIcon
-                icon="tabler-edit"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Chỉnh sửa vai trò
-              </VTooltip>
-            </IconBtn>
+          <IconBtn @click="openEditDrawer(item)">
+            <VIcon icon="tabler-edit" />
+          </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="error"
-              @click="handleDelete(item)"
-            >
-              <VIcon
-                icon="tabler-trash"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Xóa
-              </VTooltip>
-            </IconBtn>
-          </div>
+          <IconBtn
+            color="error"
+            @click="handleDelete(item)"
+          >
+            <VIcon icon="tabler-trash" />
+          </IconBtn>
+
+          <VBtn
+            icon
+            variant="text"
+            color="medium-emphasis"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem @click="openEditDrawer(item)">
+                  <template #prepend>
+                    <VIcon icon="tabler-edit" />
+                  </template>
+                  <VListItemTitle>Sửa</VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="handleDelete(item)">
+                  <template #prepend>
+                    <VIcon icon="tabler-trash" />
+                  </template>
+                  <VListItemTitle>Xóa</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+          </VBtn>
         </template>
 
         <template #no-data>
@@ -373,7 +371,7 @@ onMounted(async () => {
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <RoleFormDrawer
