@@ -405,13 +405,12 @@ onMounted(async () => {
                   >
                     <VIcon
                       icon="tabler-edit"
-                      size="18"
                     />
                     <VTooltip
                       activator="parent"
                       location="top"
                     >
-                      Chỉnh sửa nhóm
+                      Chỉnh sửa
                     </VTooltip>
                   </IconBtn>
                   <IconBtn
@@ -421,15 +420,38 @@ onMounted(async () => {
                   >
                     <VIcon
                       icon="tabler-trash"
-                      size="18"
                     />
                     <VTooltip
                       activator="parent"
                       location="top"
                     >
-                      Xóa nhóm
+                      Xóa
                     </VTooltip>
                   </IconBtn>
+                  <VBtn
+                    icon
+                    variant="text"
+                    color="medium-emphasis"
+                  >
+                    <VIcon icon="tabler-dots-vertical" />
+                    <VMenu activator="parent">
+                      <VList>
+                        <VListItem @click="openEditDrawer(group)">
+                          <template #prepend>
+                            <VIcon icon="tabler-edit" />
+                          </template>
+                          <VListItemTitle>Sửa</VListItemTitle>
+                        </VListItem>
+
+                        <VListItem @click="handleDelete(group)">
+                          <template #prepend>
+                            <VIcon icon="tabler-trash" />
+                          </template>
+                          <VListItemTitle>Xóa</VListItemTitle>
+                        </VListItem>
+                      </VList>
+                    </VMenu>
+                  </VBtn>
                 </div>
               </td>
             </tr>
@@ -497,12 +519,10 @@ onMounted(async () => {
                 <td class="text-no-wrap">
                   <div class="d-flex align-center gap-1">
                     <IconBtn
-                      size="small"
                       @click="openEditDrawer(perm)"
                     >
                       <VIcon
                         icon="tabler-edit"
-                        size="18"
                       />
                       <VTooltip
                         activator="parent"
@@ -512,13 +532,11 @@ onMounted(async () => {
                       </VTooltip>
                     </IconBtn>
                     <IconBtn
-                      size="small"
                       color="error"
                       @click="handleDelete(perm)"
                     >
                       <VIcon
                         icon="tabler-trash"
-                        size="18"
                       />
                       <VTooltip
                         activator="parent"
@@ -527,6 +545,30 @@ onMounted(async () => {
                         Xóa
                       </VTooltip>
                     </IconBtn>
+                    <VBtn
+                    icon
+                    variant="text"
+                    color="medium-emphasis"
+                  >
+                    <VIcon icon="tabler-dots-vertical" />
+                    <VMenu activator="parent">
+                      <VList>
+                        <VListItem @click="openEditDrawer(perm)">
+                          <template #prepend>
+                            <VIcon icon="tabler-edit" />
+                          </template>
+                          <VListItemTitle>Sửa</VListItemTitle>
+                        </VListItem>
+
+                        <VListItem @click="handleDelete(perm)">
+                          <template #prepend>
+                            <VIcon icon="tabler-trash" />
+                          </template>
+                          <VListItemTitle>Xóa</VListItemTitle>
+                        </VListItem>
+                      </VList>
+                    </VMenu>
+                  </VBtn>
                   </div>
                 </td>
               </tr>
