@@ -57,7 +57,7 @@ const headers = [
   { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '120px', minWidth: '120px' },
   { title: 'Ngày tạo', key: 'created_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày cập nhật', key: 'updated_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '130px' },
+  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '160px' },
 ]
 
 // Computed

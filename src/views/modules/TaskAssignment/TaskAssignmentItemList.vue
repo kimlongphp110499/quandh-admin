@@ -34,16 +34,16 @@ const isExporting = ref(false)
 const isDownloadingTemplate = ref(false)
 
 const searchQuery = ref('')
-const statusFilter = ref<TaskAssignmentItemStatus | ''>('')
-const priorityFilter = ref<string>('')
-const deadlineTypeFilter = ref<string>('')
+const statusFilter = ref<TaskAssignmentItemStatus | null>(null)
+const priorityFilter = ref<string | null>(null)
+const deadlineTypeFilter = ref<string | null>(null)
 const documentFilter = ref<number | null>(null)
 const departmentFilter = ref<number | null>(null)
 const itemTypeFilter = ref<number | null>(null)
 const taskAssignmentTypeFilter = ref<number | null>(null)
 const userFilter = ref<number | null>(null)
-const assignmentRoleFilter = ref<string>('')
-const assignmentStatusFilter = ref<string>('')
+const assignmentRoleFilter = ref<string | null>(null)
+const assignmentStatusFilter = ref<string | null>(null)
 const completionPercentFrom = ref<number | ''>('')
 const completionPercentTo = ref<number | ''>('')
 const startDateRange = ref('')
@@ -221,11 +221,10 @@ const headers = [
   { title: '% Hoàn thành', key: 'completion_percent', sortable: true, align: 'center' as const, width: '90px', minWidth: '90px' },
   { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày cập nhật', key: 'updated_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '100px', minWidth: '100px' },
+  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '100px', minWidth: '160px' },
 ]
 
 const statusOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'Chưa bắt đầu', value: 'todo' },
   { title: 'Đang thực hiện', value: 'in_progress' },
   { title: 'Hoàn thành', value: 'done' },
@@ -243,7 +242,6 @@ const priorityOptions = [
 ]
 
 const deadlineTypeOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'Có thời hạn', value: 'has_deadline' },
   { title: 'Không có thời hạn', value: 'no_deadline' },
 ]
@@ -545,9 +543,6 @@ onMounted(async () => {
             cols="12"
             md="6"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Tìm kiếm công việc
-            </div>
             <AppTextField
               v-model="searchQuery"
               placeholder="Tên công việc..."
@@ -559,9 +554,6 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Mức độ ưu tiên
-            </div>
             <AppSelect
               v-model="priorityFilter"
               placeholder="Chọn ưu tiên"
@@ -574,9 +566,6 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Loại thời hạn
-            </div>
             <AppSelect
               v-model="deadlineTypeFilter"
               placeholder="Chọn loại"
@@ -598,23 +587,17 @@ onMounted(async () => {
           >
             <div class="d-flex gap-2">
               <div style="flex: 1; min-width: 0;">
-                <div class="text-sm text-medium-emphasis mb-1">
-                  % Từ
-                </div>
                 <AppTextField
                   v-model.number="completionPercentFrom"
-                  placeholder="0"
+                  placeholder="% Hoàn thành từ"
                   type="number"
                   hide-details
                 />
               </div>
               <div style="flex: 1; min-width: 0;">
-                <div class="text-sm text-medium-emphasis mb-1">
-                  % Đến
-                </div>
                 <AppTextField
                   v-model.number="completionPercentTo"
-                  placeholder="100"
+                  placeholder="% Hoàn thành đến"
                   type="number"
                   hide-details
                 />
@@ -625,12 +608,9 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Ngày bắt đầu
-            </div>
             <AppDateTimePicker
               v-model="startDateRange"
-              placeholder="Từ ngày - đến ngày"
+              placeholder="Ngày bắt đầu (từ- đến)"
               :config="{ mode: 'range', dateFormat: 'd/m/Y' }"
               clearable
               hide-details
@@ -640,12 +620,9 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Ngày kết thúc
-            </div>
             <AppDateTimePicker
               v-model="endDateRange"
-              placeholder="Từ ngày - đến ngày"
+              placeholder="Ngày kết thúc (từ- đến)"
               :config="{ mode: 'range', dateFormat: 'd/m/Y' }"
               clearable
               hide-details
@@ -655,12 +632,9 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Ngày ban hành
-            </div>
             <AppDateTimePicker
               v-model="issueDateRange"
-              placeholder="Từ ngày - đến ngày"
+              placeholder="Ngày ban hành (từ - ngày)"
               :config="{ mode: 'range', dateFormat: 'd/m/Y' }"
               clearable
               hide-details
@@ -677,14 +651,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Văn bản giao việc
-            </div>
             <VAutocomplete
               v-model="documentFilter"
-              placeholder="Chọn văn bản..."
+              placeholder="Chọn văn bản giao việc"
               :items="documentOptions"
-              :loading="documentLoading"
               item-title="title"
               item-value="value"
               clearable
@@ -711,14 +681,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Loại văn bản
-            </div>
             <VAutocomplete
               v-model="taskAssignmentTypeFilter"
-              placeholder="Chọn loại..."
+              placeholder="Chọn loại văn bản"
               :items="taskAssignmentTypeOptions"
-              :loading="taskAssignmentTypeLoading"
               item-title="title"
               item-value="value"
               clearable
@@ -730,14 +696,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Loại công việc
-            </div>
             <VAutocomplete
               v-model="itemTypeFilter"
-              placeholder="Chọn loại..."
+              placeholder="Chọn loại công việc"
               :items="itemTypeOptions"
-              :loading="itemTypeLoading"
               item-title="title"
               item-value="value"
               clearable
@@ -749,14 +711,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Phòng ban
-            </div>
             <VAutocomplete
               v-model="departmentFilter"
-              placeholder="Chọn phòng ban..."
+              placeholder="Chọn phòng ban"
               :items="departmentOptions"
-              :loading="departmentLoading"
               item-title="title"
               item-value="value"
               clearable
@@ -775,14 +733,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Người được giao
-            </div>
             <VAutocomplete
               v-model="userFilter"
-              placeholder="Chọn người dùng..."
+              placeholder="Chọn người dùng"
               :items="userOptions"
-              :loading="userLoading"
               item-title="title"
               item-value="value"
               clearable
@@ -809,14 +763,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Vai trò giao việc
-            </div>
             <AppSelect
               v-model="assignmentRoleFilter"
               placeholder="Chọn vai trò"
               :items="[
-                { title: 'Tất cả', value: '' },
                 { title: 'Chủ trì', value: 'main' },
                 { title: 'Phối hợp', value: 'support' },
               ]"
@@ -828,14 +778,10 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Trạng thái nhận việc
-            </div>
             <AppSelect
               v-model="assignmentStatusFilter"
-              placeholder="Chọn trạng thái"
+              placeholder="Chọn trạng thái nhận việc"
               :items="[
-                { title: 'Tất cả', value: '' },
                 { title: 'Đã giao', value: 'assigned' },
                 { title: 'Đã nhận', value: 'accepted' },
                 { title: 'Từ chối', value: 'rejected' },
@@ -849,12 +795,9 @@ onMounted(async () => {
             cols="6"
             md="3"
           >
-            <div class="text-sm text-medium-emphasis mb-1">
-              Trạng thái xử lý
-            </div>
             <AppSelect
               v-model="statusFilter"
-              placeholder="Chọn trạng thái"
+              placeholder="Chọn trạng thái xử lý"
               :items="statusOptions"
               clearable
               hide-details
@@ -961,12 +904,8 @@ onMounted(async () => {
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Table Card -->
-    <VCard>
-      <VDivider />
-
+      <!-- Table (default slot) -->
       <VDataTableServer
         v-model="selected"
         :headers="headers"
@@ -981,14 +920,14 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên công việc -->
         <template #item.name="{ item }">
           <div>
             <div class="d-flex flex-column">
-              <span class="text-sm font-weight-medium"> {{ item.name }} </span>
+              <span class="text-base font-weight-medium text-high-emphasis"> {{ item.name }} </span>
             </div>
           </div>
         </template>
@@ -998,7 +937,7 @@ onMounted(async () => {
           <div class="d-flex flex-column">
             <span
               v-if="item.document"
-              class="text-sm font-weight-medium"
+              class="text-base font-weight-medium text-high-emphasis"
             >{{ item.document.name }}</span>
             <span
               v-else
@@ -1062,14 +1001,14 @@ onMounted(async () => {
           >{{ dayjs(item.end_at, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY') }} </span>
           <span
             v-else
-            class="text-xs text-disabled"
-          >--</span>
+            class="text-sm"
+          >Không có thời hạn</span>
         </template>
 
         <!-- % Hoàn thành -->
         <template #item.completion_percent="{ item }">
           <div class="d-flex flex-column align-center gap-1">
-            <span class="text-sm font-weight-medium">{{ item.completion_percent }}%</span>
+            <span class="text-base font-weight-medium text-high-emphasis">{{ item.completion_percent }}%</span>
             <!--
               <VProgressLinear
               :model-value="item.completion_percent"
@@ -1104,41 +1043,45 @@ onMounted(async () => {
 
         <!-- Hành động -->
         <template #item.actions="{ item }">
-          <div class="d-flex align-center gap-1">
-            <IconBtn
-              size="small"
-              @click="openEditDrawer(item)"
-            >
-              <VIcon
-                :icon="item.document?.status === 'issued' ? 'tabler-eye' : 'tabler-edit'"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                {{ item.document?.status === 'issued' ? 'Xem (đã ban hành)' : 'Sửa' }}
-              </VTooltip>
-            </IconBtn>
+          <IconBtn @click="openEditDrawer(item)">
+            <VIcon :icon="item.document?.status === 'issued' ? 'tabler-eye' : 'tabler-edit'" />
+          </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="error"
-              :disabled="item.document?.status === 'issued'"
-              @click="item.document?.status !== 'issued' && confirmDeleteSingle(item.id)"
-            >
-              <VIcon
-                icon="tabler-trash"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                {{ item.document?.status === 'issued' ? 'Không thể xóa (đã ban hành)' : 'Xóa' }}
-              </VTooltip>
-            </IconBtn>
-          </div>
+          <IconBtn
+            color="error"
+            :disabled="item.document?.status === 'issued'"
+            @click="item.document?.status !== 'issued' && confirmDeleteSingle(item.id)"
+          >
+            <VIcon icon="tabler-trash" />
+          </IconBtn>
+
+          <VBtn
+            icon
+            variant="text"
+            color="medium-emphasis"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem @click="openEditDrawer(item)">
+                  <template #prepend>
+                    <VIcon :icon="item.document?.status === 'issued' ? 'tabler-eye' : 'tabler-edit'" />
+                  </template>
+                  <VListItemTitle>{{ item.document?.status === 'issued' ? 'Xem' : 'Sửa' }}</VListItemTitle>
+                </VListItem>
+
+                <VListItem
+                  :disabled="item.document?.status === 'issued'"
+                  @click="item.document?.status !== 'issued' && confirmDeleteSingle(item.id)"
+                >
+                  <template #prepend>
+                    <VIcon icon="tabler-trash" />
+                  </template>
+                  <VListItemTitle>Xóa</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+          </VBtn>
         </template>
 
         <!-- No Data -->
@@ -1168,7 +1111,7 @@ onMounted(async () => {
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <TaskAssignmentItemFormDrawer

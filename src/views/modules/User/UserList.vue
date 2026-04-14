@@ -59,7 +59,7 @@ const headers = [
   { title: 'TRẠNG THÁI', key: 'status', sortable: true, width: '120px', minWidth: '120px' },
   { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '160px', minWidth: '160px' },
   { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '160px', minWidth: '160px' },
-  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px', minWidth: '130px' },
+  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px', minWidth: '160px' },
 ]
 
 const statusOptions = [

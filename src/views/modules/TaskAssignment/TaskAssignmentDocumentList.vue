@@ -2,6 +2,7 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import TaskAssignmentDocumentFormDrawer from './TaskAssignmentDocumentFormDrawer.vue'
 import TaskAssignmentDocumentAttachmentDialog from './TaskAssignmentDocumentAttachmentDialog.vue'
 import { getErrorMessage } from '@/utils/errorMessage'
@@ -18,6 +19,7 @@ import { useTaskAssignmentDocumentStore } from '@/store/modules/task-assignment-
 import type { TaskAssignmentDocument } from '@/api/modules/task-assignment-document'
 import { taskAssignmentTypeApi } from '@/api/modules/task-assignment-type'
 
+const router = useRouter()
 const store = useTaskAssignmentDocumentStore()
 
 const isFormDrawerVisible = ref(false)
@@ -37,7 +39,7 @@ const isImporting = ref(false)
 const isExporting = ref(false)
 
 const searchQuery = ref('')
-const statusFilter = ref<'draft' | 'issued' | ''>('')
+const statusFilter = ref<string | null>(null)
 
 // --- Bộ lọc loại văn bản (infinity scroll) ---
 const typeIdFilter = ref<number | null>(null)
@@ -138,11 +140,10 @@ const headers = [
   { title: 'Thời điểm ban hành', key: 'issued_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày cập nhật', key: 'updated_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '130px' },
+  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '160px' },
 ]
 
 const statusOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'Bản nháp', value: 'draft' },
   { title: 'Ban hành', value: 'issued' },
 ]
@@ -179,6 +180,10 @@ const handleTableUpdate = (options: any) => {
 const openCreateDrawer = () => {
   editingDocument.value = null
   isFormDrawerVisible.value = true
+}
+
+const goToDetail = (doc: TaskAssignmentDocument) => {
+  router.push({ name: 'task-assignment-documents-id', params: { id: doc.id } })
 }
 
 const openEditDrawer = (doc: TaskAssignmentDocument) => {
@@ -365,28 +370,29 @@ onMounted(async () => {
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
         <!-- Search -->
-        <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm văn bản giao việc
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppTextField
             v-model="searchQuery"
             placeholder="Tên văn bản..."
             prepend-inner-icon="tabler-search"
             hide-details
           />
-        </div>
+        </VCol>
 
         <!-- Loại văn bản Filter -->
-        <div style="min-inline-size: 200px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Loại văn bản
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <VAutocomplete
             v-model="typeIdFilter"
             placeholder="Chọn loại văn bản"
             :items="typeFilterOptions"
-            :loading="typeFilterLoading"
             item-title="title"
             item-value="value"
             clearable
@@ -408,13 +414,14 @@ onMounted(async () => {
               </div>
             </template>
           </VAutocomplete>
-        </div>
+        </VCol>
 
         <!-- Ngày ban hành Filter (range) -->
-        <div style="min-inline-size: 260px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Ngày ban hành
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppDateTimePicker
             v-model="issueDateRange"
             placeholder="Từ ngày - đến ngày"
@@ -425,12 +432,14 @@ onMounted(async () => {
             clearable
             hide-details
           />
-        </div>
+        </VCol>
+
         <!-- Status Filter -->
-        <div style="min-inline-size: 160px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Trạng thái
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="3"
+        >
           <AppSelect
             v-model="statusFilter"
             placeholder="Chọn trạng thái"
@@ -438,7 +447,7 @@ onMounted(async () => {
             clearable
             hide-details
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -499,13 +508,8 @@ onMounted(async () => {
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Table Card -->
-    <VCard
-    >
-      <VDivider />
-
+      <!-- Table (default slot) -->
       <VDataTableServer
         v-model="selected"
         :headers="headers"
@@ -520,15 +524,18 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên văn bản -->
         <template #item.name="{ item }">
           <div>
-            <div class="text-sm font-weight-medium">
-              {{ item.name }}
-            </div>
+             <div
+              class="text-base font-weight-medium text-high-emphasis"
+              @click="goToDetail(item)"
+            >
+            {{ item.name }}
+          </div>
           </div>
         </template>
 
@@ -607,57 +614,57 @@ onMounted(async () => {
 
         <!-- Hành động -->
         <template #item.actions="{ item }">
-          <div class="d-flex align-center gap-1">
-            <IconBtn
-              size="small"
-              @click="openEditDrawer(item)"
-            >
-              <VIcon
-                icon="tabler-edit"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Sửa
-              </VTooltip>
-            </IconBtn>
+          <IconBtn @click="openEditDrawer(item)">
+            <VIcon icon="tabler-edit" />
+          </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="error"
-              @click="confirmDeleteSingle(item.id)"
-            >
-              <VIcon
-                icon="tabler-trash"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Xóa
-              </VTooltip>
-            </IconBtn>
+          <IconBtn
+            color="error"
+            @click="confirmDeleteSingle(item.id)"
+          >
+            <VIcon icon="tabler-trash" />
+          </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="primary"
-              @click="openAttachmentDialog(item)"
-            >
-              <VIcon
-                icon="tabler-paperclip"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Tệp đính kèm
-              </VTooltip>
-            </IconBtn>
-          </div>
+          <VBtn
+            icon
+            variant="text"
+            color="medium-emphasis"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem @click="openEditDrawer(item)">
+                  <template #prepend>
+                    <VIcon icon="tabler-edit" />
+                  </template>
+                  <VListItemTitle>Sửa</VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="handleToggleStatus(item)">
+                  <template #prepend>
+                    <VIcon :icon="item.status === 'issued' ? 'tabler-toggle-right' : 'tabler-toggle-left'" />
+                  </template>
+                  <VListItemTitle>
+                    {{ item.status === 'issued' ? 'Chuyển bản nháp' : 'Ban hành' }}
+                  </VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="openAttachmentDialog(item)">
+                  <template #prepend>
+                    <VIcon icon="tabler-paperclip" />
+                  </template>
+                  <VListItemTitle>Tệp đính kèm</VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="confirmDeleteSingle(item.id)">
+                  <template #prepend>
+                    <VIcon icon="tabler-trash" />
+                  </template>
+                  <VListItemTitle>Xóa</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+          </VBtn>
         </template>
 
         <!-- No Data -->
@@ -687,7 +694,7 @@ onMounted(async () => {
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <TaskAssignmentDocumentFormDrawer

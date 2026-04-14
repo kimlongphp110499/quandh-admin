@@ -38,7 +38,7 @@ const headers = [
   { title: 'TÊN VAI TRÒ', key: 'name', sortable: true, minWidth: '200px' },
   { title: 'NGÀY TẠO', key: 'created_at', sortable: true, width: '160px', minWidth: '160px' },
   { title: 'NGÀY CẬP NHẬT', key: 'updated_at', sortable: true, width: '160px', minWidth: '160px' },
-  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '130px', minWidth: '130px' },
+  { title: 'HÀNH ĐỘNG', key: 'actions', sortable: false, width: '120px', minWidth: '160px' },
 ]
 
 const loadRoles = async () => {

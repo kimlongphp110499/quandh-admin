@@ -29,7 +29,7 @@ const isExporting = ref(false)
 const isDownloadingTemplate = ref(false)
 
 const searchQuery = ref('')
-const statusFilter = ref<'active' | 'inactive' | ''>('')
+const statusFilter = ref<string | null>(null)
 const fromDate = ref('')
 const toDate = ref('')
 
@@ -65,11 +65,10 @@ const headers = [
   { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '120px', minWidth: '120px' },
   { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày cập nhật', key: 'updated_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '130px' },
+  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '160px' },
 ]
 
 const statusOptions = [
-  { title: 'Tất cả', value: '' },
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
 ]
@@ -295,32 +294,32 @@ onMounted(async () => {
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
-        <!-- Search -->
-        <div style="min-inline-size: 240px; flex: 1;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Tìm kiếm phòng ban
-          </div>
+        <VCol
+          cols="12"
+          sm="6"
+          md="6"
+        >
           <AppTextField
             v-model="searchQuery"
             placeholder="Tên hoặc mã phòng ban..."
             prepend-inner-icon="tabler-search"
             hide-details
           />
-        </div>
-
-        <!-- Status Filter -->
-        <div style="min-inline-size: 160px;">
-          <div class="text-sm text-medium-emphasis mb-1">
-            Trạng thái
-          </div>
+        </VCol>
+        <VCol
+          cols="12"
+          sm="6"
+          md="6"
+        >
           <AppSelect
             v-model="statusFilter"
             placeholder="Chọn trạng thái"
             :items="statusOptions"
             clearable
+            clear-icon="tabler-x"
             hide-details
           />
-        </div>
+        </VCol>
       </template>
 
       <template #actions>
@@ -381,13 +380,8 @@ onMounted(async () => {
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
       </template>
-    </AppFilterBar>
 
-    <!-- Table Card -->
-    <VCard
-    >
-      <VDivider />
-
+      <!-- Table (default slot) -->
       <VDataTableServer
         v-model="selected"
         :headers="headers"
@@ -402,18 +396,18 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-sm text-medium-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Mã phòng ban -->
         <template #item.code="{ item }">
-          <span class="text-sm font-weight-medium">{{ item.code }}</span>
+          <span class="text-base font-weight-medium text-high-emphasis">{{ item.code }}</span>
         </template>
 
         <!-- Tên phòng ban -->
         <template #item.name="{ item }">
           <div class="d-flex align-center gap-2">
-            <span class="text-sm font-weight-medium">{{ item.name }}</span>
+            <span class="text-base font-weight-medium text-high-emphasis">{{ item.name }}</span>
           </div>
         </template>
 
@@ -456,40 +450,50 @@ onMounted(async () => {
 
         <!-- Hành động -->
         <template #item.actions="{ item }">
-          <div class="d-flex align-center gap-1">
-            <IconBtn
-              size="small"
-              @click="openEditDrawer(item)"
-            >
-              <VIcon
-                icon="tabler-edit"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Sửa
-              </VTooltip>
-            </IconBtn>
+          <IconBtn @click="openEditDrawer(item)">
+            <VIcon icon="tabler-edit" />
+          </IconBtn>
 
-            <IconBtn
-              size="small"
-              color="error"
-              @click="confirmDeleteSingle(item.id)"
-            >
-              <VIcon
-                icon="tabler-trash"
-                size="18"
-              />
-              <VTooltip
-                activator="parent"
-                location="top"
-              >
-                Xóa
-              </VTooltip>
-            </IconBtn>
-          </div>
+          <IconBtn
+            color="error"
+            @click="confirmDeleteSingle(item.id)"
+          >
+            <VIcon icon="tabler-trash" />
+          </IconBtn>
+
+          <VBtn
+            icon
+            variant="text"
+            color="medium-emphasis"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem @click="openEditDrawer(item)">
+                  <template #prepend>
+                    <VIcon icon="tabler-edit" />
+                  </template>
+                  <VListItemTitle>Sửa</VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="handleToggleStatus(item)">
+                  <template #prepend>
+                    <VIcon :icon="item.status === 'active' ? 'tabler-toggle-right' : 'tabler-toggle-left'" />
+                  </template>
+                  <VListItemTitle>
+                    {{ item.status === 'active' ? 'Tắt hoạt động' : 'Bật hoạt động' }}
+                  </VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="confirmDeleteSingle(item.id)">
+                  <template #prepend>
+                    <VIcon icon="tabler-trash" />
+                  </template>
+                  <VListItemTitle>Xóa</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+          </VBtn>
         </template>
 
         <!-- No Data -->
@@ -519,7 +523,7 @@ onMounted(async () => {
           />
         </template>
       </VDataTableServer>
-    </VCard>
+    </AppFilterBar>
 
     <!-- Form Drawer -->
     <TaskAssignmentDepartmentFormDrawer

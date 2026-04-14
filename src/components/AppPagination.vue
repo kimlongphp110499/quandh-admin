@@ -31,7 +31,7 @@ const endItem = computed(() => Math.min(props.page * props.limit, props.total))
   >
     <!-- Left: items per page + showing info -->
     <div class="d-flex align-center gap-3">
-      <span class="text-body-2 text-medium-emphasis">Hiển thị</span>
+      <span class="text-disabled mb-0">Hiển thị</span>
       <VSelect
         :model-value="limit"
         :items="limitOptions"
@@ -41,11 +41,9 @@ const endItem = computed(() => Math.min(props.page * props.limit, props.total))
         :disabled="loading"
         @update:model-value="emit('update:limit', parseInt(String($event), 10))"
       />
-      <span class="text-body-2 text-medium-emphasis">
-        trong <strong>{{ total }}</strong> kết quả
-        <span class="d-none d-sm-inline">
+      <span class="text-disabled mb-0">
+        trong {{ total }} kết quả
           ({{ startItem }}–{{ endItem }})
-        </span>
       </span>
     </div>
 

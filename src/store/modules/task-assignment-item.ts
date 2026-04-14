@@ -6,6 +6,9 @@ import {
   type TaskAssignmentItem,
   type TaskAssignmentItemFilters,
   type TaskAssignmentItemFormData,
+  type TaskAssignmentItemProgressData,
+  type TaskAssignmentItemReport,
+  type TaskAssignmentItemReportFormData,
   type TaskAssignmentItemStats,
   type TaskAssignmentItemStatus,
   taskAssignmentItemApi,
@@ -223,6 +226,65 @@ export const useTaskAssignmentItemStore = defineStore('taskAssignmentItem', () =
     }
   }
 
+  async function updateProgress(id: number, data: TaskAssignmentItemProgressData) {
+    try {
+      isLoading.value = true
+
+      const response = await taskAssignmentItemApi.updateProgress(id, data)
+      if (response.data.success && response.data.data) {
+        const index = items.value.findIndex(d => d.id === id)
+        if (index !== -1)
+          items.value[index] = response.data.data!
+
+        return response.data.data
+      }
+    }
+    catch (err: any) {
+      error.value = getErrorMessage(err, 'Cập nhật tiến độ thất bại')
+      throw err
+    }
+    finally {
+      isLoading.value = false
+    }
+  }
+
+  async function getReports(id: number): Promise<TaskAssignmentItemReport[]> {
+    try {
+      const response = await taskAssignmentItemApi.getReports(id)
+      if (response.data.success)
+        return response.data.data || []
+
+      return []
+    }
+    catch {
+      return []
+    }
+  }
+
+  async function createReport(id: number, data: TaskAssignmentItemReportFormData) {
+    try {
+      const response = await taskAssignmentItemApi.createReport(id, data)
+      if (response.data.success)
+        return response.data.data
+    }
+    catch (err: any) {
+      error.value = getErrorMessage(err, 'Nộp báo cáo thất bại')
+      throw err
+    }
+  }
+
+  async function updateReport(reportId: number, data: TaskAssignmentItemReportFormData) {
+    try {
+      const response = await taskAssignmentItemApi.updateReport(reportId, data)
+      if (response.data.success)
+        return response.data.data
+    }
+    catch (err: any) {
+      error.value = getErrorMessage(err, 'Cập nhật báo cáo thất bại')
+      throw err
+    }
+  }
+
   function setFilters(newFilters: Partial<TaskAssignmentItemFilters>) {
     filters.value = { ...filters.value, ...newFilters }
   }
@@ -251,6 +313,10 @@ export const useTaskAssignmentItemStore = defineStore('taskAssignmentItem', () =
     exportItems,
     downloadTemplate,
     importItems,
+    updateProgress,
+    getReports,
+    createReport,
+    updateReport,
     setFilters,
     resetFilters,
   }

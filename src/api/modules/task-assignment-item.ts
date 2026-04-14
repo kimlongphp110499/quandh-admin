@@ -111,6 +111,40 @@ export interface TaskAssignmentItemFormData {
   user_assignments?: TaskAssignmentItemUserPayload[]
 }
 
+export interface TaskAssignmentItemProgressData {
+  processing_status?: TaskAssignmentItemStatus
+  completion_percent?: number
+  note?: string
+}
+
+export interface TaskAssignmentItemReportAttachment {
+  id: number
+  file_name: string
+  file_url: string
+  file_size?: number
+  mime_type?: string
+}
+
+export interface TaskAssignmentItemReport {
+  id: number
+  task_assignment_item_id: number
+  completed_at?: string
+  report_document_number?: string
+  report_document_excerpt?: string
+  report_document_content?: string
+  attachments?: TaskAssignmentItemReportAttachment[]
+  created_at: string
+  updated_at: string
+}
+
+export interface TaskAssignmentItemReportFormData {
+  completed_at?: string
+  report_document_number?: string
+  report_document_excerpt?: string
+  report_document_content?: string
+  files?: File[]
+}
+
 export const taskAssignmentItemApi = {
   list(filters?: TaskAssignmentItemFilters) {
     return apiClient.get<ApiResponse<TaskAssignmentItem[]>>('/task-assignment-items', { params: filters })
@@ -181,5 +215,52 @@ export const taskAssignmentItemApi = {
 
   upcomingDeadline(filters?: TaskAssignmentItemFilters & { days?: number }) {
     return apiClient.get<ApiResponse<TaskAssignmentItem[]>>('/task-assignment-items/upcoming-deadline', { params: filters })
+  },
+
+  updateProgress(id: number, data: TaskAssignmentItemProgressData) {
+    return apiClient.patch<ApiResponse<TaskAssignmentItem>>(`/task-assignment-items/${id}`, data)
+  },
+
+  getReports(id: number) {
+    return apiClient.get<ApiResponse<TaskAssignmentItemReport[]>>(`/task-assignment-items/${id}/reports`)
+  },
+
+  createReport(id: number, data: TaskAssignmentItemReportFormData) {
+    const formData = new FormData()
+
+    if (data.completed_at)
+      formData.append('completed_at', data.completed_at)
+    if (data.report_document_number)
+      formData.append('report_document_number', data.report_document_number)
+    if (data.report_document_excerpt)
+      formData.append('report_document_excerpt', data.report_document_excerpt)
+    if (data.report_document_content)
+      formData.append('report_document_content', data.report_document_content)
+    if (data.files)
+      data.files.forEach(f => formData.append('files[]', f))
+
+    return apiClient.post<ApiResponse<TaskAssignmentItemReport>>(`/task-assignment-items/${id}/reports`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
+
+  updateReport(reportId: number, data: TaskAssignmentItemReportFormData) {
+    const formData = new FormData()
+
+    formData.append('_method', 'PATCH')
+    if (data.completed_at)
+      formData.append('completed_at', data.completed_at)
+    if (data.report_document_number)
+      formData.append('report_document_number', data.report_document_number)
+    if (data.report_document_excerpt)
+      formData.append('report_document_excerpt', data.report_document_excerpt)
+    if (data.report_document_content)
+      formData.append('report_document_content', data.report_document_content)
+    if (data.files)
+      data.files.forEach(f => formData.append('files[]', f))
+
+    return apiClient.post<ApiResponse<TaskAssignmentItemReport>>(`/task-assignment-item-reports/${reportId}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
   },
 }

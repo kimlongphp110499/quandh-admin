@@ -78,25 +78,11 @@ export default [
     icon: { icon: 'tabler-checklist' },
     children: [
       {
-        title: 'Phòng ban',
-        to: { name: 'task-assignment-departments' },
-        icon: { icon: 'tabler-building-warehouse' },
-        action: 'index',
-        subject: 'TaskAssignmentDepartments',
-      },
-      {
-        title: 'Công việc',
-        to: { name: 'task-assignment-items' },
-        icon: { icon: 'tabler-checklist' },
+        title: 'Công việc của tôi',
+        to: { name: 'task-assignment-my-tasks' },
+        icon: { icon: 'tabler-user-check' },
         action: 'index',
         subject: 'TaskAssignmentItems',
-      },
-      {
-        title: 'Loại công việc',
-        to: { name: 'task-assignment-item-types' },
-        icon: { icon: 'tabler-list' },
-        action: 'index',
-        subject: 'TaskAssignmentItemTypes',
       },
       {
         title: 'Văn bản giao việc',
@@ -106,11 +92,33 @@ export default [
         subject: 'TaskAssignmentDocuments',
       },
       {
+        title: 'Danh sách công việc',
+        to: { name: 'task-assignment-items' },
+        icon: { icon: 'tabler-checklist' },
+        action: 'index',
+        subject: 'TaskAssignmentItems',
+      },
+
+      {
         title: 'Loại văn bản',
         to: { name: 'task-assignment-types' },
         icon: { icon: 'tabler-file-description' },
         action: 'index',
         subject: 'TaskAssignmentTypes',
+      },
+      {
+        title: 'Loại công việc',
+        to: { name: 'task-assignment-item-types' },
+        icon: { icon: 'tabler-list' },
+        action: 'index',
+        subject: 'TaskAssignmentItemTypes',
+      },
+      {
+        title: 'Phòng ban',
+        to: { name: 'task-assignment-departments' },
+        icon: { icon: 'tabler-building-warehouse' },
+        action: 'index',
+        subject: 'TaskAssignmentDepartments',
       },
     ],
   },
