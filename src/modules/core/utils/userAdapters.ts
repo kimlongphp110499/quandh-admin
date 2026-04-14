@@ -5,19 +5,16 @@ import type { User, UserStatus } from '../services/userApi'
 export const resolveUserStatusColor = (status: UserStatus): string => ({
   active: 'success',
   inactive: 'secondary',
-  banned: 'error',
 }[status] ?? 'secondary')
 
 export const resolveUserStatusLabel = (status: UserStatus): string => ({
   active: 'Hoạt động',
   inactive: 'Không hoạt động',
-  banned: 'Bị cấm',
 }[status] ?? status)
 
 export const USER_STATUS_OPTIONS = [
   { title: 'Hoạt động', value: 'active' },
   { title: 'Không hoạt động', value: 'inactive' },
-  { title: 'Bị cấm', value: 'banned' },
 ] as const
 
 // ── Adapter: API → ViewModel ──────────────────────────────────────

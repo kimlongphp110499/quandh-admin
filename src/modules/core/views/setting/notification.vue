@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
 // eslint-disable-next-line import/no-unresolved
-import { useSettingStore } from '../../../stores/useSettingStore'
+import { useSettingStore } from '../../stores/useSettingStore'
 // eslint-disable-next-line import/no-unresolved
 import AppSnackbar from '@/components/AppSnackbar.vue'
 const settingStore = useSettingStore()

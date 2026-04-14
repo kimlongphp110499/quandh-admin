@@ -11,6 +11,12 @@ import { type Permission, permissionApi } from '../../../services/permissionApi'
 import { type Role, roleApi } from '@/api/modules/role'
 import { usePermissionStore } from '../../../stores/usePermissionStore'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
+import {
+  flattenPermissionIds,
+  filterPermissionTree,
+  buildPermissionExtraData,
+  enrichPermissionTree,
+} from '../../../utils/permissionAdapter'
 
 const permissionStore = usePermissionStore()
 
@@ -38,8 +44,6 @@ watch(() => searchQuery.value, newVal => {
 
 const hasActiveFilters = computed(() => !!debouncedSearchQuery.value)
 
-const normalizeName = (value: string) => value.trim().toLowerCase()
-
 const fetchAllRoles = async () => {
   const all: Role[] = []
   let page = 1
@@ -59,14 +63,6 @@ const fetchAllRoles = async () => {
   return all
 }
 
-const flattenPermissionIds = (nodes: Permission[]): number[] => {
-  return nodes.flatMap(node => {
-    const childIds = flattenPermissionIds(node.children ?? [])
-
-    return [node.id, ...childIds]
-  })
-}
-
 const fetchPermissionDetails = async () => {
   const ids = Array.from(new Set(flattenPermissionIds(permissionStore.permissionTree)))
 
@@ -84,70 +80,12 @@ const fetchPermissionDetails = async () => {
   return responses.filter((item): item is Permission => !!item)
 }
 
-const extractRolePermissionNames = (role: Role): string[] => {
-  const rolePermissions = role.permissions as unknown
-  if (!Array.isArray(rolePermissions))
-    return []
-
-  return rolePermissions
-    .map(permission => {
-      if (typeof permission === 'string')
-        return permission
-
-      if (permission && typeof permission === 'object' && 'name' in permission) {
-        const name = (permission as { name?: unknown }).name
-
-        return typeof name === 'string' ? name : ''
-      }
-
-      return ''
-    })
-    .filter(Boolean)
-}
-
 const hydratePermissionExtraData = async () => {
   const [permissions, roles] = await Promise.all([fetchPermissionDetails(), fetchAllRoles()])
+  const extraData = buildPermissionExtraData(permissions, roles)
 
-  const createdAtMap: Record<number, string> = {}
-  const permissionNameToIds = new Map<string, number[]>()
-  const roleMapByPermissionId = new Map<number, Map<number, { id: number; name: string }>>()
-
-  const addRoleForPermission = (permissionId: number, role: { id: number; name: string }) => {
-    const roleMap = roleMapByPermissionId.get(permissionId) ?? new Map<number, { id: number; name: string }>()
-
-    roleMap.set(role.id, role)
-    roleMapByPermissionId.set(permissionId, roleMap)
-  }
-
-  permissions.forEach(permission => {
-    if (permission.created_at)
-      createdAtMap[permission.id] = permission.created_at
-
-    const key = normalizeName(permission.name)
-    const ids = permissionNameToIds.get(key) ?? []
-
-    ids.push(permission.id)
-    permissionNameToIds.set(key, ids)
-
-    ;(permission.roles ?? []).forEach(role => addRoleForPermission(permission.id, role))
-  })
-
-  roles.forEach(role => {
-    extractRolePermissionNames(role).forEach(permissionName => {
-      const ids = permissionNameToIds.get(normalizeName(permissionName)) ?? []
-
-      ids.forEach(permissionId => addRoleForPermission(permissionId, { id: role.id, name: role.name }))
-    })
-  })
-
-  const rolesMap: Record<number, { id: number; name: string }[]> = {}
-
-  roleMapByPermissionId.forEach((roleMap, permissionId) => {
-    rolesMap[permissionId] = Array.from(roleMap.values())
-  })
-
-  createdAtByPermissionId.value = createdAtMap
-  rolesByPermissionId.value = rolesMap
+  createdAtByPermissionId.value = extraData.createdAtByPermissionId
+  rolesByPermissionId.value = extraData.rolesByPermissionId
 }
 
 const reloadData = async () => {
@@ -166,46 +104,16 @@ const showConfirm = (title: string, message: string, onConfirm: () => void) => {
   confirmDialog.value = { show: true, title, message, onConfirm }
 }
 
-// Build flat list from tree for filtered display (with debounced search)
-const filteredTree = computed(() => {
-  const q = debouncedSearchQuery.value.toLowerCase().trim()
-  if (!q)
-    return permissionStore.permissionTree
+const filteredTree = computed(() =>
+  filterPermissionTree(permissionStore.permissionTree, debouncedSearchQuery.value),
+)
 
-  // Filter: keep parent if any child matches, or parent itself matches
-  const filterNodes = (nodes: Permission[]): Permission[] => {
-    return nodes.reduce<Permission[]>((acc, node) => {
-      const childMatches = filterNodes(node.children ?? [])
-
-      const selfMatches = node.name.toLowerCase().includes(q)
-        || (node.description ?? '').toLowerCase().includes(q)
-
-      if (selfMatches || childMatches.length > 0)
-        acc.push({ ...node, children: childMatches.length > 0 ? childMatches : (selfMatches ? (node.children ?? []) : []) })
-
-      return acc
-    }, [])
-  }
-
-  return filterNodes(permissionStore.permissionTree)
-})
-
-const displayedTree = computed(() => {
-  const enrich = (nodes: Permission[]): Permission[] => {
-    return nodes.map(node => {
-      const children = node.children ? enrich(node.children) : node.children
-
-      return {
-        ...node,
-        children,
-        created_at: createdAtByPermissionId.value[node.id] ?? node.created_at,
-        roles: rolesByPermissionId.value[node.id] ?? node.roles,
-      }
-    })
-  }
-
-  return enrich(filteredTree.value)
-})
+const displayedTree = computed(() =>
+  enrichPermissionTree(filteredTree.value, {
+    createdAtByPermissionId: createdAtByPermissionId.value,
+    rolesByPermissionId: rolesByPermissionId.value,
+  }),
+)
 
 // Cache all child IDs for select all checkbox (avoid recalculating on every render)
 const allChildIds = computed(() => {

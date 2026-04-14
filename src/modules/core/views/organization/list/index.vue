@@ -11,6 +11,7 @@ import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { useOrganizationStore } from '../../../stores/useOrganizationStore'
 
+import { ORG_TABLE_HEADERS, ORG_STATUS_OPTIONS } from '../../../configs/organizationOptions'
 import type { Organization } from '@/api/modules/organization'
 
 const orgStore = useOrganizationStore()
@@ -50,15 +51,7 @@ const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
-const headers = [
-  { title: '', key: 'data-table-select', sortable: false },
-  { title: 'STT', key: 'index', sortable: false, align: 'center' as const, width: '60px', minWidth: '60px' },
-  { title: 'Tên tổ chức', key: 'name', sortable: true, align: 'start' as const, minWidth: '200px' },
-  { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '120px', minWidth: '120px' },
-  { title: 'Ngày tạo', key: 'created_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Ngày cập nhật', key: 'updated_info', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '160px' },
-]
+const headers = ORG_TABLE_HEADERS
 
 // Computed
 const organizations = computed(() => orgStore.items)
@@ -316,7 +309,7 @@ defineExpose({
           <AppSelect
             v-model="selectedStatus"
             placeholder="Chọn trạng thái"
-            :items="statusOptions"
+            :items="ORG_STATUS_OPTIONS"
             clearable
             clear-icon="tabler-x"
             hide-details

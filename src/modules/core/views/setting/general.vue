@@ -2,7 +2,7 @@
 import { onMounted, reactive, ref, watch } from 'vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import { useSettingStore } from '../../../stores/useSettingStore'
+import { useSettingStore } from '../../stores/useSettingStore'
 
 const settingStore = useSettingStore()
 

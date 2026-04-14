@@ -12,6 +12,14 @@ import { useActivityLogStore } from '../../../stores/useActivityLogStore'
 import type { ActivityLog } from '../../../services/activityLogApi'
 // eslint-disable-next-line import/extensions
 import { useOrganizationStore } from '../../../stores/useOrganizationStore'
+import { ACTIVITY_LOG_METHOD_OPTIONS, ACTIVITY_LOG_LIMIT_OPTIONS } from '../../../configs/activityLogOptions'
+import {
+  resolveMethodColor,
+  resolveStatusColor,
+  buildOrganizationMap,
+  resolveOrganizationName,
+  resolveUserInitials,
+} from '../../../utils/activityLogAdapters'
 
 const store = useActivityLogStore()
 
@@ -41,21 +49,13 @@ watch(dateRange, val => {
 const methodType = ref<string | null>(null)
 const statusCode = ref<string | null>(null)
 
-const methodOptions = [
-  { title: 'GET', value: 'GET' },
-  { title: 'POST', value: 'POST' },
-  { title: 'PUT', value: 'PUT' },
-  { title: 'PATCH', value: 'PATCH' },
-  { title: 'DELETE', value: 'DELETE' },
-]
+const methodOptions = ACTIVITY_LOG_METHOD_OPTIONS
 
 // ── table ─────────────────────────────────────────────────────────
 const selectedIds = ref<number[]>([])
 const page = ref(1)
 const limit = ref(10)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const limitOptions = [10, 20, 50, 100]
-console.log(122);
+const limitOptions = ACTIVITY_LOG_LIMIT_OPTIONS
 // ── detail dialog ─────────────────────────────────────────────────
 const detailDialog = ref(false)
 const selectedLog = ref<ActivityLog | null>(null)
@@ -95,28 +95,8 @@ const isIndeterminate = computed(() =>
   selectedIds.value.length > 0 && selectedIds.value.length < store.logs.length,
 )
 
-const methodColor = (method: string) => {
-  const map: Record<string, string> = {
-    GET: 'success',
-    POST: 'primary',
-    PUT: 'warning',
-    PATCH: 'info',
-    DELETE: 'error',
-  }
-
-  return map[method] ?? 'secondary'
-}
-
-const statusColor = (code: number) => {
-  if (code >= 500)
-    return 'error'
-  if (code >= 400)
-    return 'warning'
-  if (code >= 300)
-    return 'info'
-
-  return 'success'
-}
+const methodColor = resolveMethodColor
+const statusColor = resolveStatusColor
 
 // ── actions ───────────────────────────────────────────────────────
 async function load() {
@@ -266,21 +246,10 @@ async function handleExport() {
   }
 }
 
-const organizationMap = computed(() => {
-  return new Map(
-    (orgStore.items ?? []).map((org: any) => [
-      org.id ?? org.organization_id,
-      org.name ?? org.organization_name,
-    ]),
-  )
-})
+const organizationMap = computed(() => buildOrganizationMap(orgStore.items ?? []))
 
 function getOrganizationName(organizationId: number | null) {
-  console.log(organizationId)
-  if (!organizationId)
-    return '—'
-
-  return organizationMap.value.get(organizationId) ?? `#${organizationId}`
+  return resolveOrganizationName(organizationId, organizationMap.value)
 }
 onMounted(load)
 </script>
@@ -480,7 +449,7 @@ onMounted(load)
                   variant="tonal"
                 >
                   <span class="text-xs font-weight-bold">
-                    {{ (log.user_name ?? 'G').slice(0, 2).toUpperCase() }}
+                    {{ resolveUserInitials(log.user_name) }}
                   </span>
                 </VAvatar>
                 <div>
