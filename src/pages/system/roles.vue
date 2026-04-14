@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RoleList from '@/views/modules/Role/RoleList.vue'
+import RoleList from '@/modules/core/views/role/list/index.vue'
 
 definePage({
   meta: {

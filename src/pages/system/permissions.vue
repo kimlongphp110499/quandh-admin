@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import PermissionList from '@/views/modules/Permission/PermissionList.vue'
+import PermissionList from '@/modules/core/views/permission/list/index.vue'
+
 
 definePage({
   meta: {

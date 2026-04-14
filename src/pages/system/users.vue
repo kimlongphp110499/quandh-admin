@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserList from '@/views/modules/User/UserList.vue'
+import UserList from '@/modules/core/views/user/list/index.vue'
 
 definePage({
   meta: {

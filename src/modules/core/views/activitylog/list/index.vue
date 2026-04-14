@@ -8,8 +8,8 @@ import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import { useActivityLogStore } from '@/store/modules/activity-log'
-import type { ActivityLog } from '@/api/modules/activity-log'
+import { useActivityLogStore } from '../../../stores/useActivityLogStore'
+import type { ActivityLog } from '../../../services/activityLogApi'
 // eslint-disable-next-line import/extensions
 import { useOrganizationStore } from '../../../stores/useOrganizationStore'
 
@@ -55,7 +55,7 @@ const page = ref(1)
 const limit = ref(10)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const limitOptions = [10, 20, 50, 100]
-
+console.log(122);
 // ── detail dialog ─────────────────────────────────────────────────
 const detailDialog = ref(false)
 const selectedLog = ref<ActivityLog | null>(null)
@@ -130,7 +130,10 @@ async function load() {
     status_code: statusCode.value ? Number(statusCode.value) : undefined,
   })
   selectedIds.value = []
-  await orgStore.fetchOrganizations()
+  await orgStore.fetchItems({
+    limit: 100,
+  })
+  
 }
 
 function applyFilters() {
@@ -265,7 +268,7 @@ async function handleExport() {
 
 const organizationMap = computed(() => {
   return new Map(
-    (orgStore.organizations ?? []).map((org: any) => [
+    (orgStore.items ?? []).map((org: any) => [
       org.id ?? org.organization_id,
       org.name ?? org.organization_name,
     ]),
@@ -273,6 +276,7 @@ const organizationMap = computed(() => {
 })
 
 function getOrganizationName(organizationId: number | null) {
+  console.log(organizationId)
   if (!organizationId)
     return '—'
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import apiClient, { type ApiResponse } from '@/api/client'
 
 export type OrganizationStatus = 'active' | 'inactive'

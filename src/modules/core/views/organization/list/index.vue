@@ -61,7 +61,7 @@ const headers = [
 ]
 
 // Computed
-const organizations = computed(() => orgStore.organizations)
+const organizations = computed(() => orgStore.items)
 const total = computed(() => orgStore.total)
 const isLoading = computed(() => orgStore.isLoading)
 const selectedIds = computed(() => selected.value.map(o => o.id))
@@ -69,7 +69,7 @@ const indexOffset = computed(() => ((orgStore.filters.page ?? 1) - 1) * (orgStor
 
 // Methods
 const fetchOrganizations = async () => {
-  await orgStore.fetchOrganizations({
+  await orgStore.fetchItems({
     page: orgStore.filters.page,
     limit: orgStore.filters.limit,
     search: searchQuery.value || undefined,
@@ -110,7 +110,7 @@ const confirmBulkDelete = () => {
 const handleDeleteConfirm = async () => {
   try {
     if (deletingId.value !== null) {
-      await orgStore.deleteOrganization(deletingId.value)
+      await orgStore.deleteItem(deletingId.value)
       showToast('Xóa tổ chức thành công!', 'success')
     }
     else {
@@ -207,7 +207,7 @@ const handleBulkUpdateStatus = async () => {
 const handleExport = async () => {
   isExporting.value = true
   try {
-    await orgStore.exportOrganizations({
+    await orgStore.exportItems({
       search: searchQuery.value || undefined,
       status: selectedStatus.value || undefined,
     })
@@ -230,7 +230,7 @@ const handleImportFile = async (event: Event) => {
 
   isImporting.value = true
   try {
-    await orgStore.importOrganizations(file)
+    await orgStore.importItems(file)
     showToast('Nhập dữ liệu thành công!', 'success')
     await Promise.all([fetchOrganizations(), orgStore.fetchStats()])
   }

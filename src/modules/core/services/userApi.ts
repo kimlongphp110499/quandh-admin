@@ -1,9 +1,9 @@
+// eslint-disable-next-line import/extensions, import/no-unresolved
 import apiClient, { type ApiResponse } from '@/api/client'
 
 // ── Types ─────────────────────────────────────────────────────────
 
 export type UserStatus = 'active' | 'inactive'
-
 
 export interface UserAssignment {
   role_id: number
@@ -91,7 +91,9 @@ export const userApi = {
 
   import: (file: File) => {
     const formData = new FormData()
+
     formData.append('file', file)
+
     return apiClient.post<ApiResponse>('/users/import', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
