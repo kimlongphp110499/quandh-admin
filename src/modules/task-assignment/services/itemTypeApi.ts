@@ -35,7 +35,7 @@ export interface ItemTypeFormData {
   status?: 'active' | 'inactive'
 }
 
-export const taskAssignmentItemTypeApi = {
+export const itemTypeApi = {
   list(filters?: ItemTypeFilters) {
     return apiClient.get<ApiResponse<ItemType[]>>('/task-assignment-item-types', { params: filters })
   },

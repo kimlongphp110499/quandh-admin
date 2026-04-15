@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import { type ItemType, type ItemTypeFilters, type ItemTypeFormData, type ItemTypeStats, taskAssignmentItemTypeApi } from '../services/itemTypeApi'
+import { type ItemType, type ItemTypeFilters, type ItemTypeFormData, type ItemTypeStats, itemTypeApi } from '../services/itemTypeApi'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { getErrorMessage } from '@/utils/errorMessage'
 
@@ -24,7 +24,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
 
   async function fetchStats() {
     try {
-      const response = await taskAssignmentItemTypeApi.stats()
+      const response = await itemTypeApi.stats()
       if (response.data.success && response.data.data)
         stats.value = response.data.data
     }
@@ -38,7 +38,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
       isLoading.value = true
       error.value = null
 
-      const response = await taskAssignmentItemTypeApi.list({ ...filters.value, ...customFilters })
+      const response = await itemTypeApi.list({ ...filters.value, ...customFilters })
       if (response.data.success) {
         itemTypes.value = response.data.data || []
         meta.value = response.data.meta
@@ -57,7 +57,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
     try {
       isLoading.value = true
 
-      const response = await taskAssignmentItemTypeApi.create(data)
+      const response = await itemTypeApi.create(data)
       if (response.data.success && response.data.data) {
         itemTypes.value.unshift(response.data.data)
 
@@ -77,7 +77,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
     try {
       isLoading.value = true
 
-      const response = await taskAssignmentItemTypeApi.update(id, data)
+      const response = await itemTypeApi.update(id, data)
       if (response.data.success && response.data.data) {
         const index = itemTypes.value.findIndex(t => t.id === id)
         if (index !== -1)
@@ -101,7 +101,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
   async function deleteItemType(id: number) {
     try {
       isLoading.value = true
-      await taskAssignmentItemTypeApi.delete(id)
+      await itemTypeApi.delete(id)
       itemTypes.value = itemTypes.value.filter(t => t.id !== id)
       if (currentItemType.value?.id === id)
         currentItemType.value = null
@@ -118,7 +118,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
   async function bulkDelete(ids: number[]) {
     try {
       isLoading.value = true
-      await taskAssignmentItemTypeApi.bulkDelete(ids)
+      await itemTypeApi.bulkDelete(ids)
       itemTypes.value = itemTypes.value.filter(t => !ids.includes(t.id))
     }
     catch (err: any) {
@@ -133,7 +133,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
   async function bulkUpdateStatus(ids: number[], status: 'active' | 'inactive') {
     try {
       isLoading.value = true
-      await taskAssignmentItemTypeApi.bulkUpdateStatus(ids, status)
+      await itemTypeApi.bulkUpdateStatus(ids, status)
       itemTypes.value = itemTypes.value.map(t => ids.includes(t.id) ? { ...t, status } : t)
     }
     catch (err: any) {
@@ -149,7 +149,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
     try {
       isLoading.value = true
 
-      const response = await taskAssignmentItemTypeApi.changeStatus(id, status)
+      const response = await itemTypeApi.changeStatus(id, status)
       if (response.data.success && response.data.data) {
         const index = itemTypes.value.findIndex(t => t.id === id)
         if (index !== -1)
@@ -169,7 +169,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
 
   async function exportItemTypes(exportFilters?: ItemTypeFilters) {
     try {
-      const response = await taskAssignmentItemTypeApi.export(exportFilters)
+      const response = await itemTypeApi.export(exportFilters)
       const blob = new Blob([response.data], { type: response.headers['content-type'] })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -187,7 +187,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
 
   async function downloadTemplate() {
     try {
-      const response = await taskAssignmentItemTypeApi.downloadTemplate()
+      const response = await itemTypeApi.downloadTemplate()
       const blob = new Blob([response.data], { type: response.headers['content-type'] })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -207,7 +207,7 @@ export const useItemTypeStore = defineStore('taskAssignmentItemType', () => {
     try {
       isLoading.value = true
 
-      const response = await taskAssignmentItemTypeApi.import(file)
+      const response = await itemTypeApi.import(file)
       if (response.data.success)
         return response.data.data
     }

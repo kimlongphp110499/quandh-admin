@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import TaskAssignmentTypeFormDrawer from '../../../components/TypeFormDrawer.vue'
+import TypeFormDrawer from '../../../components/TypeFormDrawer.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -34,7 +34,7 @@ const isDeleteDialogVisible = ref(false)
 const deletingId = ref<number | null>(null)
 
 const isStatusToggleDialogVisible = ref(false)
-const statusToggleItem = ref<TaskAssignmentType | null>(null)
+const statusToggleItem = ref<Type | null>(null)
 const statusToggleLoadingId = ref<number | null>(null)
 
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
@@ -87,7 +87,7 @@ const openCreateDrawer = () => {
   isFormDrawerVisible.value = true
 }
 
-const openEditDrawer = (type: TaskAssignmentType) => {
+const openEditDrawer = (type: Type) => {
   editingType.value = type
   isFormDrawerVisible.value = true
 }
@@ -129,7 +129,7 @@ const handleDeleteConfirm = async () => {
   }
 }
 
-const handleToggleStatus = (type: TaskAssignmentType) => {
+const handleToggleStatus = (type: Type) => {
   if (isStatusToggleDialogVisible.value)
     return
   statusToggleItem.value = type
@@ -500,7 +500,7 @@ onMounted(async () => {
     </AppFilterBar>
 
     <!-- Form Drawer -->
-    <TaskAssignmentTypeFormDrawer
+    <TypeFormDrawer
       v-model:is-drawer-open="isFormDrawerVisible"
       :type="editingType"
       @submit="handleFormSubmit"

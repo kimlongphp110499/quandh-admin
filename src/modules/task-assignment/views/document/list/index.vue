@@ -18,6 +18,7 @@ import AppExportDialog from '@/components/AppExportDialog.vue'
 import { useDocumentStore } from '../../../stores/useDocumentStore'
 import type { Document } from '../../../services/documentApi'
 import { typeApi } from '../../../services/typeApi'
+import { DOCUMENT_TABLE_HEADERS, DOCUMENT_STATUS_OPTIONS, DOCUMENT_LIMIT_OPTIONS } from '../../../configs/documentOptions'
 
 const router = useRouter()
 const store = useDocumentStore()
@@ -58,7 +59,7 @@ const loadTypeFilterOptions = async (reset = false) => {
   }
   typeFilterLoading.value = true
   try {
-    const res = await taskAssignmentTypeApi.list({ page: typeFilterPage.value, limit: 20, status: 'active' })
+    const res = await typeApi.list({ page: typeFilterPage.value, limit: 20, status: 'active' })
     if (res.data.success) {
       const items = (res.data.data || []).map((t: any) => ({ title: t.name, value: t.id }))
 
@@ -130,23 +131,9 @@ const isLoading = computed(() => store.isLoading)
 const selectedIds = computed(() => selected.value.map(d => d.id))
 const indexOffset = computed(() => ((store.filters.page ?? 1) - 1) * (store.filters.limit ?? 15))
 
-const headers = [
-  { title: '', key: 'data-table-select', sortable: false },
-  { title: 'STT', key: 'index', sortable: false, align: 'center' as const, width: '60px', minWidth: '60px' },
-  { title: 'Tên văn bản', key: 'name', sortable: true, align: 'start' as const, minWidth: '240px' },
-  { title: 'Loại văn bản', key: 'type', sortable: false, align: 'start' as const, minWidth: '160px' },
-  { title: 'Ngày ban hành', key: 'issue_date', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
-  { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
-  { title: 'Thời điểm ban hành', key: 'issued_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Ngày cập nhật', key: 'updated_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
-  { title: 'Hành động', key: 'actions', sortable: false, align: 'start' as const, width: '120px', minWidth: '160px' },
-]
+const headers = DOCUMENT_TABLE_HEADERS
 
-const statusOptions = [
-  { title: 'Bản nháp', value: 'draft' },
-  { title: 'Ban hành', value: 'issued' },
-]
+const statusOptions = DOCUMENT_STATUS_OPTIONS
 
 const resolveStatusLabel = (status: string) => status === 'issued' ? 'Ban hành' : 'Bản nháp'
 
@@ -687,7 +674,7 @@ onMounted(async () => {
             :page="store.filters.page || 1"
             :limit="store.filters.limit || 15"
             :total="store.total"
-            :limit-options="[10, 15, 20, 50, 100]"
+            :limit-options="DOCUMENT_LIMIT_OPTIONS"
             :loading="isLoading"
             @update:page="(p) => { store.setFilters({ page: p }); loadDocuments() }"
             @update:limit="(l) => { store.setFilters({ limit: l, page: 1 }); loadDocuments() }"

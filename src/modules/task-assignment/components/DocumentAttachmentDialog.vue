@@ -4,12 +4,12 @@
 import { ref, watch } from 'vue'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { taskAssignmentDocumentApi } from '@/api/modules/task-assignment-document'
-import type { TaskAssignmentDocument, TaskAssignmentDocumentAttachment } from '@/api/modules/task-assignment-document'
+import { documentApi } from '../services/documentApi'
+import type { Document, DocumentAttachment } from '../services/documentApi'
 
 interface Props {
   modelValue: boolean
-  document: TaskAssignmentDocument | null
+  document: Document | null
 }
 
 interface Emit {
@@ -27,7 +27,7 @@ const showToast = (message: string, color: 'success' | 'error') => {
 }
 
 // --- Danh sách file đã lưu (từ server) ---
-const existingAttachments = ref<TaskAssignmentDocumentAttachment[]>([])
+const existingAttachments = ref<DocumentAttachment[]>([])
 const deletingAttachmentId = ref<number | null>(null)
 
 // --- Danh sách file mới chọn (chưa upload) ---
@@ -41,7 +41,7 @@ const loadAttachments = async () => {
   if (!props.document)
     return
   try {
-    const res = await taskAssignmentDocumentApi.show(props.document.id)
+    const res = await documentApi.show(props.document.id)
     if (res.data.success)
       existingAttachments.value = res.data.data?.attachments ?? []
   }
@@ -102,7 +102,7 @@ const handleUpload = async () => {
 
   isUploading.value = true
   try {
-    await taskAssignmentDocumentApi.addAttachments(props.document.id, pendingFiles.value)
+    await documentApi.addAttachments(props.document.id, pendingFiles.value)
     pendingFiles.value = []
     await loadAttachments()
     showToast('Tải file lên thành công!', 'success')
@@ -117,13 +117,13 @@ const handleUpload = async () => {
 }
 
 // Xóa file đã lưu
-const handleRemoveExisting = async (attachment: TaskAssignmentDocumentAttachment) => {
+const handleRemoveExisting = async (attachment: DocumentAttachment) => {
   if (!props.document)
     return
 
   deletingAttachmentId.value = attachment.id
   try {
-    await taskAssignmentDocumentApi.removeAttachment(props.document.id, attachment.id)
+    await documentApi.removeAttachment(props.document.id, attachment.id)
     existingAttachments.value = existingAttachments.value.filter(a => a.id !== attachment.id)
     showToast('Xóa file thành công!', 'success')
     emit('updated')

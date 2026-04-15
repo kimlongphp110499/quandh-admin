@@ -5,13 +5,15 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { useTaskAssignmentDocumentStore } from '@/store/modules/task-assignment-document'
-import type { TaskAssignmentDocument } from '@/api/modules/task-assignment-document'
-import { taskAssignmentTypeApi } from '@/api/modules/task-assignment-type'
+import { useDocumentStore } from '../stores/useDocumentStore'
+import { typeApi } from '../services/typeApi'
+import { documentApi } from '../services/documentApi'
+import type { Document, DocumentAttachment } from '../services/documentApi'
+import { DOCUMENT_STATUS_OPTIONS } from '../configs/documentOptions'
 
 interface Props {
   isDrawerOpen: boolean
-  document?: TaskAssignmentDocument | null
+  document?: Document | null
 }
 
 interface Emit {
@@ -22,7 +24,7 @@ interface Emit {
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 
-const store = useTaskAssignmentDocumentStore()
+const store = useDocumentStore()
 
 const refVForm = ref<InstanceType<typeof VForm>>()
 const isSubmitting = ref(false)
@@ -45,7 +47,7 @@ const loadTypeOptions = async (reset = false) => {
   }
   typeLoading.value = true
   try {
-    const response = await taskAssignmentTypeApi.list({
+    const response = await typeApi.list({
       page: typePage.value,
       limit: 20,
       status: 'active',
@@ -80,10 +82,7 @@ const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
-const statusOptions = [
-  { title: 'Bản nháp', value: 'draft' },
-  { title: 'Ban hành', value: 'issued' },
-]
+const statusOptions = DOCUMENT_STATUS_OPTIONS
 
 const buildInitialForm = () => {
   if (props.document) {
