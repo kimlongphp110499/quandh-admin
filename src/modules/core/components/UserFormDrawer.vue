@@ -4,8 +4,8 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useUserStore } from '../stores/useUserStore'
-import { useOrganizationStore } from '@/store/modules/organization'
-import { useRoleStore } from '@/store/modules/role'
+import { useOrganizationStore } from '../stores/useOrganizationStore'
+import { useRoleStore } from '../stores/useRoleStore'
 import type { User } from '../services/userApi'
 
 interface Props {

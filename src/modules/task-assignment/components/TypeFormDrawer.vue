@@ -2,15 +2,15 @@
 import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, ref, watch } from 'vue'
 import * as yup from 'yup'
-import { useDepartmentStore } from '../stores/useDepartmentStore'
-import type { Department, DepartmentFormData } from '../services/departmentApi'
-import { DEPARTMENT_STATUS_OPTIONS } from '../configs/departmentOptions'
-
+import { useTypeStore } from '../stores/useTypeStore'
+import type { Type, TypeFormData } from '../services/typeApi'
+// eslint-disable-next-line import/no-unresolved
 import AppSnackbar from '@/components/AppSnackbar.vue'
+import { TYPE_STATUS_OPTIONS } from '../configs/typeOptions'
 
 interface Props {
   isDrawerOpen: boolean
-  department?: Department | null
+  type?: Type | null
 }
 
 interface Emit {
@@ -19,14 +19,15 @@ interface Emit {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  department: null,
+  type: null,
 })
 
 const emit = defineEmits<Emit>()
 
-const store = useDepartmentStore()
+const store = useTypeStore()
 
 const isSubmitting = ref(false)
+const fieldErrors = ref<Record<string, string>>({})
 
 const snackbar = ref({ show: false, message: '', color: 'success' })
 
@@ -34,27 +35,21 @@ const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
-const formData = ref<DepartmentFormData>({
-  code: '',
+const formData = ref<TypeFormData>({
   name: '',
   description: '',
   status: 'active',
-  sort_order: 0,
 })
 
-const fieldErrors = ref<Record<string, string>>({})
+const statusOptions = TYPE_STATUS_OPTIONS
 
-const statusOptions = DEPARTMENT_STATUS_OPTIONS
-
-const isEditMode = computed(() => !!props.department?.id)
-const drawerTitle = computed(() => isEditMode.value ? 'Chỉnh sửa phòng ban' : 'Thêm phòng ban mới')
+const isEditMode = computed(() => !!props.type?.id)
+const drawerTitle = computed(() => isEditMode.value ? 'Chỉnh sửa loại văn bản' : 'Thêm loại văn bản mới')
 
 const schema = yup.object({
-  code: yup.string().required('Mã phòng ban là bắt buộc'),
-  name: yup.string().required('Tên phòng ban là bắt buộc'),
+  name: yup.string().required('Tên loại văn bản là bắt buộc'),
   description: yup.string().nullable(),
   status: yup.string().required('Trạng thái là bắt buộc'),
-  sort_order: yup.number().nullable(),
 })
 
 const validateForm = async (): Promise<boolean> => {
@@ -75,13 +70,7 @@ const validateForm = async (): Promise<boolean> => {
 }
 
 const resetForm = () => {
-  formData.value = {
-    code: '',
-    name: '',
-    description: '',
-    status: 'active',
-    sort_order: 0,
-  }
+  formData.value = { name: '', description: '', status: 'active' }
   fieldErrors.value = {}
 }
 
@@ -97,12 +86,12 @@ const onSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    if (isEditMode.value && props.department)
-      await store.updateDepartment(props.department.id, formData.value)
+    if (isEditMode.value && props.type)
+      await store.updateType(props.type.id, formData.value)
     else
-      await store.createDepartment(formData.value)
+      await store.createType(formData.value)
 
-    showToast(isEditMode.value ? 'Cập nhật phòng ban thành công!' : 'Thêm phòng ban thành công!', 'success')
+    showToast(isEditMode.value ? 'Cập nhật loại văn bản thành công!' : 'Thêm loại văn bản thành công!', 'success')
     emit('submit')
     closeDrawer()
   }
@@ -113,7 +102,6 @@ const onSubmit = async () => {
     }
     const responseErrors = error?.response?.data?.errors
     if (responseErrors) {
-      // Map server errors (string[]) to single string per field
       Object.keys(responseErrors).forEach(field => {
         fieldErrors.value[field] = Array.isArray(responseErrors[field])
           ? responseErrors[field][0]
@@ -130,14 +118,12 @@ const onSubmit = async () => {
   }
 }
 
-watch(() => props.department, dept => {
-  if (dept) {
+watch(() => props.type, t => {
+  if (t) {
     formData.value = {
-      code: dept.code || '',
-      name: dept.name || '',
-      description: dept.description || '',
-      status: dept.status || 'active',
-      sort_order: dept.sort_order ?? 0,
+      name: t.name || '',
+      description: t.description || '',
+      status: t.status || 'active',
     }
   }
   else {
@@ -173,23 +159,12 @@ watch(() => props.isDrawerOpen, val => {
       <VCardText>
         <VForm @submit.prevent="onSubmit">
           <VRow>
-            <!-- Mã phòng ban -->
-            <VCol cols="12">
-              <AppTextField
-                v-model="formData.code"
-                label="Mã phòng ban"
-                placeholder="Nhập mã phòng ban"
-                :error-messages="fieldErrors.code"
-                @update:model-value="fieldErrors.code = ''"
-              />
-            </VCol>
-
-            <!-- Tên phòng ban -->
+            <!-- Tên loại văn bản -->
             <VCol cols="12">
               <AppTextField
                 v-model="formData.name"
-                label="Tên phòng ban"
-                placeholder="Nhập tên phòng ban"
+                label="Tên loại văn bản"
+                placeholder="Nhập tên loại văn bản"
                 :error-messages="fieldErrors.name"
                 @update:model-value="fieldErrors.name = ''"
               />
@@ -208,31 +183,13 @@ watch(() => props.isDrawerOpen, val => {
             </VCol>
 
             <!-- Trạng thái -->
-            <VCol
-              cols="12"
-              md="6"
-            >
+            <VCol cols="12">
               <AppSelect
                 v-model="formData.status"
                 label="Trạng thái"
                 :items="statusOptions"
                 :error-messages="fieldErrors.status"
                 @update:model-value="fieldErrors.status = ''"
-              />
-            </VCol>
-
-            <!-- Thứ tự sắp xếp -->
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <AppTextField
-                v-model.number="formData.sort_order"
-                label="Thứ tự"
-                type="number"
-                placeholder="0"
-                :error-messages="fieldErrors.sort_order"
-                @update:model-value="fieldErrors.sort_order = ''"
               />
             </VCol>
 

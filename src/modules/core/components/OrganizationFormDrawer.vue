@@ -4,10 +4,10 @@ import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import { useOrganizationStore } from '@/store/modules/organization'
+import { useOrganizationStore } from '../stores/useOrganizationStore'
 // eslint-disable-next-line import/no-unresolved
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import type { Organization } from '@/api/modules/organization'
+import type { Organization } from '../services/organizationApi'
 
 interface Props {
   isDrawerOpen: boolean
@@ -99,9 +99,9 @@ const onSubmit = async () => {
     }
 
     if (isEditMode.value)
-      await orgStore.updateOrganization(props.organization!.id, payload)
+      await orgStore.updateItem(props.organization!.id, payload)
     else
-      await orgStore.createOrganization(payload)
+      await orgStore.createItem(payload)
 
     showToast(isEditMode.value ? 'Cập nhật tổ chức thành công!' : 'Thêm tổ chức thành công!', 'success')
     emit('submit')
