@@ -219,9 +219,6 @@ const encryptionOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Cấu hình Email
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Cấu hình thông tin máy chủ email
-              </div>
             </div>
             <VBtn
               variant="tonal"
@@ -242,7 +239,7 @@ const encryptionOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol
                 cols="12"
@@ -356,9 +353,6 @@ const encryptionOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Cấu hình SMS
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Cấu hình dịch vụ gửi tin nhắn SMS
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -369,7 +363,7 @@ const encryptionOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol cols="12">
                 <AppTextField
@@ -428,9 +422,6 @@ const encryptionOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Cấu hình Zalo
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Cấu hình dịch vụ gửi thông báo qua Zalo OA
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -441,7 +432,7 @@ const encryptionOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol cols="12">
                 <AppTextField
@@ -513,9 +504,6 @@ const encryptionOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Cấu hình chat nội bộ
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Cấu hình kết nối hệ thống chat nội bộ
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -526,7 +514,7 @@ const encryptionOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol cols="12">
                 <AppTextField

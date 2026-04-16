@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SettingNotification from '@/views/modules/Setting/SettingNotification.vue'
+import SettingNotification from '@/modules/core/views/setting/notification.vue'
 
 definePage({
   meta: {

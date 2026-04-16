@@ -235,9 +235,6 @@ const timeFormatOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Cấu hình chung
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Thông tin chung của hệ thống
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -248,7 +245,7 @@ const timeFormatOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol
                 cols="12"
@@ -398,9 +395,6 @@ const timeFormatOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Trang quản trị
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Tùy chỉnh giao diện trang quản trị
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -411,7 +405,7 @@ const timeFormatOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol cols="12">
                 <AppTextField
@@ -469,9 +463,6 @@ const timeFormatOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Trang chọn tổ chức
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Tùy chỉnh trang chọn tổ chức sau khi đăng nhập
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -482,7 +473,7 @@ const timeFormatOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol cols="12">
                 <AppTextField
@@ -526,9 +517,6 @@ const timeFormatOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Mạng xã hội
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Liên kết mạng xã hội hiển thị trên hệ thống
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -539,7 +527,7 @@ const timeFormatOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol
                 cols="12"
@@ -627,9 +615,6 @@ const timeFormatOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Kết nối API ngoài
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Cấu hình kết nối với các dịch vụ API bên ngoài
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -640,7 +625,7 @@ const timeFormatOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <div class="text-body-2 font-weight-semibold mb-3">
               Gemini AI
             </div>
@@ -806,9 +791,6 @@ const timeFormatOptions = [
               <div class="text-body-1 font-weight-semibold">
                 Cấu hình Nhật ký
               </div>
-              <div class="text-caption text-medium-emphasis">
-                Quản lý cài đặt lưu trữ nhật ký hoạt động
-              </div>
             </div>
             <VBtn
               prepend-icon="tabler-device-floppy"
@@ -819,7 +801,7 @@ const timeFormatOptions = [
             </VBtn>
           </VCardText>
 
-          <VCardText class="pa-5">
+          <VCardText class="pa-5 mt-3">
             <VRow>
               <VCol
                 cols="12"
