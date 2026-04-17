@@ -143,32 +143,27 @@ watch(() => props.modelValue, val => {
   }
 })
 </script>
+<!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue-->
 
 <template>
   <VDialog
     :model-value="props.modelValue"
-    max-width="640"
     scrollable
-    persistent
+     :width="$vuetify.display.smAndDown ? 'auto' : 900 "
     @update:model-value="val => emit('update:modelValue', val)"
   >
-    <VCard v-if="props.document">
-      <!-- Header -->
-      <VCardTitle class="d-flex align-center justify-space-between pa-6 pb-4">
-        <span class="text-h5">Tệp đính kèm</span>
-        <VSpacer />
-        <IconBtn @click="close">
-          <VIcon icon="tabler-x" />
-        </IconBtn>
-      </VCardTitle>
-
-      <div class="px-6 pb-1">
-        <div class="text-caption text-medium-emphasis text-truncate">
-          {{ props.document.name }}
-        </div>
-      </div>
-
-      <VDivider />
+    <!-- 👉 Dialog close btn -->
+    <DialogCloseBtn @click="emit('update:modelValue', false)" />
+  
+        <!-- 👉 Form -->
+      <VCard v-if="props.document" class="pa-sm-10 pa-2">
+      <VCardText> 
+        <h4 class="text-h4 text-center mb-2">
+          Tệp đính kèm
+        </h4>
+        <p class="text-body-1 text-center mb-6">
+           {{ props.document.name }}
+        </p>
 
       <VCardText style="min-block-size: 260px; max-block-size: 60vh;">
         <!-- Input file ẩn -->
@@ -186,18 +181,14 @@ watch(() => props.modelValue, val => {
           class="mb-4"
         >
           <div class="text-caption text-medium-emphasis mb-2 text-uppercase font-weight-medium">
-            Đã đính kèm ({{ existingAttachments.length }})
+            Đã đính kèm
           </div>
 
           <VList
-            density="compact"
-            rounded="lg"
-            border
           >
             <VListItem
               v-for="att in existingAttachments"
               :key="att.id"
-              class="py-2"
             >
               <template #prepend>
                 <VIcon
@@ -208,7 +199,7 @@ watch(() => props.modelValue, val => {
                 />
               </template>
 
-              <VListItemTitle class="text-body-2">
+              <VListItemTitle>
                 <a
                   v-if="att.url"
                   :href="att.url"
@@ -235,7 +226,6 @@ watch(() => props.modelValue, val => {
                 >
                   <VIcon
                     icon="tabler-trash"
-                    size="16"
                   />
                   <VTooltip
                     activator="parent"
@@ -270,14 +260,10 @@ watch(() => props.modelValue, val => {
           </div>
 
           <VList
-            density="compact"
-            rounded="lg"
-            border
           >
             <VListItem
               v-for="(file, idx) in pendingFiles"
               :key="idx"
-              class="py-2"
             >
               <template #prepend>
                 <VIcon
@@ -288,7 +274,7 @@ watch(() => props.modelValue, val => {
                 />
               </template>
 
-              <VListItemTitle class="text-body-2">
+              <VListItemTitle>
                 {{ file.name }}
               </VListItemTitle>
 
@@ -304,7 +290,6 @@ watch(() => props.modelValue, val => {
                 >
                   <VIcon
                     icon="tabler-x"
-                    size="16"
                   />
                   <VTooltip
                     activator="parent"
@@ -341,7 +326,7 @@ watch(() => props.modelValue, val => {
         </VBtn>
 
         <VBtn
-          :disabled="!pendingFiles.length"
+          variant="tonal"
           :loading="isUploading"
           prepend-icon="tabler-upload"
           @click="handleUpload"
@@ -349,6 +334,7 @@ watch(() => props.modelValue, val => {
           Tải lên ({{ pendingFiles.length }})
         </VBtn>
       </VCardActions>
+      </VCardText> 
     </VCard>
   </VDialog>
 

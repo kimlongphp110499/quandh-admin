@@ -84,12 +84,6 @@ const colProps = computed(() => {
               <h4 class="text-h4">
                 {{ total }}
               </h4>
-              <div
-                v-if="title"
-                class="text-sm text-medium-emphasis"
-              >
-                Tổng số {{ title.toLowerCase() }}
-              </div>
             </div>
             <VAvatar
               color="primary"
@@ -122,9 +116,6 @@ const colProps = computed(() => {
               <h4 class="text-h4">
                 {{ active }}
               </h4>
-              <div class="text-sm text-medium-emphasis">
-                Đang hoạt động
-              </div>
             </div>
             <VAvatar
               color="success"
@@ -157,9 +148,6 @@ const colProps = computed(() => {
               <h4 class="text-h4">
                 {{ totalGroup }}
               </h4>
-              <div class="text-sm text-medium-emphasis">
-                Tổng số nhóm
-              </div>
             </div>
             <VAvatar
               color="warning"
@@ -192,9 +180,6 @@ const colProps = computed(() => {
               <h4 class="text-h4">
                 {{ inactive }}
               </h4>
-              <div class="text-sm text-medium-emphasis">
-                Không hoạt động
-              </div>
             </div>
             <VAvatar
               color="error"

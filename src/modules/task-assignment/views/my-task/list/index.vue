@@ -449,6 +449,20 @@ onMounted(async () => {
           >—</span>
         </template>
 
+        <!-- Người giao -->
+        <template #item.created_by="{ item }">
+          <div
+            v-if="item.my_assignment"
+            class="d-flex flex-column align-center gap-1"
+          >
+            {{ item.created_by }}
+          </div>
+          <span
+            v-else
+            class="text-disabled text-xs"
+          >—</span>
+        </template>
+
         <!-- Status -->
         <template #item.processing_status="{ item }">
           <VChip

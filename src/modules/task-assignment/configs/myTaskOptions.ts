@@ -10,6 +10,7 @@ export const MY_TASK_TABLE_HEADERS = [
   { title: 'Công việc', key: 'name', sortable: true, align: 'start' as const, minWidth: '240px' },
   { title: 'Văn bản giao việc', key: 'document', sortable: true, align: 'start' as const, minWidth: '180px' },
   { title: 'Vai trò của tôi', key: 'my_assignment', sortable: false, align: 'center' as const, width: '140px', minWidth: '140px' },
+  { title: 'Người giao', key: 'created_by', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
   { title: 'Trạng thái', key: 'processing_status', sortable: true, align: 'start' as const, width: '150px', minWidth: '150px' },
   { title: 'Ưu tiên', key: 'priority', sortable: true, align: 'start' as const, width: '110px', minWidth: '110px' },
   { title: 'Thời hạn', key: 'dates', sortable: false, align: 'start' as const, width: '160px', minWidth: '160px' },
