@@ -415,9 +415,6 @@ onMounted(async () => {
               <h6 class="text-base font-weight-medium text-high-emphasis">
                 {{ item.name }}
               </h6>
-              <div class="text-sm text-medium-emphasis">
-                @{{ item.user_name || item.email.split('@')[0] }}
-              </div>
             </div>
           </div>
         </template>

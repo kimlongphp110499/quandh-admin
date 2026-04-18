@@ -511,39 +511,25 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-base font-weight-medium text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên văn bản -->
         <template #item.name="{ item }">
-          <div>
-             <div
-              class="text-base font-weight-medium text-high-emphasis"
-              @click="goToDetail(item)"
-            >
+          <RouterLink
+            :to="{ name: 'task-assignment-documents-id', params: { id: item.id } }"
+            class="text-link font-weight-medium d-inline-block"
+          >
             {{ item.name }}
-          </div>
-          </div>
+          </RouterLink>
         </template>
 
         <!-- Loại văn bản -->
         <template #item.type="{ item }">
           <span
             v-if="item.type"
-            class="text-sm"
+            class="text-base font-weight-medium text-high-emphasis"
           >{{ item.type.name }}</span>
-          <span
-            v-else
-            class="text-xs text-disabled"
-          >—</span>
-        </template>
-
-        <!-- Ngày ban hành -->
-        <template #item.issue_date="{ item }">
-          <span
-            v-if="item.issue_date"
-            class="text-sm"
-          >{{ item.issue_date }}</span>
           <span
             v-else
             class="text-xs text-disabled"
@@ -571,7 +557,7 @@ onMounted(async () => {
         <template #item.issued_at="{ item }">
           <span
             v-if="item.issued_at"
-            class="text-sm"
+            class="text-base font-weight-medium text-high-emphasis"
           >{{ item.issued_at }}</span>
           <span
             v-else
@@ -663,7 +649,7 @@ onMounted(async () => {
               color="disabled"
               class="mb-4"
             />
-            <div class="text-sm text-disabled">
+            <div class="text-base font-weight-medium text-high-emphasis text-disabled">
               Không có văn bản giao việc nào
             </div>
           </div>

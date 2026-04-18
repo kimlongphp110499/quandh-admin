@@ -25,10 +25,7 @@ defineProps<Props>()
 <template>
   <VCard>
     <VCardItem>
-      <template #prepend>
-        <VIcon icon="tabler-chart-bar" size="24" class="me-2" />
-      </template>
-      <VCardTitle>Activity Timeline</VCardTitle>
+      <VCardTitle>Dòng thời gian</VCardTitle>
     </VCardItem>
     <VCardText>
       <VTimeline side="end" align="start" line-inset="8" truncate-line="start" density="compact">

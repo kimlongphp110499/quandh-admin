@@ -16,8 +16,11 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div>
-    <VCard class="mb-6">
+  <div class="h-100">
+    <VCard class="h-100">
+    <VCardItem>
+      <VCardTitle>Chi tiết văn bản giao việc</VCardTitle>
+    </VCardItem>
       <VCardText>
         <VList class="card-list text-medium-emphasis">
           <VListItem v-for="item in about" :key="item.property">

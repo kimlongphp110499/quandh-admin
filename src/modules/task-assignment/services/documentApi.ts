@@ -21,6 +21,7 @@ export interface Document {
   type?: { id: number; name: string }
   status: 'draft' | 'issued'
   issued_at?: string
+  issued_by?: string | null
   attachments?: DocumentAttachment[]
   items_count?: number
   created_by: string

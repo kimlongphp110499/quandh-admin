@@ -892,7 +892,7 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-base font-weight-medium text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên công việc -->
@@ -906,16 +906,14 @@ onMounted(async () => {
 
         <!-- Văn bản -->
         <template #item.document="{ item }">
-          <div class="d-flex flex-column">
-            <span
-              v-if="item.document"
-              class="text-base font-weight-medium text-high-emphasis"
-            >{{ item.document.name }}</span>
-            <span
-              v-else
-              class="text-xs text-disabled"
-            >—</span>
-          </div>
+          <RouterLink
+            v-if="item.document"
+            :to="{ name: 'task-assignment-documents-id', params: { id: item.document.id } }"
+            class="text-link font-weight-medium d-inline-block"
+          >
+            {{ item.document.name }}
+          </RouterLink>
+          <span v-else class="text-xs text-disabled">—</span>
         </template>
 
         <!-- Phòng ban -->
@@ -969,11 +967,11 @@ onMounted(async () => {
         <template #item.end_at="{ item }">
           <span
             v-if="item.end_at && item.deadline_type !== 'no_deadline' "
-            class="text-sm"
+            class="text-base font-weight-medium text-high-emphasis"
           >{{ dayjs(item.end_at, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY') }} </span>
           <span
             v-else
-            class="text-sm"
+            class="text-base font-weight-medium text-high-emphasis"
           >Không có thời hạn</span>
         </template>
 

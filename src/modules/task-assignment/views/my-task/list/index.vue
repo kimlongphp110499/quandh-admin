@@ -426,26 +426,28 @@ onMounted(async () => {
           <div class="d-flex flex-column gap-1 py-1">
             <span
               v-if="item.document"
-              class="text-body-1 text-high-emphasis"
+              class="text-base font-weight-medium text-high-emphasis"
             >{{ item.document.name }}</span>
             <span
               v-else
-              class="text-disabled text-xs"
+              class="text-base font-weight-medium text-high-emphasis"
             >--</span>
           </div>
         </template>
 
-        <!-- Vai trò của tôi -->
+        <!-- Vai trò -->
         <template #item.my_assignment="{ item }">
           <div
             v-if="item.my_assignment"
-            class="d-flex flex-column align-center gap-1"
+            class="d-flex flex-column align-center gap-1 py-1"
           >
+          <span class="text-base font-weight-medium text-high-emphasis">
             {{ resolveAssignmentRoleLabel(item.my_assignment.assignment_role) }}
+          </span>
           </div>
           <span
             v-else
-            class="text-disabled text-xs"
+            class="text-base font-weight-medium text-high-emphasis"
           >—</span>
         </template>
 
@@ -453,13 +455,13 @@ onMounted(async () => {
         <template #item.created_by="{ item }">
           <div
             v-if="item.my_assignment"
-            class="d-flex flex-column align-center gap-1"
+            class="text-base font-weight-medium text-high-emphasis"
           >
             {{ item.created_by }}
           </div>
           <span
             v-else
-            class="text-disabled text-xs"
+            class="text-base font-weight-medium text-high-emphasis"
           >—</span>
         </template>
 
@@ -494,18 +496,18 @@ onMounted(async () => {
         <template #item.dates="{ item }">
            <span
             v-if="item.end_at && item.deadline_type !== 'no_deadline' "
-            class="text-sm"
+            class="text-base font-weight-medium text-high-emphasis"
           >{{ formatDate(item.end_at) }} </span>
           <span
             v-else
-            class="text-sm"
+            class="text-base font-weight-medium text-high-emphasis"
           >Không có thời hạn</span>
         </template>
 
         <!-- Completion Percent -->
         <template #item.completion_percent="{ item }">
           <div class="d-flex flex-column align-center gap-1">
-            <span class="text-sm font-weight-medium">{{ item.completion_percent }}%</span>
+            <span class="text-base font-weight-medium text-high-emphasis">{{ item.completion_percent }}%</span>
           </div>
         </template>
 

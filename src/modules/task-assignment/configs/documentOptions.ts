@@ -10,7 +10,6 @@ export const DOCUMENT_TABLE_HEADERS = [
   { title: 'STT', key: 'index', sortable: false, align: 'center' as const, width: '60px', minWidth: '60px' },
   { title: 'Tên văn bản', key: 'name', sortable: true, align: 'start' as const, minWidth: '240px' },
   { title: 'Loại văn bản', key: 'type', sortable: false, align: 'start' as const, minWidth: '160px' },
-  { title: 'Ngày ban hành', key: 'issue_date', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
   { title: 'Trạng thái', key: 'status', sortable: true, align: 'start' as const, width: '140px', minWidth: '140px' },
   { title: 'Thời điểm ban hành', key: 'issued_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },
   { title: 'Ngày tạo', key: 'created_at', sortable: true, align: 'start' as const, width: '160px', minWidth: '160px' },

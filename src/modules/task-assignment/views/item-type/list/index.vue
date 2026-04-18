@@ -394,14 +394,12 @@ onMounted(async () => {
       >
         <!-- STT -->
         <template #item.index="{ index }">
-          <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
+          <span class="text-base font-weight-medium text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
         <!-- Tên loại công việc -->
         <template #item.name="{ item }">
-          <div class="d-flex flex-column py-2">
-            <span class="font-weight-medium">{{ item.name }}</span>
-          </div>
+            <span class="text-base font-weight-medium text-high-emphasis">{{ item.name }}</span>
         </template>
 
         <!-- Trạng thái -->

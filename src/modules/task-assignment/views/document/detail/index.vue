@@ -67,6 +67,7 @@ const aboutData = computed(() => {
       { icon: 'tabler-circle-check', property: 'Trạng thái', value: doc.status === 'issued' ? 'Ban hành' : 'Bản nháp' },
       { icon: 'tabler-calendar', property: 'Ngày ban hành', value: formatDate(doc.issue_date) },
       { icon: 'tabler-calendar-event', property: 'Thời điểm ban hành', value: formatDate(doc.issued_at) },
+      { icon: 'tabler-user-check', property: 'Người ban hành', value: doc.issued_by || '—' },
       { icon: 'tabler-user', property: 'Người tạo', value: doc.created_by || '—' },
       { icon: 'tabler-clock', property: 'Ngày tạo', value: formatDate(doc.created_at) },
       { icon: 'tabler-align-left', property: 'Tóm tắt nội dung', value: doc.summary || '—' },
@@ -374,12 +375,46 @@ const handleItemSubmit = async () => {
   itemDrawerOpen.value = false
   await fetchItems()
 }
-// ── Mock: Timeline ────────────────────────────────────────────────────────
-const timelineItems = [
-  { color: 'primary', title: '12 Invoices have been paid', time: '12 min ago', desc: 'Invoices have been paid to the company', chip: 'invoice.pdf' },
-  { color: 'success', title: 'Client Meeting', time: '45 min ago', desc: 'Project meeting with john @10:15am', person: { name: 'Lester McCarthy (Client)', role: 'CEO of Pixinvent', avatar: 'https://picsum.photos/seed/tm1/32/32' } },
-  { color: 'info', title: 'Create a new project for client', time: '2 Day Ago', desc: '6 team members in a project' },
-]
+// ── Timeline hoạt động văn bản ────────────────────────────────────────────
+const timelineItems = computed(() => {
+  const doc = currentDoc.value
+  if (!doc) return []
+
+  const items = []
+
+  // Người tạo văn bản
+  if (doc.created_by) {
+    items.push({
+      color: 'primary',
+      title: 'Tạo văn bản',
+      time: formatDate(doc.created_at),
+      desc: `Văn bản được tạo bởi ${doc.created_by}`,
+    })
+  }
+
+  // Người cập nhật (chỉ hiện nếu khác người tạo hoặc thời gian khác)
+  if (doc.updated_by && doc.updated_at !== doc.created_at) {
+    items.push({
+      color: 'info',
+      title: 'Cập nhật văn bản',
+      time: formatDate(doc.updated_at),
+      desc: `Cập nhật lần cuối bởi ${doc.updated_by}`,
+    })
+  }
+
+  // Người ban hành
+  if (doc.status === 'issued' && doc.issued_by) {
+    items.push({
+      color: 'success',
+      title: 'Ban hành văn bản',
+      time: formatDate(doc.issued_at),
+      desc: `Văn bản được ban hành bởi ${doc.issued_by}`,
+    })
+  }
+
+  // Sắp xếp theo thứ tự thời gian tăng dần
+  return items
+})
 
 onMounted(async () => {
   await fetchDocument()
@@ -396,7 +431,7 @@ onMounted(async () => {
     </template>
 
     <template v-else-if="currentDoc">
-      <VRow class="mb-5">
+      <VRow class="mb-5 match-height">
         <!-- Left: About -->
         <VCol cols="12" md="4">
           <DocumentAboutPanel
