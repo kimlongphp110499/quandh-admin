@@ -11,6 +11,7 @@ import AppPagination from '@/components/AppPagination.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import ItemFormDrawer from '../../../components/ItemFormDrawer.vue'
+import DocumentAboutPanel from '../../../components/document/DocumentAboutPanel.vue'
 import { documentApi } from '../../../services/documentApi'
 import { typeApi } from '../../../services/typeApi'
 import type { Document, DocumentAttachment } from '../../../services/documentApi'
@@ -18,7 +19,7 @@ import { DOCUMENT_DETAIL_TABLE_HEADERS } from '../../../configs/documentOptions'
 import { useItemStore } from '../../../stores/useItemStore'
 import type { Item, ItemStatus } from '../../../services/itemApi'
 import { itemApi } from '../../../services/itemApi'
-
+import DocumentActivityTimeline from '@/modules/task-assignment/components/document/DocumentActivityTimeline.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,6 +55,27 @@ const fetchDocument = async () => {
 }
 
 const isIssued = computed(() => currentDoc.value?.status === 'issued')
+
+// ── About Panel ───────────────────────────────────────────────────
+const aboutData = computed(() => {
+  const doc = currentDoc.value
+  if (!doc) return { about: [], contacts: [], teams: [], overview: [] }
+  return {
+    about: [
+      { icon: 'tabler-file-text', property: 'Tên văn bản', value: doc.name },
+      { icon: 'tabler-tag', property: 'Loại văn bản', value: doc.type?.name || '—' },
+      { icon: 'tabler-circle-check', property: 'Trạng thái', value: doc.status === 'issued' ? 'Ban hành' : 'Bản nháp' },
+      { icon: 'tabler-calendar', property: 'Ngày ban hành', value: formatDate(doc.issue_date) },
+      { icon: 'tabler-calendar-event', property: 'Thời điểm ban hành', value: formatDate(doc.issued_at) },
+      { icon: 'tabler-user', property: 'Người tạo', value: doc.created_by || '—' },
+      { icon: 'tabler-clock', property: 'Ngày tạo', value: formatDate(doc.created_at) },
+      { icon: 'tabler-align-left', property: 'Tóm tắt nội dung', value: doc.summary || '—' },
+    ],
+    contacts: [],
+    teams: [],
+    overview: [],
+  }
+})
 
 const formatDate = (dateStr?: string | null) => {
   if (!dateStr) return '—'
@@ -352,6 +374,12 @@ const handleItemSubmit = async () => {
   itemDrawerOpen.value = false
   await fetchItems()
 }
+// ── Mock: Timeline ────────────────────────────────────────────────────────
+const timelineItems = [
+  { color: 'primary', title: '12 Invoices have been paid', time: '12 min ago', desc: 'Invoices have been paid to the company', chip: 'invoice.pdf' },
+  { color: 'success', title: 'Client Meeting', time: '45 min ago', desc: 'Project meeting with john @10:15am', person: { name: 'Lester McCarthy (Client)', role: 'CEO of Pixinvent', avatar: 'https://picsum.photos/seed/tm1/32/32' } },
+  { color: 'info', title: 'Create a new project for client', time: '2 Day Ago', desc: '6 team members in a project' },
+]
 
 onMounted(async () => {
   await fetchDocument()
@@ -361,21 +389,6 @@ onMounted(async () => {
 
 <template>
   <div>
-    <!-- ── Breadcrumb ─────────────────────────────────────────── -->
-    <div class="d-flex align-center gap-2 mb-5">
-      <VBtn
-        variant="text"
-        size="small"
-        prepend-icon="tabler-arrow-left"
-        @click="router.push({ name: 'task-assignment-documents' })"
-      >
-        Danh sách văn bản
-      </VBtn>
-      <VIcon icon="tabler-chevron-right" size="14" class="text-medium-emphasis" />
-      <span class="text-body-1 font-weight-medium text-truncate">
-        {{ currentDoc?.name || 'Chi tiết văn bản' }}
-      </span>
-    </div>
 
     <!-- ── Skeleton ───────────────────────────────────────────── -->
     <template v-if="isDocLoading">
@@ -383,23 +396,28 @@ onMounted(async () => {
     </template>
 
     <template v-else-if="currentDoc">
-      <!-- ── Card thông tin văn bản ─────────────────────────────── -->
+      <VRow class="mb-5">
+        <!-- Left: About -->
+        <VCol cols="12" md="4">
+          <DocumentAboutPanel
+            :about="aboutData.about"
+            :contacts="aboutData.contacts"
+            :teams="aboutData.teams"
+            :overview="aboutData.overview"
+          />
+        </VCol>
+        <!-- Right: Timeline -->
+        <VCol cols="12" md="8">
+          <DocumentActivityTimeline :items="timelineItems" />
+        </VCol>
+      </VRow>
+
+      <!-- ── Card tệp đính kèm ─────────────────────────────── -->
       <VCard class="mb-5">
         <VCardTitle class="pa-5 pb-3 d-flex align-center justify-space-between">
           <div class="d-flex align-center gap-2">
-            <VIcon icon="tabler-file-text" color="primary" />
-            <span>Thông tin văn bản</span>
+            <span>Tệp đính kèm</span>
           </div>
-          <VBtn
-            v-if="!docEditMode && !isIssued"
-            variant="tonal"
-            color="primary"
-            size="small"
-            prepend-icon="tabler-edit"
-            @click="openDocEdit"
-          >
-            Chỉnh sửa
-          </VBtn>
         </VCardTitle>
 
         <VDivider />
@@ -408,60 +426,19 @@ onMounted(async () => {
           <!-- Chế độ xem -->
           <template v-if="!docEditMode">
             <VRow>
-              <VCol cols="12" md="8">
-                <VRow dense>
-                  <VCol cols="12">
-                    <div class="text-xs text-medium-emphasis mb-1">Tên văn bản</div>
-                    <div class="text-body-1 font-weight-medium">{{ currentDoc.name }}</div>
-                  </VCol>
-                  <VCol cols="12" sm="6" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Loại văn bản</div>
-                    <div class="text-body-2">{{ currentDoc.type?.name || '—' }}</div>
-                  </VCol>
-                  <VCol cols="12" sm="6" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Trạng thái</div>
-                    <VChip :color="currentDoc.status === 'issued' ? 'success' : 'warning'" size="small" variant="tonal">
-                      {{ currentDoc.status === 'issued' ? 'Ban hành' : 'Bản nháp' }}
-                    </VChip>
-                  </VCol>
-                  <VCol cols="12" sm="6" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Ngày ban hành</div>
-                    <div class="text-body-2">{{ formatDate(currentDoc.issue_date) }}</div>
-                  </VCol>
-                  <VCol cols="12" sm="6" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Thời điểm ban hành</div>
-                    <div class="text-body-2">{{ formatDate(currentDoc.issued_at) }}</div>
-                  </VCol>
-                  <VCol cols="12" sm="6" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Người tạo</div>
-                    <div class="text-body-2">{{ currentDoc.created_by || '—' }}</div>
-                  </VCol>
-                  <VCol cols="12" sm="6" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Ngày tạo</div>
-                    <div class="text-body-2">{{ formatDate(currentDoc.created_at) }}</div>
-                  </VCol>
-                  <VCol v-if="currentDoc.summary" cols="12" class="mt-3">
-                    <div class="text-xs text-medium-emphasis mb-1">Tóm tắt nội dung</div>
-                    <div class="text-body-2" style="white-space: pre-wrap;">{{ currentDoc.summary }}</div>
-                  </VCol>
-                </VRow>
-              </VCol>
-
               <!-- File đính kèm -->
-              <VCol cols="12" md="4">
-                <div class="text-caption text-medium-emphasis mb-3 text-uppercase font-weight-medium">
-                  Tệp đính kèm
-                </div>
+              <VCol cols="12" md="12">
+
 
                 <!-- Input ẩn -->
                 <input ref="fileInputRef" type="file" multiple style="display: none;" @change="onFileSelected">
 
                 <!-- File đã lưu -->
                 <div v-if="existingAttachments.length > 0" class="mb-3">
-                  <div class="text-caption text-medium-emphasis mb-2">
-                    Đã đính kèm ({{ existingAttachments.length }})
+                  <div class="text-body-1 font-weight-medium me-2">
+                    Đã đính kèm
                   </div>
-                  <VList density="compact" rounded="lg" border>
+                  <VList>
                     <VListItem v-for="att in existingAttachments" :key="att.id" class="py-2">
                       <template #prepend>
                         <VIcon :icon="getFileIcon(att.mime_type, att.file_name)" size="20" color="primary" class="me-2" />
@@ -498,10 +475,10 @@ onMounted(async () => {
 
                 <!-- File chờ upload -->
                 <div v-if="pendingFiles.length > 0" class="mb-3">
-                  <div class="text-caption text-medium-emphasis mb-2">
+                  <div class="text-body-1 font-weight-medium me-2">
                     Chờ tải lên ({{ pendingFiles.length }})
                   </div>
-                  <VList density="compact" rounded="lg" border>
+                  <VList>
                     <VListItem v-for="(file, idx) in pendingFiles" :key="idx" class="py-2">
                       <template #prepend>
                         <VIcon :icon="getFileIcon(file.type, file.name)" size="20" color="secondary" class="me-2" />
@@ -509,8 +486,8 @@ onMounted(async () => {
                       <VListItemTitle class="text-body-2">{{ file.name }}</VListItemTitle>
                       <VListItemSubtitle class="text-caption">{{ formatFileSize(file.size) }}</VListItemSubtitle>
                       <template #append>
-                        <IconBtn size="small" color="error" @click="removePending(idx)">
-                          <VIcon icon="tabler-x" size="16" />
+                        <IconBtn color="error" @click="removePending(idx)">
+                          <VIcon icon="tabler-x" />
                           <VTooltip activator="parent" location="top">Bỏ chọn</VTooltip>
                         </IconBtn>
                       </template>
@@ -520,12 +497,11 @@ onMounted(async () => {
 
                 <!-- Actions file -->
                 <div v-if="!isIssued" class="d-flex gap-2 mt-2">
-                  <VBtn variant="tonal" color="secondary" size="small" prepend-icon="tabler-plus" @click="openFilePicker">
+                  <VBtn variant="tonal" color="secondary" prepend-icon="tabler-plus" @click="openFilePicker">
                     Thêm file
                   </VBtn>
                   <VBtn
                     v-if="pendingFiles.length > 0"
-                    size="small"
                     prepend-icon="tabler-upload"
                     :loading="isUploading"
                     @click="handleUpload"
@@ -541,66 +517,6 @@ onMounted(async () => {
           <template v-else>
             <VForm ref="refDocForm">
               <VRow>
-                <VCol cols="12" md="8">
-                  <VRow>
-                    <VCol cols="12">
-                      <AppTextField
-                        v-model="docForm.name"
-                        label="Tên văn bản giao việc *"
-                        placeholder="Nhập tên văn bản giao việc"
-                        :rules="[requiredRule, docServerErrorRule('name')]"
-                      />
-                    </VCol>
-                    <VCol cols="12">
-                      <div class="v-label mb-1 text-body-2">Loại văn bản</div>
-                      <VAutocomplete
-                        v-model="docForm.task_assignment_type_id"
-                        placeholder="Chọn loại văn bản..."
-                        :items="typeOptions"
-                        :loading="typeLoading"
-                        item-title="title"
-                        item-value="value"
-                        clearable
-                        :rules="[docServerErrorRule('task_assignment_type_id')]"
-                      >
-                        <template #append-item>
-                          <div
-                            v-if="typeHasMore || typeLoading"
-                            v-intersect="{ handler: onTypeIntersect, options: { threshold: 0.5 } }"
-                            class="d-flex justify-center pa-2"
-                          >
-                            <VProgressCircular v-if="typeLoading" indeterminate size="18" width="2" />
-                          </div>
-                        </template>
-                      </VAutocomplete>
-                    </VCol>
-                    <VCol cols="12" sm="6">
-                      <AppDateTimePicker
-                        v-model="docForm.issue_date"
-                        label="Ngày ban hành"
-                        :config="{ dateFormat: 'd/m/Y' }"
-                        :rules="[docServerErrorRule('issue_date')]"
-                      />
-                    </VCol>
-                    <VCol cols="12" sm="6">
-                      <AppSelect
-                        v-model="docForm.status"
-                        label="Trạng thái *"
-                        :items="docStatusOptions"
-                        :rules="[requiredRule, docServerErrorRule('status')]"
-                      />
-                    </VCol>
-                    <VCol cols="12">
-                      <AppTextarea
-                        v-model="docForm.summary"
-                        label="Tóm tắt nội dung"
-                        placeholder="Nhập tóm tắt nội dung văn bản"
-                        rows="4"
-                        :rules="[docServerErrorRule('summary')]"
-                      />
-                    </VCol>
-                  </VRow>
-                </VCol>
 
                 <!-- File khi edit -->
                 <VCol cols="12" md="4">
@@ -608,10 +524,9 @@ onMounted(async () => {
                     Tệp đính kèm
                   </div>
                   <input ref="fileInputRef" type="file" multiple style="display: none;" @change="onFileSelected">
-
                   <div v-if="existingAttachments.length > 0" class="mb-3">
-                    <div class="text-caption text-medium-emphasis mb-2">Đã đính kèm ({{ existingAttachments.length }})</div>
-                    <VList density="compact" rounded="lg" border>
+                    <div class="text-body-1 font-weight-medium me-2">Đã đính kèm</div>
+                    <VList>
                       <VListItem v-for="att in existingAttachments" :key="att.id" class="py-2">
                         <template #prepend>
                           <VIcon :icon="getFileIcon(att.mime_type, att.file_name)" size="20" color="primary" class="me-2" />
@@ -639,8 +554,8 @@ onMounted(async () => {
                   </div>
 
                   <div v-if="pendingFiles.length > 0" class="mb-3">
-                    <div class="text-caption text-medium-emphasis mb-2">Chờ tải lên ({{ pendingFiles.length }})</div>
-                    <VList density="compact" rounded="lg" border>
+                    <div class="text-body-1 font-weight-medium me-2">Chờ tải lên ({{ pendingFiles.length }})</div>
+                    <VList>
                       <VListItem v-for="(file, idx) in pendingFiles" :key="idx" class="py-2">
                         <template #prepend>
                           <VIcon :icon="getFileIcon(file.type, file.name)" size="20" color="secondary" class="me-2" />
