@@ -9,19 +9,16 @@ import { normalizeDate } from '@/utils/formatters'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import ItemFormDrawer from '../../../components/ItemFormDrawer.vue'
 import { documentApi } from '../../../services/documentApi'
-import { taskAssignmentItemApi } from '@/api/modules/task-assignment-item'
-import { itemTypeApi } from '../../../services/itemTypeApi'
-import { departmentApi } from '../../../services/departmentApi'
 import { typeApi } from '../../../services/typeApi'
-import { userApi } from '@/api/modules/user'
 import type { Document, DocumentAttachment } from '../../../services/documentApi'
-import type {
-  TaskAssignmentItem,
-  TaskAssignmentItemDepartmentPayload,
-  TaskAssignmentItemUserPayload,
-} from '@/api/modules/task-assignment-item'
 import { DOCUMENT_DETAIL_TABLE_HEADERS } from '../../../configs/documentOptions'
+import { useItemStore } from '../../../stores/useItemStore'
+import type { Item, ItemStatus } from '../../../services/itemApi'
+import { itemApi } from '../../../services/itemApi'
+
 
 const route = useRoute()
 const router = useRouter()
@@ -252,7 +249,7 @@ const handleRemoveAttachment = async (att: DocumentAttachment) => {
 }
 
 // ── Danh sách công việc ───────────────────────────────────────────
-const items = ref<TaskAssignmentItem[]>([])
+const items = ref<Item[]>([])
 const itemsTotal = ref(0)
 const isItemsLoading = ref(false)
 const itemsPage = ref(1)
@@ -265,7 +262,7 @@ let searchTimeout: ReturnType<typeof setTimeout>
 const fetchItems = async () => {
   isItemsLoading.value = true
   try {
-    const res = await taskAssignmentItemApi.list({
+    const res = await itemApi.list({
       task_assignment_document_id: documentId.value,
       page: itemsPage.value,
       limit: itemsLimit.value,
@@ -309,11 +306,14 @@ const statusOptions = [
 // ── Xóa công việc ────────────────────────────────────────────────
 const isDeletingItem = ref<number | null>(null)
 
-const confirmDeleteItem = (item: TaskAssignmentItem) => {
+const confirmDeleteItem = (item: Item) => {
+  if (isIssued.value)
+    return
+
   showConfirm('Xóa công việc', `Bạn có chắc muốn xóa công việc "${item.name}"?`, async () => {
     isDeletingItem.value = item.id
     try {
-      await taskAssignmentItemApi.delete(item.id)
+      await itemApi.delete(item.id)
       showToast('Đã xóa công việc thành công!', 'success')
       await fetchItems()
     }
@@ -326,235 +326,32 @@ const confirmDeleteItem = (item: TaskAssignmentItem) => {
 
 // ── Drawer thêm/sửa công việc ─────────────────────────────────────
 const itemDrawerOpen = ref(false)
-const editingItem = ref<TaskAssignmentItem | null>(null)
-const refItemForm = ref<InstanceType<typeof VForm>>()
-const isItemSubmitting = ref(false)
-const itemServerErrors = ref<Record<string, string[]>>({})
-
-// --- Loại công việc (infinity scroll) ---
-const itemTypeOptions = ref<{ title: string; value: number }[]>([])
-const itemTypePage = ref(1)
-const itemTypeTotal = ref(0)
-const itemTypeLoading = ref(false)
-const itemTypeHasMore = computed(() => itemTypeOptions.value.length < itemTypeTotal.value)
-
-const loadItemTypeOptions = async (reset = false) => {
-  if (itemTypeLoading.value) return
-  if (reset) { itemTypePage.value = 1; itemTypeOptions.value = [] }
-  itemTypeLoading.value = true
-  try {
-    const res = await itemTypeApi.list({ page: itemTypePage.value, limit: 20, status: 'active' })
-    if (res.data.success) {
-      const newItems = (res.data.data || []).map((t: any) => ({ title: t.name, value: t.id }))
-      itemTypeOptions.value = reset ? newItems : [...itemTypeOptions.value, ...newItems]
-      itemTypeTotal.value = res.data.meta?.total || 0
-      itemTypePage.value++
-    }
-  }
-  catch { /* silent */ }
-  finally { itemTypeLoading.value = false }
-}
-
-const onItemTypeIntersect = (isIntersecting: boolean) => {
-  if (isIntersecting && itemTypeHasMore.value && !itemTypeLoading.value) loadItemTypeOptions()
-}
-
-// --- Phòng ban ---
-const departmentOptions = ref<{ title: string; value: number }[]>([])
-const departmentLoading = ref(false)
-
-const loadDepartmentOptions = async () => {
-  departmentLoading.value = true
-  try {
-    const res = await departmentApi.list({ limit: 100, status: 'active' })
-    if (res.data.success)
-      departmentOptions.value = (res.data.data || []).map((d: any) => ({ title: d.name, value: d.id }))
-  }
-  catch { /* silent */ }
-  finally { departmentLoading.value = false }
-}
-
-// --- Người dùng ---
-const userOptions = ref<{ title: string; value: number }[]>([])
-const userLoading = ref(false)
-
-const loadUserOptions = async () => {
-  userLoading.value = true
-  try {
-    const res = await userApi.list({ limit: 100 })
-    if (res.data.success)
-      userOptions.value = (res.data.data || []).map((u: any) => ({ title: u.name, value: u.id }))
-  }
-  catch { /* silent */ }
-  finally { userLoading.value = false }
-}
-
-const buildEmptyItemForm = () => ({
-  name: '',
-  task_assignment_item_type_id: null as number | null,
-  deadline_type: 'has_deadline' as 'has_deadline' | 'no_deadline',
-  start_at: '',
-  end_at: '',
-  priority: 'medium' as string,
-  processing_status: 'todo' as string,
-  completion_percent: 0,
-  description: '',
-  department_ids: [] as TaskAssignmentItemDepartmentPayload[],
-  user_assignments: [] as TaskAssignmentItemUserPayload[],
-})
-
-const itemForm = ref(buildEmptyItemForm())
-
-const isEditItemMode = computed(() => !!editingItem.value?.id)
-const hasDeadline = computed(() => itemForm.value.deadline_type === 'has_deadline')
-const drawerTitle = computed(() => isEditItemMode.value ? 'Chỉnh sửa công việc' : 'Thêm công việc mới')
-
-const itemRequiredRule = (v: any) => (v !== null && v !== undefined && v !== '') || 'Trường này là bắt buộc'
-const itemServerErrorRule = (field: string) => () => {
-  const errors = itemServerErrors.value[field]
-  return !errors?.length || errors[0]
-}
-
-const onItemStatusChange = (val: string) => {
-  if (val === 'done') itemForm.value.completion_percent = 100
-}
-const onItemPercentChange = (val: number) => {
-  if (val >= 100 && itemForm.value.processing_status !== 'done') itemForm.value.processing_status = 'done'
-  else if (val < 100 && itemForm.value.processing_status === 'done') itemForm.value.processing_status = 'in_progress'
-}
-
-const addDepartment = () => itemForm.value.department_ids.push({ department_id: '' as any, role: 'main' })
-const removeDepartment = (idx: number) => itemForm.value.department_ids.splice(idx, 1)
-const addUserAssignment = () => itemForm.value.user_assignments.push({ user_id: null as any, department_id: null as any, assignment_role: 'main', assignment_status: 'assigned', note: '' })
-const removeUserAssignment = (idx: number) => itemForm.value.user_assignments.splice(idx, 1)
+const editingItem = ref<Item | null>(null)
 
 const openAddItemDrawer = () => {
-  editingItem.value = null
-  itemForm.value = buildEmptyItemForm()
-  itemServerErrors.value = {}
+  if (isIssued.value)
+    return
+
+  editingItem.value = {
+    task_assignment_document_id: documentId.value,
+    document: { status: currentDoc.value?.status || 'draft' },
+  } as any
   itemDrawerOpen.value = true
 }
 
-const openEditItemDrawer = (item: TaskAssignmentItem) => {
-  editingItem.value = item
-  itemForm.value = {
-    name: item.name || '',
-    task_assignment_item_type_id: item.task_assignment_item_type_id || null,
-    deadline_type: item.deadline_type || 'has_deadline',
-    start_at: item.start_at || '',
-    end_at: item.end_at || '',
-    priority: item.priority || 'medium',
-    processing_status: item.processing_status || 'todo',
-    completion_percent: item.completion_percent ?? 0,
-    description: item.description || '',
-    department_ids: (item.departments || []).map(d => ({ department_id: d.id, role: d.role as 'main' | 'cooperate' })),
-    user_assignments: (item.users || []).map(u => ({
-      user_id: u.id,
-      department_id: u.department_id,
-      assignment_role: u.assignment_role as 'main' | 'support',
-      assignment_status: u.assignment_status as 'assigned' | 'accepted' | 'rejected' | 'done',
-      note: u.note || '',
-    })),
-  }
-  itemServerErrors.value = {}
+const openEditItemDrawer = (item: Item) => {
+  editingItem.value = {
+    ...item,
+    task_assignment_document_id: item.task_assignment_document_id || documentId.value,
+    document: { status: currentDoc.value?.status || 'draft' },
+  } as any
   itemDrawerOpen.value = true
 }
 
-watch(itemDrawerOpen, val => {
-  if (val) {
-    loadItemTypeOptions(true)
-    loadDepartmentOptions()
-    loadUserOptions()
-  }
-  else {
-    itemForm.value = buildEmptyItemForm()
-    itemServerErrors.value = {}
-    refItemForm.value?.resetValidation()
-  }
-})
-
-const onItemSubmit = async () => {
-  itemServerErrors.value = {}
-  if (!refItemForm.value) return
-  const { valid } = await refItemForm.value.validate()
-  if (!valid) return
-
-  isItemSubmitting.value = true
-  try {
-    const payload: any = {
-      task_assignment_document_id: documentId.value,
-      name: itemForm.value.name,
-      description: itemForm.value.description || undefined,
-      task_assignment_item_type_id: itemForm.value.task_assignment_item_type_id || undefined,
-      deadline_type: itemForm.value.deadline_type,
-      start_at: itemForm.value.start_at || undefined,
-      end_at: hasDeadline.value ? (itemForm.value.end_at || undefined) : undefined,
-      priority: itemForm.value.priority || undefined,
-      processing_status: itemForm.value.processing_status,
-      completion_percent: itemForm.value.completion_percent,
-      department_ids: itemForm.value.department_ids.filter(d => d.department_id),
-      user_assignments: itemForm.value.user_assignments
-        .filter(u => u.user_id && u.department_id)
-        .map(u => ({
-          user_id: u.user_id,
-          department_id: u.department_id,
-          assignment_role: u.assignment_role,
-          assignment_status: u.assignment_status || 'assigned',
-          note: u.note || undefined,
-        })),
-    }
-
-    if (isEditItemMode.value && editingItem.value)
-      await taskAssignmentItemApi.update(editingItem.value.id, payload)
-    else
-      await taskAssignmentItemApi.create(payload)
-
-    showToast(isEditItemMode.value ? 'Cập nhật công việc thành công!' : 'Thêm công việc thành công!', 'success')
-    itemDrawerOpen.value = false
-    await fetchItems()
-  }
-  catch (error: any) {
-    if (error?.response?.status === 403) { showToast('Người dùng không có quyền.', 'error'); return }
-    const responseData = error?.response?.data
-    if (responseData?.errors) {
-      itemServerErrors.value = responseData.errors
-      await nextTick()
-      await refItemForm.value?.validate()
-      showToast('Vui lòng kiểm tra lại thông tin nhập.', 'error')
-    }
-    else { showToast(getErrorMessage(error, 'Có lỗi xảy ra, vui lòng thử lại.'), 'error') }
-  }
-  finally { isItemSubmitting.value = false }
+const handleItemSubmit = async () => {
+  itemDrawerOpen.value = false
+  await fetchItems()
 }
-
-const priorityOptions = [
-  { title: 'Thấp', value: 'low' },
-  { title: 'Bình thường', value: 'medium' },
-  { title: 'Cao', value: 'high' },
-  { title: 'Khẩn cấp', value: 'urgent' },
-]
-
-const deadlineTypeOptions = [
-  { title: 'Có thời hạn', value: 'has_deadline' },
-  { title: 'Không có thời hạn', value: 'no_deadline' },
-]
-
-const departmentRoleOptions = [
-  { title: 'Chủ trì', value: 'main' },
-  { title: 'Phối hợp', value: 'cooperate' },
-]
-
-const assignmentRoleOptions = [
-  { title: 'Chủ trì', value: 'main' },
-  { title: 'Phối hợp', value: 'support' },
-]
-
-const assignmentStatusOptions = [
-  { title: 'Đã giao', value: 'assigned' },
-  { title: 'Đã nhận', value: 'accepted' },
-  { title: 'Từ chối', value: 'rejected' },
-  { title: 'Hoàn thành', value: 'done' },
-]
 
 onMounted(async () => {
   await fetchDocument()
@@ -890,14 +687,14 @@ onMounted(async () => {
       </VCard>
 
       <!-- ── Danh sách công việc ─────────────────────────────── -->
-      <VCard>
-        <VCardTitle class="pa-5 pb-3 d-flex align-center justify-space-between flex-wrap gap-3">
-          <div class="d-flex align-center gap-2">
-            <span>Danh sách công việc</span>
-          </div>
-        </VCardTitle>
-
-        <VDivider />
+      <AppFilterBar :show-filters="false">
+        <template #actions>
+           <!-- Add -->
+          <VBtn @click="openAddItemDrawer">
+            <VIcon icon="tabler-plus" />
+            <span class="d-none d-sm-inline ms-1">Thêm mới</span>
+          </VBtn>
+        </template>
 
         <VDataTableServer
           :headers="DOCUMENT_DETAIL_TABLE_HEADERS"
@@ -916,7 +713,6 @@ onMounted(async () => {
           <template #item.name="{ item }">
             <div class="d-flex flex-column">
               <span class="text-base font-weight-medium text-high-emphasis">{{ item.name }}</span>
-              <span v-if="item.item_type" class="text-xs text-disabled">{{ item.item_type.name }}</span>
             </div>
           </template>
 
@@ -977,13 +773,41 @@ onMounted(async () => {
               <VIcon :icon="isIssued ? 'tabler-eye' : 'tabler-edit'" />
             </IconBtn>
             <IconBtn
-              v-if="!isIssued"
               color="error"
+              :disabled="isIssued"
               :loading="isDeletingItem === item.id"
-              @click="confirmDeleteItem(item)"
+              @click="!isIssued && confirmDeleteItem(item)"
             >
               <VIcon icon="tabler-trash" />
             </IconBtn>
+
+            <VBtn
+              icon
+              variant="text"
+              color="medium-emphasis"
+            >
+              <VIcon icon="tabler-dots-vertical" />
+              <VMenu activator="parent">
+                <VList>
+                  <VListItem @click="openEditItemDrawer(item)">
+                    <template #prepend>
+                      <VIcon :icon="isIssued ? 'tabler-eye' : 'tabler-edit'" />
+                    </template>
+                    <VListItemTitle>{{ isIssued ? 'Xem' : 'Sửa' }}</VListItemTitle>
+                  </VListItem>
+
+                  <VListItem
+                    :disabled="isIssued"
+                    @click="!isIssued && confirmDeleteItem(item)"
+                  >
+                    <template #prepend>
+                      <VIcon icon="tabler-trash" />
+                    </template>
+                    <VListItemTitle>Xóa</VListItemTitle>
+                  </VListItem>
+                </VList>
+              </VMenu>
+            </VBtn>
           </template>
 
           <template #no-data>
@@ -1008,7 +832,7 @@ onMounted(async () => {
             />
           </template>
         </VDataTableServer>
-      </VCard>
+      </AppFilterBar>
     </template>
 
     <!-- ── Không tìm thấy ─────────────────────────────────────── -->
@@ -1021,331 +845,18 @@ onMounted(async () => {
     </VCard>
 
     <!-- ── Drawer thêm / sửa công việc ───────────────────────── -->
-    <VNavigationDrawer
-      v-model="itemDrawerOpen"
-      temporary
-      location="end"
-      width="620"
-    >
-      <div class="d-flex flex-column h-100">
-        <AppDrawerHeaderSection
-          :title="drawerTitle"
-          @cancel="itemDrawerOpen = false"
-        />
-
-        <VDivider />
-
-        <PerfectScrollbar :options="{ wheelPropagation: false }" class="flex-grow-1" style="overflow-y: auto;">
-          <VCardText>
-            <VForm ref="refItemForm">
-              <VRow>
-                <!-- Tên công việc -->
-                <VCol cols="12">
-                  <AppTextField
-                    v-model="itemForm.name"
-                    label="Tên công việc *"
-                    placeholder="Nhập tên công việc"
-                    :readonly="isIssued"
-                    :rules="[itemRequiredRule, itemServerErrorRule('name')]"
-                  />
-                </VCol>
-
-                <!-- Loại công việc -->
-                <VCol cols="12">
-                  <div class="v-label mb-1 text-body-2">Loại công việc</div>
-                  <VAutocomplete
-                    v-model="itemForm.task_assignment_item_type_id"
-                    placeholder="Chọn loại công việc..."
-                    :items="itemTypeOptions"
-                    :loading="itemTypeLoading"
-                    item-title="title"
-                    item-value="value"
-                    clearable
-                    :readonly="isIssued"
-                    :rules="[itemServerErrorRule('task_assignment_item_type_id')]"
-                  >
-                    <template #append-item>
-                      <div
-                        v-if="itemTypeHasMore || itemTypeLoading"
-                        v-intersect="{ handler: onItemTypeIntersect, options: { threshold: 0.5 } }"
-                        class="d-flex justify-center pa-2"
-                      >
-                        <VProgressCircular v-if="itemTypeLoading" indeterminate size="18" width="2" />
-                      </div>
-                    </template>
-                  </VAutocomplete>
-                </VCol>
-
-                <!-- Mô tả -->
-                <VCol cols="12">
-                  <AppTextarea
-                    v-model="itemForm.description"
-                    label="Mô tả"
-                    placeholder="Nhập mô tả chi tiết công việc"
-                    rows="3"
-                    :readonly="isIssued"
-                    :rules="[itemServerErrorRule('description')]"
-                  />
-                </VCol>
-
-                <!-- Loại thời hạn + Ưu tiên -->
-                <VCol cols="12" md="6">
-                  <AppSelect
-                    v-model="itemForm.deadline_type"
-                    label="Loại thời hạn *"
-                    :items="deadlineTypeOptions"
-                    :readonly="isIssued"
-                    :rules="[itemRequiredRule, itemServerErrorRule('deadline_type')]"
-                  />
-                </VCol>
-                <VCol cols="12" md="6">
-                  <AppSelect
-                    v-model="itemForm.priority"
-                    label="Mức độ ưu tiên"
-                    :items="priorityOptions"
-                    :readonly="isIssued"
-                    :rules="[itemServerErrorRule('priority')]"
-                  />
-                </VCol>
-
-                <!-- Ngày bắt đầu / kết thúc -->
-                <VCol cols="12" md="6">
-                  <AppDateTimePicker
-                    v-model="itemForm.start_at"
-                    label="Ngày bắt đầu"
-                    :config="{ dateFormat: 'd/m/Y' }"
-                    :readonly="isIssued"
-                    :rules="[itemServerErrorRule('start_at')]"
-                  />
-                </VCol>
-                <VCol cols="12" md="6">
-                  <AppDateTimePicker
-                    v-model="itemForm.end_at"
-                    label="Ngày kết thúc"
-                    :disabled="!hasDeadline"
-                    :readonly="isIssued"
-                    :config="{ dateFormat: 'd/m/Y' }"
-                    :rules="[itemServerErrorRule('end_at')]"
-                  />
-                  <div v-if="!hasDeadline" class="text-caption text-disabled mt-1">
-                    Không áp dụng khi chọn "Không có thời hạn"
-                  </div>
-                </VCol>
-
-                <!-- Trạng thái + % hoàn thành -->
-                <VCol cols="12" md="6">
-                  <AppSelect
-                    v-model="itemForm.processing_status"
-                    label="Trạng thái"
-                    :items="statusOptions"
-                    :readonly="isIssued"
-                    :rules="[itemServerErrorRule('processing_status')]"
-                    @update:model-value="onItemStatusChange"
-                  />
-                </VCol>
-                <VCol cols="12" md="6">
-                  <AppTextField
-                    v-model.number="itemForm.completion_percent"
-                    label="% Hoàn thành"
-                    type="number"
-                    :min="0"
-                    :max="100"
-                    :readonly="isIssued"
-                    :rules="[itemServerErrorRule('completion_percent')]"
-                    @update:model-value="onItemPercentChange"
-                  />
-                </VCol>
-
-                <!-- Phòng ban thực hiện -->
-                <VCol cols="12">
-                  <div class="d-flex align-center justify-space-between mb-3">
-                    <span class="text-body-2 font-weight-medium">Phòng ban thực hiện</span>
-                    <VBtn
-                      v-if="!isIssued"
-                      size="small"
-                      variant="tonal"
-                      prepend-icon="tabler-plus"
-                      @click="addDepartment"
-                    >
-                      Thêm
-                    </VBtn>
-                  </div>
-
-                  <div
-                    v-if="itemForm.department_ids.length === 0"
-                    class="text-body-2 text-disabled text-center py-4 border rounded"
-                  >
-                    Chưa có phòng ban nào
-                  </div>
-
-                  <VCard
-                    v-for="(dept, index) in itemForm.department_ids"
-                    :key="index"
-                    variant="outlined"
-                    class="mb-3 pa-3"
-                  >
-                    <div class="d-flex align-center justify-space-between mb-2">
-                      <span class="text-caption text-medium-emphasis">Phòng ban {{ index + 1 }}</span>
-                      <VBtn
-                        v-if="!isIssued"
-                        icon
-                        size="x-small"
-                        variant="text"
-                        color="error"
-                        @click="removeDepartment(index)"
-                      >
-                        <VIcon icon="tabler-trash" size="14" />
-                      </VBtn>
-                    </div>
-                    <VRow dense>
-                      <VCol cols="12">
-                        <div class="app-text-field">
-                          <label class="v-label mb-1 text-body-2">Phòng ban</label>
-                        </div>
-                        <VAutocomplete
-                          v-model="dept.department_id"
-                          placeholder="Chọn phòng ban..."
-                          :items="departmentOptions"
-                          :loading="departmentLoading"
-                          item-title="title"
-                          item-value="value"
-                          clearable
-                          :readonly="isIssued"
-                        />
-                      </VCol>
-                      <VCol cols="12">
-                        <div class="app-text-field">
-                          <label class="v-label mb-1 text-body-2">Vai trò</label>
-                        </div>
-                        <AppSelect v-model="dept.role" :items="departmentRoleOptions" :readonly="isIssued" />
-                      </VCol>
-                    </VRow>
-                  </VCard>
-                </VCol>
-
-                <!-- Người thực hiện -->
-                <VCol cols="12">
-                  <div class="d-flex align-center justify-space-between mb-3">
-                    <span class="text-body-2 font-weight-medium">Người thực hiện</span>
-                    <VBtn
-                      v-if="!isIssued"
-                      size="small"
-                      variant="tonal"
-                      prepend-icon="tabler-plus"
-                      @click="addUserAssignment"
-                    >
-                      Thêm
-                    </VBtn>
-                  </div>
-
-                  <div
-                    v-if="itemForm.user_assignments.length === 0"
-                    class="text-body-2 text-disabled text-center py-4 border rounded"
-                  >
-                    Chưa có người thực hiện nào
-                  </div>
-
-                  <VCard
-                    v-for="(assignment, index) in itemForm.user_assignments"
-                    :key="index"
-                    variant="outlined"
-                    class="mb-3 pa-3"
-                  >
-                    <div class="d-flex align-center justify-space-between mb-2">
-                      <span class="text-caption text-medium-emphasis">Người thực hiện {{ index + 1 }}</span>
-                      <VBtn
-                        v-if="!isIssued"
-                        icon
-                        size="x-small"
-                        variant="text"
-                        color="error"
-                        @click="removeUserAssignment(index)"
-                      >
-                        <VIcon icon="tabler-trash" size="14" />
-                      </VBtn>
-                    </div>
-                    <VRow dense>
-                      <VCol cols="12">
-                        <div class="app-text-field">
-                          <label class="v-label mb-1 text-body-2">Người dùng</label>
-                        </div>
-                        <VAutocomplete
-                          v-model="assignment.user_id"
-                          placeholder="Chọn người dùng..."
-                          :items="userOptions"
-                          :loading="userLoading"
-                          item-title="title"
-                          item-value="value"
-                          clearable
-                          :readonly="isIssued"
-                        />
-                      </VCol>
-                      <VCol cols="12">
-                        <div class="app-text-field">
-                          <label class="v-label mb-1 text-body-2">Phòng ban</label>
-                        </div>
-                        <VAutocomplete
-                          v-model="assignment.department_id"
-                          placeholder="Chọn phòng ban..."
-                          :items="departmentOptions"
-                          :loading="departmentLoading"
-                          item-title="title"
-                          item-value="value"
-                          clearable
-                          :readonly="isIssued"
-                        />
-                      </VCol>
-                      <VCol cols="12">
-                        <AppSelect
-                          v-model="assignment.assignment_role"
-                          label="Vai trò"
-                          :items="assignmentRoleOptions"
-                          :readonly="isIssued"
-                        />
-                      </VCol>
-                      <VCol cols="12">
-                        <AppSelect
-                          v-model="assignment.assignment_status"
-                          label="Trạng thái giao việc"
-                          :items="assignmentStatusOptions"
-                          :readonly="isIssued"
-                        />
-                      </VCol>
-                      <VCol cols="12">
-                        <AppTextField
-                          v-model="assignment.note"
-                          label="Ghi chú"
-                          placeholder="Ghi chú khi giao việc..."
-                          :readonly="isIssued"
-                        />
-                      </VCol>
-                    </VRow>
-                  </VCard>
-                </VCol>
-
-                <!-- Actions -->
-                <VCol v-if="!isIssued" cols="12">
-                  <VBtn class="me-3" :loading="isItemSubmitting" @click="onItemSubmit">
-                    {{ isEditItemMode ? 'Cập nhật' : 'Thêm mới' }}
-                  </VBtn>
-                  <VBtn variant="tonal" color="secondary" @click="itemDrawerOpen = false">Hủy</VBtn>
-                </VCol>
-                <VCol v-else cols="12">
-                  <VBtn variant="tonal" color="secondary" @click="itemDrawerOpen = false">Đóng</VBtn>
-                </VCol>
-              </VRow>
-            </VForm>
-          </VCardText>
-        </PerfectScrollbar>
-      </div>
-    </VNavigationDrawer>
+    <ItemFormDrawer
+      v-model:is-drawer-open="itemDrawerOpen"
+      :item="editingItem as any"
+      @submit="handleItemSubmit"
+    />
 
     <!-- ── Confirm Dialog ─────────────────────────────────────── -->
     <AppConfirmDialog
-      v-model:is-dialog-visible="confirmDialog.show"
+      v-model="confirmDialog.show"
       :title="confirmDialog.title"
-      :confirmation-msg="confirmDialog.message"
-      @confirm="confirmDialog.onConfirm"
+      :message="confirmDialog.message"
+      @confirm="() => { confirmDialog.onConfirm(); confirmDialog.show = false }"
     />
 
     <!-- ── Snackbar ───────────────────────────────────────────── -->

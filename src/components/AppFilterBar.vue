@@ -4,11 +4,13 @@ import { ref } from 'vue'
 interface Props {
   hasActiveFilters?: boolean
   title?: string
+  showFilters?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   hasActiveFilters: false,
   title: 'Bộ lọc',
+  showFilters: true,
 })
 
 const isFilterExpanded = ref(false)
@@ -16,6 +18,7 @@ const isFilterExpanded = ref(false)
 
 <template>
   <VCard class="mb-6">
+  <template v-if="showFilters">
     <!-- ── Desktop: Vuexy-style title row ── -->
     <VCardItem class="pb-4 d-none d-md-flex">
       <VCardTitle>{{ title }}</VCardTitle>
@@ -61,6 +64,7 @@ const isFilterExpanded = ref(false)
     </VExpandTransition>
 
     <VDivider />
+    </template>
 
     <!-- ── Actions bar ── -->
     <VCardText class="d-flex flex-wrap gap-4">
