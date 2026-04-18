@@ -5,6 +5,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import DocumentFormDrawer from '../../../components/DocumentFormDrawer.vue'
 import DocumentAttachmentDialog from '../../../components/DocumentAttachmentDialog.vue'
+import { useTypeStore } from '../../../stores/useTypeStore'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { normalizeDate } from '@/utils/formatters'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -26,6 +27,14 @@ const store = useDocumentStore()
 const isFormDrawerVisible = ref(false)
 const editingDocument = ref<Document | null>(null)
 const isAttachmentDialogVisible = ref(false)
+
+const typeStore = useTypeStore()
+
+const goToTypeEdit = (typeId: number) => {
+  typeStore.pendingEditId = typeId
+  router.push({ path: '/task-assignment/types' })
+}
+
 const attachmentDocument = ref<Document | null>(null)
 
 const openAttachmentDialog = (doc: Document) => {
@@ -528,7 +537,8 @@ onMounted(async () => {
         <template #item.type="{ item }">
           <span
             v-if="item.type"
-            class="text-base font-weight-medium text-high-emphasis"
+            class="text-link font-weight-medium cursor-pointer"
+            @click.stop="goToTypeEdit(item.type.id)"
           >{{ item.type.name }}</span>
           <span
             v-else

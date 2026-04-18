@@ -13,6 +13,9 @@ export const useTypeStore = defineStore('taskAssignmentType', () => {
   const error = ref<string | null>(null)
   const meta = ref<any>(null)
 
+  // ID cần mở form chỉnh sửa khi trang types mount (set từ trang khác)
+  const pendingEditId = ref<number | null>(null)
+
   const filters = ref<TypeFilters>({
     page: 1,
     limit: 10,
@@ -250,5 +253,6 @@ export const useTypeStore = defineStore('taskAssignmentType', () => {
     downloadTemplate,
     setFilters,
     resetFilters,
+    pendingEditId,
   }
 })

@@ -14,6 +14,7 @@ import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import AppImportDialog from '@/components/AppImportDialog.vue'
 import AppExportDialog from '@/components/AppExportDialog.vue'
 import { useTypeStore } from '../../../stores/useTypeStore'
+import { typeApi } from '../../../services/typeApi'
 import type { Type } from '../../../services/typeApi'
 import { TYPE_TABLE_HEADERS, TYPE_STATUS_OPTIONS, TYPE_LIMIT_OPTIONS } from '../../../configs/typeOptions'
 
@@ -251,6 +252,18 @@ watch(statusFilter, () => {
 
 onMounted(async () => {
   await Promise.all([store.fetchStats(), loadTypes()])
+
+  // Mở form chỉnh sửa nếu được yêu cầu từ trang khác (TypePreviewDialog)
+  if (store.pendingEditId) {
+    const id = store.pendingEditId
+    store.pendingEditId = null
+    try {
+      const res = await typeApi.show(id)
+      if (res.data.success && res.data.data)
+        openEditDrawer(res.data.data)
+    }
+    catch { /* silent */ }
+  }
 })
 </script>
 
