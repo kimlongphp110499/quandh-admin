@@ -730,34 +730,6 @@ onMounted(async () => {
             >
               <VIcon icon="tabler-trash" />
             </IconBtn>
-
-            <VBtn
-              icon
-              variant="text"
-              color="medium-emphasis"
-            >
-              <VIcon icon="tabler-dots-vertical" />
-              <VMenu activator="parent">
-                <VList>
-                  <VListItem @click="openEditItemDrawer(item)">
-                    <template #prepend>
-                      <VIcon :icon="isIssued ? 'tabler-eye' : 'tabler-edit'" />
-                    </template>
-                    <VListItemTitle>{{ isIssued ? 'Xem' : 'Sửa' }}</VListItemTitle>
-                  </VListItem>
-
-                  <VListItem
-                    :disabled="isIssued"
-                    @click="!isIssued && confirmDeleteItem(item)"
-                  >
-                    <template #prepend>
-                      <VIcon icon="tabler-trash" />
-                    </template>
-                    <VListItemTitle>Xóa</VListItemTitle>
-                  </VListItem>
-                </VList>
-              </VMenu>
-            </VBtn>
           </template>
 
           <template #no-data>

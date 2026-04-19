@@ -1024,34 +1024,6 @@ onMounted(async () => {
           >
             <VIcon icon="tabler-trash" />
           </IconBtn>
-
-          <VBtn
-            icon
-            variant="text"
-            color="medium-emphasis"
-          >
-            <VIcon icon="tabler-dots-vertical" />
-            <VMenu activator="parent">
-              <VList>
-                <VListItem @click="openEditDrawer(item)">
-                  <template #prepend>
-                    <VIcon :icon="item.document?.status === 'issued' ? 'tabler-eye' : 'tabler-edit'" />
-                  </template>
-                  <VListItemTitle>{{ item.document?.status === 'issued' ? 'Xem' : 'Sửa' }}</VListItemTitle>
-                </VListItem>
-
-                <VListItem
-                  :disabled="item.document?.status === 'issued'"
-                  @click="item.document?.status !== 'issued' && confirmDeleteSingle(item.id)"
-                >
-                  <template #prepend>
-                    <VIcon icon="tabler-trash" />
-                  </template>
-                  <VListItemTitle>Xóa</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
         </template>
 
         <!-- No Data -->

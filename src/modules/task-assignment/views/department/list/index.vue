@@ -452,38 +452,6 @@ onMounted(async () => {
           >
             <VIcon icon="tabler-trash" />
           </IconBtn>
-
-          <VBtn
-            icon
-            variant="text"
-            color="medium-emphasis"
-          >
-            <VIcon icon="tabler-dots-vertical" />
-            <VMenu activator="parent">
-              <VList>
-                <VListItem @click="openEditDrawer(item)">
-                  <template #prepend>
-                    <VIcon icon="tabler-edit" />
-                  </template>
-                  <VListItemTitle>Sửa</VListItemTitle>
-                </VListItem>
-
-                <VListItem @click="handleToggleStatus(item)">
-                  <template #prepend>
-                    <VIcon :icon="resolveToggleStatusIcon(item.status)" />
-                  </template>
-                  <VListItemTitle>{{ resolveToggleStatusLabel(item.status) }}</VListItemTitle>
-                </VListItem>
-
-                <VListItem @click="confirmDeleteSingle(item.id)">
-                  <template #prepend>
-                    <VIcon icon="tabler-trash" />
-                  </template>
-                  <VListItemTitle>Xóa</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
         </template>
 
         <!-- No Data -->

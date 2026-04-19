@@ -616,34 +616,11 @@ onMounted(async () => {
             <VIcon icon="tabler-dots-vertical" />
             <VMenu activator="parent">
               <VList>
-                <VListItem @click="openEditDrawer(item)">
-                  <template #prepend>
-                    <VIcon icon="tabler-edit" />
-                  </template>
-                  <VListItemTitle>Sửa</VListItemTitle>
-                </VListItem>
-
-                <VListItem @click="handleToggleStatus(item)">
-                  <template #prepend>
-                    <VIcon :icon="item.status === 'issued' ? 'tabler-toggle-right' : 'tabler-toggle-left'" />
-                  </template>
-                  <VListItemTitle>
-                    {{ item.status === 'issued' ? 'Chuyển bản nháp' : 'Ban hành' }}
-                  </VListItemTitle>
-                </VListItem>
-
                 <VListItem @click="openAttachmentDialog(item)">
                   <template #prepend>
                     <VIcon icon="tabler-paperclip" />
                   </template>
                   <VListItemTitle>Tệp đính kèm</VListItemTitle>
-                </VListItem>
-
-                <VListItem @click="confirmDeleteSingle(item.id)">
-                  <template #prepend>
-                    <VIcon icon="tabler-trash" />
-                  </template>
-                  <VListItemTitle>Xóa</VListItemTitle>
                 </VListItem>
               </VList>
             </VMenu>
