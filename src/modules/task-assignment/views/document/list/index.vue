@@ -3,8 +3,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import DocumentFormDrawer from '../../../components/DocumentFormDrawer.vue'
-import DocumentAttachmentDialog from '../../../components/DocumentAttachmentDialog.vue'
+import DocumentFormDrawer from '../../../components/document/DocumentFormDrawer.vue'
+import DocumentAttachmentDialog from '../../../components/document/DocumentAttachmentDialog.vue'
 import { useTypeStore } from '../../../stores/useTypeStore'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { normalizeDate } from '@/utils/formatters'
@@ -537,7 +537,7 @@ onMounted(async () => {
         <template #item.type="{ item }">
           <span
             v-if="item.type"
-            class="text-link font-weight-medium cursor-pointer"
+            class="text-base font-weight-medium cursor-pointer text-high-emphasis"
             @click.stop="goToTypeEdit(item.type.id)"
           >{{ item.type.name }}</span>
           <span

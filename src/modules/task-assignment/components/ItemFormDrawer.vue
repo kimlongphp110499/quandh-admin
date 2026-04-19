@@ -20,6 +20,7 @@ import { ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_DEADLINE_TYPE_OPTIONS,
 interface Props {
   isDrawerOpen: boolean
   item?: Item | null
+  viewOnly?: boolean
 }
 
 interface Emit {
@@ -211,9 +212,14 @@ const isEditMode = computed(() => !!props.item?.id)
 
 const isDocumentIssued = computed(() => props.item?.document?.status === 'issued')
 
+const isReadonly = computed(() => isDocumentIssued.value || !!props.viewOnly)
+
 const drawerTitle = computed(() => {
   if (!isEditMode.value)
     return 'Thêm công việc mới'
+
+  if (props.viewOnly)
+    return 'Xem chi tiết công việc'
 
   return isDocumentIssued.value ? 'Xem công việc (Văn bản đã ban hành)' : 'Chỉnh sửa công việc'
 })
@@ -388,7 +394,7 @@ const onSubmit = async () => {
                   v-model="formData.name"
                   label="Tên công việc *"
                   placeholder="Nhập tên công việc"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[requiredRule, serverErrorRule('name')]"
                 />
               </VCol>
@@ -405,7 +411,7 @@ const onSubmit = async () => {
                   item-title="title"
                   item-value="value"
                   clearable
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[requiredRule, serverErrorRule('task_assignment_document_id')]"
                 >
                   <template #append-item>
@@ -437,7 +443,7 @@ const onSubmit = async () => {
                   item-title="title"
                   item-value="value"
                   clearable
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('task_assignment_item_type_id')]"
                 >
                   <template #append-item>
@@ -464,7 +470,7 @@ const onSubmit = async () => {
                   label="Mô tả"
                   placeholder="Nhập mô tả chi tiết công việc"
                   rows="3"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('description')]"
                 />
               </VCol>
@@ -480,7 +486,7 @@ const onSubmit = async () => {
                   v-model="formData.deadline_type"
                   label="Loại thời hạn *"
                   :items="deadlineTypeOptions"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[requiredRule, serverErrorRule('deadline_type')]"
                 />
               </VCol>
@@ -492,7 +498,7 @@ const onSubmit = async () => {
                   v-model="formData.priority"
                   label="Mức độ ưu tiên"
                   :items="priorityOptions"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('priority')]"
                 />
               </VCol>
@@ -506,7 +512,7 @@ const onSubmit = async () => {
                   v-model="formData.start_at"
                   label="Ngày bắt đầu"
                   :config="{ dateFormat: 'd/m/Y' }"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('start_at')]"
                 />
               </VCol>
@@ -518,7 +524,7 @@ const onSubmit = async () => {
                   v-model="formData.end_at"
                   label="Ngày kết thúc"
                   :disabled="!hasDeadline"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :config="{ dateFormat: 'd/m/Y' }"
                   :rules="[serverErrorRule('end_at')]"
                 />
@@ -539,7 +545,7 @@ const onSubmit = async () => {
                   v-model="formData.processing_status"
                   label="Trạng thái"
                   :items="statusOptions"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('processing_status')]"
                   @update:model-value="onStatusChange"
                 />
@@ -554,7 +560,7 @@ const onSubmit = async () => {
                   type="number"
                   :min="0"
                   :max="100"
-                  :readonly="isDocumentIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('completion_percent')]"
                   @update:model-value="onPercentChange"
                 />
@@ -565,7 +571,7 @@ const onSubmit = async () => {
                 <div class="d-flex align-center justify-space-between mb-3">
                   <span class="text-body-2 font-weight-medium">Phòng ban thực hiện</span>
                   <VBtn
-                    v-if="!isDocumentIssued"
+                    v-if="!isReadonly"
                     size="small"
                     variant="tonal"
                     prepend-icon="tabler-plus"
@@ -591,7 +597,7 @@ const onSubmit = async () => {
                   <div class="d-flex align-center justify-space-between mb-2">
                     <span class="text-caption text-medium-emphasis">Phòng ban {{ index + 1 }}</span>
                     <VBtn
-                      v-if="!isDocumentIssued"
+                      v-if="!isReadonly"
                       icon
                       size="x-small"
                       variant="text"
@@ -617,7 +623,7 @@ const onSubmit = async () => {
                         item-title="title"
                         item-value="value"
                         clearable
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
                     <VCol cols="12">
@@ -627,7 +633,7 @@ const onSubmit = async () => {
                       <AppSelect
                         v-model="dept.role"
                         :items="departmentRoleOptions"
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
                   </VRow>
@@ -639,7 +645,7 @@ const onSubmit = async () => {
                 <div class="d-flex align-center justify-space-between mb-3">
                   <span class="text-body-2 font-weight-medium">Người thực hiện</span>
                   <VBtn
-                    v-if="!isDocumentIssued"
+                    v-if="!isReadonly"
                     size="small"
                     variant="tonal"
                     prepend-icon="tabler-plus"
@@ -665,7 +671,7 @@ const onSubmit = async () => {
                   <div class="d-flex align-center justify-space-between mb-2">
                     <span class="text-caption text-medium-emphasis">Người thực hiện {{ index + 1 }}</span>
                     <VBtn
-                      v-if="!isDocumentIssued"
+                      v-if="!isReadonly"
                       icon
                       size="x-small"
                       variant="text"
@@ -691,7 +697,7 @@ const onSubmit = async () => {
                         item-title="title"
                         item-value="value"
                         clearable
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
 
@@ -706,7 +712,7 @@ const onSubmit = async () => {
                         item-title="title"
                         item-value="value"
                         clearable
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
 
@@ -715,7 +721,7 @@ const onSubmit = async () => {
                         v-model="assignment.assignment_role"
                         label="Vai trò"
                         :items="assignmentRoleOptions"
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
 
@@ -724,7 +730,7 @@ const onSubmit = async () => {
                         v-model="assignment.assignment_status"
                         label="Trạng thái giao việc"
                         :items="assignmentStatusOptions"
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
 
@@ -733,7 +739,7 @@ const onSubmit = async () => {
                         v-model="assignment.note"
                         label="Ghi chú"
                         placeholder="Ghi chú khi giao việc..."
-                        :readonly="isDocumentIssued"
+                        :readonly="isReadonly"
                       />
                     </VCol>
                   </VRow>
@@ -742,7 +748,7 @@ const onSubmit = async () => {
 
               <!-- Actions -->
               <VCol
-                v-if="!isDocumentIssued"
+                v-if="!isReadonly"
                 cols="12"
               >
                 <VBtn

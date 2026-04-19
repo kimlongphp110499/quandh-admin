@@ -306,31 +306,6 @@ onMounted(async () => {
           >
             <VIcon icon="tabler-trash" />
           </IconBtn>
-
-          <VBtn
-            icon
-            variant="text"
-            color="medium-emphasis"
-          >
-            <VIcon icon="tabler-dots-vertical" />
-            <VMenu activator="parent">
-              <VList>
-                <VListItem @click="openEditDrawer(item)">
-                  <template #prepend>
-                    <VIcon icon="tabler-edit" />
-                  </template>
-                  <VListItemTitle>Sửa</VListItemTitle>
-                </VListItem>
-
-                <VListItem @click="handleDelete(item)">
-                  <template #prepend>
-                    <VIcon icon="tabler-trash" />
-                  </template>
-                  <VListItemTitle>Xóa</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
         </template>
 
         <template #no-data>

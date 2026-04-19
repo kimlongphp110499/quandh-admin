@@ -13,6 +13,8 @@ import { normalizeDate } from '@/utils/formatters'
 import { MY_TASK_TABLE_HEADERS } from '../../../configs/myTaskOptions'
 import ReportMyTask from '../../../components/ReportMyTask.vue'
 import ProgressMyTask from '../../../components/ProgressMyTask.vue'
+import ItemFormDrawer from '../../../components/ItemFormDrawer.vue'
+import DocumentFormDrawer from '../../../components/document/DocumentFormDrawer.vue'
 import { ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS } from '../../../configs/itemOptions'
 
 const store = useMyTaskAssignmentItemStore()
@@ -235,6 +237,24 @@ const resetFilters = () => {
   loadStats()
 }
 
+// ── View Drawer ───────────────────────────────────────────────────
+const viewDrawerOpen = ref(false)
+const viewingItem = ref<any>(null)
+
+const openViewDrawer = (item: any) => {
+  viewingItem.value = item
+  viewDrawerOpen.value = true
+}
+
+// ── View Document Drawer ──────────────────────────────────────────
+const viewDocDrawerOpen = ref(false)
+const viewingDocument = ref<any>(null)
+
+const openViewDocDrawer = (doc: any) => {
+  viewingDocument.value = doc
+  viewDocDrawerOpen.value = true
+}
+
 // ── Progress Dialog ───────────────────────────────────────────────
 const progressDialog = ref(false)
 const progressItem = ref<MyTaskItem | null>(null)
@@ -414,10 +434,13 @@ onMounted(async () => {
           <span class="text-body-1 text-high-emphasis">{{ indexOffset + index + 1 }}</span>
         </template>
 
-        <!-- Name + Description -->
+        <!-- Name -->
         <template #item.name="{ item }">
           <div class="d-flex flex-column gap-1 py-2">
-            <span class="text-base font-weight-medium text-high-emphasis">{{ item.name }}</span>
+            <span
+              class="text-base font-weight-medium text-high-emphasis item-name-link"
+              @click="openViewDrawer(item)"
+            >{{ item.name }}</span>
           </div>
         </template>
 
@@ -426,7 +449,8 @@ onMounted(async () => {
           <div class="d-flex flex-column gap-1 py-1">
             <span
               v-if="item.document"
-              class="text-base font-weight-medium text-high-emphasis"
+              class="text-base font-weight-medium text-high-emphasis item-name-link"
+              @click="openViewDocDrawer(item.document)"
             >{{ item.document.name }}</span>
             <span
               v-else
@@ -567,5 +591,29 @@ onMounted(async () => {
     />
      <Report
     />
+
+    <!-- View Item Drawer -->
+    <ItemFormDrawer
+      v-model:is-drawer-open="viewDrawerOpen"
+      :item="viewingItem"
+      :view-only="true"
+    />
+
+    <!-- View Document Drawer -->
+    <DocumentFormDrawer
+      v-model:is-drawer-open="viewDocDrawerOpen"
+      :document="viewingDocument"
+      :view-only="true"
+    />
   </div>
 </template>
+
+<style scoped>
+.item-name-link {
+  cursor: pointer;
+}
+
+.item-name-link:hover {
+  color: rgb(var(--v-theme-primary)) !important;
+}
+</style>

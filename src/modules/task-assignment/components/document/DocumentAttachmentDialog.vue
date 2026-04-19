@@ -4,8 +4,8 @@
 import { ref, watch } from 'vue'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { documentApi } from '../services/documentApi'
-import type { Document, DocumentAttachment } from '../services/documentApi'
+import { documentApi } from '../../services/documentApi'
+import type { Document, DocumentAttachment } from '../../services/documentApi'
 
 interface Props {
   modelValue: boolean
@@ -143,29 +143,28 @@ watch(() => props.modelValue, val => {
   }
 })
 </script>
-<!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue-->
-
 <template>
   <VDialog
+    :width="$vuetify.display.smAndDown ? 'auto' : 900"
     :model-value="props.modelValue"
-    scrollable
-     :width="$vuetify.display.smAndDown ? 'auto' : 900 "
     @update:model-value="val => emit('update:modelValue', val)"
   >
     <!-- 👉 Dialog close btn -->
     <DialogCloseBtn @click="emit('update:modelValue', false)" />
-  
-        <!-- 👉 Form -->
-      <VCard v-if="props.document" class="pa-sm-10 pa-2">
-      <VCardText> 
+
+    <VCard
+      v-if="props.document"
+      class="pa-sm-10 pa-2"
+    >
+      <VCardText>
+        <!-- 👉 Title -->
         <h4 class="text-h4 text-center mb-2">
           Tệp đính kèm
         </h4>
         <p class="text-body-1 text-center mb-6">
-           {{ props.document.name }}
+          {{ props.document.name }}
         </p>
 
-      <VCardText style="min-block-size: 260px; max-block-size: 60vh;">
         <!-- Input file ẩn -->
         <input
           ref="fileInputRef"
@@ -184,8 +183,7 @@ watch(() => props.modelValue, val => {
             Đã đính kèm
           </div>
 
-          <VList
-          >
+          <VList>
             <VListItem
               v-for="att in existingAttachments"
               :key="att.id"
@@ -224,9 +222,7 @@ watch(() => props.modelValue, val => {
                   :loading="deletingAttachmentId === att.id"
                   @click="handleRemoveExisting(att)"
                 >
-                  <VIcon
-                    icon="tabler-trash"
-                  />
+                  <VIcon icon="tabler-trash" />
                   <VTooltip
                     activator="parent"
                     location="top"
@@ -259,8 +255,7 @@ watch(() => props.modelValue, val => {
             Chờ tải lên ({{ pendingFiles.length }})
           </div>
 
-          <VList
-          >
+          <VList>
             <VListItem
               v-for="(file, idx) in pendingFiles"
               :key="idx"
@@ -288,9 +283,7 @@ watch(() => props.modelValue, val => {
                   color="error"
                   @click="removePending(idx)"
                 >
-                  <VIcon
-                    icon="tabler-x"
-                  />
+                  <VIcon icon="tabler-x" />
                   <VTooltip
                     activator="parent"
                     location="top"
@@ -302,39 +295,39 @@ watch(() => props.modelValue, val => {
             </VListItem>
           </VList>
         </div>
+
+        <!-- 👉 Submit and Cancel button -->
+        <VRow class="mt-4">
+          <VCol cols="12">
+            <VBtn
+            variant="tonal" 
+              color="secondary"
+              prepend-icon="tabler-plus"
+              class="me-3"
+              @click="openFilePicker"
+            >
+              Thêm file
+            </VBtn>
+
+            <VBtn
+              :loading="isUploading"
+              prepend-icon="tabler-upload"
+              class="me-3"
+              @click="handleUpload"
+            >
+              Tải lên ({{ pendingFiles.length }})
+            </VBtn>
+
+            <VBtn
+              variant="tonal"
+              color="secondary"
+              @click="close"
+            >
+              Đóng
+            </VBtn>
+          </VCol>
+        </VRow>
       </VCardText>
-
-      <!-- Footer actions -->
-      <VCardActions class="px-6 py-4 gap-3">
-        <VBtn
-          variant="tonal"
-          color="secondary"
-          prepend-icon="tabler-plus"
-          @click="openFilePicker"
-        >
-          Thêm file
-        </VBtn>
-
-        <VSpacer />
-
-        <VBtn
-          variant="tonal"
-          color="secondary"
-          @click="close"
-        >
-          Đóng
-        </VBtn>
-
-        <VBtn
-          variant="tonal"
-          :loading="isUploading"
-          prepend-icon="tabler-upload"
-          @click="handleUpload"
-        >
-          Tải lên ({{ pendingFiles.length }})
-        </VBtn>
-      </VCardActions>
-      </VCardText> 
     </VCard>
   </VDialog>
 

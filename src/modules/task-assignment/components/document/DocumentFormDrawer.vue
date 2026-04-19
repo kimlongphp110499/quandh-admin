@@ -5,15 +5,16 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { useDocumentStore } from '../stores/useDocumentStore'
-import { typeApi } from '../services/typeApi'
-import { documentApi } from '../services/documentApi'
-import type { Document, DocumentAttachment } from '../services/documentApi'
-import { DOCUMENT_STATUS_OPTIONS } from '../configs/documentOptions'
+import { useDocumentStore } from '../../stores/useDocumentStore'
+import { typeApi } from '../../services/typeApi'
+import { documentApi } from '../../services/documentApi'
+import type { Document, DocumentAttachment } from '../../services/documentApi'
+import { DOCUMENT_STATUS_OPTIONS } from '../../configs/documentOptions'
 
 interface Props {
   isDrawerOpen: boolean
   document?: Document | null
+  viewOnly?: boolean
 }
 
 interface Emit {
@@ -110,9 +111,14 @@ const isEditMode = computed(() => !!props.document?.id)
 
 const isIssued = computed(() => props.document?.status === 'issued')
 
+const isReadonly = computed(() => isIssued.value || !!props.viewOnly)
+
 const drawerTitle = computed(() => {
   if (!isEditMode.value)
     return 'Thêm văn bản giao việc mới'
+
+  if (props.viewOnly)
+    return 'Xem chi tiết văn bản giao việc'
 
   return isIssued.value ? 'Xem văn bản giao việc (Đã ban hành)' : 'Chỉnh sửa văn bản giao việc'
 })
@@ -226,7 +232,7 @@ const onSubmit = async () => {
                   v-model="formData.name"
                   label="Tên văn bản giao việc"
                   placeholder="Nhập tên văn bản giao việc"
-                  :readonly="isIssued"
+                  :readonly="isReadonly"
                   :rules="[requiredRule, serverErrorRule('name')]"
                 />
               </VCol>
@@ -240,11 +246,10 @@ const onSubmit = async () => {
                   v-model="formData.task_assignment_type_id"
                   placeholder="Chọn loại văn bản..."
                   :items="typeOptions"
-                  :loading="typeLoading"
                   item-title="title"
                   item-value="value"
                   clearable
-                  :readonly="isIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('task_assignment_type_id')]"
                 >
                   <!-- Sentinel cuối danh sách để trigger load thêm -->
@@ -273,7 +278,7 @@ const onSubmit = async () => {
                   :config="{
                     dateFormat: 'd/m/Y',
                   }"
-                  :readonly="isIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('issue_date')]"
                 />
               </VCol>
@@ -284,7 +289,7 @@ const onSubmit = async () => {
                   v-model="formData.status"
                   label="Trạng thái"
                   :items="statusOptions"
-                  :readonly="isIssued"
+                  :readonly="isReadonly"
                   :rules="[requiredRule, serverErrorRule('status')]"
                 />
               </VCol>
@@ -296,14 +301,14 @@ const onSubmit = async () => {
                   label="Tóm tắt nội dung"
                   placeholder="Nhập tóm tắt nội dung văn bản"
                   rows="4"
-                  :readonly="isIssued"
+                  :readonly="isReadonly"
                   :rules="[serverErrorRule('summary')]"
                 />
               </VCol>
 
               <!-- Actions -->
               <VCol
-                v-if="!isIssued"
+                v-if="!isReadonly"
                 cols="12"
               >
                 <VBtn

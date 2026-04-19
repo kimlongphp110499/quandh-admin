@@ -20,10 +20,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
-
-  // Do not default numeric props (total/active/inactive/totalGroup) to 0
-  // so we can detect whether the parent passed them and only render
-  // the cards when a value is provided.
   totalLabel: 'Tổng',
   activeLabel: 'Hoạt động',
   inactiveLabel: 'Không hoạt động',
@@ -35,166 +31,81 @@ const props = withDefaults(defineProps<Props>(), {
   showSettings: true,
 })
 
+interface StatItem {
+  label: string
+  value: number
+  icon: string
+  color: string
+}
+
 const emit = defineEmits<{
   'settings': []
 }>()
 
-// Count how many cards will be rendered
-const cardCount = computed(() => {
-  let count = 0
+const stats = computed<StatItem[]>(() => {
+  const items: StatItem[] = []
   if (props.total !== undefined && props.total !== null)
-    count++
+    items.push({ label: props.totalLabel, value: props.total, icon: props.totalIcon, color: 'primary' })
   if (props.active !== undefined && props.active !== null)
-    count++
+    items.push({ label: props.activeLabel, value: props.active, icon: props.activeIcon, color: 'success' })
   if (props.totalGroup !== undefined && props.totalGroup !== null)
-    count++
+    items.push({ label: props.totalGroupLabel, value: props.totalGroup, icon: props.totalGroupIcon, color: 'warning' })
   if (props.inactive !== undefined && props.inactive !== null)
-    count++
+    items.push({ label: props.inactiveLabel, value: props.inactive, icon: props.inactiveIcon, color: 'error' })
 
-  return count
-})
-
-// Compute column breakpoints based on card count
-const colProps = computed(() => {
-  if (cardCount.value === 1)
-    return { cols: '12', sm: '6' }
-  if (cardCount.value === 2)
-    return { cols: '12', sm: '6' }
-  if (cardCount.value === 3)
-    return { cols: '12', sm: '6', md: '4' }
-
-  return { cols: '12', sm: '6', md: '3' }
+  return items
 })
 </script>
 
 <template>
-  <VRow class="mb-6">
-    <!-- Total Card -->
-    <VCol
-      v-if="total !== undefined && total !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ totalLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ total }}
+  <VCard class="mb-6">
+    <VCardText class="px-0 py-0">
+      <VRow no-gutters>
+        <VCol
+          v-for="(stat, index) in stats"
+          :key="stat.label"
+          cols="12"
+          sm="6"
+          :md="stats.length <= 2 ? 6 : stats.length === 3 ? 4 : 3"
+          :class="[
+            'd-flex align-center',
+            index < stats.length - 1 ? 'stat-col-border' : '',
+          ]"
+        >
+          <div class="d-flex align-center justify-space-between w-100 pa-6">
+            <div>
+              <h4 class="text-h4 mb-1">
+                {{ stat.value }}
               </h4>
+              <span class="text-body-1 text-medium-emphasis">{{ stat.label }}</span>
             </div>
             <VAvatar
-              color="primary"
+              :color="stat.color"
               variant="tonal"
               rounded
               size="42"
             >
               <VIcon
-                :icon="totalIcon"
+                :icon="stat.icon"
                 size="26"
               />
             </VAvatar>
           </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <!-- Active Card -->
-    <VCol
-      v-if="active !== undefined && active !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ activeLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ active }}
-              </h4>
-            </div>
-            <VAvatar
-              color="success"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="activeIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <!-- Group Card -->
-    <VCol
-      v-if="totalGroup !== undefined && totalGroup !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ totalGroupLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ totalGroup }}
-              </h4>
-            </div>
-            <VAvatar
-              color="warning"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="totalGroupIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <!-- Inactive Card -->
-    <VCol
-      v-if="inactive !== undefined && inactive !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ inactiveLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ inactive }}
-              </h4>
-            </div>
-            <VAvatar
-              color="error"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="inactiveIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-  </VRow>
+        </VCol>
+      </VRow>
+    </VCardText>
+  </VCard>
 </template>
+
+<style scoped>
+.stat-col-border {
+  border-inline-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+}
+
+@media (max-width: 959px) {
+  .stat-col-border {
+    border-inline-end: none;
+    border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  }
+}
+</style>

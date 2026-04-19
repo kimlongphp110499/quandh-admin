@@ -428,30 +428,6 @@ onMounted(async () => {
                       Xóa
                     </VTooltip>
                   </IconBtn>
-                  <VBtn
-                    icon
-                    variant="text"
-                    color="medium-emphasis"
-                  >
-                    <VIcon icon="tabler-dots-vertical" />
-                    <VMenu activator="parent">
-                      <VList>
-                        <VListItem @click="openEditDrawer(group)">
-                          <template #prepend>
-                            <VIcon icon="tabler-edit" />
-                          </template>
-                          <VListItemTitle>Sửa</VListItemTitle>
-                        </VListItem>
-
-                        <VListItem @click="handleDelete(group)">
-                          <template #prepend>
-                            <VIcon icon="tabler-trash" />
-                          </template>
-                          <VListItemTitle>Xóa</VListItemTitle>
-                        </VListItem>
-                      </VList>
-                    </VMenu>
-                  </VBtn>
                 </div>
               </td>
             </tr>
@@ -545,30 +521,6 @@ onMounted(async () => {
                         Xóa
                       </VTooltip>
                     </IconBtn>
-                    <VBtn
-                    icon
-                    variant="text"
-                    color="medium-emphasis"
-                  >
-                    <VIcon icon="tabler-dots-vertical" />
-                    <VMenu activator="parent">
-                      <VList>
-                        <VListItem @click="openEditDrawer(perm)">
-                          <template #prepend>
-                            <VIcon icon="tabler-edit" />
-                          </template>
-                          <VListItemTitle>Sửa</VListItemTitle>
-                        </VListItem>
-
-                        <VListItem @click="handleDelete(perm)">
-                          <template #prepend>
-                            <VIcon icon="tabler-trash" />
-                          </template>
-                          <VListItemTitle>Xóa</VListItemTitle>
-                        </VListItem>
-                      </VList>
-                    </VMenu>
-                  </VBtn>
                   </div>
                 </td>
               </tr>

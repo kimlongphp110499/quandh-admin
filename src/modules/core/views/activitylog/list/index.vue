@@ -256,14 +256,6 @@ onMounted(load)
 
 <template>
   <div>
-    <!-- System Page Header -->
-    <AppSystemPageHeader
-      title="Nhật ký hoạt động"
-      :total="store.total"
-      total-label="Tổng nhật ký"
-      total-icon="tabler-history"
-      @settings="() => {}"
-    />
 
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
@@ -462,18 +454,18 @@ onMounted(load)
                 </div>
               </div>
             </td>
-            <td class="text-sm text-medium-emphasis">
+            <td class="text-base font-weight-medium text-high-emphasis">
               {{ log.organization_id ? getOrganizationName(log.organization_id) : '—' }}
             </td>
             <td>
-              <div
-                class="text-sm text-truncate"
+              <div 
+                class="text-base font-weight-medium text-high-emphasis"
                 style="max-inline-size: 260px;"
               >
                 {{ log.description }}
               </div>
               <div
-                class="text-xs text-disabled text-truncate"
+                class="text-sm"
                 style="max-inline-size: 260px;"
               >
                 {{ log.route }}
@@ -499,7 +491,7 @@ onMounted(load)
             </td>
             <td>
               <span
-                class="text-xs font-weight-medium"
+                class="text-base font-weight-medium text-high-emphasis"
                 :class="log.ip_address ? 'text-warning' : 'text-disabled'"
               >
                 {{ log.ip_address ?? '—' }}
@@ -521,31 +513,6 @@ onMounted(load)
               >
                 <VIcon icon="tabler-trash" />
               </IconBtn>
-
-              <VBtn
-                icon
-                variant="text"
-                color="medium-emphasis"
-              >
-                <VIcon icon="tabler-dots-vertical" />
-                <VMenu activator="parent">
-                  <VList>
-                    <VListItem @click="openDetail(log)">
-                      <template #prepend>
-                        <VIcon icon="tabler-eye" />
-                      </template>
-                      <VListItemTitle>Xem chi tiết</VListItemTitle>
-                    </VListItem>
-
-                    <VListItem @click="handleDelete(log)">
-                      <template #prepend>
-                        <VIcon icon="tabler-trash" />
-                      </template>
-                      <VListItemTitle>Xóa</VListItemTitle>
-                    </VListItem>
-                  </VList>
-                </VMenu>
-              </VBtn>
             </td>
           </tr>
         </tbody>
@@ -567,160 +534,210 @@ onMounted(load)
 
     <!-- Detail Dialog -->
     <VDialog
+      :width="$vuetify.display.smAndDown ? 'auto' : 700"
       v-model="detailDialog"
-      max-width="700"
-      scrollable
     >
-      <VCard v-if="selectedLog">
-        <VCardTitle class="pt-6 px-6 d-flex align-center gap-3">
-          <VIcon icon="tabler-history" />
-          Chi tiết nhật ký #{{ selectedLog.id }}
-          <VSpacer />
-          <IconBtn @click="detailDialog = false">
-            <VIcon icon="tabler-x" />
-          </IconBtn>
-        </VCardTitle>
-        <VDivider />
-        <VCardText class="px-6 py-4">
-          <VRow dense>
-            <VCol cols="4">
-              <div class="text-xs text-disabled">
+      <!-- 👉 Dialog close btn -->
+      <DialogCloseBtn @click="detailDialog = false" />
+
+      <VCard
+        v-if="selectedLog"
+        class="pa-sm-10 pa-2"
+      >
+        <VCardText>
+          <!-- 👉 Title -->
+          <h4 class="text-h4 text-center mb-2">
+            Chi tiết nhật ký
+          </h4>
+          <p class="text-body-1 text-center mb-6">
+            #{{ selectedLog.id }} — {{ selectedLog.description }}
+          </p>
+
+          <VRow>
+            <!-- Người dùng -->
+            <VCol
+              cols="12"
+              md="4"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Người dùng
               </div>
-              <div class="text-sm font-weight-medium">
+              <div class="text-body-1 font-weight-medium">
                 {{ selectedLog.user_name }}
               </div>
             </VCol>
-            <VCol cols="4">
-              <div class="text-xs text-disabled">
+
+            <!-- Loại người dùng -->
+            <VCol
+              cols="12"
+              md="4"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Loại người dùng
               </div>
-              <div class="text-sm">
+              <div class="text-body-1">
                 {{ selectedLog.user_type }}
               </div>
             </VCol>
-            <VCol cols="4">
-              <div class="text-xs text-disabled">
+
+            <!-- Tổ chức -->
+            <VCol
+              cols="12"
+              md="4"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Tổ chức
               </div>
-              <div class="text-sm">
-                {{ selectedLog.organization_id ? `${getOrganizationName(selectedLog.organization_id)}` : '' }}
+              <div class="text-body-1">
+                {{ selectedLog.organization_id ? getOrganizationName(selectedLog.organization_id) : '—' }}
               </div>
             </VCol>
 
             <VCol cols="12">
-              <VDivider class="my-3" />
+              <VDivider />
             </VCol>
 
+            <!-- Route -->
             <VCol cols="12">
-              <div class="text-xs text-disabled">
-                Mô tả
-              </div>
-              <div class="text-sm">
-                {{ selectedLog.description }}
-              </div>
-            </VCol>
-
-            <VCol cols="12">
-              <div class="text-xs text-disabled">
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Route
               </div>
-              <div class="text-sm text-break">
+              <div class="text-body-1 text-break">
                 {{ selectedLog.route }}
               </div>
             </VCol>
 
-            <VCol cols="3">
-              <div class="text-xs text-disabled">
+            <!-- Phương thức -->
+            <VCol
+              cols="12"
+              md="3"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Phương thức
               </div>
               <VChip
                 :color="methodColor(selectedLog.method_type)"
                 size="small"
                 label
-                class="font-weight-bold mt-1"
+                class="font-weight-bold"
               >
                 {{ selectedLog.method_type }}
               </VChip>
             </VCol>
 
-            <VCol cols="3">
-              <div class="text-xs text-disabled">
+            <!-- Mã trạng thái -->
+            <VCol
+              cols="12"
+              md="3"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Mã trạng thái
               </div>
               <VChip
                 :color="statusColor(selectedLog.status_code)"
                 size="small"
                 variant="tonal"
-                class="mt-1"
               >
                 {{ selectedLog.status_code }}
               </VChip>
             </VCol>
 
-            <VCol cols="3">
-              <div class="text-xs text-disabled">
+            <!-- Địa chỉ IP -->
+            <VCol
+              cols="12"
+              md="3"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Địa chỉ IP
               </div>
-              <div class="text-sm font-weight-medium text-warning">
-                {{ selectedLog.ip_address }}
+              <div class="text-body-1 font-weight-medium text-warning">
+                {{ selectedLog.ip_address ?? '—' }}
               </div>
             </VCol>
 
-            <VCol cols="3">
-              <div class="text-xs text-disabled">
+            <!-- Quốc gia -->
+            <VCol
+              cols="12"
+              md="3"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Quốc gia
               </div>
-              <div class="text-sm">
+              <div class="text-body-1">
                 {{ selectedLog.country ?? '—' }}
               </div>
             </VCol>
 
             <VCol cols="12">
-              <VDivider class="my-3" />
+              <VDivider />
             </VCol>
 
+            <!-- User Agent -->
             <VCol cols="12">
-              <div class="text-xs text-disabled mb-1">
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 User Agent
               </div>
-              <div class="text-xs text-medium-emphasis">
+              <div class="text-body-2 text-medium-emphasis">
                 {{ selectedLog.user_agent }}
               </div>
             </VCol>
 
+            <!-- Request Data -->
             <VCol
               v-if="selectedLog.request_data"
               cols="12"
             >
-              <div class="text-xs text-disabled mb-1">
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Request Data
               </div>
               <pre
-                class="text-xs bg-surface-variant pa-3 rounded"
+                class="text-body-2 bg-surface-variant pa-3 rounded"
                 style="overflow-x: auto; white-space: pre-wrap;"
               >{{ JSON.stringify(selectedLog.request_data, null, 2) }}</pre>
             </VCol>
 
             <VCol cols="12">
-              <VDivider class="my-3" />
+              <VDivider />
             </VCol>
 
-            <VCol cols="6">
-              <div class="text-xs text-disabled">
+            <!-- Thời gian tạo -->
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Thời gian tạo
               </div>
-              <div class="text-sm">
+              <div class="text-body-1">
                 {{ selectedLog.created_at }}
               </div>
             </VCol>
-            <VCol cols="6">
-              <div class="text-xs text-disabled">
+
+            <!-- Cập nhật lần cuối -->
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <div class="text-caption text-disabled text-uppercase font-weight-medium mb-1">
                 Cập nhật lần cuối
               </div>
-              <div class="text-sm">
+              <div class="text-body-1">
                 {{ selectedLog.updated_at }}
               </div>
+            </VCol>
+
+            <!-- 👉 Close button -->
+            <VCol
+              cols="12"
+              class="text-center"
+            >
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="detailDialog = false"
+              >
+                Đóng
+              </VBtn>
             </VCol>
           </VRow>
         </VCardText>

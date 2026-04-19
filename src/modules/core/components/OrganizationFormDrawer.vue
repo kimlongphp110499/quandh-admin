@@ -142,11 +142,23 @@ watch(() => props.organization, org => {
   }
 }, { immediate: true })
 
-watch(() => props.isDrawerOpen, val => {
-  if (!val)
+watch(() => props.isDrawerOpen, async val => {
+  if (!val) {
     resetForm()
-  else
-    orgStore.fetchParentOptions()
+  }
+  else {
+    await orgStore.fetchParentOptions()
+    const org = props.organization
+    if (org) {
+      formData.value = {
+        name: org.name || '',
+        description: org.description || '',
+        status: org.status || 'active',
+        parent_id: org.parent_id || null,
+        sort_order: org.sort_order ?? 0,
+      }
+    }
+  }
 })
 
 onMounted(() => {
