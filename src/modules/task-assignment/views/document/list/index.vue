@@ -535,11 +535,11 @@ onMounted(async () => {
 
         <!-- Loại văn bản -->
         <template #item.type="{ item }">
-          <span
+          <a
             v-if="item.type"
-            class="text-base font-weight-medium cursor-pointer text-high-emphasis"
+            class="text-link font-weight-medium d-inline-block cursor-pointer"
             @click.stop="goToTypeEdit(item.type.id)"
-          >{{ item.type.name }}</span>
+          >{{ item.type.name }}</a>
           <span
             v-else
             class="text-xs text-disabled"

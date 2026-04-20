@@ -10,16 +10,17 @@ import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
-import ItemFormDrawer from '../../../components/ItemFormDrawer.vue'
+import ItemFormDrawer from '../../../components/item/ItemFormDrawer.vue'
 import DocumentAboutPanel from '../../../components/document/DocumentAboutPanel.vue'
 import { documentApi } from '../../../services/documentApi'
 import { typeApi } from '../../../services/typeApi'
-import type { Document, DocumentAttachment } from '../../../services/documentApi'
+import type { Document } from '../../../services/documentApi'
 import { DOCUMENT_DETAIL_TABLE_HEADERS } from '../../../configs/documentOptions'
 import { useItemStore } from '../../../stores/useItemStore'
 import type { Item, ItemStatus } from '../../../services/itemApi'
 import { itemApi } from '../../../services/itemApi'
 import DocumentActivityTimeline from '@/modules/task-assignment/components/document/DocumentActivityTimeline.vue'
+import FileAttachmentPanel, { type AttachmentItem } from '../../../components/shared/FileAttachmentPanel.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -91,6 +92,7 @@ const refDocForm = ref<InstanceType<typeof VForm>>()
 const isDocSubmitting = ref(false)
 const docServerErrors = ref<Record<string, string[]>>({})
 const docEditMode = ref(false)
+const detailTab = ref(0)
 
 const docForm = ref({
   name: '',
@@ -197,45 +199,20 @@ const saveDoc = async () => {
 }
 
 // ── Attachments ───────────────────────────────────────────────────
-const existingAttachments = ref<DocumentAttachment[]>([])
+const existingAttachments = ref<AttachmentItem[]>([])
 const pendingFiles = ref<File[]>([])
 const isUploading = ref(false)
 const deletingAttachmentId = ref<number | null>(null)
-const fileInputRef = ref<HTMLInputElement>()
 
 watch(() => currentDoc.value, doc => {
   existingAttachments.value = doc?.attachments ?? []
 }, { immediate: true })
 
-const openFilePicker = () => fileInputRef.value?.click()
-
-const onFileSelected = (e: Event) => {
-  const input = e.target as HTMLInputElement
-  if (!input.files) return
-  for (const file of Array.from(input.files))
-    pendingFiles.value.push(file)
-  input.value = ''
+const handleAddFiles = (files: File[]) => {
+  pendingFiles.value.push(...files)
 }
 
-const removePending = (index: number) => pendingFiles.value.splice(index, 1)
-
-const formatFileSize = (bytes?: number) => {
-  if (!bytes) return ''
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`
-}
-
-const getFileIcon = (mimeType?: string, fileName?: string) => {
-  const name = (fileName ?? '').toLowerCase()
-  const mime = (mimeType ?? '').toLowerCase()
-  if (mime.startsWith('image/')) return 'tabler-photo'
-  if (mime.includes('pdf') || name.endsWith('.pdf')) return 'tabler-file-type-pdf'
-  if (mime.includes('word') || name.endsWith('.doc') || name.endsWith('.docx')) return 'tabler-file-type-doc'
-  if (mime.includes('excel') || mime.includes('spreadsheet') || name.endsWith('.xls') || name.endsWith('.xlsx')) return 'tabler-file-type-xls'
-  if (mime.includes('zip') || mime.includes('rar') || name.endsWith('.zip') || name.endsWith('.rar')) return 'tabler-file-zip'
-  return 'tabler-file'
-}
+const handleRemovePending = (index: number) => pendingFiles.value.splice(index, 1)
 
 const handleUpload = async () => {
   if (!pendingFiles.value.length) return
@@ -244,7 +221,7 @@ const handleUpload = async () => {
     const res = await documentApi.addAttachments(documentId.value, pendingFiles.value)
     if (res.data.success) {
       existingAttachments.value = res.data.data?.attachments ?? []
-      if (currentDoc.value) currentDoc.value.attachments = existingAttachments.value
+      if (currentDoc.value) currentDoc.value.attachments = existingAttachments.value as any
     }
     pendingFiles.value = []
     showToast('Tải file lên thành công!', 'success')
@@ -255,13 +232,13 @@ const handleUpload = async () => {
   finally { isUploading.value = false }
 }
 
-const handleRemoveAttachment = async (att: DocumentAttachment) => {
+const handleRemoveAttachment = async (att: AttachmentItem) => {
   showConfirm('Xóa file', `Bạn có chắc muốn xóa file "${att.file_name || att.name}"?`, async () => {
     deletingAttachmentId.value = att.id
     try {
       await documentApi.removeAttachment(documentId.value, att.id)
       existingAttachments.value = existingAttachments.value.filter(a => a.id !== att.id)
-      if (currentDoc.value) currentDoc.value.attachments = existingAttachments.value
+      if (currentDoc.value) currentDoc.value.attachments = existingAttachments.value as any
       showToast('Xóa file thành công!', 'success')
     }
     catch (err: any) {
@@ -433,208 +410,91 @@ onMounted(async () => {
     <template v-else-if="currentDoc">
       <VRow class="mb-5 match-height">
         <!-- Left: About -->
-        <VCol cols="12" md="4">
+        <VCol
+          cols="12"
+          md="4"
+        >
           <DocumentAboutPanel
             :about="aboutData.about"
             :contacts="aboutData.contacts"
             :teams="aboutData.teams"
-            :overview="aboutData.overview"
           />
         </VCol>
-        <!-- Right: Timeline -->
-        <VCol cols="12" md="8">
-          <DocumentActivityTimeline :items="timelineItems" />
+
+        <!-- Right: Tabs -->
+        <VCol
+          cols="12"
+          md="8"
+          class="d-flex flex-column"
+        >
+          <VTabs
+            v-model="detailTab"
+            class="v-tabs-pill mb-4 flex-grow-0"
+          >
+            <VTab>
+              <VIcon size="18" icon="tabler-paperclip" class="me-1" />
+              Tệp đính kèm
+            </VTab>
+            <VTab>
+              <VIcon size="18" icon="tabler-history" class="me-1" />
+              Dòng thời gian
+            </VTab>
+          </VTabs>
+
+          <VWindow
+            v-model="detailTab"
+            class="disable-tab-transition detail-window"
+            :touch="false"
+          >
+            <!-- Tab 0: Tệp đính kèm -->
+            <VWindowItem class="h-100">
+              <VCard class="h-100">
+                <VCardText class="pa-5">
+                  <FileAttachmentPanel
+                    :existing-attachments="existingAttachments"
+                    :pending-files="pendingFiles"
+                    :deleting-id="deletingAttachmentId"
+                    :readonly="isIssued"
+                    delete-mode="direct"
+                    @add-files="handleAddFiles"
+                    @remove-pending="handleRemovePending"
+                    @remove-existing="handleRemoveAttachment"
+                  >
+                    <template
+                      v-if="!isIssued"
+                      #actions="{ openFilePicker }"
+                    >
+                      <div class="d-flex gap-2 mt-2">
+                        <VBtn
+                          variant="tonal"
+                          color="secondary"
+                          prepend-icon="tabler-plus"
+                          @click="openFilePicker"
+                        >
+                          Thêm file
+                        </VBtn>
+                        <VBtn
+                          v-if="pendingFiles.length > 0"
+                          prepend-icon="tabler-upload"
+                          :loading="isUploading"
+                          @click="handleUpload"
+                        >
+                          Tải lên ({{ pendingFiles.length }})
+                        </VBtn>
+                      </div>
+                    </template>
+                  </FileAttachmentPanel>
+                </VCardText>
+              </VCard>
+            </VWindowItem>
+
+            <!-- Tab 1: Dòng thời gian -->
+            <VWindowItem class="h-100">
+              <DocumentActivityTimeline :items="timelineItems" class="h-100" />
+            </VWindowItem>
+          </VWindow>
         </VCol>
       </VRow>
-
-      <!-- ── Card tệp đính kèm ─────────────────────────────── -->
-      <VCard class="mb-5">
-        <VCardTitle class="pa-5 pb-3 d-flex align-center justify-space-between">
-          <div class="d-flex align-center gap-2">
-            <span>Tệp đính kèm</span>
-          </div>
-        </VCardTitle>
-
-        <VDivider />
-
-        <VCardText class="pa-5">
-          <!-- Chế độ xem -->
-          <template v-if="!docEditMode">
-            <VRow>
-              <!-- File đính kèm -->
-              <VCol cols="12" md="12">
-
-
-                <!-- Input ẩn -->
-                <input ref="fileInputRef" type="file" multiple style="display: none;" @change="onFileSelected">
-
-                <!-- File đã lưu -->
-                <div v-if="existingAttachments.length > 0" class="mb-3">
-                  <div class="text-body-1 font-weight-medium me-2">
-                    Đã đính kèm
-                  </div>
-                  <VList>
-                    <VListItem v-for="att in existingAttachments" :key="att.id" class="py-2">
-                      <template #prepend>
-                        <VIcon :icon="getFileIcon(att.mime_type, att.file_name)" size="20" color="primary" class="me-2" />
-                      </template>
-                      <VListItemTitle class="text-body-2">
-                        <a v-if="att.url" :href="att.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                          {{ att.file_name || att.name }}
-                        </a>
-                        <span v-else>{{ att.file_name || att.name }}</span>
-                      </VListItemTitle>
-                      <VListItemSubtitle v-if="att.size" class="text-caption">
-                        {{ formatFileSize(att.size) }}
-                      </VListItemSubtitle>
-                      <template #append>
-                        <IconBtn
-                          v-if="!isIssued"
-                          size="small"
-                          color="error"
-                          :loading="deletingAttachmentId === att.id"
-                          @click="handleRemoveAttachment(att)"
-                        >
-                          <VIcon icon="tabler-trash" size="16" />
-                          <VTooltip activator="parent" location="top">Xóa</VTooltip>
-                        </IconBtn>
-                      </template>
-                    </VListItem>
-                  </VList>
-                </div>
-
-                <div v-else-if="!pendingFiles.length" class="text-center py-6 text-disabled">
-                  <VIcon icon="tabler-paperclip" size="40" class="mb-2 d-block mx-auto" />
-                  <div class="text-body-2">Chưa có tệp đính kèm nào</div>
-                </div>
-
-                <!-- File chờ upload -->
-                <div v-if="pendingFiles.length > 0" class="mb-3">
-                  <div class="text-body-1 font-weight-medium me-2">
-                    Chờ tải lên ({{ pendingFiles.length }})
-                  </div>
-                  <VList>
-                    <VListItem v-for="(file, idx) in pendingFiles" :key="idx" class="py-2">
-                      <template #prepend>
-                        <VIcon :icon="getFileIcon(file.type, file.name)" size="20" color="secondary" class="me-2" />
-                      </template>
-                      <VListItemTitle class="text-body-2">{{ file.name }}</VListItemTitle>
-                      <VListItemSubtitle class="text-caption">{{ formatFileSize(file.size) }}</VListItemSubtitle>
-                      <template #append>
-                        <IconBtn color="error" @click="removePending(idx)">
-                          <VIcon icon="tabler-x" />
-                          <VTooltip activator="parent" location="top">Bỏ chọn</VTooltip>
-                        </IconBtn>
-                      </template>
-                    </VListItem>
-                  </VList>
-                </div>
-
-                <!-- Actions file -->
-                <div v-if="!isIssued" class="d-flex gap-2 mt-2">
-                  <VBtn variant="tonal" color="secondary" prepend-icon="tabler-plus" @click="openFilePicker">
-                    Thêm file
-                  </VBtn>
-                  <VBtn
-                    v-if="pendingFiles.length > 0"
-                    prepend-icon="tabler-upload"
-                    :loading="isUploading"
-                    @click="handleUpload"
-                  >
-                    Tải lên ({{ pendingFiles.length }})
-                  </VBtn>
-                </div>
-              </VCol>
-            </VRow>
-          </template>
-
-          <!-- Chế độ chỉnh sửa -->
-          <template v-else>
-            <VForm ref="refDocForm">
-              <VRow>
-
-                <!-- File khi edit -->
-                <VCol cols="12" md="4">
-                  <div class="text-caption text-medium-emphasis mb-3 text-uppercase font-weight-medium">
-                    Tệp đính kèm
-                  </div>
-                  <input ref="fileInputRef" type="file" multiple style="display: none;" @change="onFileSelected">
-                  <div v-if="existingAttachments.length > 0" class="mb-3">
-                    <div class="text-body-1 font-weight-medium me-2">Đã đính kèm</div>
-                    <VList>
-                      <VListItem v-for="att in existingAttachments" :key="att.id" class="py-2">
-                        <template #prepend>
-                          <VIcon :icon="getFileIcon(att.mime_type, att.file_name)" size="20" color="primary" class="me-2" />
-                        </template>
-                        <VListItemTitle class="text-body-2">
-                          <a v-if="att.url" :href="att.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                            {{ att.file_name || att.name }}
-                          </a>
-                          <span v-else>{{ att.file_name || att.name }}</span>
-                        </VListItemTitle>
-                        <VListItemSubtitle v-if="att.size" class="text-caption">{{ formatFileSize(att.size) }}</VListItemSubtitle>
-                        <template #append>
-                          <IconBtn size="small" color="error" :loading="deletingAttachmentId === att.id" @click="handleRemoveAttachment(att)">
-                            <VIcon icon="tabler-trash" size="16" />
-                            <VTooltip activator="parent" location="top">Xóa</VTooltip>
-                          </IconBtn>
-                        </template>
-                      </VListItem>
-                    </VList>
-                  </div>
-
-                  <div v-else-if="!pendingFiles.length" class="text-center py-6 text-disabled">
-                    <VIcon icon="tabler-paperclip" size="40" class="mb-2 d-block mx-auto" />
-                    <div class="text-body-2">Chưa có tệp đính kèm nào</div>
-                  </div>
-
-                  <div v-if="pendingFiles.length > 0" class="mb-3">
-                    <div class="text-body-1 font-weight-medium me-2">Chờ tải lên ({{ pendingFiles.length }})</div>
-                    <VList>
-                      <VListItem v-for="(file, idx) in pendingFiles" :key="idx" class="py-2">
-                        <template #prepend>
-                          <VIcon :icon="getFileIcon(file.type, file.name)" size="20" color="secondary" class="me-2" />
-                        </template>
-                        <VListItemTitle class="text-body-2">{{ file.name }}</VListItemTitle>
-                        <VListItemSubtitle class="text-caption">{{ formatFileSize(file.size) }}</VListItemSubtitle>
-                        <template #append>
-                          <IconBtn size="small" color="error" @click="removePending(idx)">
-                            <VIcon icon="tabler-x" size="16" />
-                            <VTooltip activator="parent" location="top">Bỏ chọn</VTooltip>
-                          </IconBtn>
-                        </template>
-                      </VListItem>
-                    </VList>
-                  </div>
-
-                  <div class="d-flex gap-2 mt-2">
-                    <VBtn variant="tonal" color="secondary" size="small" prepend-icon="tabler-plus" @click="openFilePicker">
-                      Thêm file
-                    </VBtn>
-                    <VBtn
-                      v-if="pendingFiles.length > 0"
-                      size="small"
-                      prepend-icon="tabler-upload"
-                      :loading="isUploading"
-                      @click="handleUpload"
-                    >
-                      Tải lên ({{ pendingFiles.length }})
-                    </VBtn>
-                  </div>
-                </VCol>
-
-                <VCol cols="12">
-                  <VDivider class="mb-4" />
-                  <div class="d-flex gap-3">
-                    <VBtn color="primary" :loading="isDocSubmitting" @click="saveDoc">Lưu thay đổi</VBtn>
-                    <VBtn variant="tonal" color="secondary" @click="cancelDocEdit">Hủy</VBtn>
-                  </div>
-                </VCol>
-              </VRow>
-            </VForm>
-          </template>
-        </VCardText>
-      </VCard>
 
       <!-- ── Danh sách công việc ─────────────────────────────── -->
       <AppFilterBar :show-filters="false">
@@ -738,9 +598,6 @@ onMounted(async () => {
               <div class="text-sm text-disabled mb-3">
                 Chưa có công việc nào trong văn bản này
               </div>
-              <VBtn v-if="!isIssued" color="primary" prepend-icon="tabler-plus" @click="openAddItemDrawer">
-                Thêm công việc đầu tiên
-              </VBtn>
             </div>
           </template>
 
@@ -785,3 +642,17 @@ onMounted(async () => {
     <AppSnackbar v-model="snackbar.show" :message="snackbar.message" :color="snackbar.color" />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.detail-window {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  :deep(.v-window__container),
+  :deep(.v-window-item) {
+    flex: 1;
+    block-size: 100%;
+  }
+}
+</style>

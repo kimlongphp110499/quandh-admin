@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { MyTaskItem, MyTaskStatus } from '../services/myTaskItem'
-import { useMyTaskAssignmentItemStore } from '../stores/useMyTaskAssignmentItemStore'
+import type { MyTaskItem, MyTaskStatus } from '../../services/myTaskItem'
+import { useMyTaskAssignmentItemStore } from '../../stores/useMyTaskAssignmentItemStore'
 import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {

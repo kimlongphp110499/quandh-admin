@@ -3,7 +3,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import dayjs from 'dayjs'
-import ItemFormDrawer from '../../../components/ItemFormDrawer.vue'
+import ItemFormDrawer from '../../../components/item/ItemFormDrawer.vue'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { normalizeDate } from '@/utils/formatters'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -897,11 +897,12 @@ onMounted(async () => {
 
         <!-- Tên công việc -->
         <template #item.name="{ item }">
-          <div>
-            <div class="d-flex flex-column">
-              <span class="text-base font-weight-medium text-high-emphasis"> {{ item.name }} </span>
-            </div>
-          </div>
+          <RouterLink
+            :to="{ name: 'task-assignment-items-id', params: { id: item.id } }"
+            class="text-link font-weight-medium d-inline-block"
+          >
+            {{ item.name }}
+          </RouterLink>
         </template>
 
         <!-- Văn bản -->
@@ -968,7 +969,7 @@ onMounted(async () => {
           <span
             v-if="item.end_at && item.deadline_type !== 'no_deadline' "
             class="text-base font-weight-medium text-high-emphasis"
-          >{{ dayjs(item.end_at, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY') }} </span>
+          >{{ dayjs(item.end_at, 'DD/MM/YYYY').format('DD/MM/YYYY') }} </span>
           <span
             v-else
             class="text-base font-weight-medium text-high-emphasis"

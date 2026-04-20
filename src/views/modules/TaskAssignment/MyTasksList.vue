@@ -890,7 +890,6 @@ onMounted(async () => {
                   <AppTextField
                     v-model="reportForm.report_document_number"
                     label="Số hiệu"
-                    placeholder="VD: 123/BC-..."
                     hide-details
                   />
                 </VCol>

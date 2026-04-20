@@ -5,17 +5,17 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { useItemStore } from '../stores/useItemStore'
+import { useItemStore } from '../../stores/useItemStore'
 import type {
   Item,
   ItemDepartmentPayload,
   ItemUserPayload,
 } from '../services/itemApi'
-import { documentApi } from '../services/documentApi'
-import { itemTypeApi } from '../services/itemTypeApi'
-import { departmentApi } from '../services/departmentApi'
+import { documentApi } from '../../services/documentApi'
+import { itemTypeApi } from '../../services/itemTypeApi'
+import { departmentApi } from '../../services/departmentApi'
 import { userApi } from '@/api/modules/user'
-import { ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_DEADLINE_TYPE_OPTIONS, ASSIGNMENT_STATUS_OPTIONS, ASSIGNMENT_ROLE_OPTIONS, DEPARTMENT_ROLE_OPTIONS } from '../configs/itemOptions'
+import { ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_DEADLINE_TYPE_OPTIONS, ASSIGNMENT_STATUS_OPTIONS, ASSIGNMENT_ROLE_OPTIONS, DEPARTMENT_ROLE_OPTIONS } from '../../configs/itemOptions'
 
 interface Props {
   isDrawerOpen: boolean

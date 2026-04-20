@@ -23,7 +23,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <VCard>
+  <VCard class="h-100">
     <VCardItem>
       <VCardTitle>Dòng thời gian</VCardTitle>
     </VCardItem>
