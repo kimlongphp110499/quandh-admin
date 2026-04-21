@@ -51,61 +51,24 @@ const handleForgotPassword = async () => {
 </script>
 
 <template>
-  <a href="javascript:void(0)">
-    <div class="auth-logo d-flex align-center gap-x-3">
-      <VNodeRenderer :nodes="themeConfig.app.logo" />
-      <h1 class="auth-title">
-        {{ themeConfig.app.title }}
-      </h1>
-    </div>
-  </a>
-
   <VRow
     no-gutters
-    class="auth-wrapper bg-surface"
+    class="auth-wrapper bg-surface justify-center"
   >
     <VCol
-      md="8"
-      class="d-none d-md-flex"
-    >
-      <div class="position-relative bg-background w-100 me-0">
-        <div
-          class="d-flex align-center justify-center w-100 h-100"
-          style="padding-inline: 6.25rem;"
-        >
-          <VImg
-            max-width="500"
-            :src="authThemeImg"
-            class="auth-illustration mt-16 mb-2"
-          />
-        </div>
-        <img
-          class="auth-footer-mask flip-in-rtl"
-          :src="authThemeMask"
-          alt="auth-footer-mask"
-          height="280"
-          width="100"
-        >
-      </div>
-    </VCol>
-
-    <VCol
       cols="12"
-      md="4"
+      md="6"
       class="auth-card-v2 d-flex align-center justify-center"
     >
       <VCard
         flat
-        :max-width="500"
+        :max-width="600"
         class="mt-12 mt-sm-0 pa-6"
       >
         <VCardText>
           <h4 class="text-h4 mb-1">
-            Quên mật khẩu? 🔒
+            Quên mật khẩu?
           </h4>
-          <p class="mb-0">
-            Nhập email của bạn và chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu
-          </p>
         </VCardText>
 
         <VCardText>

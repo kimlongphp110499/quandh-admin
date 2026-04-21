@@ -12,6 +12,10 @@ import { useSettingStore } from '@/store/modules/setting'
 
 // eslint-disable-next-line import/extensions
 import { type Rule } from '@/plugins/casl/ability'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import AppSwitchOrgDialog from '@/components/AppSwitchOrgDialog.vue'
 
 definePage({
   meta: {
@@ -35,6 +39,12 @@ const form = ref({
 const isPasswordVisible = ref(false)
 const isLoading = ref(false)
 const errorMessage = ref('')
+const fieldErrors = ref<Record<string, string>>({})
+
+function clearErrors() {
+  errorMessage.value = ''
+  fieldErrors.value = {}
+}
 
 // Dialog chọn tổ chức
 const isOrgDialogOpen = ref(false)
@@ -73,7 +83,7 @@ const socialLinks = computed(() => {
 // ─── Handlers ───────────────────────────────────────────────────
 const handleLogin = async () => {
   try {
-    errorMessage.value = ''
+    clearErrors()
     isLoading.value = true
 
     await authStore.login({
@@ -93,22 +103,28 @@ const handleLogin = async () => {
     }
   }
   catch (error: any) {
-    errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
+    const data = error.response?.data
+    if (data?.errors) {
+      const errs: Record<string, string> = {}
+      for (const [key, messages] of Object.entries(data.errors as Record<string, string[]>))
+        errs[key] = messages[0]
+      fieldErrors.value = errs
+    }
+    else {
+      errorMessage.value = data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
+    }
   }
   finally {
     isLoading.value = false
   }
 }
 
-const handleSelectOrg = async () => {
-  if (!selectedOrgId.value)
-    return
-
+const handleSelectOrg = async (orgId: number) => {
   try {
     orgDialogError.value = ''
     isLoading.value = true
 
-    await authStore.switchOrganization(selectedOrgId.value)
+    await authStore.switchOrganization(orgId)
 
     const savedRules = localStorage.getItem('userAbilityRules')
 
@@ -139,32 +155,26 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- Fullscreen background -->
-  <div class="login-page-wrapper">
-    <!-- Background image -->
-    <div
-      class="login-bg"
-      :style="backgroundImage ? `background-image: url('${backgroundImage}')` : ''"
-    />
-
-    <!-- Overlay tối nhẹ -->
-    <div class="login-overlay" />
-
-    <!-- Card trung tâm -->
-    <div class="login-card-wrapper">
+  <VRow
+    no-gutters
+    class="auth-wrapper bg-surface justify-center"
+  >
+    <VCol
+      cols="12"
+      md="6"
+      class="auth-card-v2 d-flex align-center justify-center"
+    >
       <VCard
-        class="login-card pa-6 pa-sm-8"
-        elevation="8"
-        rounded="lg"
-        max-width="420"
-        width="100%"
+        flat
+        :max-width="600"
+        class="mt-12 mt-sm-0 pa-6"
       >
-        <!-- Logo + Tên -->
-        <div class="d-flex flex-column align-center mb-6">
-          <div class="d-flex align-center justify-center gap-3 mb-3">
+        <VCardText>
+          <!-- Logo + Tên -->
+          <div class="d-flex align-center gap-3 mb-3">
             <VAvatar
               v-if="logoUrl"
-              size="56"
+              size="48"
               rounded
             >
               <VImg
@@ -175,303 +185,136 @@ onMounted(async () => {
 
             <VAvatar
               v-else
-              size="56"
+              size="48"
               color="primary"
               variant="tonal"
               rounded
             >
               <VIcon
                 icon="tabler-building-community"
-                size="30"
+                size="26"
               />
             </VAvatar>
 
-            <h5 class="text-h5 font-weight-bold text-center text-uppercase mb-0">
+            <h5 class="text-h5 font-weight-bold text-uppercase mb-0">
               {{ appName }}
             </h5>
           </div>
 
-          <p
-            v-if="welcomeTitle"
-            class="text-body-1 font-weight-medium text-center mt-1 mb-0"
-          >
-            {{ welcomeTitle }}
-          </p>
+          <h4 class="text-h4 mb-1">
+            {{ welcomeTitle || 'Đăng nhập' }}
+          </h4>
 
           <p
             v-if="appDescription"
-            class="text-body-2 text-medium-emphasis text-center mt-1 mb-0"
+            class="mb-0"
           >
             {{ appDescription }}
           </p>
-        </div>
+        </VCardText>
 
-        <!-- Error alert -->
-        <VAlert
-          v-if="errorMessage"
-          type="error"
-          variant="tonal"
-          class="mb-4"
-          closable
-          density="compact"
-          @click:close="errorMessage = ''"
-        >
-          {{ errorMessage }}
-        </VAlert>
+        <VCardText>
+          <!-- Error alert -->
+          <VAlert
+            v-if="errorMessage"
+            type="error"
+            variant="tonal"
+            class="mb-4"
+            closable
+            @click:close="errorMessage = ''"
+          >
+            {{ errorMessage }}
+          </VAlert>
 
-        <!-- Form -->
-        <VForm @submit.prevent="handleLogin">
-          <VRow>
-            <VCol cols="12">
-              <AppTextField
-                v-model="form.login"
-                autofocus
-                label="Nhập tên đăng nhập hoặc email"
-                placeholder="Nhập thông tin đăng nhập"
-                prepend-inner-icon="tabler-user"
-                :disabled="isLoading"
-              />
-            </VCol>
-
-            <VCol cols="12">
-              <AppTextField
-                v-model="form.password"
-                label="Mật khẩu"
-                placeholder="············"
-                :type="isPasswordVisible ? 'text' : 'password'"
-                autocomplete="current-password"
-                :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
-                :disabled="isLoading"
-                @click:append-inner="isPasswordVisible = !isPasswordVisible"
-              />
-            </VCol>
-
-            <VCol cols="12">
-              <div class="d-flex align-center justify-space-between mb-4">
-                <VCheckbox
-                  v-model="form.remember"
-                  label="Ghi nhớ đăng nhập"
+          <!-- Form -->
+          <VForm @submit.prevent="handleLogin">
+            <VRow>
+              <VCol cols="12">
+                <AppTextField
+                  v-model="form.login"
+                  autofocus
+                  label="Email hoặc tên đăng nhập"
+                  placeholder="Nhập thông tin đăng nhập"
                   :disabled="isLoading"
-                  hide-details
-                  density="compact"
+                  :error-messages="fieldErrors.email"
+                  @input="delete fieldErrors.email"
                 />
-                <RouterLink
-                  class="text-primary text-body-2"
-                  to="/forgot-password"
+              </VCol>
+
+              <VCol cols="12">
+                <AppTextField
+                  v-model="form.password"
+                  label="Mật khẩu"
+                  placeholder="············"
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="current-password"
+                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  :disabled="isLoading"
+                  :error-messages="fieldErrors.password"
+                  @input="delete fieldErrors.password"
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                />
+              </VCol>
+
+              <VCol cols="12">
+                <div class="d-flex align-center justify-space-between mb-4">
+                  <VCheckbox
+                    v-model="form.remember"
+                    label="Ghi nhớ đăng nhập"
+                    :disabled="isLoading"
+                    hide-details
+                  />
+                  <RouterLink
+                    class="text-primary text-body-2"
+                    to="/forgot-password"
+                  >
+                    Quên mật khẩu?
+                  </RouterLink>
+                </div>
+
+                <VBtn
+                  block
+                  type="submit"
+                  size="large"
+                  :loading="isLoading"
                 >
-                  Quên mật khẩu?
-                </RouterLink>
-              </div>
+                  Đăng Nhập
+                </VBtn>
+              </VCol>
+            </VRow>
+          </VForm>
 
-              <VBtn
-                block
-                type="submit"
-                size="large"
-                :loading="isLoading"
-              >
-                Đăng Nhập
-              </VBtn>
-            </VCol>
-          </VRow>
-        </VForm>
+          <VCol
+            cols="12"
+            md="12"
+            class="d-flex align-center"
+          >
+            <VDivider class="my-12" />
+            <span class="mx-4 text-no-wrap">Theo dõi chúng tôi</span>
+            <VDivider />
+          </VCol>
 
-        <!-- Social links -->
-        <template v-if="socialLinks.length">
-          <VDivider class="my-4">
-            <span class="text-caption text-medium-emphasis px-2">Theo dõi chúng tôi</span>
-          </VDivider>
+          <!-- Social links -->
+          <template v-if="socialLinks.length">
 
-          <div class="d-flex justify-center gap-3">
-            <a
-              v-for="(link, i) in socialLinks"
-              :key="i"
-              :href="link!.url"
-              target="_blank"
-              rel="noopener"
-              class="social-icon-link"
-            >
-              <VIcon
-                :icon="link!.icon"
-                size="22"
-                :color="link!.color"
-              />
-            </a>
-          </div>
-        </template>
+            <AuthProvider :links="socialLinks as any" />
+          </template>
+        </VCardText>
       </VCard>
-    </div>
-  </div>
+    </VCol>
+  </VRow>
 
   <!-- Dialog chọn tổ chức -->
-  <VDialog
+  <AppSwitchOrgDialog
     v-model="isOrgDialogOpen"
-    max-width="480"
-    persistent
-  >
-    <VCard>
-      <VCardTitle class="pt-6 px-6">
-        <div class="w-100">
-          <div class="d-flex align-center justify-center gap-3 mb-3">
-            <VAvatar
-              v-if="logoUrl"
-              size="48"
-              rounded
-            >
-              <VImg
-                :src="logoUrl"
-                :alt="appName"
-              />
-            </VAvatar>
-
-            <VAvatar
-              v-else
-              size="48"
-              color="primary"
-              variant="tonal"
-              rounded
-            >
-              <VIcon
-                icon="tabler-building-community"
-                size="24"
-              />
-            </VAvatar>
-
-            <div class="text-h4 font-weight-bold">
-              {{ appName }}
-            </div>
-          </div>
-
-          <div class="text-h4 text-center">
-            {{ orgSelectTitle || 'Chọn tổ chức' }}
-          </div>
-
-          <div
-            v-if="orgSelectDescription"
-            class="text-body-1 text-medium-emphasis font-weight-regular text-center mt-1"
-          >
-            {{ orgSelectDescription }}
-          </div>
-        </div>
-      </VCardTitle>
-
-      <VDivider class="mt-4" />
-
-      <VCardText class="px-6 pt-4">
-        <VAlert
-          v-if="orgDialogError"
-          type="error"
-          variant="tonal"
-          class="mb-4"
-          closable
-          @click:close="orgDialogError = ''"
-        >
-          {{ orgDialogError }}
-        </VAlert>
-
-        <div class="d-flex flex-column gap-2">
-          <VCard
-            v-for="org in authStore.availableOrganizations"
-            :key="org.id"
-            :variant="selectedOrgId === org.id ? 'tonal' : 'outlined'"
-            :color="selectedOrgId === org.id ? 'primary' : undefined"
-            class="cursor-pointer"
-            @click="selectedOrgId = org.id"
-          >
-            <VCardText class="d-flex align-center gap-3 py-3">
-              <VAvatar
-                color="primary"
-                variant="tonal"
-                size="36"
-                rounded
-              >
-                <VIcon
-                  icon="tabler-building"
-                  size="18"
-                />
-              </VAvatar>
-              <span class="font-weight-medium">{{ org.name }}</span>
-              <VSpacer />
-              <VIcon
-                v-if="selectedOrgId === org.id"
-                icon="tabler-circle-check-filled"
-                color="primary"
-                size="20"
-              />
-            </VCardText>
-          </VCard>
-        </div>
-      </VCardText>
-
-      <VCardActions class="px-6 pb-6 pt-2 d-flex flex-column gap-2">
-        <VBtn
-          block
-          size="large"
-          :loading="isLoading"
-          :disabled="isLoading || !selectedOrgId"
-          @click="handleSelectOrg"
-        >
-          Vào hệ thống
-        </VBtn>
-        <VBtn
-          block
-          variant="tonal"
-          color="secondary"
-          :disabled="isLoading"
-          prepend-icon="tabler-logout"
-          @click="authStore.logout().then(() => router.replace('/login'))"
-        >
-          Đăng xuất
-        </VBtn>
-      </VCardActions>
-    </VCard>
-  </VDialog>
+    :loading="isLoading"
+    :error="orgDialogError"
+    logout-on-close
+    @confirm="handleSelectOrg"
+    @close="authStore.logout().then(() => router.replace('/login'))"
+  />
 </template>
 
-<style lang="scss" scoped>
-.login-page-wrapper {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-bg {
-  position: absolute;
-  inset: 0;
-  background-color: #1a2540;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.login-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-}
-
-.login-card-wrapper {
-  position: relative;
-  z-index: 1;
-  inline-size: 100%;
-  max-inline-size: 420px;
-  padding-inline: 1rem;
-}
-
-.login-card {
-  backdrop-filter: blur(4px);
-}
-
-.social-icon-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 1;
-  }
-}
+<style lang="scss">
+@use "@core/scss/template/pages/page-auth";
 </style>

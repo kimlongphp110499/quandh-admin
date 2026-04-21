@@ -11,7 +11,7 @@ import { useAuthStore } from '@/store/modules/auth'
 // eslint-disable-next-line import/no-unresolved
 import { useUserStore } from '@/store/modules/user'
 // eslint-disable-next-line import/no-unresolved
-import { useOrganizationStore } from '@/store/modules/organization'
+import { useOrganizationStore } from '@/modules/core/stores/useOrganizationStore'
 
 const { can } = useAbility()
 const authStore = useAuthStore()

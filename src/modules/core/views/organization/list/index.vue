@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import OrganizationFormDrawer from '../../../components/OrganizationFormDrawer.vue'
+import { ORG_STATUS_OPTIONS, ORG_TABLE_HEADERS } from '../../../configs/organizationOptions'
+import { useOrganizationStore } from '../../../stores/useOrganizationStore'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
@@ -9,9 +11,7 @@ import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 // eslint-disable-next-line import/extensions, import/no-unresolved
-import { useOrganizationStore } from '../../../stores/useOrganizationStore'
 
-import { ORG_TABLE_HEADERS, ORG_STATUS_OPTIONS } from '../../../configs/organizationOptions'
 import type { Organization } from '@/api/modules/organization'
 
 const orgStore = useOrganizationStore()

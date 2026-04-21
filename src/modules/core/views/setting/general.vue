@@ -68,7 +68,6 @@ const log = reactive({
 // ── populate from store ──────────────────────────────────────────
 function populate() {
   const g = settingStore.settings.general ?? {}
-
   general.copyright = g.copyright ?? ''
   general.designed_by = g.designed_by ?? ''
   general.language = g.language ?? 'vi'
@@ -77,7 +76,6 @@ function populate() {
   general.logo = g.logo ?? ''
 
   const ap = settingStore.settings.admin_page ?? {}
-
   adminPage.admin_app_name = ap.admin_app_name ?? ''
   adminPage.admin_logo_title = ap.admin_logo_title ?? ''
   adminPage.admin_welcome_title = ap.admin_welcome_title ?? ''
@@ -85,13 +83,11 @@ function populate() {
   adminPage.admin_background_image = ap.admin_background_image ?? ''
 
   const os = settingStore.settings.org_select_page ?? {}
-
   orgSelect.org_select_title = os.org_select_title ?? ''
   orgSelect.org_select_description = os.org_select_description ?? ''
   orgSelect.org_select_background_image = os.org_select_background_image ?? ''
 
   const s = settingStore.settings.social ?? {}
-
   social.social_facebook = s.social_facebook ?? ''
   social.social_twitter = s.social_twitter ?? ''
   social.social_youtube = s.social_youtube ?? ''
@@ -100,7 +96,6 @@ function populate() {
   social.social_email = s.social_email ?? ''
 
   const a = settingStore.settings.api ?? {}
-
   api.api_gemini_url = a.api_gemini_url ?? ''
   api.api_gemini_token = a.api_gemini_token ?? ''
   api.api_deepseek_url = a.api_deepseek_url ?? ''
@@ -114,7 +109,6 @@ function populate() {
   api.api_google_maps_token = a.api_google_maps_token ?? ''
 
   const l = settingStore.settings.log ?? {}
-
   log.log_retention_days = l.log_retention_days ?? 90
 }
 
@@ -138,15 +132,15 @@ async function save(data: Record<string, any>) {
 }
 
 const tabs = [
-  { value: 'general', label: 'Cấu hình chung', icon: 'tabler-adjustments' },
-  { value: 'admin_page', label: 'Trang quản trị', icon: 'tabler-layout-dashboard' },
-  { value: 'org_select', label: 'Trang chọn tổ chức', icon: 'tabler-building' },
-  { value: 'social', label: 'Mạng xã hội', icon: 'tabler-share' },
-  { value: 'api', label: 'Kết nối API ngoài', icon: 'tabler-api' },
-  { value: 'log', label: 'Cấu hình Nhật ký', icon: 'tabler-history' },
+  { icon: 'tabler-adjustments', title: 'Cấu hình chung' },
+  { icon: 'tabler-layout-dashboard', title: 'Trang quản trị' },
+  { icon: 'tabler-building', title: 'Trang chọn tổ chức' },
+  { icon: 'tabler-share', title: 'Mạng xã hội' },
+  { icon: 'tabler-api', title: 'Kết nối API' },
+  { icon: 'tabler-history', title: 'Cấu hình Nhật ký' },
 ]
 
-const activeTab = ref('general')
+const activeTab = ref(null)
 
 const languageOptions = [
   { title: 'Tiếng Việt', value: 'vi' },
@@ -162,51 +156,35 @@ const timeFormatOptions = [
 
 <template>
   <div>
-    <!-- Mobile nav tabs -->
-    <div class="d-md-none mb-4">
-      <AppSelect
-        v-model="activeTab"
-        :items="tabs"
-        item-title="label"
-        item-value="value"
-      />
-    </div>
-
     <VRow>
-      <!-- Left nav tabs (desktop only) -->
+      <!-- Left: Vertical Tabs -->
       <VCol
         cols="12"
-        md="3"
-        class="d-none d-md-flex flex-column"
+        md="4"
       >
-        <VCard
-          elevation="0"
-          border
+        <h5 class="text-h5 mb-4">
+          Cài đặt hệ thống
+        </h5>
+
+        <VTabs
+          v-model="activeTab"
+          direction="vertical"
+          class="v-tabs-pill disable-tab-transition"
         >
-          <VList
-            nav
-            density="compact"
+          <VTab
+            v-for="(tab, index) in tabs"
+            :key="index"
+            :prepend-icon="tab.icon"
           >
-            <VListItem
-              v-for="tab in tabs"
-              :key="tab.value"
-              :value="tab.value"
-              :prepend-icon="tab.icon"
-              :title="tab.label"
-              :active="activeTab === tab.value"
-              color="primary"
-              rounded="lg"
-              class="mb-1"
-              @click="activeTab = tab.value"
-            />
-          </VList>
-        </VCard>
+            {{ tab.title }}
+          </VTab>
+        </VTabs>
       </VCol>
 
-      <!-- Right content -->
+      <!-- Right: Content -->
       <VCol
         cols="12"
-        md="9"
+        md="8"
       >
         <!-- Loading -->
         <div
@@ -219,605 +197,598 @@ const timeFormatOptions = [
           />
         </div>
 
-        <!-- Cấu hình chung -->
-        <VCard
-          v-else-if="activeTab === 'general'"
-          elevation="0"
-          border
+        <VWindow
+          v-else
+          v-model="activeTab"
+          class="disable-tab-transition"
+          :touch="false"
         >
-          <VCardText class="d-flex align-center gap-3 pa-5 border-b">
-            <VIcon
-              icon="tabler-adjustments"
-              color="primary"
-              size="20"
-            />
-            <div class="flex-grow-1">
-              <div class="text-body-1 font-weight-semibold">
-                Cấu hình chung
-              </div>
-            </div>
-            <VBtn
-              prepend-icon="tabler-device-floppy"
-              :loading="settingStore.isSaving"
-              @click="save({ ...general })"
+          <!-- ── Tab 0: Cấu hình chung ─────────────────────────── -->
+          <VWindowItem>
+            <VCard
+              title="Thông tin chung"
+              class="mb-6"
             >
-              Cập nhật
-            </VBtn>
-          </VCardText>
-
-          <VCardText class="pa-5 mt-3">
-            <VRow>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="general.copyright"
-                  label="Bản quyền"
-                  placeholder="© 2026 Sở Nội vụ thành phố Đà Nẵng"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="general.designed_by"
-                  label="Thiết kế bởi"
-                  placeholder="Danatec"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppSelect
-                  v-model="general.language"
-                  label="Ngôn ngữ"
-                  :items="languageOptions"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppSelect
-                  v-model="general.time_format"
-                  label="Định dạng thời gian"
-                  :items="timeFormatOptions"
-                />
-              </VCol>
-
-              <!-- Favicon -->
-              <VCol cols="12">
-                <div class="text-body-2 font-weight-medium mb-3">
-                  Biểu tượng trang (Favicon)
-                </div>
-                <div class="d-flex align-center gap-4">
-                  <div
-                    class="setting-img-preview rounded"
-                    style="width:64px;height:64px;"
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
                   >
-                    <VImg
-                      v-if="general.icon"
-                      :src="general.icon"
-                      width="64"
-                      height="64"
-                      cover
-                      class="rounded"
+                    <AppTextField
+                      v-model="general.copyright"
+                      label="Bản quyền"
+                      placeholder="© 2026 Sở Nội vụ thành phố Đà Nẵng"
                     />
-                    <div
-                      v-else
-                      class="d-flex align-center justify-center w-100 h-100 bg-surface-variant rounded"
-                    >
-                      <VIcon
-                        icon="tabler-photo"
-                        size="32"
-                        color="disabled"
-                      />
-                    </div>
-                  </div>
-                  <div>
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="general.designed_by"
+                      label="Thiết kế bởi"
+                      placeholder="Danatec"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppSelect
+                      v-model="general.language"
+                      label="Ngôn ngữ"
+                      :items="languageOptions"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppSelect
+                      v-model="general.time_format"
+                      label="Định dạng thời gian"
+                      :items="timeFormatOptions"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
+
+            <VCard
+              title="Favicon"
+              class="mb-6"
+            >
+              <VCardText>
+                <div class="d-flex align-center gap-6">
+                  <VAvatar
+                    rounded
+                    size="88"
+                    class="flex-shrink-0"
+                    :image="general.icon || undefined"
+                    variant="tonal"
+                    color="secondary"
+                  >
+                    <VIcon
+                      v-if="!general.icon"
+                      icon="tabler-photo"
+                      size="36"
+                    />
+                  </VAvatar>
+                  <div class="flex-grow-1">
                     <AppTextField
                       v-model="general.icon"
-                      label="URL favicon"
+                      label="URL Favicon"
                       placeholder="https://..."
-                      density="compact"
-                      style="min-inline-size: 300px"
                     />
-                    <div class="text-caption text-disabled mt-1">
+                    <p class="text-body-2 text-disabled mt-2 mb-0">
                       Định dạng JPG, GIF hoặc PNG. Kích thước tối đa 3MB
-                    </div>
+                    </p>
                   </div>
                 </div>
-              </VCol>
+              </VCardText>
+            </VCard>
 
-              <!-- Logo -->
-              <VCol cols="12">
-                <div class="text-body-2 font-weight-medium mb-3">
-                  Logo
-                </div>
-                <div class="d-flex align-center gap-4">
-                  <div
-                    class="setting-img-preview rounded"
-                    style="width:80px;height:80px;"
+            <VCard
+              title="Logo"
+              class="mb-6"
+            >
+              <VCardText>
+                <div class="d-flex align-center gap-6">
+                  <VAvatar
+                    rounded
+                    size="88"
+                    class="flex-shrink-0"
+                    :image="general.logo || undefined"
+                    variant="tonal"
+                    color="secondary"
                   >
-                    <VImg
-                      v-if="general.logo"
-                      :src="general.logo"
-                      width="80"
-                      height="80"
-                      cover
-                      class="rounded"
+                    <VIcon
+                      v-if="!general.logo"
+                      icon="tabler-photo"
+                      size="36"
                     />
-                    <div
-                      v-else
-                      class="d-flex align-center justify-center w-100 h-100 bg-surface-variant rounded"
-                    >
-                      <VIcon
-                        icon="tabler-photo"
-                        size="32"
-                        color="disabled"
-                      />
-                    </div>
-                  </div>
-                  <div>
+                  </VAvatar>
+                  <div class="flex-grow-1">
                     <AppTextField
                       v-model="general.logo"
-                      label="URL logo"
+                      label="URL Logo"
                       placeholder="https://..."
-                      density="compact"
-                      style="min-inline-size: 300px"
                     />
-                    <div class="text-caption text-disabled mt-1">
+                    <p class="text-body-2 text-disabled mt-2 mb-0">
                       Định dạng PNG, JPG. Kích thước tối đa 3MB
-                    </div>
+                    </p>
                   </div>
                 </div>
-              </VCol>
-            </VRow>
-          </VCardText>
-        </VCard>
+              </VCardText>
+            </VCard>
 
-        <!-- Trang quản trị -->
-        <VCard
-          v-else-if="activeTab === 'admin_page'"
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-3 pa-5 border-b">
-            <VIcon
-              icon="tabler-layout-dashboard"
-              color="primary"
-              size="20"
-            />
-            <div class="flex-grow-1">
-              <div class="text-body-1 font-weight-semibold">
-                Trang quản trị
-              </div>
+            <div class="d-flex justify-end gap-x-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="populate"
+              >
+                Hủy
+              </VBtn>
+              <VBtn
+                prepend-icon="tabler-device-floppy"
+                :loading="settingStore.isSaving"
+                @click="save({ ...general })"
+              >
+                Lưu thay đổi
+              </VBtn>
             </div>
-            <VBtn
-              prepend-icon="tabler-device-floppy"
-              :loading="settingStore.isSaving"
-              @click="save({ ...adminPage })"
+          </VWindowItem>
+
+          <!-- ── Tab 1: Trang quản trị ─────────────────────────── -->
+          <VWindowItem>
+            <VCard
+              title="Trang quản trị"
+              class="mb-6"
             >
-              Cập nhật
-            </VBtn>
-          </VCardText>
+              <VCardText>
+                <VRow>
+                  <VCol cols="12">
+                    <AppTextField
+                      v-model="adminPage.admin_app_name"
+                      label="Tên ứng dụng"
+                      placeholder="QuânDH Core"
+                    />
+                  </VCol>
+                  <VCol cols="12">
+                    <AppTextField
+                      v-model="adminPage.admin_logo_title"
+                      label="Tiêu đề logo"
+                      placeholder="Hệ thống quản trị"
+                    />
+                  </VCol>
+                  <VCol cols="12">
+                    <AppTextField
+                      v-model="adminPage.admin_welcome_title"
+                      label="Tiêu đề chào mừng"
+                      placeholder="Chào mừng đến với hệ thống"
+                    />
+                  </VCol>
+                  <VCol cols="12">
+                    <AppTextarea
+                      v-model="adminPage.admin_app_description"
+                      label="Mô tả ứng dụng"
+                      placeholder="Mô tả ngắn về ứng dụng"
+                      rows="3"
+                    />
+                  </VCol>
+                  <VCol cols="12">
+                    <AppTextField
+                      v-model="adminPage.admin_background_image"
+                      label="URL ảnh nền"
+                      placeholder="https://..."
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
 
-          <VCardText class="pa-5 mt-3">
-            <VRow>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="adminPage.admin_app_name"
-                  label="Tên ứng dụng"
-                  placeholder="QuânDH Core"
-                />
-              </VCol>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="adminPage.admin_logo_title"
-                  label="Tiêu đề logo"
-                  placeholder="Hệ thống quản trị"
-                />
-              </VCol>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="adminPage.admin_welcome_title"
-                  label="Tiêu đề chào mừng"
-                  placeholder="Chào mừng đến với hệ thống"
-                />
-              </VCol>
-              <VCol cols="12">
-                <AppTextarea
-                  v-model="adminPage.admin_app_description"
-                  label="Mô tả ứng dụng"
-                  placeholder="Mô tả ngắn về ứng dụng"
-                  rows="3"
-                />
-              </VCol>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="adminPage.admin_background_image"
-                  label="URL ảnh nền"
-                  placeholder="https://..."
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-        </VCard>
-
-        <!-- Trang chọn tổ chức -->
-        <VCard
-          v-else-if="activeTab === 'org_select'"
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-3 pa-5 border-b">
-            <VIcon
-              icon="tabler-building"
-              color="primary"
-              size="20"
-            />
-            <div class="flex-grow-1">
-              <div class="text-body-1 font-weight-semibold">
-                Trang chọn tổ chức
-              </div>
+            <div class="d-flex justify-end gap-x-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="populate"
+              >
+                Hủy
+              </VBtn>
+              <VBtn
+                prepend-icon="tabler-device-floppy"
+                :loading="settingStore.isSaving"
+                @click="save({ ...adminPage })"
+              >
+                Lưu thay đổi
+              </VBtn>
             </div>
-            <VBtn
-              prepend-icon="tabler-device-floppy"
-              :loading="settingStore.isSaving"
-              @click="save({ ...orgSelect })"
+          </VWindowItem>
+
+          <!-- ── Tab 2: Trang chọn tổ chức ─────────────────────── -->
+          <VWindowItem>
+            <VCard
+              title="Trang chọn tổ chức"
+              class="mb-6"
             >
-              Cập nhật
-            </VBtn>
-          </VCardText>
+              <VCardText>
+                <VRow>
+                  <VCol cols="12">
+                    <AppTextField
+                      v-model="orgSelect.org_select_title"
+                      label="Tiêu đề trang"
+                      placeholder="Chọn tổ chức"
+                    />
+                  </VCol>
+                  <VCol cols="12">
+                    <AppTextarea
+                      v-model="orgSelect.org_select_description"
+                      label="Mô tả"
+                      placeholder="Mô tả ngắn hiển thị trên trang chọn tổ chức"
+                      rows="3"
+                    />
+                  </VCol>
+                  <VCol cols="12">
+                    <AppTextField
+                      v-model="orgSelect.org_select_background_image"
+                      label="URL ảnh nền"
+                      placeholder="https://..."
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
 
-          <VCardText class="pa-5 mt-3">
-            <VRow>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="orgSelect.org_select_title" 
-                  label="Tiêu đề trang"
-                  placeholder="Chọn tổ chức"
-                />
-              </VCol>
-              <VCol cols="12">
-                <AppTextarea
-                  v-model="orgSelect.org_select_description"
-                  label="Mô tả"
-                  placeholder="Mô tả ngắn hiển thị trên trang chọn tổ chức"
-                  rows="3"
-                />
-              </VCol>
-              <VCol cols="12">
-                <AppTextField
-                  v-model="orgSelect.org_select_background_image"
-                  label="URL ảnh nền"
-                  placeholder="https://..."
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-        </VCard>
-
-        <!-- Mạng xã hội -->
-        <VCard
-          v-else-if="activeTab === 'social'"
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-3 pa-5 border-b">
-            <VIcon
-              icon="tabler-share"
-              color="primary"
-              size="20"
-            />
-            <div class="flex-grow-1">
-              <div class="text-body-1 font-weight-semibold">
-                Mạng xã hội
-              </div>
+            <div class="d-flex justify-end gap-x-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="populate"
+              >
+                Hủy
+              </VBtn>
+              <VBtn
+                prepend-icon="tabler-device-floppy"
+                :loading="settingStore.isSaving"
+                @click="save({ ...orgSelect })"
+              >
+                Lưu thay đổi
+              </VBtn>
             </div>
-            <VBtn
-              prepend-icon="tabler-device-floppy"
-              :loading="settingStore.isSaving"
-              @click="save({ ...social })"
+          </VWindowItem>
+
+          <!-- ── Tab 3: Mạng xã hội ────────────────────────────── -->
+          <VWindowItem>
+            <VCard
+              title="Mạng xã hội"
+              class="mb-6"
             >
-              Cập nhật
-            </VBtn>
-          </VCardText>
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="social.social_facebook"
+                      label="Facebook"
+                      placeholder="https://facebook.com/..."
+                      prepend-inner-icon="tabler-brand-facebook"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="social.social_twitter"
+                      label="Twitter / X"
+                      placeholder="https://twitter.com/..."
+                      prepend-inner-icon="tabler-brand-twitter"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="social.social_youtube"
+                      label="YouTube"
+                      placeholder="https://youtube.com/..."
+                      prepend-inner-icon="tabler-brand-youtube"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="social.social_tiktok"
+                      label="TikTok"
+                      placeholder="https://tiktok.com/..."
+                      prepend-inner-icon="tabler-brand-tiktok"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="social.social_gmail"
+                      label="Gmail"
+                      placeholder="contact@gmail.com"
+                      prepend-inner-icon="tabler-brand-google"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="social.social_email"
+                      label="Email liên hệ"
+                      placeholder="contact@example.com"
+                      prepend-inner-icon="tabler-mail"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
 
-          <VCardText class="pa-5 mt-3">
-            <VRow>
-              <VCol
-                cols="12"
-                md="6"
+            <div class="d-flex justify-end gap-x-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="populate"
               >
-                <AppTextField
-                  v-model="social.social_facebook"
-                  label="Facebook"
-                  placeholder="https://facebook.com/..."
-                  prepend-inner-icon="tabler-brand-facebook"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
+                Hủy
+              </VBtn>
+              <VBtn
+                prepend-icon="tabler-device-floppy"
+                :loading="settingStore.isSaving"
+                @click="save({ ...social })"
               >
-                <AppTextField
-                  v-model="social.social_twitter"
-                  label="Twitter / X"
-                  placeholder="https://twitter.com/..."
-                  prepend-inner-icon="tabler-brand-twitter"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="social.social_youtube"
-                  label="YouTube"
-                  placeholder="https://youtube.com/..."
-                  prepend-inner-icon="tabler-brand-youtube"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="social.social_tiktok"
-                  label="TikTok"
-                  placeholder="https://tiktok.com/..."
-                  prepend-inner-icon="tabler-brand-tiktok"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="social.social_gmail"
-                  label="Gmail"
-                  placeholder="contact@gmail.com"
-                  prepend-inner-icon="tabler-brand-google"
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="social.social_email"
-                  label="Email liên hệ"
-                  placeholder="contact@example.com"
-                  prepend-inner-icon="tabler-mail"
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-        </VCard>
-
-        <!-- Kết nối API ngoài -->
-        <VCard
-          v-else-if="activeTab === 'api'"
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-3 pa-5 border-b">
-            <VIcon
-              icon="tabler-api"
-              color="primary"
-              size="20"
-            />
-            <div class="flex-grow-1">
-              <div class="text-body-1 font-weight-semibold">
-                Kết nối API ngoài
-              </div>
+                Lưu thay đổi
+              </VBtn>
             </div>
-            <VBtn
-              prepend-icon="tabler-device-floppy"
-              :loading="settingStore.isSaving"
-              @click="save({ ...api })"
+          </VWindowItem>
+
+          <!-- ── Tab 4: Kết nối API ─────────────────────────────── -->
+          <VWindowItem>
+            <VCard
+              title="Gemini AI"
+              class="mb-6"
             >
-              Cập nhật
-            </VBtn>
-          </VCardText>
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_gemini_url"
+                      label="API URL"
+                      placeholder="https://..."
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_gemini_token"
+                      label="API Token"
+                      placeholder="API key"
+                      type="password"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
 
-          <VCardText class="pa-5 mt-3">
-            <div class="text-body-2 font-weight-semibold mb-3">
-              Gemini AI
-            </div>
-            <VRow class="mb-4">
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_gemini_url"
-                  label="Gemini API URL"
-                  placeholder="https://..."
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_gemini_token"
-                  label="Gemini Token"
-                  placeholder="API key"
-                  type="password"
-                />
-              </VCol>
-            </VRow>
-
-            <VDivider class="mb-4" />
-            <div class="text-body-2 font-weight-semibold mb-3">
-              DeepSeek AI
-            </div>
-            <VRow class="mb-4">
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_deepseek_url"
-                  label="DeepSeek API URL"
-                  placeholder="https://..."
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_deepseek_token"
-                  label="DeepSeek Token"
-                  placeholder="API key"
-                  type="password"
-                />
-              </VCol>
-            </VRow>
-
-            <VDivider class="mb-4" />
-            <div class="text-body-2 font-weight-semibold mb-3">
-              ChatGPT
-            </div>
-            <VRow class="mb-4">
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_chatgpt_url"
-                  label="ChatGPT API URL"
-                  placeholder="https://..."
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_chatgpt_token"
-                  label="ChatGPT Token"
-                  placeholder="API key"
-                  type="password"
-                />
-              </VCol>
-            </VRow>
-
-            <VDivider class="mb-4" />
-            <div class="d-flex align-center justify-space-between mb-3">
-              <div class="text-body-2 font-weight-semibold">
-                Firebase
-              </div>
-              <VSwitch
-                v-model="api.api_firebase_enabled"
-                label="Kích hoạt"
-                hide-details
-                density="compact"
-              />
-            </div>
-            <VRow class="mb-4">
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_firebase_url"
-                  label="Firebase API URL"
-                  placeholder="https://..."
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_firebase_token"
-                  label="Firebase Token"
-                  placeholder="API key"
-                  type="password"
-                />
-              </VCol>
-            </VRow>
-
-            <VDivider class="mb-4" />
-            <div class="text-body-2 font-weight-semibold mb-3">
-              Google Maps
-            </div>
-            <VRow>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_google_maps_url"
-                  label="Google Maps API URL"
-                  placeholder="https://..."
-                />
-              </VCol>
-              <VCol
-                cols="12"
-                md="6"
-              >
-                <AppTextField
-                  v-model="api.api_google_maps_token"
-                  label="Google Maps Token"
-                  placeholder="API key"
-                  type="password"
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-        </VCard>
-
-        <!-- Cấu hình Nhật ký -->
-        <VCard
-          v-else-if="activeTab === 'log'"
-          elevation="0"
-          border
-        >
-          <VCardText class="d-flex align-center gap-3 pa-5 border-b">
-            <VIcon
-              icon="tabler-history"
-              color="primary"
-              size="20"
-            />
-            <div class="flex-grow-1">
-              <div class="text-body-1 font-weight-semibold">
-                Cấu hình Nhật ký
-              </div>
-            </div>
-            <VBtn
-              prepend-icon="tabler-device-floppy"
-              :loading="settingStore.isSaving"
-              @click="save({ ...log })"
+            <VCard
+              title="DeepSeek AI"
+              class="mb-6"
             >
-              Cập nhật
-            </VBtn>
-          </VCardText>
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_deepseek_url"
+                      label="API URL"
+                      placeholder="https://..."
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_deepseek_token"
+                      label="API Token"
+                      placeholder="API key"
+                      type="password"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
 
-          <VCardText class="pa-5 mt-3">
-            <VRow>
-              <VCol
-                cols="12"
-                md="4"
+            <VCard
+              title="ChatGPT"
+              class="mb-6"
+            >
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_chatgpt_url"
+                      label="API URL"
+                      placeholder="https://..."
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_chatgpt_token"
+                      label="API Token"
+                      placeholder="API key"
+                      type="password"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
+
+            <VCard
+              class="mb-6"
+            >
+              <VCardText>
+                <div class="d-flex align-center justify-space-between mb-4">
+                  <div>
+                    <div class="text-body-1 font-weight-semibold">
+                      Firebase
+                    </div>
+                    <div class="text-body-2 text-medium-emphasis">
+                      Kết nối Firebase cho thông báo đẩy
+                    </div>
+                  </div>
+                  <VSwitch
+                    v-model="api.api_firebase_enabled"
+                    label="Kích hoạt"
+                    hide-details
+                    density="compact"
+                  />
+                </div>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_firebase_url"
+                      label="API URL"
+                      placeholder="https://..."
+                      :disabled="!api.api_firebase_enabled"
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_firebase_token"
+                      label="API Token"
+                      placeholder="API key"
+                      type="password"
+                      :disabled="!api.api_firebase_enabled"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
+
+            <VCard
+              title="Google Maps"
+              class="mb-6"
+            >
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_google_maps_url"
+                      label="API URL"
+                      placeholder="https://..."
+                    />
+                  </VCol>
+                  <VCol
+                    cols="12"
+                    md="6"
+                  >
+                    <AppTextField
+                      v-model="api.api_google_maps_token"
+                      label="API Token"
+                      placeholder="API key"
+                      type="password"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
+
+            <div class="d-flex justify-end gap-x-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="populate"
               >
-                <AppTextField
-                  v-model.number="log.log_retention_days"
-                  label="Số ngày giữ nhật ký"
-                  type="number"
-                  placeholder="90"
-                  suffix="ngày"
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-        </VCard>
+                Hủy
+              </VBtn>
+              <VBtn
+                prepend-icon="tabler-device-floppy"
+                :loading="settingStore.isSaving"
+                @click="save({ ...api })"
+              >
+                Lưu thay đổi
+              </VBtn>
+            </div>
+          </VWindowItem>
+
+          <!-- ── Tab 5: Cấu hình Nhật ký ───────────────────────── -->
+          <VWindowItem>
+            <VCard
+              title="Cấu hình Nhật ký"
+              class="mb-6"
+            >
+              <VCardText>
+                <VRow>
+                  <VCol
+                    cols="12"
+                    md="4"
+                  >
+                    <AppTextField
+                      v-model.number="log.log_retention_days"
+                      label="Số ngày giữ nhật ký"
+                      type="number"
+                      placeholder="90"
+                      suffix="ngày"
+                    />
+                  </VCol>
+                </VRow>
+              </VCardText>
+            </VCard>
+
+            <div class="d-flex justify-end gap-x-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                @click="populate"
+              >
+                Hủy
+              </VBtn>
+              <VBtn
+                prepend-icon="tabler-device-floppy"
+                :loading="settingStore.isSaving"
+                @click="save({ ...log })"
+              >
+                Lưu thay đổi
+              </VBtn>
+            </div>
+          </VWindowItem>
+        </VWindow>
       </VCol>
     </VRow>
 
@@ -828,11 +799,3 @@ const timeFormatOptions = [
     />
   </div>
 </template>
-
-<style scoped>
-.setting-img-preview {
-  flex-shrink: 0;
-  overflow: hidden;
-  border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
-}
-</style>
