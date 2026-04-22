@@ -14,6 +14,8 @@ export interface ReportAttachment {
 
 export interface ReportItem {
   id: number
+  reporter_user_id?: number
+  reporter_name?: string
   completed_at?: string
   report_document_number?: string
   report_document_excerpt?: string
@@ -25,13 +27,15 @@ interface Props {
   reports: ReportItem[]
   isLoading?: boolean
   canEdit?: boolean
+  currentUserId?: number
 }
 
 interface Emits {
   (e: 'edit', report: ReportItem): void
 }
 
-withDefaults(defineProps<Props>(), { canEdit: true })
+const props = withDefaults(defineProps<Props>(), { canEdit: true })
+
 defineEmits<Emits>()
 
 const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
@@ -92,12 +96,14 @@ const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
         <VCardText class="pa-5">
           <!-- Header -->
           <div class="d-flex align-start justify-space-between flex-wrap gap-4 mb-4">
-            <div class="text-body-1 font-weight-bold text-high-emphasis">
-              Báo cáo #{{ reports.length - index }}
+            <div>
+              <div class="text-body-1 font-weight-bold text-high-emphasis">
+                Báo cáo #{{ reports.length - index }}
+              </div>
             </div>
 
             <VTooltip
-              v-if="canEdit"
+              v-if="canEdit && props.currentUserId && report.reporter_user_id === props.currentUserId"
               text="Chỉnh sửa báo cáo"
             >
               <template #activator="{ props: tooltipProps }">
@@ -121,10 +127,10 @@ const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
             v-if="report.completed_at"
             class="report-section mb-4"
           >
-            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium mb-1">
+            <div class="report-section-content text-body-1 text-high-emphasis mb-1">
               Ngày hoàn thành
             </div>
-            <div class="report-section-content text-body-1 text-high-emphasis">
+            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium">
               {{ dayjs(report.completed_at, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY') }}
             </div>
           </div>
@@ -134,10 +140,10 @@ const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
             v-if="report.report_document_number"
             class="report-section mb-4"
           >
-            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium mb-1">
+            <div class="report-section-content text-body-1 text-high-emphasis mb-1">
               Số hiệu
             </div>
-            <div class="report-section-content text-body-1 text-high-emphasis">
+            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium">
               {{ report.report_document_number }}
             </div>
           </div>
@@ -147,10 +153,10 @@ const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
             v-if="report.report_document_excerpt"
             class="report-section mb-4"
           >
-            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium mb-1">
+            <div class="report-section-content text-body-1 text-high-emphasis mb-1">
               Trích yếu
             </div>
-            <div class="report-section-content text-body-1 text-high-emphasis">
+            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium">
               {{ report.report_document_excerpt }}
             </div>
           </div>
@@ -160,17 +166,28 @@ const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
             v-if="report.report_document_content"
             class="report-section mb-4"
           >
-            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium mb-1">
+            <div class="report-section-content text-body-1 text-high-emphasis mb-1">
               Nội dung báo cáo
             </div>
             <div
-              class="report-section-content text-body-1 text-medium-emphasis"
+              class="report-section-label text-caption text-medium-emphasis font-weight-medium"
               style="white-space: pre-wrap;"
             >
               {{ report.report_document_content }}
             </div>
           </div>
-
+          <!-- Người tạo -->
+          <div
+            v-if="report.reporter_name"
+            class="report-section mb-4"
+          >
+            <div class="report-section-content text-body-1 text-high-emphasis mb-1">
+              Người tạo
+            </div>
+            <div class="report-section-label text-caption text-medium-emphasis font-weight-medium">
+              {{ report.reporter_name }}
+            </div>
+          </div>
           <!-- Tệp đính kèm -->
           <div
             v-if="report.attachments?.length"

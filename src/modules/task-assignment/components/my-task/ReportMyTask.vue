@@ -6,6 +6,8 @@ import FileAttachmentPanel from '../shared/FileAttachmentPanel.vue'
 import { useMyTaskAssignmentItemStore } from '../../stores/useMyTaskAssignmentItemStore'
 import { normalizeDate } from '@/utils/formatters'
 import { getErrorMessage } from '@/utils/errorMessage'
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { useAuthStore } from '@/store/modules/auth'
 
 interface Props {
   modelValue: boolean
@@ -21,6 +23,8 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const store = useMyTaskAssignmentItemStore()
+const authStore = useAuthStore()
+const currentUserId = computed(() => authStore.user?.id as number | undefined)
 
 const reportList = ref<MyTaskReport[]>([])
 const reportLoading = ref(false)
@@ -51,7 +55,7 @@ const resetForm = () => {
 
 const cancel = () => {
   resetForm()
- emit('update:modelValue', false)
+  emit('update:modelValue', false)
 }
 
 const refreshReports = async (itemId: number) => {
@@ -64,7 +68,7 @@ const refreshReports = async (itemId: number) => {
   }
 }
 
-watch(() => props.modelValue, async (val) => {
+watch(() => props.modelValue, async val => {
   if (val && props.item) {
     resetForm()
     reportTab.value = 'form'
@@ -127,7 +131,8 @@ const submitReport = async () => {
   }
 }
 </script>
-<!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue-->
+
+<!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue -->
 <template>
   <VDialog
     :width="$vuetify.display.smAndDown ? 'auto' : 900"
@@ -153,12 +158,12 @@ const submitReport = async () => {
           v-model="reportTab"
           class="mb-6"
         >
-        <VTab value="form">
-          {{ editingReport ? 'Chỉnh sửa báo cáo' : 'Nộp báo cáo mới' }}
-        </VTab>
-        <VTab value="history">
-          Lịch sử báo cáo
-        </VTab>
+          <VTab value="form">
+            {{ editingReport ? 'Chỉnh sửa báo cáo' : 'Nộp báo cáo mới' }}
+          </VTab>
+          <VTab value="history">
+            Lịch sử báo cáo
+          </VTab>
         </VTabs>
 
         <VTabsWindow v-model="reportTab">
@@ -234,10 +239,10 @@ const submitReport = async () => {
               </VCol>
             </VRow>
 
-              <VCol
-                cols="12"
-                class="text-center mt-3"
-              >
+            <VCol
+              cols="12"
+              class="text-center mt-3"
+            >
               <VBtn
                 color="primary"
                 class="me-3"
@@ -262,6 +267,7 @@ const submitReport = async () => {
             <ItemReportHistoryList
               :reports="reportList"
               :is-loading="reportLoading"
+              :current-user-id="currentUserId"
               @edit="startEditReport"
             />
           </VTabsWindowItem>
@@ -270,4 +276,3 @@ const submitReport = async () => {
     </VCard>
   </VDialog>
 </template>
-
