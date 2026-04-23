@@ -4,6 +4,14 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import dayjs from 'dayjs'
 import ItemFormDrawer from '../../../components/item/ItemFormDrawer.vue'
+import UpdateStatus from '../../../components/item/UpdateStatus.vue'
+import { useItemStore } from '../../../stores/useItemStore'
+import type { Item, ItemStatus } from '../../../services/itemApi'
+import { documentApi } from '../../../services/documentApi'
+import { departmentApi } from '../../../services/departmentApi'
+import { itemTypeApi } from '../../../services/itemTypeApi'
+import { typeApi } from '../../../services/typeApi'
+import { ITEM_DEADLINE_TYPE_OPTIONS, ITEM_LIMIT_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_STATUS_OPTIONS, ITEM_TABLE_HEADERS } from '../../../configs/itemOptions'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { normalizeDate } from '@/utils/formatters'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -14,19 +22,22 @@ import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import AppImportDialog from '@/components/AppImportDialog.vue'
 import AppExportDialog from '@/components/AppExportDialog.vue'
-import { useItemStore } from '../../../stores/useItemStore'
-import type { Item, ItemStatus } from '../../../services/itemApi'
-import { documentApi } from '../../../services/documentApi'
-import { departmentApi } from '../../../services/departmentApi'
-import { itemTypeApi } from '../../../services/itemTypeApi'
-import { typeApi } from '../../../services/typeApi'
 import { userApi } from '@/api/modules/user'
-import { ITEM_TABLE_HEADERS, ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_LIMIT_OPTIONS, ITEM_DEADLINE_TYPE_OPTIONS } from '../../../configs/itemOptions'
 
 const store = useItemStore()
 
 const isFormDrawerVisible = ref(false)
 const editingItem = ref<Item | null>(null)
+
+// Progress dialog
+const progressDialog = ref(false)
+const progressItem = ref<Item | null>(null)
+
+const openProgressDialog = (item: Item) => {
+  progressItem.value = item
+  progressDialog.value = true
+}
+
 const selected = ref<Item[]>([])
 const isImportDialogVisible = ref(false)
 const isExportDialogVisible = ref(false)
@@ -914,7 +925,10 @@ onMounted(async () => {
           >
             {{ item.document.name }}
           </RouterLink>
-          <span v-else class="text-xs text-disabled">—</span>
+          <span
+            v-else
+            class="text-xs text-disabled"
+          >—</span>
         </template>
 
         <!-- Phòng ban -->
@@ -1025,6 +1039,22 @@ onMounted(async () => {
           >
             <VIcon icon="tabler-trash" />
           </IconBtn>
+          <VBtn
+            icon
+            variant="text"
+            size="small"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList density="compact">
+                <VListItem
+                  prepend-icon="tabler-progress"
+                  title="Cập nhật tiến độ"
+                  @click="openProgressDialog(item)"
+                />
+              </vlist>
+            </VMenu>
+          </VBtn>
         </template>
 
         <!-- No Data -->
@@ -1112,6 +1142,13 @@ onMounted(async () => {
       v-model="snackbar.show"
       :message="snackbar.message"
       :color="snackbar.color"
+    />
+    <!-- ── Progress Update Dialog ─────────────────────────────────── -->
+    <UpdateStatus
+      v-model="progressDialog"
+      :item="progressItem"
+      @toast="showToast"
+      @saved="loadStats"
     />
   </section>
 </template>

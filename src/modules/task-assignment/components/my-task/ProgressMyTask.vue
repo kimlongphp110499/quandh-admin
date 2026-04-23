@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { MyTaskItem, MyTaskStatus } from '../../services/myTaskItem'
+import type { MyTaskItem, MyTaskProgressHistory, MyTaskStatus } from '../../services/myTaskItemApi'
 import { useMyTaskAssignmentItemStore } from '../../stores/useMyTaskAssignmentItemStore'
+import ItemProgressHistoryList from '../shared/ItemProgressHistoryList.vue'
 import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
@@ -24,12 +25,18 @@ const progressStatus = ref<MyTaskStatus | ''>('')
 const progressPercent = ref(0)
 const progressNote = ref('')
 const progressLoading = ref(false)
+const reportTab = ref('form')
+const progressHistory = ref<MyTaskProgressHistory[]>([])
+const historyLoading = ref(false)
 
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, async (val) => {
   if (val && props.item) {
     progressStatus.value = props.item.processing_status
     progressPercent.value = props.item.completion_percent
     progressNote.value = props.item.my_assignment?.note || ''
+    historyLoading.value = true
+    progressHistory.value = await store.getProgressHistory(props.item.id)
+    historyLoading.value = false
   }
 })
 
@@ -42,42 +49,6 @@ watch(progressPercent, val => {
   if (val === 100 && progressStatus.value !== 'done')
     progressStatus.value = 'done'
 })
-
-const resolveStatusColor = (status: string) => {
-  const map: Record<string, string> = {
-    todo: 'default',
-    in_progress: 'info',
-    done: 'success',
-    overdue: 'error',
-    paused: 'warning',
-    cancelled: 'secondary',
-  }
-
-  return map[status] || 'default'
-}
-
-const resolveDeadlineAlertColor = (color?: string | null): string => {
-  if (color === 'red')
-    return 'error'
-  if (color === 'yellow')
-    return 'warning'
-  if (color === 'green')
-    return 'success'
-
-  return 'default'
-}
-
-const formatDate = (dateStr?: string | null) => {
-  if (!dateStr)
-    return null
-  const normalized = dateStr.replace(' ', 'T')
-  const d = new Date(normalized)
-
-  if (Number.isNaN(d.getTime()))
-    return dateStr
-
-  return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
-}
 
 const submitProgress = async () => {
   if (!props.item)
@@ -104,8 +75,8 @@ const submitProgress = async () => {
 
 <!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue-->
 <template>
-<VDialog
-    :width="$vuetify.display.smAndDown ? 'auto' : 900 "
+  <VDialog
+    :width="$vuetify.display.smAndDown ? 'auto' : 900"
     :model-value="props.modelValue"
     @update:model-value="val => emit('update:modelValue', val)"
   >
@@ -116,55 +87,80 @@ const submitProgress = async () => {
       v-if="props.item"
       class="pa-sm-10 pa-2"
     >
-      <VCardText> 
+      <VCardText>
         <h4 class="text-h4 text-center mb-2">
           Cập nhật tiến độ
         </h4>
-        <!-- 👉 Form -->
-        <VForm @submit.prevent="submitProgress">
-        
-          <VRow>
-            <VCol cols="12">
-             <AppTextField
-                v-model="progressPercent"
-                label="% Hoàn thành"
-                placeholder=""
-              />
-            </VCol>
+        <p class="text-body-1 text-center text-medium-emphasis mb-6">
+          {{ props.item.name }}
+        </p>
+        <VTabs
+          v-model="reportTab"
+          class="mb-6"
+        >
+          <VTab value="form">
+            Cập nhật
+          </VTab>
+          <VTab value="history">
+            Lịch sử cập nhật
+          </VTab>
+        </VTabs>
 
-            <VCol cols="12">
-              <AppTextarea
-                v-model="progressNote"
-                label="Ghi chú tiến độ"
-                placeholder="Mô tả tiến độ hiện tại"
-                rows="3"
-                hide-details
-              />
-            </VCol>
-              <!-- 👉 Submit and Cancel button -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <VBtn
-                  type="submit"
-                  class="me-3"
-                >
-                  Lưu
-                </VBtn>
+        <VTabsWindow v-model="reportTab">
+          <VTabsWindowItem value="form">
+            <!-- 👉 Form -->
+            <VForm @submit.prevent="submitProgress">
+              <VRow>
+                <VCol cols="12">
+                  <AppTextField
+                    v-model="progressPercent"
+                    label="% Hoàn thành"
+                    placeholder=""
+                  />
+                </VCol>
 
-                <VBtn
-                  variant="tonal"
-                  color="secondary"
-                  @click="emit('update:modelValue', false)"
+                <VCol cols="12">
+                  <AppTextarea
+                    v-model="progressNote"
+                    label="Ghi chú tiến độ"
+                    placeholder="Mô tả tiến độ hiện tại"
+                    rows="3"
+                    hide-details
+                  />
+                </VCol>
+
+                <!-- 👉 Submit and Cancel button -->
+                <VCol
+                  cols="12"
+                  class="text-center"
                 >
-                Huỷ
-              </VBtn>
-            </VCol>
-          </VRow>
-        </VForm>
+                  <VBtn
+                    type="submit"
+                    class="me-3"
+                  >
+                    Lưu
+                  </VBtn>
+
+                  <VBtn
+                    variant="tonal"
+                    color="secondary"
+                    @click="emit('update:modelValue', false)"
+                  >
+                    Huỷ
+                  </VBtn>
+                </VCol>
+              </VRow>
+            </VForm>
+          </VTabsWindowItem>
+
+          <VTabsWindowItem value="history">
+            <ItemProgressHistoryList
+              :entries="progressHistory"
+              :is-loading="historyLoading"
+            />
+          </VTabsWindowItem>
+        </VTabsWindow>
       </VCardText>
     </VCard>
   </VDialog>
-
 </template>

@@ -139,6 +139,19 @@ export interface ItemReport {
   updated_at: string
 }
 
+export interface ItemProgressHistory {
+  id: number
+  task_assignment_item_id: number
+  user_id: number
+  user_name?: string
+  old_processing_status?: ItemStatus
+  new_processing_status?: ItemStatus
+  old_completion_percent?: number
+  new_completion_percent?: number
+  note?: string
+  created_at: string
+}
+
 export interface ItemReportFormData {
   completed_at?: string
   report_document_number?: string
@@ -220,7 +233,11 @@ export const itemApi = {
   },
 
   updateProgress(id: number, data: ItemProgressData) {
-    return apiClient.patch<ApiResponse<Item>>(`/task-assignment-items/${id}`, data)
+    return apiClient.patch<ApiResponse<Item>>(`/task-assignment-items/${id}/progress`, data)
+  },
+
+  getProgressHistory(id: number) {
+    return apiClient.get<ApiResponse<ItemProgressHistory[]>>(`/task-assignment-items/${id}/progress-history`)
   },
 
   getReports(id: number) {

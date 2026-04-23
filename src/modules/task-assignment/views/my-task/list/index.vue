@@ -549,7 +549,6 @@ onMounted(async () => {
                   <VListItem
                     prepend-icon="tabler-progress"
                     title="Cập nhật tiến độ"
-                    :disabled="['done', 'cancelled'].includes(item.processing_status)"
                     @click="openProgressDialog(item)"
                   />
                   <VListItem

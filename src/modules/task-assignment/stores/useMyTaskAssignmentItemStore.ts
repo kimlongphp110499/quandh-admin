@@ -4,6 +4,7 @@ import {
   type MyTaskFilters,
   type MyTaskItem,
   type MyTaskProgressData,
+  type MyTaskProgressHistory,
   type MyTaskReport,
   type MyTaskReportFormData,
   type MyTaskStats,
@@ -83,6 +84,19 @@ export const useMyTaskAssignmentItemStore = defineStore('myTaskAssignmentItem', 
     }
   }
 
+  async function getProgressHistory(id: number): Promise<MyTaskProgressHistory[]> {
+    try {
+      const response = await myTaskAssignmentItemApi.getProgressHistory(id)
+      if (response.data.success)
+        return response.data.data || []
+
+      return []
+    }
+    catch {
+      return []
+    }
+  }
+
   async function getReports(id: number): Promise<MyTaskReport[]> {
     try {
       const response = await myTaskAssignmentItemApi.getReports(id)
@@ -139,6 +153,7 @@ export const useMyTaskAssignmentItemStore = defineStore('myTaskAssignmentItem', 
     fetchStats,
     fetchItems,
     updateProgress,
+    getProgressHistory,
     getReports,
     createReport,
     updateReport,

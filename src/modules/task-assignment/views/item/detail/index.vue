@@ -2,16 +2,16 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import dayjs from 'dayjs'
 import { useRoute, useRouter } from 'vue-router'
-import { getErrorMessage } from '@/utils/errorMessage'
-import AppSnackbar from '@/components/AppSnackbar.vue'
-import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import ItemFormDrawer from '../../../components/item/ItemFormDrawer.vue'
 import ItemReportHistoryList from '../../../components/item/ItemReportHistoryList.vue'
+import ItemProgressHistoryList from '../../../components/shared/ItemProgressHistoryList.vue'
 import ItemAbout from '../../../components/item/About.vue'
 import { itemApi } from '../../../services/itemApi'
-import type { Item, ItemReport, ItemStatus } from '../../../services/itemApi'
+import type { Item, ItemProgressHistory, ItemReport, ItemStatus } from '../../../services/itemApi'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 const route = useRoute()
 const router = useRouter()
@@ -19,20 +19,24 @@ const itemId = computed(() => Number(route.params.id))
 
 // ── Snackbar ──────────────────────────────────────────────────────
 const snackbar = ref({ show: false, message: '', color: 'success' })
+
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
 // ── Confirm dialog ────────────────────────────────────────────────
 const confirmDialog = ref<{ show: boolean; title: string; message: string; onConfirm: () => void }>({ show: false, title: '', message: '', onConfirm: () => {} })
+
 const showConfirm = (title: string, message: string, onConfirm: () => void) => {
   confirmDialog.value = { show: true, title, message, onConfirm }
 }
 
 // ── Tab ───────────────────────────────────────────────────────────
 const activeTab = ref(0)
+
 const tabs = [
   { icon: 'tabler-report', title: 'Lịch sử báo cáo' },
+  { icon: 'tabler-report', title: 'Lịch sử cập nhật' },
   { icon: 'tabler-history', title: ' Dòng thời gian' },
 ]
 
@@ -54,20 +58,26 @@ const fetchItem = async () => {
 }
 
 const formatDate = (dateStr?: string | null) => {
-  if (!dateStr) return '—'
+  if (!dateStr)
+    return '—'
   const normalized = dateStr.replace(' ', 'T')
   const d = new Date(normalized)
-  if (Number.isNaN(d.getTime())) return dateStr
+  if (Number.isNaN(d.getTime()))
+    return dateStr
+
   return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
 // ── Resolvers ─────────────────────────────────────────────────────
 const resolveStatusColor = (s: string) =>
   ({ todo: 'default', in_progress: 'info', done: 'success', overdue: 'error', paused: 'warning', cancelled: 'secondary' }[s] || 'default')
+
 const resolveStatusLabel = (s: string) =>
   ({ todo: 'Chưa bắt đầu', in_progress: 'Đang thực hiện', done: 'Hoàn thành', overdue: 'Quá hạn', paused: 'Tạm dừng', cancelled: 'Đã hủy' }[s] || s)
+
 const resolvePriorityColor = (p: string) =>
   ({ low: 'default', medium: 'info', high: 'warning', urgent: 'error' }[p] || 'default')
+
 const resolvePriorityLabel = (p: string) =>
   ({ low: 'Thấp', medium: 'Bình thường', high: 'Cao', urgent: 'Khẩn cấp' }[p] || p)
 
@@ -96,7 +106,8 @@ const initProgressForm = () => {
 }
 
 const saveProgress = async () => {
-  if (!currentItem.value) return
+  if (!currentItem.value)
+    return
   isUpdatingProgress.value = true
   try {
     const res = await itemApi.updateProgress(itemId.value, {
@@ -104,10 +115,12 @@ const saveProgress = async () => {
       completion_percent: progressForm.value.completion_percent,
       note: progressForm.value.note || undefined,
     })
+
     if (res.data.success) {
       currentItem.value = res.data.data || currentItem.value
       initProgressForm()
       showToast('Cập nhật tiến độ thành công!', 'success')
+      await fetchProgressHistory()
     }
   }
   catch (err: any) {
@@ -123,6 +136,21 @@ const statusOptions = [
   { title: 'Tạm dừng', value: 'paused' },
   { title: 'Đã hủy', value: 'cancelled' },
 ]
+
+// ── Lịch sử cập nhật tiến độ ─────────────────────────────────────
+const progressHistory = ref<ItemProgressHistory[]>([])
+const historyLoading = ref(false)
+
+const fetchProgressHistory = async () => {
+  historyLoading.value = true
+  try {
+    const res = await itemApi.getProgressHistory(itemId.value)
+    if (res.data.success)
+      progressHistory.value = res.data.data || []
+  }
+  catch { /* silent */ }
+  finally { historyLoading.value = false }
+}
 
 // ── Báo cáo ───────────────────────────────────────────────────────
 const reports = ref<ItemReport[]>([])
@@ -142,7 +170,8 @@ const fetchReports = async () => {
 // ── Timeline lịch sử ─────────────────────────────────────────────
 const timelineItems = computed(() => {
   const item = currentItem.value
-  if (!item) return []
+  if (!item)
+    return []
 
   const result = []
 
@@ -179,6 +208,7 @@ const timelineItems = computed(() => {
 onMounted(async () => {
   await fetchItem()
   await fetchReports()
+  await fetchProgressHistory()
   initProgressForm()
 })
 </script>
@@ -187,7 +217,10 @@ onMounted(async () => {
   <div>
     <!-- ── Skeleton ────────────────────────────────────────────── -->
     <template v-if="isLoading">
-      <VSkeletonLoader type="card" class="mb-4" />
+      <VSkeletonLoader
+        type="card"
+        class="mb-4"
+      />
     </template>
 
     <template v-else-if="currentItem">
@@ -250,8 +283,7 @@ onMounted(async () => {
                   v-for="u in currentItem.users"
                   :key="u.id"
                 >
-                  <template #prepend>
-                  </template>
+                  <template #prepend />
                   <VListItemTitle class="text-body-1 font-weight-medium">
                     {{ u.name }}
                   </VListItemTitle>
@@ -276,42 +308,44 @@ onMounted(async () => {
           </VCard>
 
           <!-- Action nhanh -->
-          <!--  <VCard class="mb-6">
+          <!--
+            <VCard class="mb-6">
             <VCardItem>
-              <VCardTitle class="d-flex align-center gap-2">
-                <VIcon icon="tabler-bolt" size="20" />
-                Hành động
-              </VCardTitle>
+            <VCardTitle class="d-flex align-center gap-2">
+            <VIcon icon="tabler-bolt" size="20" />
+            Hành động
+            </VCardTitle>
             </VCardItem>
             <VCardText class="d-flex flex-column gap-2">
-              <VBtn
-                block
-                prepend-icon="tabler-edit"
-                @click="openEditDrawer"
-              >
-                Chỉnh sửa
-              </VBtn>
-              <VBtn
-                block
-                variant="tonal"
-                color="secondary"
-                prepend-icon="tabler-arrow-left"
-                @click="router.back()"
-              >
-                Quay lại
-              </VBtn>
-              <VBtn
-                v-if="currentItem.document"
-                block
-                variant="tonal"
-                color="info"
-                prepend-icon="tabler-file-text"
-                :to="{ name: 'task-assignment-documents-id', params: { id: currentItem.document.id } }"
-              >
-                Xem văn bản
-              </VBtn>
+            <VBtn
+            block
+            prepend-icon="tabler-edit"
+            @click="openEditDrawer"
+            >
+            Chỉnh sửa
+            </VBtn>
+            <VBtn
+            block
+            variant="tonal"
+            color="secondary"
+            prepend-icon="tabler-arrow-left"
+            @click="router.back()"
+            >
+            Quay lại
+            </VBtn>
+            <VBtn
+            v-if="currentItem.document"
+            block
+            variant="tonal"
+            color="info"
+            prepend-icon="tabler-file-text"
+            :to="{ name: 'task-assignment-documents-id', params: { id: currentItem.document.id } }"
+            >
+            Xem văn bản
+            </VBtn>
             </VCardText>
-          </VCard>  -->
+            </VCard>
+          -->
         </VCol>
 
         <!-- ── Cột phải: Tabs ──────────────────────────────────── -->
@@ -319,7 +353,6 @@ onMounted(async () => {
           cols="12"
           md="8"
         >
-
           <!-- Tabs -->
           <VTabs
             v-model="activeTab"
@@ -343,122 +376,121 @@ onMounted(async () => {
             class="disable-tab-transition"
             :touch="false"
           >
-
-            <!-- Tab 1: Tiến độ -->
-
-            <!-- Tab 2: Báo cáo -->
+            <!-- Tab 1: Báo cáo -->
             <VWindowItem>
-              <!-- <VCard class="mb-6">
+              <!--
+                <VCard class="mb-6">
                 <VCardItem>
-                  <VCardTitle>Tạo báo cáo mới</VCardTitle>
+                <VCardTitle>Tạo báo cáo mới</VCardTitle>
                 </VCardItem>
                 <VCardText>
-                  <VRow>
-                    <VCol
-                      cols="12"
-                      md="6"
-                    >
-                      <AppTextField
-                        v-model="reportForm.report_document_number"
-                        label="Số văn bản báo cáo"
-                        placeholder="VD: 01/BC-..."
-                      />
-                    </VCol>
-                    <VCol
-                      cols="12"
-                      md="6"
-                    >
-                      <AppDateTimePicker
-                        v-model="reportForm.completed_at"
-                        label="Ngày hoàn thành"
-                        :config="{ dateFormat: 'd/m/Y' }"
-                        placeholder="dd/mm/yyyy"
-                      />
-                    </VCol>
-                    <VCol cols="12">
-                      <AppTextField
-                        v-model="reportForm.report_document_excerpt"
-                        label="Trích yếu"
-                        placeholder="Nhập trích yếu báo cáo..."
-                      />
-                    </VCol>
-                    <VCol cols="12">
-                      <AppTextField
-                        v-model="reportForm.report_document_content"
-                        label="Nội dung báo cáo"
-                        placeholder="Nhập nội dung báo cáo..."
-                      />
-                    </VCol>
-                    <VCol cols="12">
-                      <input
-                        ref="reportFileInputRef"
-                        type="file"
-                        multiple
-                        style="display: none;"
-                        @change="onReportFileSelected"
-                      >
-                      <VBtn
-                        variant="tonal"
-                        color="secondary"
-                        prepend-icon="tabler-paperclip"
-                        class="me-3"
-                        @click="openReportFilePicker"
-                      >
-                        Đính kèm file
-                      </VBtn>
-                      <span
-                        v-if="reportPendingFiles.length"
-                        class="text-caption text-medium-emphasis"
-                      >
-                        {{ reportPendingFiles.length }} file đã chọn
-                      </span>
-                    </VCol>
-                    <VCol
-                      v-if="reportPendingFiles.length"
-                      cols="12"
-                    >
-                      <VList density="compact">
-                        <VListItem
-                          v-for="(file, idx) in reportPendingFiles"
-                          :key="idx"
-                        >
-                          <template #prepend>
-                            <VIcon
-                              :icon="getFileIcon(file.type, file.name)"
-                              size="18"
-                              color="secondary"
-                            />
-                          </template>
-                          <VListItemTitle class="text-body-2">
-                            {{ file.name }}
-                          </VListItemTitle>
-                          <VListItemSubtitle class="text-caption">
-                            {{ formatFileSize(file.size) }}
-                          </VListItemSubtitle>
-                          <template #append>
-                            <IconBtn
-                              size="small"
-                              color="error"
-                              @click="removeReportPendingFile(idx)"
-                            >
-                              <VIcon icon="tabler-x" />
-                            </IconBtn>
-                          </template>
-                        </VListItem>
-                      </VList>
-                    </VCol>
-                    <VCol cols="12">
-                      <VBtn
-                        :loading="isCreatingReport"
-                        prepend-icon="tabler-send"
-                        @click="submitReport"
-                      >
-                        Gửi báo cáo
-                      </VBtn>
-                    </VCol>
-                  </VRow>
+                <VRow>
+                <VCol
+                cols="12"
+                md="6"
+                >
+                <AppTextField
+                v-model="reportForm.report_document_number"
+                label="Số văn bản báo cáo"
+                placeholder="VD: 01/BC-..."
+                />
+                </VCol>
+                <VCol
+                cols="12"
+                md="6"
+                >
+                <AppDateTimePicker
+                v-model="reportForm.completed_at"
+                label="Ngày hoàn thành"
+                :config="{ dateFormat: 'd/m/Y' }"
+                placeholder="dd/mm/yyyy"
+                />
+                </VCol>
+                <VCol cols="12">
+                <AppTextField
+                v-model="reportForm.report_document_excerpt"
+                label="Trích yếu"
+                placeholder="Nhập trích yếu báo cáo..."
+                />
+                </VCol>
+                <VCol cols="12">
+                <AppTextField
+                v-model="reportForm.report_document_content"
+                label="Nội dung báo cáo"
+                placeholder="Nhập nội dung báo cáo..."
+                />
+                </VCol>
+                <VCol cols="12">
+                <input
+                ref="reportFileInputRef"
+                type="file"
+                multiple
+                style="display: none;"
+                @change="onReportFileSelected"
+                >
+                <VBtn
+                variant="tonal"
+                color="secondary"
+                prepend-icon="tabler-paperclip"
+                class="me-3"
+                @click="openReportFilePicker"
+                >
+                Đính kèm file
+                </VBtn>
+                <span
+                v-if="reportPendingFiles.length"
+                class="text-caption text-medium-emphasis"
+                >
+                {{ reportPendingFiles.length }} file đã chọn
+                </span>
+                </VCol>
+                <VCol
+                v-if="reportPendingFiles.length"
+                cols="12"
+                >
+                <VList density="compact">
+                <VListItem
+                v-for="(file, idx) in reportPendingFiles"
+                :key="idx"
+                >
+                <template #prepend>
+                <VIcon
+                :icon="getFileIcon(file.type, file.name)"
+                size="18"
+                color="secondary"
+                />
+                </template>
+                <VListItemTitle class="text-body-2">
+                {{ file.name }}
+                </VListItemTitle>
+                <VListItemSubtitle class="text-caption">
+                {{ formatFileSize(file.size) }}
+                </VListItemSubtitle>
+                <template #append>
+                <IconBtn
+                size="small"
+                color="error"
+                @click="removeReportPendingFile(idx)"
+                >
+                <VIcon icon="tabler-x" />
+                </IconBtn>
+                </template>
+                </VListItem>
+                </VList>
+                </VCol>
+                <VCol cols="12">
+                <VBtn
+                :loading="isCreatingReport"
+                prepend-icon="tabler-send"
+                @click="submitReport"
+                >
+                Gửi báo cáo
+                </VBtn>
+                </VCol>
+                </VRow>
                 </VCardText>
-              </VCard> -->
+                </VCard>
+              -->
 
               <!-- Danh sách báo cáo -->
               <ItemReportHistoryList
@@ -466,11 +498,16 @@ onMounted(async () => {
                 :is-loading="isReportsLoading"
                 :can-edit="false"
               />
-            </VWindowItem> 
+            </VWindowItem>
+            <!-- Tab 3:  Lịch sử cập nhật tiến độ -->
+            <VWindowItem>
+              <ItemProgressHistoryList
+                :entries="progressHistory"
+                :is-loading="historyLoading"
+              />
+            </VWindowItem>
 
-            <!-- Tab 3: Tệp đính kèm -->
-
-            <!-- Tab 4: Nhắc việc / Lịch sử -->
+            <!-- Tab 3:  Lịch sử -->
             <VWindowItem>
               <VCard>
                 <VCardItem>
@@ -481,7 +518,11 @@ onMounted(async () => {
                     v-if="!timelineItems.length"
                     class="text-center py-8 text-disabled"
                   >
-                    <VIcon icon="tabler-history-off" size="48" class="mb-3 d-block mx-auto" />
+                    <VIcon
+                      icon="tabler-history-off"
+                      size="48"
+                      class="mb-3 d-block mx-auto"
+                    />
                     <div class="text-body-2">
                       Chưa có lịch sử hoạt động
                     </div>
@@ -522,7 +563,12 @@ onMounted(async () => {
       v-else-if="!isLoading"
       class="text-center pa-12"
     >
-      <VIcon icon="tabler-checklist" size="64" color="disabled" class="mb-4" />
+      <VIcon
+        icon="tabler-checklist"
+        size="64"
+        color="disabled"
+        class="mb-4"
+      />
       <div class="text-h6 text-medium-emphasis mb-2">
         Không tìm thấy công việc
       </div>

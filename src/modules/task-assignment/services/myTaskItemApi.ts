@@ -107,6 +107,19 @@ export interface MyTaskReport {
   updated_at: string
 }
 
+export interface MyTaskProgressHistory {
+  id: number
+  task_assignment_item_id: number
+  user_id: number
+  user_name?: string
+  old_processing_status?: MyTaskStatus
+  new_processing_status?: MyTaskStatus
+  old_completion_percent?: number
+  new_completion_percent?: number
+  note?: string
+  created_at: string
+}
+
 export interface MyTaskReportFormData {
   completed_at?: string
   report_document_number?: string
@@ -135,6 +148,11 @@ export const myTaskAssignmentItemApi = {
   /** Cập nhật tiến độ công việc của tôi */
   updateProgress(id: number, data: MyTaskProgressData) {
     return apiClient.patch<ApiResponse<MyTaskItem>>(`/my-task-assignment-items/${id}/progress`, data)
+  },
+
+  /** Lịch sử cập nhật tiến độ công việc của tôi */
+  getProgressHistory(id: number) {
+    return apiClient.get<ApiResponse<MyTaskProgressHistory[]>>(`/my-task-assignment-items/${id}/progress-history`)
   },
 
   /** Lấy danh sách báo cáo của công việc */
