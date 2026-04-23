@@ -304,8 +304,9 @@ watch(() => props.isDrawerOpen, async val => {
                       v-for="perm in filteredPermissions"
                       :key="perm.id"
                       class="d-flex align-center rounded"
-                      :class="{ 'bg-surface-variant rounded': perm.depth === 0 }"
-                      :style="{ paddingLeft: `${perm.depth * 16 + 8}px` }"
+                      :style="perm.depth === 0
+                        ? { paddingLeft: `${perm.depth * 16 + 8}px`, backgroundColor: `rgba(var(--v-global-theme-primary), var(--v-selected-opacity))` }
+                        : { paddingLeft: `${perm.depth * 16 + 8}px` }"
                     >
                       <VCheckbox
                         v-if="perm.depth === 0"
