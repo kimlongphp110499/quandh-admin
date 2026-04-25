@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { itemApi } from '../../services/itemApi'
 import type { TaskAssignmentItemStats } from '../../services/itemApi'
 
@@ -10,12 +9,12 @@ const loading = ref(false)
 const stats = ref<TaskAssignmentItemStats | null>(null)
 
 const statusConfig = [
-  { key: 'todo',        label: 'Chưa bắt đầu', color: '#9E9E9E' },
+  { key: 'todo', label: 'Chưa bắt đầu', color: '#9E9E9E' },
   { key: 'in_progress', label: 'Đang thực hiện', color: '#26C6DA' },
-  { key: 'done',        label: 'Hoàn thành',     color: '#28C76F' },
-  { key: 'overdue',     label: 'Quá hạn',         color: '#EA5455' },
-  { key: 'paused',      label: 'Tạm dừng',        color: '#FF9F43' },
-  { key: 'cancelled',   label: 'Đã huỷ',          color: '#7367F0' },
+  { key: 'done', label: 'Hoàn thành', color: '#28C76F' },
+  { key: 'overdue', label: 'Quá hạn', color: '#EA5455' },
+  { key: 'paused', label: 'Tạm dừng', color: '#FF9F43' },
+  { key: 'cancelled', label: 'Đã huỷ', color: '#7367F0' },
 ]
 
 const series = computed(() =>
@@ -76,6 +75,7 @@ onMounted(async () => {
   loading.value = true
   try {
     const res = await itemApi.stats()
+
     stats.value = res.data.data ?? null
   }
   catch {}
@@ -85,13 +85,12 @@ onMounted(async () => {
 
 <template>
   <VCard>
-    <VCardItem title="Phân bổ trạng thái công việc">
-    </VCardItem>
+    <VCardItem title="Phân bổ trạng thái công việc" />
     <VCardText>
       <div
         v-if="loading"
         class="d-flex justify-center align-center"
-        style="height: 400px;"
+        style="block-size: 400px;"
       >
         <VProgressCircular
           indeterminate

@@ -6,9 +6,7 @@ import authV2ForgotPasswordIllustrationDark from '@images/pages/auth-v2-forgot-p
 import authV2ForgotPasswordIllustrationLight from '@images/pages/auth-v2-forgot-password-illustration-light.png'
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
-import { themeConfig } from '@themeConfig'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { authApi } from '@/api/modules/auth'
 
 definePage({

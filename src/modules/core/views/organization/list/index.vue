@@ -10,7 +10,6 @@ import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
 
 import type { Organization } from '@/api/modules/organization'
 
@@ -429,7 +428,7 @@ defineExpose({
 
         <!-- Người tạo / Ngày tạo -->
         <template #item.created_info="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -439,7 +438,7 @@ defineExpose({
 
         <!-- Người cập nhật / Ngày cập nhật -->
         <template #item.updated_info="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -464,8 +463,7 @@ defineExpose({
             icon
             variant="text"
             color="medium-emphasis"
-          >
-          </VBtn>
+          />
         </template>
 
         <!-- No Data -->
@@ -588,9 +586,3 @@ defineExpose({
     />
   </section>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

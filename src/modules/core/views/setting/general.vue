@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
-import AppSnackbar from '@/components/AppSnackbar.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useSettingStore } from '../../stores/useSettingStore'
+import AppSnackbar from '@/components/AppSnackbar.vue'
 
 const settingStore = useSettingStore()
 
@@ -68,6 +67,7 @@ const log = reactive({
 // ── populate from store ──────────────────────────────────────────
 function populate() {
   const g = settingStore.settings.general ?? {}
+
   general.copyright = g.copyright ?? ''
   general.designed_by = g.designed_by ?? ''
   general.language = g.language ?? 'vi'
@@ -76,6 +76,7 @@ function populate() {
   general.logo = g.logo ?? ''
 
   const ap = settingStore.settings.admin_page ?? {}
+
   adminPage.admin_app_name = ap.admin_app_name ?? ''
   adminPage.admin_logo_title = ap.admin_logo_title ?? ''
   adminPage.admin_welcome_title = ap.admin_welcome_title ?? ''
@@ -83,11 +84,13 @@ function populate() {
   adminPage.admin_background_image = ap.admin_background_image ?? ''
 
   const os = settingStore.settings.org_select_page ?? {}
+
   orgSelect.org_select_title = os.org_select_title ?? ''
   orgSelect.org_select_description = os.org_select_description ?? ''
   orgSelect.org_select_background_image = os.org_select_background_image ?? ''
 
   const s = settingStore.settings.social ?? {}
+
   social.social_facebook = s.social_facebook ?? ''
   social.social_twitter = s.social_twitter ?? ''
   social.social_youtube = s.social_youtube ?? ''
@@ -96,6 +99,7 @@ function populate() {
   social.social_email = s.social_email ?? ''
 
   const a = settingStore.settings.api ?? {}
+
   api.api_gemini_url = a.api_gemini_url ?? ''
   api.api_gemini_token = a.api_gemini_token ?? ''
   api.api_deepseek_url = a.api_deepseek_url ?? ''
@@ -109,6 +113,7 @@ function populate() {
   api.api_google_maps_token = a.api_google_maps_token ?? ''
 
   const l = settingStore.settings.log ?? {}
+
   log.log_retention_days = l.log_retention_days ?? 90
 }
 
@@ -650,9 +655,7 @@ const timeFormatOptions = [
               </VCardText>
             </VCard>
 
-            <VCard
-              class="mb-6"
-            >
+            <VCard class="mb-6">
               <VCardText>
                 <div class="d-flex align-center justify-space-between mb-4">
                   <div>

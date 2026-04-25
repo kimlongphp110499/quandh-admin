@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import {
   type Document,
   type DocumentFilters,
@@ -8,7 +8,7 @@ import {
   type DocumentStats,
   documentApi,
 } from '../services/documentApi'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export const useDocumentStore = defineStore('document', () => {

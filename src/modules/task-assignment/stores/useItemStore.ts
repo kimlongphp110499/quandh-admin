@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import {
   type Item,
   type ItemFilters,
@@ -12,7 +12,7 @@ import {
   type ItemStatus,
   itemApi,
 } from '../services/itemApi'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export const useItemStore = defineStore('taskAssignmentItem', () => {

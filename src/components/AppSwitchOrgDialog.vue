@@ -6,6 +6,7 @@ interface Props {
   modelValue: boolean
   loading?: boolean
   error?: string
+
   /** Nếu true: nút đóng là "Đăng xuất", ngược lại là "Đóng" */
   logoutOnClose?: boolean
 }

@@ -1,8 +1,8 @@
 import type { App } from 'vue'
 import { createI18n } from 'vue-i18n'
-// eslint-disable-next-line import/no-unresolved
+
 import { cookieRef } from '@layouts/stores/config'
-// eslint-disable-next-line import/no-unresolved
+
 import { themeConfig } from '@themeConfig'
 
 const messages = Object.fromEntries(

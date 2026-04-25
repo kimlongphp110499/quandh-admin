@@ -1,16 +1,15 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import PermissionFormDrawer from '../../../components/PermissionFormDrawer.vue'
+import { type Permission } from '../../../services/permissionApi'
+import { usePermissionStore } from '../../../stores/usePermissionStore'
+import { filterPermissionTree } from '../../../utils/permissionAdapter'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { type Permission } from '../../../services/permissionApi'
-import { usePermissionStore } from '../../../stores/usePermissionStore'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-import { filterPermissionTree } from '../../../utils/permissionAdapter'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 const permissionStore = usePermissionStore()
 
@@ -301,8 +300,8 @@ onMounted(async () => {
       >
         <thead>
           <tr>
-            <th style="width: 48px;" />
-            <th style="width: 40px;">
+            <th style="inline-size: 48px;" />
+            <th style="inline-size: 40px;">
               <VCheckbox
                 :model-value="isAllSelected"
                 :indeterminate="isIndeterminate"
@@ -312,7 +311,7 @@ onMounted(async () => {
               />
             </th>
             <th>TÊN QUYỀN HẠN</th>
-            <th style="width: 130px; min-width: 130px; text-align: left;">
+            <th style="inline-size: 130px; min-inline-size: 130px; text-align: start;">
               HÀNH ĐỘNG
             </th>
           </tr>
@@ -366,9 +365,7 @@ onMounted(async () => {
                     size="small"
                     @click="openEditDrawer(group)"
                   >
-                    <VIcon
-                      icon="tabler-edit"
-                    />
+                    <VIcon icon="tabler-edit" />
                     <VTooltip
                       activator="parent"
                       location="top"
@@ -381,9 +378,7 @@ onMounted(async () => {
                     color="error"
                     @click="handleDelete(group)"
                   >
-                    <VIcon
-                      icon="tabler-trash"
-                    />
+                    <VIcon icon="tabler-trash" />
                     <VTooltip
                       activator="parent"
                       location="top"
@@ -434,12 +429,8 @@ onMounted(async () => {
                 </td>
                 <td class="text-no-wrap">
                   <div class="d-flex align-center gap-1">
-                    <IconBtn
-                      @click="openEditDrawer(perm)"
-                    >
-                      <VIcon
-                        icon="tabler-edit"
-                      />
+                    <IconBtn @click="openEditDrawer(perm)">
+                      <VIcon icon="tabler-edit" />
                       <VTooltip
                         activator="parent"
                         location="top"
@@ -451,9 +442,7 @@ onMounted(async () => {
                       color="error"
                       @click="handleDelete(perm)"
                     >
-                      <VIcon
-                        icon="tabler-trash"
-                      />
+                      <VIcon icon="tabler-trash" />
                       <VTooltip
                         activator="parent"
                         location="top"
@@ -509,34 +498,36 @@ onMounted(async () => {
 
 <style scoped>
 .permission-table :deep(tbody tr.group-header) {
+  background: linear-gradient(90deg, rgba(33, 150, 243, 8%) 0%, rgba(33, 150, 243, 4%) 100%);
+  border-inline-start: 4px solid #2196f3;
   cursor: pointer;
   transition: all 0.25s ease;
-  background: linear-gradient(90deg, rgba(33, 150, 243, 0.08) 0%, rgba(33, 150, 243, 0.04) 100%);
-  border-left: 4px solid #2196f3;
 }
 
 .permission-table :deep(tbody tr.group-header:hover) {
-  background: linear-gradient(90deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0.08) 100%);
-  border-left-color: #1976d2;
-  box-shadow: inset 0 1px 3px rgba(33, 150, 243, 0.1);
+  background: linear-gradient(90deg, rgba(33, 150, 243, 15%) 0%, rgba(33, 150, 243, 8%) 100%);
+  border-inline-start-color: #1976d2;
+  box-shadow: inset 0 1px 3px rgba(33, 150, 243, 10%);
 }
 
 .permission-table :deep(.group-expand-cell) {
-  width: 48px !important;
-  padding: 0.75rem 0.5rem !important;
-  font-weight: 600;
+  background: rgba(33, 150, 243, 5%);
   color: #2196f3;
-  background: rgba(33, 150, 243, 0.05);
+  font-weight: 600;
+  inline-size: 48px !important;
+  padding-block: 0.75rem !important;
+  padding-inline: 0.5rem !important;
 }
 
 .permission-table :deep(.group-content-cell) {
-  padding: 0.875rem 1rem !important;
   font-weight: 500;
+  padding-block: 0.875rem !important;
+  padding-inline: 1rem !important;
 }
 
 .permission-table :deep(.group-chevron) {
-  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   color: #2196f3 !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .permission-table :deep(tbody tr.group-header .group-chevron) {
@@ -545,30 +536,26 @@ onMounted(async () => {
 
 .permission-table :deep(.group-icon) {
   flex-shrink: 0;
-  filter: drop-shadow(0 0 2px rgba(33, 150, 243, 0.3));
+  filter: drop-shadow(0 0 2px rgba(33, 150, 243, 30%));
 }
 
 .permission-table :deep(.group-title) {
+  color: #1a237e;
   font-size: 0.975rem;
   font-weight: 600;
-  color: #1a237e;
   letter-spacing: 0.3px;
-  min-width: fit-content;
+  min-inline-size: fit-content;
 }
 
 .permission-table :deep(.group-chip) {
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 20%) !important;
   font-weight: 700;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2) !important;
 }
 
 .permission-table :deep(.group-actions) {
   opacity: 0.7;
   transition: opacity 0.2s ease;
-}
-
-.permission-table :deep(tbody tr:not(.group-header)) {
-  height: 64px;
 }
 
 .permission-table :deep(tbody tr.group-header:hover .group-actions) {
@@ -580,6 +567,6 @@ onMounted(async () => {
 }
 
 .permission-table :deep(tbody tr:not(.group-header):hover) {
-  background-color: rgba(33, 150, 243, 0.04) !important;
+  background-color: rgba(33, 150, 243, 4%) !important;
 }
 </style>

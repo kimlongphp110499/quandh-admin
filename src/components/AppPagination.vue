@@ -43,7 +43,7 @@ const endItem = computed(() => Math.min(props.page * props.limit, props.total))
       />
       <span class="text-disabled mb-0">
         trong {{ total }} kết quả
-          ({{ startItem }}–{{ endItem }})
+        ({{ startItem }}–{{ endItem }})
       </span>
     </div>
 

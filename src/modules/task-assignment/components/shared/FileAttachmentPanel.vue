@@ -17,8 +17,10 @@ interface Props {
   pendingFiles?: File[]
   deletingId?: number | null
   readonly?: boolean
+
   /** 'direct': xóa ngay (emit remove-existing) | 'mark': đánh dấu xóa (emit mark-remove) */
   deleteMode?: 'direct' | 'mark'
+
   /** Danh sách id đã đánh dấu xóa (dùng khi deleteMode='mark') */
   removeAttachmentIds?: number[]
 }
@@ -47,26 +49,37 @@ const openFilePicker = () => fileInputRef.value?.click()
 
 const onFileSelected = (e: Event) => {
   const input = e.target as HTMLInputElement
-  if (!input.files) return
+  if (!input.files)
+    return
   emit('add-files', Array.from(input.files))
   input.value = ''
 }
 
 const formatFileSize = (bytes?: number) => {
-  if (!bytes) return ''
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  if (!bytes)
+    return ''
+  if (bytes < 1024)
+    return `${bytes} B`
+  if (bytes < 1024 * 1024)
+    return `${(bytes / 1024).toFixed(1)} KB`
+
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`
 }
 
 const getFileIcon = (mimeType?: string, fileName?: string) => {
   const name = (fileName ?? '').toLowerCase()
   const mime = (mimeType ?? '').toLowerCase()
-  if (mime.startsWith('image/')) return 'tabler-photo'
-  if (mime.includes('pdf') || name.endsWith('.pdf')) return 'tabler-file-type-pdf'
-  if (mime.includes('word') || name.endsWith('.doc') || name.endsWith('.docx')) return 'tabler-file-type-doc'
-  if (mime.includes('excel') || mime.includes('spreadsheet') || name.endsWith('.xls') || name.endsWith('.xlsx')) return 'tabler-file-type-xls'
-  if (mime.includes('zip') || mime.includes('rar') || name.endsWith('.zip') || name.endsWith('.rar')) return 'tabler-file-zip'
+  if (mime.startsWith('image/'))
+    return 'tabler-photo'
+  if (mime.includes('pdf') || name.endsWith('.pdf'))
+    return 'tabler-file-type-pdf'
+  if (mime.includes('word') || name.endsWith('.doc') || name.endsWith('.docx'))
+    return 'tabler-file-type-doc'
+  if (mime.includes('excel') || mime.includes('spreadsheet') || name.endsWith('.xls') || name.endsWith('.xlsx'))
+    return 'tabler-file-type-xls'
+  if (mime.includes('zip') || mime.includes('rar') || name.endsWith('.zip') || name.endsWith('.rar'))
+    return 'tabler-file-zip'
+
   return 'tabler-file'
 }
 
@@ -80,7 +93,8 @@ const handleRemoveExisting = (att: AttachmentItem) => {
 
 const onConfirmRemove = () => {
   const att = confirmDialog.value.att
-  if (!att) return
+  if (!att)
+    return
   if (props.deleteMode === 'mark')
     emit('mark-remove', att.id)
   else
@@ -155,7 +169,10 @@ defineExpose({ openFilePicker })
               @click="handleRemoveExisting(att)"
             >
               <VIcon icon="tabler-trash" />
-              <VTooltip activator="parent" location="top">
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
                 Xóa
               </VTooltip>
             </IconBtn>
@@ -217,7 +234,10 @@ defineExpose({ openFilePicker })
               @click="emit('remove-pending', idx)"
             >
               <VIcon icon="tabler-x" />
-              <VTooltip activator="parent" location="top">
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
                 Bỏ chọn
               </VTooltip>
             </IconBtn>
@@ -227,7 +247,10 @@ defineExpose({ openFilePicker })
     </div>
 
     <!-- Slot cho nút Thêm file / Tải lên -->
-    <slot name="actions" :open-file-picker="openFilePicker" />
+    <slot
+      name="actions"
+      :open-file-picker="openFilePicker"
+    />
   </div>
 
   <AppConfirmDialog

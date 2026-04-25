@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { Organization, OrganizationFilters, OrganizationFormData, OrganizationStats } from '../services/organizationApi'
 import { organizationApi } from '../services/organizationApi'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export const useOrganizationStore = defineStore('organization', () => {

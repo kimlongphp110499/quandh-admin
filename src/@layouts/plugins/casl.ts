@@ -60,9 +60,11 @@ export const canNavigate = (to: RouteLocationNormalized) => {
 
     // @ts-expect-error We should allow passing string | undefined to can because for admin ability we omit defining action & subject
     return routesWithAcl.some(route => ability.can(route.meta.action, route.meta.subject))
-  } catch (error) {
+  }
+  catch (error) {
     // If CASL is not configured or ability not found, allow navigation
     console.warn('CASL ability not found, allowing navigation')
+
     return true
   }
 }

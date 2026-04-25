@@ -14,6 +14,7 @@ const userPermissions = computed<string[]>(() => authStore.userPermissions)
 // Map tên permission → object từ tree (dùng description làm label hiển thị)
 const permissionByName = computed(() => {
   const map = new Map<string, Permission>()
+
   const walk = (nodes: Permission[]) => {
     nodes.forEach(node => {
       map.set(node.name, node)
@@ -21,7 +22,9 @@ const permissionByName = computed(() => {
         walk(node.children)
     })
   }
+
   walk(permissionStore.permissionTree)
+
   return map
 })
 
@@ -31,6 +34,7 @@ const groupedPermissions = computed(() => {
 
   userPermissions.value.forEach((permName: string) => {
     const node = permissionByName.value.get(permName)
+
     const parent = node?.parent_id
       ? permissionStore.permissionTree.find(g => g.id === node.parent_id)
       : null
@@ -60,7 +64,7 @@ onMounted(() => {
   <VRow>
     <!-- Vai trò -->
     <VCol cols="12">
-      <VCard title="Vai trò được gán">
+      <VCard title="Vai trò">
         <VCardText>
           <div
             v-if="userRoles.length"

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
-import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useUserStore } from '../stores/useUserStore'
 import { useOrganizationStore } from '../stores/useOrganizationStore'
 import { useRoleStore } from '../stores/useRoleStore'
 import type { User } from '../services/userApi'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
   isDrawerOpen: boolean
@@ -89,12 +89,14 @@ const emailRule = (v: string) => !v || /.[^\n\r@\u2028\u2029]*@.+\..+/.test(v) |
 
 const serverErrorRule = (field: string) => () => {
   const errors = serverErrors.value[field]
+
   return !errors?.length || errors[0]
 }
 
 const assignmentErrorRule = (index: number, field: 'role_id' | 'organization_ids') => () => {
   const prefix = `assignments.${index}.${field}`
   const key = Object.keys(serverErrors.value).find(k => k === prefix || k.startsWith(`${prefix}.`))
+
   return !key || !serverErrors.value[key]?.length || serverErrors.value[key][0]
 }
 
@@ -120,16 +122,19 @@ const closeDrawer = () => {
 }
 
 watch(() => props.isDrawerOpen, val => {
-  if (!val) resetForm()
+  if (!val)
+    resetForm()
 })
 
 const onSubmit = async () => {
   serverErrors.value = {}
 
-  if (!refVForm.value) return
+  if (!refVForm.value)
+    return
 
   const { valid } = await refVForm.value.validate()
-  if (!valid) return
+  if (!valid)
+    return
 
   isSubmitting.value = true
 
@@ -168,6 +173,7 @@ const onSubmit = async () => {
   catch (error: any) {
     if (error?.response?.status === 403) {
       showToast('Người dùng không có quyền.', 'error')
+
       return
     }
     const responseData = error?.response?.data

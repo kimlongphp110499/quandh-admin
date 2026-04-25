@@ -2,22 +2,21 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import ItemTypeFormDrawer from '../../../components/ItemTypeFormDrawer.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
+import { useItemTypeStore } from '../../../stores/useItemTypeStore'
+import type { ItemType } from '../../../services/itemTypeApi'
+import { ITEM_TYPE_STATUS_OPTIONS, ITEM_TYPE_TABLE_HEADERS } from '../../../configs/itemTypeOptions'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-// eslint-disable-next-line import/no-unresolved
+
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-// eslint-disable-next-line import/no-unresolved
+
 import AppImportDialog from '@/components/AppImportDialog.vue'
 import AppExportDialog from '@/components/AppExportDialog.vue'
-// eslint-disable-next-line import/no-unresolved
-import { useItemTypeStore } from '../../../stores/useItemTypeStore'
-import type { ItemType } from '../../../services/itemTypeApi'
-import { ITEM_TYPE_TABLE_HEADERS, ITEM_TYPE_STATUS_OPTIONS, ITEM_TYPE_LIMIT_OPTIONS } from '../../../configs/itemTypeOptions'
 
 const store = useItemTypeStore()
 
@@ -399,7 +398,7 @@ onMounted(async () => {
 
         <!-- Tên loại công việc -->
         <template #item.name="{ item }">
-            <span class="text-base font-weight-medium text-high-emphasis">{{ item.name }}</span>
+          <span class="text-base font-weight-medium text-high-emphasis">{{ item.name }}</span>
         </template>
 
         <!-- Trạng thái -->
@@ -421,7 +420,7 @@ onMounted(async () => {
 
         <!-- Ngày tạo -->
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -431,7 +430,7 @@ onMounted(async () => {
 
         <!-- Ngày cập nhật -->
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -557,9 +556,3 @@ onMounted(async () => {
     />
   </section>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

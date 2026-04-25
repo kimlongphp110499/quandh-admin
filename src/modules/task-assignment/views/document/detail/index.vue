@@ -3,24 +3,23 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { VForm } from 'vuetify/components/VForm'
-import { getErrorMessage } from '@/utils/errorMessage'
-import { normalizeDate } from '@/utils/formatters'
-import AppSnackbar from '@/components/AppSnackbar.vue'
-import AppPagination from '@/components/AppPagination.vue'
-import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
-import AppFilterBar from '@/components/AppFilterBar.vue'
+import type { VForm } from 'vuetify/components/VForm'
 import ItemFormDrawer from '../../../components/item/ItemFormDrawer.vue'
 import DocumentAboutPanel from '../../../components/document/DocumentAboutPanel.vue'
 import { documentApi } from '../../../services/documentApi'
 import { typeApi } from '../../../services/typeApi'
 import type { Document } from '../../../services/documentApi'
 import { DOCUMENT_DETAIL_TABLE_HEADERS } from '../../../configs/documentOptions'
-import { useItemStore } from '../../../stores/useItemStore'
-import type { Item, ItemStatus } from '../../../services/itemApi'
+import type { Item } from '../../../services/itemApi'
 import { itemApi } from '../../../services/itemApi'
-import DocumentActivityTimeline from '@/modules/task-assignment/components/document/DocumentActivityTimeline.vue'
 import FileAttachmentPanel, { type AttachmentItem } from '../../../components/shared/FileAttachmentPanel.vue'
+import DocumentActivityTimeline from '@/modules/task-assignment/components/document/DocumentActivityTimeline.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+import AppPagination from '@/components/AppPagination.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { normalizeDate } from '@/utils/formatters'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 const route = useRoute()
 const router = useRouter()
@@ -28,12 +27,14 @@ const documentId = computed(() => Number(route.params.id))
 
 // ── Snackbar ──────────────────────────────────────────────────────
 const snackbar = ref({ show: false, message: '', color: 'success' })
+
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
 
 // ── Confirm dialog ────────────────────────────────────────────────
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
+
 const showConfirm = (title: string, message: string, onConfirm: () => void) => {
   confirmDialog.value = { show: true, title, message, onConfirm }
 }
@@ -60,7 +61,9 @@ const isIssued = computed(() => currentDoc.value?.status === 'issued')
 // ── About Panel ───────────────────────────────────────────────────
 const aboutData = computed(() => {
   const doc = currentDoc.value
-  if (!doc) return { about: [], contacts: [], teams: [], overview: [] }
+  if (!doc)
+    return { about: [], contacts: [], teams: [], overview: [] }
+
   return {
     about: [
       { icon: 'tabler-file-text', property: 'Tên văn bản', value: doc.name },
@@ -80,10 +83,13 @@ const aboutData = computed(() => {
 })
 
 const formatDate = (dateStr?: string | null) => {
-  if (!dateStr) return '—'
+  if (!dateStr)
+    return '—'
   const normalized = dateStr.replace(' ', 'T')
   const d = new Date(normalized)
-  if (Number.isNaN(d.getTime())) return dateStr
+  if (Number.isNaN(d.getTime()))
+    return dateStr
+
   return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
@@ -115,13 +121,15 @@ const typeLoading = ref(false)
 const typeHasMore = computed(() => typeOptions.value.length < typeTotal.value)
 
 const loadTypeOptions = async (reset = false) => {
-  if (typeLoading.value) return
+  if (typeLoading.value)
+    return
   if (reset) { typePage.value = 1; typeOptions.value = [] }
   typeLoading.value = true
   try {
     const res = await typeApi.list({ page: typePage.value, limit: 20, status: 'active' })
     if (res.data.success) {
       const newItems = (res.data.data || []).map((t: any) => ({ title: t.name, value: t.id }))
+
       typeOptions.value = reset ? newItems : [...typeOptions.value, ...newItems]
       typeTotal.value = res.data.meta?.total || 0
       typePage.value++
@@ -157,16 +165,20 @@ const cancelDocEdit = () => {
 }
 
 const requiredRule = (v: any) => !!v?.toString().trim() || 'Trường này là bắt buộc'
+
 const docServerErrorRule = (field: string) => () => {
   const errors = docServerErrors.value[field]
+
   return !errors?.length || errors[0]
 }
 
 const saveDoc = async () => {
   docServerErrors.value = {}
-  if (!refDocForm.value) return
+  if (!refDocForm.value)
+    return
   const { valid } = await refDocForm.value.validate()
-  if (!valid) return
+  if (!valid)
+    return
 
   isDocSubmitting.value = true
   try {
@@ -177,6 +189,7 @@ const saveDoc = async () => {
       task_assignment_type_id: docForm.value.task_assignment_type_id || undefined,
       status: docForm.value.status,
     }
+
     const res = await documentApi.update(documentId.value, payload)
     if (res.data.success) {
       currentDoc.value = res.data.data || currentDoc.value
@@ -185,7 +198,11 @@ const saveDoc = async () => {
     }
   }
   catch (error: any) {
-    if (error?.response?.status === 403) { showToast('Người dùng không có quyền.', 'error'); return }
+    if (error?.response?.status === 403) {
+      showToast('Người dùng không có quyền.', 'error')
+
+      return
+    }
     const responseData = error?.response?.data
     if (responseData?.errors) {
       docServerErrors.value = responseData.errors
@@ -215,13 +232,15 @@ const handleAddFiles = (files: File[]) => {
 const handleRemovePending = (index: number) => pendingFiles.value.splice(index, 1)
 
 const handleUpload = async () => {
-  if (!pendingFiles.value.length) return
+  if (!pendingFiles.value.length)
+    return
   isUploading.value = true
   try {
     const res = await documentApi.addAttachments(documentId.value, pendingFiles.value)
     if (res.data.success) {
       existingAttachments.value = res.data.data?.attachments ?? []
-      if (currentDoc.value) currentDoc.value.attachments = existingAttachments.value as any
+      if (currentDoc.value)
+        currentDoc.value.attachments = existingAttachments.value as any
     }
     pendingFiles.value = []
     showToast('Tải file lên thành công!', 'success')
@@ -238,7 +257,8 @@ const handleRemoveAttachment = async (att: AttachmentItem) => {
     try {
       await documentApi.removeAttachment(documentId.value, att.id)
       existingAttachments.value = existingAttachments.value.filter(a => a.id !== att.id)
-      if (currentDoc.value) currentDoc.value.attachments = existingAttachments.value as any
+      if (currentDoc.value)
+        currentDoc.value.attachments = existingAttachments.value as any
       showToast('Xóa file thành công!', 'success')
     }
     catch (err: any) {
@@ -271,6 +291,7 @@ const fetchItems = async () => {
       sort_by: 'created_at',
       sort_order: 'desc',
     })
+
     if (res.data.success) {
       items.value = res.data.data || []
       itemsTotal.value = res.data.meta?.total || 0
@@ -308,8 +329,9 @@ const isDeletingItem = ref<number | null>(null)
 
 const confirmDeleteItem = (item: Item) => {
   if (isIssued.value) {
-      showToast('Công việc đã được ban hành không thể xoá', 'success')
-      return
+    showToast('Công việc đã được ban hành không thể xoá', 'success')
+
+    return
   }
 
   showConfirm('Xóa công việc', `Bạn có chắc muốn xóa công việc "${item.name}"?`, async () => {
@@ -332,8 +354,9 @@ const editingItem = ref<Item | null>(null)
 
 const openAddItemDrawer = () => {
   if (isIssued.value) {
-      showToast('Văn bản đã được ban hành không thể thêm mới công việc', 'success')
-      return
+    showToast('Văn bản đã được ban hành không thể thêm mới công việc', 'success')
+
+    return
   }
 
   editingItem.value = {
@@ -356,10 +379,12 @@ const handleItemSubmit = async () => {
   itemDrawerOpen.value = false
   await fetchItems()
 }
+
 // ── Timeline hoạt động văn bản ────────────────────────────────────────────
 const timelineItems = computed(() => {
   const doc = currentDoc.value
-  if (!doc) return []
+  if (!doc)
+    return []
 
   const items = []
 
@@ -405,10 +430,12 @@ onMounted(async () => {
 
 <template>
   <div>
-
     <!-- ── Skeleton ───────────────────────────────────────────── -->
     <template v-if="isDocLoading">
-      <VSkeletonLoader type="card" class="mb-4" />
+      <VSkeletonLoader
+        type="card"
+        class="mb-4"
+      />
     </template>
 
     <template v-else-if="currentDoc">
@@ -436,11 +463,19 @@ onMounted(async () => {
             class="v-tabs-pill mb-4 flex-grow-0"
           >
             <VTab>
-              <VIcon size="18" icon="tabler-paperclip" class="me-1" />
+              <VIcon
+                size="18"
+                icon="tabler-paperclip"
+                class="me-1"
+              />
               Tệp đính kèm
             </VTab>
             <VTab>
-              <VIcon size="18" icon="tabler-history" class="me-1" />
+              <VIcon
+                size="18"
+                icon="tabler-history"
+                class="me-1"
+              />
               Dòng thời gian
             </VTab>
           </VTabs>
@@ -494,7 +529,10 @@ onMounted(async () => {
 
             <!-- Tab 1: Dòng thời gian -->
             <VWindowItem class="h-100">
-              <DocumentActivityTimeline :items="timelineItems" class="h-100" />
+              <DocumentActivityTimeline
+                :items="timelineItems"
+                class="h-100"
+              />
             </VWindowItem>
           </VWindow>
         </VCol>
@@ -503,8 +541,11 @@ onMounted(async () => {
       <!-- ── Danh sách công việc ─────────────────────────────── -->
       <AppFilterBar :show-filters="false">
         <template #actions>
-           <!-- Add -->
-          <VBtn @click="openAddItemDrawer" :disabled="isIssued">
+          <!-- Add -->
+          <VBtn
+            :disabled="isIssued"
+            @click="openAddItemDrawer"
+          >
             <VIcon icon="tabler-plus" />
             <span class="d-none d-sm-inline ms-1">Thêm mới</span>
           </VBtn>
@@ -531,17 +572,34 @@ onMounted(async () => {
           </template>
 
           <template #item.departments="{ item }">
-            <div v-if="item.departments && item.departments.length" class="d-flex flex-wrap gap-1">
-              <VChip v-for="dept in item.departments" :key="dept.id" variant="tonal">
+            <div
+              v-if="item.departments && item.departments.length"
+              class="d-flex flex-wrap gap-1"
+            >
+              <VChip
+                v-for="dept in item.departments"
+                :key="dept.id"
+                variant="tonal"
+              >
                 {{ dept.name }}
               </VChip>
             </div>
-            <span v-else class="text-xs text-disabled">—</span>
+            <span
+              v-else
+              class="text-xs text-disabled"
+            >—</span>
           </template>
 
           <template #item.users="{ item }">
-            <div v-if="item.users && item.users.length" class="d-flex flex-column gap-1">
-              <div v-for="u in item.users.slice(0, 2)" :key="u.id" class="d-flex align-center gap-1">
+            <div
+              v-if="item.users && item.users.length"
+              class="d-flex flex-column gap-1"
+            >
+              <div
+                v-for="u in item.users.slice(0, 2)"
+                :key="u.id"
+                class="d-flex align-center gap-1"
+              >
                 <VIcon
                   :icon="u.assignment_role === 'main' ? 'tabler-user' : 'tabler-users'"
                   size="14"
@@ -549,31 +607,55 @@ onMounted(async () => {
                 />
                 <span class="text-sm">{{ u.name }}</span>
               </div>
-              <span v-if="item.users.length > 2" class="text-xs text-disabled">
+              <span
+                v-if="item.users.length > 2"
+                class="text-xs text-disabled"
+              >
                 +{{ item.users.length - 2 }} người khác
               </span>
             </div>
-            <span v-else class="text-xs text-disabled">—</span>
+            <span
+              v-else
+              class="text-xs text-disabled"
+            >—</span>
           </template>
 
           <template #item.processing_status="{ item }">
-            <VChip :color="resolveStatusColor(item.processing_status)" size="small" variant="tonal">
+            <VChip
+              :color="resolveStatusColor(item.processing_status)"
+              size="small"
+              variant="tonal"
+            >
               {{ resolveStatusLabel(item.processing_status) }}
             </VChip>
           </template>
 
           <template #item.priority="{ item }">
-            <VChip v-if="item.priority" :color="resolvePriorityColor(item.priority)" size="small" variant="tonal">
+            <VChip
+              v-if="item.priority"
+              :color="resolvePriorityColor(item.priority)"
+              size="small"
+              variant="tonal"
+            >
               {{ resolvePriorityLabel(item.priority) }}
             </VChip>
-            <span v-else class="text-xs text-disabled">—</span>
+            <span
+              v-else
+              class="text-xs text-disabled"
+            >—</span>
           </template>
 
           <template #item.end_at="{ item }">
-            <span v-if="item.end_at && item.deadline_type !== 'no_deadline'" class="text-sm">
+            <span
+              v-if="item.end_at && item.deadline_type !== 'no_deadline'"
+              class="text-sm"
+            >
               {{ formatDate(item.end_at) }}
             </span>
-            <span v-else class="text-sm text-disabled">Không có thời hạn</span>
+            <span
+              v-else
+              class="text-sm text-disabled"
+            >Không có thời hạn</span>
           </template>
 
           <template #item.completion_percent="{ item }">
@@ -598,7 +680,12 @@ onMounted(async () => {
 
           <template #no-data>
             <div class="text-center py-8">
-              <VIcon icon="tabler-checklist" size="48" color="disabled" class="mb-4" />
+              <VIcon
+                icon="tabler-checklist"
+                size="48"
+                color="disabled"
+                class="mb-4"
+              />
               <div class="text-sm text-disabled mb-3">
                 Chưa có công việc nào trong văn bản này
               </div>
@@ -619,10 +706,23 @@ onMounted(async () => {
     </template>
 
     <!-- ── Không tìm thấy ─────────────────────────────────────── -->
-    <VCard v-else-if="!isDocLoading" class="text-center pa-12">
-      <VIcon icon="tabler-file-off" size="64" color="disabled" class="mb-4" />
-      <div class="text-h6 text-medium-emphasis mb-2">Không tìm thấy văn bản giao việc</div>
-      <VBtn variant="tonal" @click="router.push({ name: 'task-assignment-documents' })">
+    <VCard
+      v-else-if="!isDocLoading"
+      class="text-center pa-12"
+    >
+      <VIcon
+        icon="tabler-file-off"
+        size="64"
+        color="disabled"
+        class="mb-4"
+      />
+      <div class="text-h6 text-medium-emphasis mb-2">
+        Không tìm thấy văn bản giao việc
+      </div>
+      <VBtn
+        variant="tonal"
+        @click="router.push({ name: 'task-assignment-documents' })"
+      >
         Quay lại danh sách
       </VBtn>
     </VCard>
@@ -644,15 +744,19 @@ onMounted(async () => {
     />
 
     <!-- ── Snackbar ───────────────────────────────────────────── -->
-    <AppSnackbar v-model="snackbar.show" :message="snackbar.message" :color="snackbar.color" />
+    <AppSnackbar
+      v-model="snackbar.show"
+      :message="snackbar.message"
+      :color="snackbar.color"
+    />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .detail-window {
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
 
   :deep(.v-window__container),
   :deep(.v-window-item) {

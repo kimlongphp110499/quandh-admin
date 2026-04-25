@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { type Type, type TypeFilters, type TypeFormData, type TypeStats, typeApi } from '../services/typeApi'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export const useTypeStore = defineStore('taskAssignmentType', () => {

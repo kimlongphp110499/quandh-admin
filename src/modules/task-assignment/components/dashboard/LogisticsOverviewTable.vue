@@ -21,8 +21,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <VCard>
-    <VCardItem :title="title">
-    </VCardItem>
+    <VCardItem :title="title" />
 
     <VDivider />
 

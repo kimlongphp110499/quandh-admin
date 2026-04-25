@@ -3,8 +3,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
-import { getErrorMessage } from '@/utils/errorMessage'
-import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useItemStore } from '../../stores/useItemStore'
 import type {
   Item,
@@ -14,8 +12,10 @@ import type {
 import { documentApi } from '../../services/documentApi'
 import { itemTypeApi } from '../../services/itemTypeApi'
 import { departmentApi } from '../../services/departmentApi'
+import { ASSIGNMENT_ROLE_OPTIONS, ASSIGNMENT_STATUS_OPTIONS, DEPARTMENT_ROLE_OPTIONS, ITEM_DEADLINE_TYPE_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_STATUS_OPTIONS } from '../../configs/itemOptions'
 import { userApi } from '@/api/modules/user'
-import { ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS, ITEM_DEADLINE_TYPE_OPTIONS, ASSIGNMENT_STATUS_OPTIONS, ASSIGNMENT_ROLE_OPTIONS, DEPARTMENT_ROLE_OPTIONS } from '../../configs/itemOptions'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
   isDrawerOpen: boolean
@@ -263,9 +263,11 @@ const removeDepartment = (index: number) => {
 const departmentDuplicateRule = (index: number) => (val: any) => {
   if (!val)
     return true
+
   const isDuplicate = formData.value.department_ids.some(
     (d, i) => i !== index && d.department_id === val,
   )
+
   return !isDuplicate || 'Phòng ban này đã được thêm'
 }
 
@@ -298,6 +300,7 @@ const closeDrawer = () => {
 watch(() => props.isDrawerOpen, val => {
   if (val) {
     formData.value = buildInitialForm()
+
     // Nếu được truyền documentId từ ngoài, gán cứng vào form
     if (props.documentId != null)
       formData.value.task_assignment_document_id = props.documentId

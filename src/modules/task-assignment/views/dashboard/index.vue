@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { itemApi } from '../../services/itemApi'
-import type { StatsByDepartmentItem, StatsByUserItem, Item } from '../../services/itemApi'
+import type { Item, StatsByDepartmentItem, StatsByUserItem } from '../../services/itemApi'
 import LogisticsOverviewTable from '../../components/dashboard/LogisticsOverviewTable.vue'
 import LogisticsShipmentStatistics from '../../components/dashboard/LogisticsShipmentStatistics.vue'
 import SlowProgressRanking from '../../components/dashboard/SlowProgressRanking.vue'
@@ -11,6 +11,7 @@ import DocumentPeriodStats from '../../components/dashboard/DocumentPeriodStats.
 // ── Stats by department ────────────────────────────────────
 const deptLoading = ref(false)
 const deptRows = ref<StatsByDepartmentItem[]>([])
+
 const deptHeaders = [
   { title: 'Phòng ban', key: 'department_name' },
   { title: 'Đang làm', key: 'in_progress' },
@@ -21,6 +22,7 @@ const deptHeaders = [
 // ── Stats by user ──────────────────────────────────────────
 const userLoading = ref(false)
 const userRows = ref<StatsByUserItem[]>([])
+
 const userHeaders = [
   { title: 'Nhân viên', key: 'user_name' },
   { title: 'Tổng', key: 'total' },
@@ -31,6 +33,7 @@ const userHeaders = [
 // ── Overdue ────────────────────────────────────────────────
 const overdueLoading = ref(false)
 const overdueRows = ref<Item[]>([])
+
 const overdueHeaders = [
   { title: 'Công việc', key: 'name' },
   { title: 'Hạn kết thúc', key: 'end_at' },
@@ -41,6 +44,7 @@ const overdueHeaders = [
 // ── Upcoming deadline ──────────────────────────────────────
 const upcomingLoading = ref(false)
 const upcomingRows = ref<Item[]>([])
+
 const upcomingHeaders = [
   { title: 'Công việc', key: 'name' },
   { title: 'Hạn kết thúc', key: 'end_at' },
@@ -49,15 +53,24 @@ const upcomingHeaders = [
 ]
 
 const priorityColor = (p?: string) => {
-  if (p === 'high') return 'error'
-  if (p === 'medium') return 'warning'
-  if (p === 'low') return 'success'
+  if (p === 'high')
+    return 'error'
+  if (p === 'medium')
+    return 'warning'
+  if (p === 'low')
+    return 'success'
+
   return 'secondary'
 }
+
 const priorityLabel = (p?: string) => {
-  if (p === 'high') return 'Cao'
-  if (p === 'medium') return 'Trung bình'
-  if (p === 'low') return 'Thấp'
+  if (p === 'high')
+    return 'Cao'
+  if (p === 'medium')
+    return 'Trung bình'
+  if (p === 'low')
+    return 'Thấp'
+
   return '—'
 }
 
@@ -89,6 +102,7 @@ const fetchAll = async () => {
       itemApi.overdue(),
       itemApi.upcomingDeadline({ days: 7 }),
     ])
+
     deptRows.value = deptRes.data.data ?? []
     userRows.value = userRes.data.data ?? []
     overdueRows.value = overdueRes.data.data ?? []
@@ -108,11 +122,8 @@ fetchAll()
 
 <template>
   <VRow class="match-height">
-
-     <VCol
-      cols="12"
-    >
-    <LogisticsCardStatistics/>
+    <VCol cols="12">
+      <LogisticsCardStatistics />
     </VCol>
     <!-- Thống kê theo phòng ban -->
     <VCol
@@ -132,13 +143,31 @@ fetchAll()
           </span>
         </template>
         <template #item.in_progress="{ item }">
-          <VChip color="info" size="small" label>{{ item.in_progress }}</VChip>
+          <VChip
+            color="info"
+            size="small"
+            label
+          >
+            {{ item.in_progress }}
+          </VChip>
         </template>
         <template #item.done="{ item }">
-          <VChip color="success" size="small" label>{{ item.done }}</VChip>
+          <VChip
+            color="success"
+            size="small"
+            label
+          >
+            {{ item.done }}
+          </VChip>
         </template>
         <template #item.overdue="{ item }">
-          <VChip color="error" size="small" label>{{ item.overdue }}</VChip>
+          <VChip
+            color="error"
+            size="small"
+            label
+          >
+            {{ item.overdue }}
+          </VChip>
         </template>
       </LogisticsOverviewTable>
     </VCol>
@@ -159,23 +188,47 @@ fetchAll()
           <span class="text-base font-weight-medium">{{ item.user_name }}</span>
         </template>
         <template #item.total="{ item }">
-          <VChip color="secondary" size="small" label>{{ item.total }}</VChip>
+          <VChip
+            color="secondary"
+            size="small"
+            label
+          >
+            {{ item.total }}
+          </VChip>
         </template>
         <template #item.done="{ item }">
-          <VChip color="success" size="small" label>{{ item.done }}</VChip>
+          <VChip
+            color="success"
+            size="small"
+            label
+          >
+            {{ item.done }}
+          </VChip>
         </template>
         <template #item.overdue="{ item }">
-          <VChip color="error" size="small" label>{{ item.overdue }}</VChip>
+          <VChip
+            color="error"
+            size="small"
+            label
+          >
+            {{ item.overdue }}
+          </VChip>
         </template>
       </LogisticsOverviewTable>
     </VCol>
 
     <!-- Biểu đồ xu hướng -->
-    <VCol cols="12" md="6">
+    <VCol
+      cols="12"
+      md="6"
+    >
       <DashboardExceptionStats />
     </VCol>
 
-    <VCol cols="12" md="6">
+    <VCol
+      cols="12"
+      md="6"
+    >
       <LogisticsShipmentStatistics />
     </VCol>
 
@@ -231,12 +284,19 @@ fetchAll()
           <span class="text-error">{{ item.end_at ?? '—' }}</span>
         </template>
         <template #item.completion_percent="{ item }">
-          <div class="d-flex align-center gap-x-2" style="min-width: 60px;">
+          <div
+            class="d-flex align-center gap-x-2"
+            style="min-inline-size: 60px;"
+          >
             <span class="text-caption">{{ item.completion_percent }}%</span>
           </div>
         </template>
         <template #item.priority="{ item }">
-          <VChip :color="priorityColor(item.priority)" size="small" label>
+          <VChip
+            :color="priorityColor(item.priority)"
+            size="small"
+            label
+          >
             {{ priorityLabel(item.priority) }}
           </VChip>
         </template>
@@ -264,17 +324,23 @@ fetchAll()
           <span class="text-warning">{{ item.end_at ?? '—' }}</span>
         </template>
         <template #item.completion_percent="{ item }">
-          <div class="d-flex align-center gap-x-2" style="min-width: 60px;">
+          <div
+            class="d-flex align-center gap-x-2"
+            style="min-inline-size: 60px;"
+          >
             <span class="text-caption">{{ item.completion_percent }}%</span>
           </div>
         </template>
         <template #item.priority="{ item }">
-          <VChip :color="priorityColor(item.priority)" size="small" label>
+          <VChip
+            :color="priorityColor(item.priority)"
+            size="small"
+            label
+          >
             {{ priorityLabel(item.priority) }}
           </VChip>
         </template>
       </LogisticsOverviewTable>
     </VCol>
-
   </VRow>
 </template>

@@ -1,14 +1,13 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useRoleStore } from '../stores/useRoleStore'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { usePermissionStore } from '../stores/usePermissionStore'
 import type { Role } from '../services/roleApi'
-// eslint-disable-next-line import/no-unresolved
+import { getErrorMessage } from '@/utils/errorMessage'
+
 import AppSnackbar from '@/components/AppSnackbar.vue'
 
 interface Props {
@@ -180,6 +179,7 @@ const onSubmit = async () => {
   catch (error: any) {
     if (error?.response?.status === 403) {
       showToast('Người dùng không có quyền.', 'error')
+
       return
     }
     const responseData = error?.response?.data

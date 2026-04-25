@@ -14,6 +14,7 @@ const borderColor = 'rgba(var(--v-border-color), var(--v-border-opacity))'
 
 type GroupBy = 'week' | 'month' | 'quarter'
 const groupBy = ref<GroupBy>('month')
+
 const groupByOptions: { title: string; value: GroupBy }[] = [
   { title: 'Tuần', value: 'week' },
   { title: 'Tháng', value: 'month' },
@@ -27,6 +28,7 @@ const fetchData = async () => {
   loading.value = true
   try {
     const res = await itemApi.statsByTime({ group_by: groupBy.value })
+
     rows.value = res.data.data ?? []
   }
   catch { rows.value = [] }
@@ -132,36 +134,38 @@ const chartConfig = computed(() => ({
       <template #subtitle>
         Tổng số công việc: <strong>{{ totalSum }}</strong>
       </template>
-       <template #append>
+      <template #append>
         <div class="d-flex align-center gap-2">
-        <VBtnToggle
-          v-model="groupBy"
-          color="primary"
-          density="compact"
-          divided
-          mandatory
-          rounded="lg"
-        >
-          <VBtn
-            v-for="opt in groupByOptions"
-            :key="opt.value"
-            :value="opt.value"
+          <VBtnToggle
+            v-model="groupBy"
+            color="primary"
+            density="compact"
+            divided
+            mandatory
+            rounded="lg"
           >
-            {{ opt.title }}
-          </VBtn>
-        </VBtnToggle>
+            <VBtn
+              v-for="opt in groupByOptions"
+              :key="opt.value"
+              :value="opt.value"
+            >
+              {{ opt.title }}
+            </VBtn>
+          </VBtnToggle>
         </div>
       </template>
-
     </VCardItem>
 
     <VCardText>
       <div
         v-if="loading"
         class="d-flex justify-center align-center"
-        style="height: 320px;"
+        style="block-size: 320px;"
       >
-        <VProgressCircular indeterminate color="primary" />
+        <VProgressCircular
+          indeterminate
+          color="primary"
+        />
       </div>
       <VueApexCharts
         v-else
@@ -176,7 +180,7 @@ const chartConfig = computed(() => ({
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/libs/apex-chart.scss";
+@use "@core/scss/template/libs/apex-chart";
 
 #shipment-statistics {
   .apexcharts-legend-text {

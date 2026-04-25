@@ -1,25 +1,22 @@
 <!-- eslint-disable import/no-unresolved -->
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
+import { useActivityLogStore } from '../../../stores/useActivityLogStore'
+import type { ActivityLog } from '../../../services/activityLogApi'
+import { useOrganizationStore } from '../../../stores/useOrganizationStore'
+import { ACTIVITY_LOG_LIMIT_OPTIONS, ACTIVITY_LOG_METHOD_OPTIONS } from '../../../configs/activityLogOptions'
+import {
+  buildOrganizationMap,
+  resolveMethodColor,
+  resolveOrganizationName,
+  resolveStatusColor,
+  resolveUserInitials,
+} from '../../../utils/activityLogAdapters'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
-import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { useActivityLogStore } from '../../../stores/useActivityLogStore'
-import type { ActivityLog } from '../../../services/activityLogApi'
-// eslint-disable-next-line import/extensions
-import { useOrganizationStore } from '../../../stores/useOrganizationStore'
-import { ACTIVITY_LOG_METHOD_OPTIONS, ACTIVITY_LOG_LIMIT_OPTIONS } from '../../../configs/activityLogOptions'
-import {
-  resolveMethodColor,
-  resolveStatusColor,
-  buildOrganizationMap,
-  resolveOrganizationName,
-  resolveUserInitials,
-} from '../../../utils/activityLogAdapters'
 
 const store = useActivityLogStore()
 
@@ -56,6 +53,7 @@ const selectedIds = ref<number[]>([])
 const page = ref(1)
 const limit = ref(10)
 const limitOptions = ACTIVITY_LOG_LIMIT_OPTIONS
+
 // ── detail dialog ─────────────────────────────────────────────────
 const detailDialog = ref(false)
 const selectedLog = ref<ActivityLog | null>(null)
@@ -113,7 +111,6 @@ async function load() {
   await orgStore.fetchItems({
     limit: 100,
   })
-  
 }
 
 function applyFilters() {
@@ -256,7 +253,6 @@ onMounted(load)
 
 <template>
   <div>
-
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
@@ -392,7 +388,7 @@ onMounted(load)
       >
         <thead>
           <tr>
-            <th style="width: 40px;">
+            <th style="inline-size: 40px;">
               <VCheckbox
                 :model-value="isAllSelected"
                 :indeterminate="isIndeterminate"
@@ -404,16 +400,16 @@ onMounted(load)
             <th>TÊN NGƯỜI DÙNG</th>
             <th>TỔ CHỨC</th>
             <th>MÔ TẢ</th>
-            <th style="width: 130px; min-width: 130px;">
+            <th style="inline-size: 130px; min-inline-size: 130px;">
               PHƯƠNG THỨC HTTP
             </th>
-            <th style="width: 120px; min-width: 120px;">
+            <th style="inline-size: 120px; min-inline-size: 120px;">
               ĐỊA CHỈ IP
             </th>
-            <th style="width: 160px; min-width: 160px;">
+            <th style="inline-size: 160px; min-inline-size: 160px;">
               THỜI GIAN TRUY CẬP
             </th>
-            <th style="width: 130px; min-width: 130px; text-align: left;">
+            <th style="inline-size: 130px; min-inline-size: 130px; text-align: start;">
               HÀNH ĐỘNG
             </th>
           </tr>
@@ -458,7 +454,7 @@ onMounted(load)
               {{ log.organization_id ? getOrganizationName(log.organization_id) : '—' }}
             </td>
             <td>
-              <div 
+              <div
                 class="text-base font-weight-medium text-high-emphasis"
                 style="max-inline-size: 260px;"
               >
@@ -498,11 +494,14 @@ onMounted(load)
               </span>
             </td>
             <td>
-              <div style="max-width: 160px; overflow: hidden;">
+              <div style=" overflow: hidden;max-inline-size: 160px;">
                 <AppUserDateInfo :date="log.created_at" />
               </div>
             </td>
-            <td class="text-no-wrap" @click.stop>
+            <td
+              class="text-no-wrap"
+              @click.stop
+            >
               <IconBtn @click="openDetail(log)">
                 <VIcon icon="tabler-eye" />
               </IconBtn>
@@ -534,8 +533,8 @@ onMounted(load)
 
     <!-- Detail Dialog -->
     <VDialog
-      :width="$vuetify.display.smAndDown ? 'auto' : 700"
       v-model="detailDialog"
+      :width="$vuetify.display.smAndDown ? 'auto' : 700"
     >
       <!-- 👉 Dialog close btn -->
       <DialogCloseBtn @click="detailDialog = false" />
@@ -818,9 +817,3 @@ onMounted(load)
     />
   </div>
 </template>
-
-<style scoped>
-:deep(tbody tr) {
-  height: 64px;
-}
-</style>

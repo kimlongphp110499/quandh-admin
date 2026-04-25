@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { getErrorMessage } from '@/utils/errorMessage'
 import type { User, UserFilters, UserFormData, UserStats } from '../services/userApi'
 import { userApi } from '../services/userApi'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 export const useUserStore = defineStore('user-management', () => {
   // ── State ────────────────────────────────────────────────────────
@@ -38,6 +38,7 @@ export const useUserStore = defineStore('user-management', () => {
     try {
       isLoading.value = true
       error.value = null
+
       const res = await userApi.list({ ...filters.value, ...customFilters })
       if (res.data.success) {
         items.value = res.data.data || []
@@ -56,9 +57,11 @@ export const useUserStore = defineStore('user-management', () => {
   async function createItem(data: UserFormData): Promise<User | undefined> {
     try {
       isLoading.value = true
+
       const res = await userApi.create(data)
       if (res.data.success && res.data.data) {
         items.value.unshift(res.data.data)
+
         return res.data.data
       }
     }
@@ -74,10 +77,13 @@ export const useUserStore = defineStore('user-management', () => {
   async function updateItem(id: number, data: Partial<UserFormData>): Promise<User | undefined> {
     try {
       isLoading.value = true
+
       const res = await userApi.update(id, data)
       if (res.data.success && res.data.data) {
         const idx = items.value.findIndex(u => u.id === id)
-        if (idx !== -1) items.value[idx] = res.data.data!
+        if (idx !== -1)
+          items.value[idx] = res.data.data!
+
         return res.data.data
       }
     }
@@ -108,10 +114,13 @@ export const useUserStore = defineStore('user-management', () => {
   async function changeStatus(id: number, status: 'active' | 'inactive' | 'banned') {
     try {
       isLoading.value = true
+
       const res = await userApi.changeStatus(id, status)
       if (res.data.success && res.data.data) {
         const idx = items.value.findIndex(u => u.id === id)
-        if (idx !== -1) items.value[idx] = res.data.data!
+        if (idx !== -1)
+          items.value[idx] = res.data.data!
+
         return res.data.data
       }
     }
@@ -160,6 +169,7 @@ export const useUserStore = defineStore('user-management', () => {
       const blob = new Blob([res.data], { type: res.headers['content-type'] })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
+
       a.href = url
       a.download = `users_${new Date().toISOString().slice(0, 10)}.xlsx`
       a.click()
@@ -174,7 +184,9 @@ export const useUserStore = defineStore('user-management', () => {
   async function importItems(file: File) {
     try {
       isLoading.value = true
+
       const res = await userApi.import(file)
+
       return res.data
     }
     catch (err: any) {

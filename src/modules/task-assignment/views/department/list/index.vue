@@ -1,27 +1,25 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import DepartmentFormDrawer from '../../../components/DepartmentFormDrawer.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
+import { useDepartmentStore } from '../../../stores/useDepartmentStore'
+import type { Department } from '../../../services/departmentApi'
+import { DEPARTMENT_LIMIT_OPTIONS, DEPARTMENT_STATUS_OPTIONS, DEPARTMENT_TABLE_HEADERS } from '../../../configs/departmentOptions'
+import {
+  resolveDepartmentStatusLabel,
+  toggleDepartmentStatus,
+} from '../../../utils/departmentAdapters'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-// eslint-disable-next-line import/no-unresolved
+
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-// eslint-disable-next-line import/no-unresolved
+
 import AppImportDialog from '@/components/AppImportDialog.vue'
 import AppExportDialog from '@/components/AppExportDialog.vue'
-import { useDepartmentStore } from '../../../stores/useDepartmentStore'
-import type { Department } from '../../../services/departmentApi'
-import { DEPARTMENT_TABLE_HEADERS, DEPARTMENT_STATUS_OPTIONS, DEPARTMENT_LIMIT_OPTIONS } from '../../../configs/departmentOptions'
-import {
-  resolveDepartmentStatusLabel,
-  resolveToggleStatusLabel,
-  resolveToggleStatusIcon,
-  toggleDepartmentStatus,
-} from '../../../utils/departmentAdapters'
 
 const store = useDepartmentStore()
 
@@ -31,7 +29,7 @@ const selected = ref<Department[]>([])
 const isImportDialogVisible = ref(false)
 const isExportDialogVisible = ref(false)
 const isImporting = ref(false)
-const importErrors = ref<{ row: number, errors: string[] }[]>([])
+const importErrors = ref<{ row: number; errors: string[] }[]>([])
 const isExporting = ref(false)
 const isDownloadingTemplate = ref(false)
 
@@ -422,7 +420,7 @@ onMounted(async () => {
 
         <!-- Ngày tạo -->
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -432,7 +430,7 @@ onMounted(async () => {
 
         <!-- Ngày cập nhật -->
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -558,9 +556,3 @@ onMounted(async () => {
     />
   </section>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

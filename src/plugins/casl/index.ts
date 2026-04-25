@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 
 import { abilitiesPlugin } from '@casl/vue'
-import { ability, type Rule } from './ability'
+import { type Rule, ability } from './ability'
 
 export default function (app: App) {
   // Đọc từ localStorage khi reload trang (cookie bị truncate do vượt 4KB)

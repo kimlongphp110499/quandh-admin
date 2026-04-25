@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import TypeFormDrawer from '../../../components/TypeFormDrawer.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
+import { useTypeStore } from '../../../stores/useTypeStore'
+import { typeApi } from '../../../services/typeApi'
+import type { Type } from '../../../services/typeApi'
+import { TYPE_LIMIT_OPTIONS, TYPE_STATUS_OPTIONS, TYPE_TABLE_HEADERS } from '../../../configs/typeOptions'
 import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-// eslint-disable-next-line import/no-unresolved
+
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-// eslint-disable-next-line import/no-unresolved
+
 import AppImportDialog from '@/components/AppImportDialog.vue'
 import AppExportDialog from '@/components/AppExportDialog.vue'
-import { useTypeStore } from '../../../stores/useTypeStore'
-import { typeApi } from '../../../services/typeApi'
-import type { Type } from '../../../services/typeApi'
-import { TYPE_TABLE_HEADERS, TYPE_STATUS_OPTIONS, TYPE_LIMIT_OPTIONS } from '../../../configs/typeOptions'
 
 const store = useTypeStore()
 
@@ -235,7 +235,6 @@ const handleDownloadTemplate = async () => {
   }
 }
 
-
 let searchTimeout: ReturnType<typeof setTimeout>
 watch(searchQuery, () => {
   clearTimeout(searchTimeout)
@@ -256,6 +255,7 @@ onMounted(async () => {
   // Mở form chỉnh sửa nếu được yêu cầu từ trang khác (TypePreviewDialog)
   if (store.pendingEditId) {
     const id = store.pendingEditId
+
     store.pendingEditId = null
     try {
       const res = await typeApi.show(id)
@@ -417,7 +417,7 @@ onMounted(async () => {
 
         <!-- Ngày tạo -->
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -427,7 +427,7 @@ onMounted(async () => {
 
         <!-- Ngày cập nhật -->
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -554,9 +554,3 @@ onMounted(async () => {
     />
   </section>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { settingApi, type SettingsData } from '@/api/modules/setting'
+
+import { type SettingsData, settingApi } from '@/api/modules/setting'
 
 export const useSettingStore = defineStore('setting', () => {
   const settings = ref<SettingsData>({})

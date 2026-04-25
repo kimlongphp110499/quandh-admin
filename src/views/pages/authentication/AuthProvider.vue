@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
 
+const props = defineProps<{
+  links?: AuthProviderLink[]
+}>()
+
 const { global } = useTheme()
 
 interface AuthProviderLink {
@@ -9,10 +13,6 @@ interface AuthProviderLink {
   colorInDark?: string
   url?: string
 }
-
-const props = defineProps<{
-  links?: AuthProviderLink[]
-}>()
 
 const defaultProviders: AuthProviderLink[] = [
   { icon: 'tabler-brand-facebook-filled', color: '#4267b2', colorInDark: '#497CE2' },

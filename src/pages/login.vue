@@ -4,17 +4,14 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAbility } from '@casl/vue'
 
-// eslint-disable-next-line import/extensions
 import { useAuthStore } from '@/store/modules/auth'
 
-// eslint-disable-next-line import/extensions
 import { useSettingStore } from '@/store/modules/setting'
 
-// eslint-disable-next-line import/extensions
 import { type Rule } from '@/plugins/casl/ability'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import AppSwitchOrgDialog from '@/components/AppSwitchOrgDialog.vue'
 
 definePage({
@@ -296,7 +293,6 @@ onMounted(async () => {
 
           <!-- Social links -->
           <template v-if="socialLinks.length">
-
             <AuthProvider :links="socialLinks as any" />
           </template>
         </VCardText>

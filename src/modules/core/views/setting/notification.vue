@@ -1,9 +1,9 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
-// eslint-disable-next-line import/no-unresolved
+
 import { useSettingStore } from '../../stores/useSettingStore'
-// eslint-disable-next-line import/no-unresolved
+
 import AppSnackbar from '@/components/AppSnackbar.vue'
 
 const settingStore = useSettingStore()
@@ -66,6 +66,7 @@ const chat = reactive({
 
 function populate() {
   const e = settingStore.settings.email ?? {}
+
   email.email_protocol = e.email_protocol ?? 'smtp'
   email.email_sender_name = e.email_sender_name ?? ''
   email.email_sender_address = e.email_sender_address ?? ''
@@ -77,12 +78,14 @@ function populate() {
   email.email_test_address = e.email_test_address ?? ''
 
   const s = settingStore.settings.sms ?? {}
+
   sms.sms_server = s.sms_server ?? ''
   sms.sms_username = s.sms_username ?? ''
   sms.sms_password = s.sms_password ?? ''
   sms.sms_test_phone = s.sms_test_phone ?? ''
 
   const z = settingStore.settings.zalo ?? {}
+
   zalo.zalo_server = z.zalo_server ?? ''
   zalo.zalo_username = z.zalo_username ?? ''
   zalo.zalo_password = z.zalo_password ?? ''
@@ -90,6 +93,7 @@ function populate() {
   zalo.zalo_template_id = z.zalo_template_id ?? ''
 
   const c = settingStore.settings.chat ?? {}
+
   chat.chat_server = c.chat_server ?? ''
   chat.chat_api_key = c.chat_api_key ?? ''
   chat.chat_sender = c.chat_sender ?? ''

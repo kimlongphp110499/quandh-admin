@@ -3,13 +3,12 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
-import { getErrorMessage } from '@/utils/errorMessage'
-import AppSnackbar from '@/components/AppSnackbar.vue'
 import { useDocumentStore } from '../../stores/useDocumentStore'
 import { typeApi } from '../../services/typeApi'
-import { documentApi } from '../../services/documentApi'
-import type { Document, DocumentAttachment } from '../../services/documentApi'
+import type { Document } from '../../services/documentApi'
 import { DOCUMENT_STATUS_OPTIONS } from '../../configs/documentOptions'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
   isDrawerOpen: boolean

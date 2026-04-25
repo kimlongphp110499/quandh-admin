@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, ref, watch } from 'vue'
 import * as yup from 'yup'
 import { useDepartmentStore } from '../stores/useDepartmentStore'
 import type { Department, DepartmentFormData } from '../services/departmentApi'
 import { DEPARTMENT_STATUS_OPTIONS } from '../configs/departmentOptions'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 import AppSnackbar from '@/components/AppSnackbar.vue'
 
@@ -61,6 +61,7 @@ const validateForm = async (): Promise<boolean> => {
   fieldErrors.value = {}
   try {
     await schema.validate(formData.value, { abortEarly: false })
+
     return true
   }
   catch (err: any) {
@@ -70,6 +71,7 @@ const validateForm = async (): Promise<boolean> => {
           fieldErrors.value[e.path] = e.message
       })
     }
+
     return false
   }
 }
@@ -109,6 +111,7 @@ const onSubmit = async () => {
   catch (error: any) {
     if (error?.response?.status === 403) {
       showToast('Người dùng không có quyền.', 'error')
+
       return
     }
     const responseErrors = error?.response?.data?.errors

@@ -2,20 +2,19 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import AppFilterBar from '@/components/AppFilterBar.vue'
-import AppSnackbar from '@/components/AppSnackbar.vue'
-import AppPagination from '@/components/AppPagination.vue'
-import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import { useMyTaskAssignmentItemStore } from '../../../stores/useMyTaskAssignmentItemStore'
 import type { MyTaskItem, MyTaskStatus } from '../../../services/myTaskItem'
-import { taskAssignmentDepartmentApi } from '@/api/modules/task-assignment-department'
-import { normalizeDate } from '@/utils/formatters'
 import { MY_TASK_TABLE_HEADERS } from '../../../configs/myTaskOptions'
 import ReportMyTask from '../../../components/my-task/ReportMyTask.vue'
 import ProgressMyTask from '../../../components/my-task/ProgressMyTask.vue'
 import ItemFormDrawer from '../../../components/item/ItemFormDrawer.vue'
 import DocumentFormDrawer from '../../../components/document/DocumentFormDrawer.vue'
-import { ITEM_STATUS_OPTIONS, ITEM_PRIORITY_OPTIONS } from '../../../configs/itemOptions'
+import { ITEM_PRIORITY_OPTIONS, ITEM_STATUS_OPTIONS } from '../../../configs/itemOptions'
+import { normalizeDate } from '@/utils/formatters'
+import { taskAssignmentDepartmentApi } from '@/api/modules/task-assignment-department'
+import AppPagination from '@/components/AppPagination.vue'
+import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
+import AppFilterBar from '@/components/AppFilterBar.vue'
 
 const store = useMyTaskAssignmentItemStore()
 
@@ -465,9 +464,9 @@ onMounted(async () => {
             v-if="item.my_assignment"
             class="d-flex flex-column align-center gap-1 py-1"
           >
-          <span class="text-base font-weight-medium text-high-emphasis">
-            {{ resolveAssignmentRoleLabel(item.my_assignment.assignment_role) }}
-          </span>
+            <span class="text-base font-weight-medium text-high-emphasis">
+              {{ resolveAssignmentRoleLabel(item.my_assignment.assignment_role) }}
+            </span>
           </div>
           <span
             v-else
@@ -516,9 +515,9 @@ onMounted(async () => {
           >—</span>
         </template>
 
-         <!-- Thời hạn -->
+        <!-- Thời hạn -->
         <template #item.dates="{ item }">
-           <span
+          <span
             v-if="item.end_at && item.deadline_type !== 'no_deadline' "
             class="text-base font-weight-medium text-high-emphasis"
           >{{ formatDate(item.end_at) }} </span>
@@ -588,8 +587,7 @@ onMounted(async () => {
       :item="reportItem"
       @toast="showToast"
     />
-     <Report
-    />
+    <Report />
 
     <!-- View Item Drawer -->
     <ItemFormDrawer

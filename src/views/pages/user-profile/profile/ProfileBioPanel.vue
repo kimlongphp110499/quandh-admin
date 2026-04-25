@@ -3,12 +3,12 @@
 import avatar1 from '@images/avatars/avatar-1.png'
 import { useAuthStore } from '@/store/modules/auth'
 
-const authStore = useAuthStore()
-
 const emit = defineEmits<{
   (e: 'switch-org'): void
   (e: 'edit'): void
 }>()
+
+const authStore = useAuthStore()
 
 const userName = computed(() => authStore.user?.name || 'Người dùng')
 const userEmail = computed(() => authStore.user?.email || '')

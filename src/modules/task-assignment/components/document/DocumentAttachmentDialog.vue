@@ -2,11 +2,11 @@
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { getErrorMessage } from '@/utils/errorMessage'
-import AppSnackbar from '@/components/AppSnackbar.vue'
 import { documentApi } from '../../services/documentApi'
 import type { Document } from '../../services/documentApi'
 import FileAttachmentPanel, { type AttachmentItem } from '../shared/FileAttachmentPanel.vue'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
   modelValue: boolean
@@ -22,6 +22,7 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 
 const snackbar = ref({ show: false, message: '', color: 'success' })
+
 const showToast = (message: string, color: 'success' | 'error') => {
   snackbar.value = { show: true, message, color }
 }
@@ -34,7 +35,8 @@ const isUploading = ref(false)
 const close = () => emit('update:modelValue', false)
 
 const loadAttachments = async () => {
-  if (!props.document) return
+  if (!props.document)
+    return
   try {
     const res = await documentApi.show(props.document.id)
     if (res.data.success)
@@ -54,7 +56,8 @@ const handleRemovePending = (index: number) => {
 }
 
 const handleUpload = async () => {
-  if (!props.document || !pendingFiles.value.length) return
+  if (!props.document || !pendingFiles.value.length)
+    return
   isUploading.value = true
   try {
     await documentApi.addAttachments(props.document.id, pendingFiles.value)
@@ -72,7 +75,8 @@ const handleUpload = async () => {
 }
 
 const handleRemoveExisting = async (att: AttachmentItem) => {
-  if (!props.document) return
+  if (!props.document)
+    return
   deletingAttachmentId.value = att.id
   try {
     await documentApi.removeAttachment(props.document.id, att.id)

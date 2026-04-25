@@ -520,7 +520,7 @@ onMounted(async () => {
         <!-- Hàng 1: Tìm kiếm + Trạng thái + Ưu tiên + Loại thời hạn -->
         <VRow
           dense
-          style="width: 100%;"
+          style="inline-size: 100%;"
         >
           <VCol
             cols="12"
@@ -562,14 +562,14 @@ onMounted(async () => {
         <!-- Hàng 2: % hoàn thành + Ngày bắt đầu + Ngày kết thúc + Ngày ban hành -->
         <VRow
           dense
-          style="width: 100%;"
+          style="inline-size: 100%;"
         >
           <VCol
             cols="6"
             md="3"
           >
             <div class="d-flex gap-2">
-              <div style="flex: 1; min-width: 0;">
+              <div style="flex: 1; min-inline-size: 0;">
                 <AppTextField
                   v-model.number="completionPercentFrom"
                   placeholder="% Hoàn thành từ"
@@ -577,7 +577,7 @@ onMounted(async () => {
                   hide-details
                 />
               </div>
-              <div style="flex: 1; min-width: 0;">
+              <div style="flex: 1; min-inline-size: 0;">
                 <AppTextField
                   v-model.number="completionPercentTo"
                   placeholder="% Hoàn thành đến"
@@ -628,7 +628,7 @@ onMounted(async () => {
         <!-- Hàng 3: Văn bản + Loại văn bản + Loại CV + Phòng ban -->
         <VRow
           dense
-          style="width: 100%;"
+          style="inline-size: 100%;"
         >
           <VCol
             cols="6"
@@ -710,7 +710,7 @@ onMounted(async () => {
         <!-- Hàng 4: Người dùng + Vai trò + Trạng thái nhận -->
         <VRow
           dense
-          style="width: 100%;"
+          style="inline-size: 100%;"
         >
           <VCol
             cols="6"
@@ -1008,7 +1008,7 @@ onMounted(async () => {
 
         <!-- Ngày tạo -->
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -1018,7 +1018,7 @@ onMounted(async () => {
 
         <!-- Ngày cập nhật  -->
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -1154,19 +1154,15 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-
 .task-filter-grid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 12px;
-  width: 100%;
+  grid-template-columns: 1fr;
+  inline-size: 100%;
 }
 
 .task-filter-grid > div {
-  min-width: 0;
+  min-inline-size: 0;
 }
 
 @media (min-width: 600px) {

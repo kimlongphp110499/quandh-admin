@@ -6,6 +6,10 @@ import { useRouter } from 'vue-router'
 import DocumentFormDrawer from '../../../components/document/DocumentFormDrawer.vue'
 import DocumentAttachmentDialog from '../../../components/document/DocumentAttachmentDialog.vue'
 import { useTypeStore } from '../../../stores/useTypeStore'
+import { useDocumentStore } from '../../../stores/useDocumentStore'
+import type { Document } from '../../../services/documentApi'
+import { typeApi } from '../../../services/typeApi'
+import { DOCUMENT_LIMIT_OPTIONS, DOCUMENT_STATUS_OPTIONS, DOCUMENT_TABLE_HEADERS } from '../../../configs/documentOptions'
 import { getErrorMessage } from '@/utils/errorMessage'
 import { normalizeDate } from '@/utils/formatters'
 import AppFilterBar from '@/components/AppFilterBar.vue'
@@ -16,10 +20,6 @@ import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
 import AppImportDialog from '@/components/AppImportDialog.vue'
 import AppExportDialog from '@/components/AppExportDialog.vue'
-import { useDocumentStore } from '../../../stores/useDocumentStore'
-import type { Document } from '../../../services/documentApi'
-import { typeApi } from '../../../services/typeApi'
-import { DOCUMENT_TABLE_HEADERS, DOCUMENT_STATUS_OPTIONS, DOCUMENT_LIMIT_OPTIONS } from '../../../configs/documentOptions'
 
 const router = useRouter()
 const store = useDocumentStore()
@@ -577,7 +577,7 @@ onMounted(async () => {
 
         <!-- Ngày tạo -->
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -587,7 +587,7 @@ onMounted(async () => {
 
         <!-- Ngày cập nhật -->
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -738,9 +738,3 @@ onMounted(async () => {
     />
   </section>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

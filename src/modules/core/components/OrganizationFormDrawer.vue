@@ -1,13 +1,12 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 import { VForm } from 'vuetify/components/VForm'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useOrganizationStore } from '../stores/useOrganizationStore'
-// eslint-disable-next-line import/no-unresolved
-import AppSnackbar from '@/components/AppSnackbar.vue'
+
 import type { Organization } from '../services/organizationApi'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
   isDrawerOpen: boolean
@@ -110,6 +109,7 @@ const onSubmit = async () => {
   catch (error: any) {
     if (error?.response?.status === 403) {
       showToast('Người dùng không có quyền.', 'error')
+
       return
     }
     const responseData = error?.response?.data
@@ -148,6 +148,7 @@ watch(() => props.isDrawerOpen, async val => {
   }
   else {
     await orgStore.fetchParentOptions()
+
     const org = props.organization
     if (org) {
       formData.value = {

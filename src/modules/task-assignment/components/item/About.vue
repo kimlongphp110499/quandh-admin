@@ -4,28 +4,34 @@ import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import type { Item } from '../../services/itemApi'
 
+const props = defineProps<Props>()
+
 dayjs.extend(customParseFormat)
 
 interface Props {
   item: Item
 }
 
-const props = defineProps<Props>()
-
 const resolveStatusColor = (s: string) =>
   ({ todo: 'default', in_progress: 'info', done: 'success', overdue: 'error', paused: 'warning', cancelled: 'secondary' }[s] || 'default')
+
 const resolveStatusLabel = (s: string) =>
   ({ todo: 'Chưa bắt đầu', in_progress: 'Đang thực hiện', done: 'Hoàn thành', overdue: 'Quá hạn', paused: 'Tạm dừng', cancelled: 'Đã hủy' }[s] || s)
+
 const resolvePriorityColor = (p: string) =>
   ({ low: 'default', medium: 'info', high: 'warning', urgent: 'error' }[p] || 'default')
+
 const resolvePriorityLabel = (p: string) =>
   ({ low: 'Thấp', medium: 'Bình thường', high: 'Cao', urgent: 'Khẩn cấp' }[p] || p)
 
 const formatDate = (dateStr?: string | null) => {
-  if (!dateStr) return '—'
+  if (!dateStr)
+    return '—'
   const normalized = dateStr.replace(' ', 'T')
   const d = new Date(normalized)
-  if (Number.isNaN(d.getTime())) return dateStr
+  if (Number.isNaN(d.getTime()))
+    return dateStr
+
   return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 </script>

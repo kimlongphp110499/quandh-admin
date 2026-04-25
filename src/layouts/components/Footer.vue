@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-// eslint-disable-next-line import/extensions
+
 import { useSettingStore } from '@/store/modules/setting'
 
 const settingStore = useSettingStore()

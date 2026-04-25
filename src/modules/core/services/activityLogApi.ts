@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import apiClient, { type ApiResponse } from '@/api/client'
 
 dayjs.extend(customParseFormat)

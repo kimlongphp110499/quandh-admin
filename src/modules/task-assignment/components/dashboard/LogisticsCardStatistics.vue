@@ -7,6 +7,7 @@ onMounted(() => store.fetchStats())
 
 const cards = computed(() => {
   const s = store.stats
+
   return [
     {
       icon: 'tabler-list-check',

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved, import/extensions
 import apiClient, { type ApiResponse } from '@/api/client'
 
 export type SettingsGroup = Record<string, any>

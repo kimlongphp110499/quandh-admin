@@ -1,16 +1,15 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
 import RoleFormDrawer from '../../../components/RoleFormDrawer.vue'
+import { useRoleStore } from '../../../stores/useRoleStore'
+import type { Role } from '../../../services/roleApi'
+import { ROLE_IMPORT_ALLOWED_TYPES, ROLE_TABLE_HEADERS } from '../../../configs/roleOptions'
+import { getErrorMessage } from '@/utils/errorMessage'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
-import { useRoleStore } from '../../../stores/useRoleStore'
-import type { Role } from '../../../services/roleApi'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-import { ROLE_TABLE_HEADERS, ROLE_IMPORT_ALLOWED_TYPES } from '../../../configs/roleOptions'
 
 const roleStore = useRoleStore()
 
@@ -142,6 +141,7 @@ const handleImportFile = async (event: Event) => {
     showToast('Chỉ chấp nhận file Excel (.xlsx, .xls) hoặc CSV!', 'error')
     if (importFileInput.value)
       importFileInput.value.value = ''
+
     return
   }
 
@@ -153,6 +153,7 @@ const handleImportFile = async (event: Event) => {
   }
   catch (error: any) {
     const errorMsg = getErrorMessage(error, 'Nhập dữ liệu thất bại!')
+
     showToast(errorMsg, 'error')
   }
   finally {
@@ -169,7 +170,6 @@ onMounted(async () => {
 
 <template>
   <div>
-
     <!-- Filter & Actions Bar -->
     <AppFilterBar :has-active-filters="hasActiveFilters">
       <template #filters>
@@ -226,9 +226,7 @@ onMounted(async () => {
           <span class="d-none d-sm-inline ms-1">Xuất</span>
         </VBtn>
 
-        <VBtn
-          @click="openCreateDrawer"
-        >
+        <VBtn @click="openCreateDrawer">
           <VIcon icon="tabler-plus" />
           <span class="d-none d-sm-inline ms-1">Thêm mới</span>
         </VBtn>
@@ -278,7 +276,7 @@ onMounted(async () => {
         </template>
 
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -287,7 +285,7 @@ onMounted(async () => {
         </template>
 
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -359,9 +357,3 @@ onMounted(async () => {
     />
   </div>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

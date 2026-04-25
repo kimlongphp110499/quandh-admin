@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-// eslint-disable-next-line import/no-unresolved
 import apiClient, { type ApiResponse } from '@/api/client'
 
 export interface Permission {

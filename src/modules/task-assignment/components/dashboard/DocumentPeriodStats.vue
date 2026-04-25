@@ -14,6 +14,7 @@ const borderColor = 'rgba(var(--v-border-color), var(--v-border-opacity))'
 
 type GroupBy = 'month' | 'quarter' | 'year'
 const groupBy = ref<GroupBy>('month')
+
 const groupByOptions: { title: string; value: GroupBy }[] = [
   { title: 'Tháng', value: 'month' },
   { title: 'Quý', value: 'quarter' },
@@ -34,6 +35,7 @@ const fetchData = async () => {
       group_by: groupBy.value,
       year: groupBy.value !== 'year' ? selectedYear.value : undefined,
     })
+
     rows.value = res.data.data ?? []
   }
   catch { rows.value = [] }
@@ -166,14 +168,17 @@ const chartConfig = computed(() => ({
       <div
         v-if="loading"
         class="d-flex justify-center align-center"
-        style="height: 320px;"
+        style="block-size: 320px;"
       >
-        <VProgressCircular indeterminate color="primary" />
+        <VProgressCircular
+          indeterminate
+          color="primary"
+        />
       </div>
       <div
         v-else-if="!rows.length"
         class="d-flex justify-center align-center text-medium-emphasis"
-        style="height: 320px;"
+        style="block-size: 320px;"
       >
         Không có dữ liệu
       </div>
@@ -190,7 +195,7 @@ const chartConfig = computed(() => ({
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/libs/apex-chart.scss";
+@use "@core/scss/template/libs/apex-chart";
 
 #document-period-stats {
   .apexcharts-legend-text {

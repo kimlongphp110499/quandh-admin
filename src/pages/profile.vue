@@ -51,6 +51,7 @@ async function openSwitchOrgDialog() {
     const res = await organizationApi.publicOptions()
     if (res.data.success && res.data.data) {
       const freshNames = new Map(res.data.data.map((o: { id: number; name: string }) => [o.id, o.name]))
+
       authStore.availableOrganizations.splice(
         0,
         authStore.availableOrganizations.length,
@@ -68,7 +69,9 @@ async function handleSwitchOrg(orgId: number) {
   try {
     isSwitchingOrg.value = true
     switchError.value = ''
+
     const orgName = authStore.availableOrganizations.find(o => o.id === orgId)?.name ?? null
+
     await authStore.switchOrganization(orgId)
     if (orgName) {
       authStore.currentOrganizationName = orgName
@@ -130,8 +133,6 @@ function showToast(message: string, color: string) {
         class="mt-6 disable-tab-transition"
         :touch="false"
       >
-
-
         <!-- Tab: Vai trò & Quyền hạn -->
         <VWindowItem>
           <ProfileTabRoles />

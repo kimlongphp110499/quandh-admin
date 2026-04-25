@@ -31,16 +31,16 @@ const props = withDefaults(defineProps<Props>(), {
   showSettings: true,
 })
 
+const emit = defineEmits<{
+  'settings': []
+}>()
+
 interface StatItem {
   label: string
   value: number
   icon: string
   color: string
 }
-
-const emit = defineEmits<{
-  'settings': []
-}>()
 
 const cardCount = computed(() => {
   let count = 0
@@ -80,8 +80,6 @@ const widgetData = computed<StatItem[]>(() => {
 
   return items
 })
-
-
 </script>
 
 <template>

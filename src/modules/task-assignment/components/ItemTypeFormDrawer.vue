@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import * as yup from 'yup'
-// eslint-disable-next-line import/no-unresolved
-import { getErrorMessage } from '@/utils/errorMessage'
-// eslint-disable-next-line import/no-unresolved
+
 import { useItemTypeStore } from '../stores/useItemTypeStore'
-// eslint-disable-next-line import/no-unresolved
+
 import type { ItemType, ItemTypeFormData } from '../services/itemTypeApi'
-import AppSnackbar from '@/components/AppSnackbar.vue'
 import { ITEM_TYPE_STATUS_OPTIONS } from '../configs/itemTypeOptions'
+import AppSnackbar from '@/components/AppSnackbar.vue'
+import { getErrorMessage } from '@/utils/errorMessage'
 
 interface Props {
   isDrawerOpen: boolean
@@ -58,6 +57,7 @@ const validateForm = async (): Promise<boolean> => {
   fieldErrors.value = {}
   try {
     await schema.validate(formData.value, { abortEarly: false })
+
     return true
   }
   catch (err: any) {
@@ -67,6 +67,7 @@ const validateForm = async (): Promise<boolean> => {
           fieldErrors.value[e.path] = e.message
       })
     }
+
     return false
   }
 }
@@ -100,6 +101,7 @@ const onSubmit = async () => {
   catch (error: any) {
     if (error?.response?.status === 403) {
       showToast('Người dùng không có quyền.', 'error')
+
       return
     }
     const responseErrors = error?.response?.data?.errors

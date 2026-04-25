@@ -29,7 +29,7 @@ const reportTab = ref('form')
 const progressHistory = ref<MyTaskProgressHistory[]>([])
 const historyLoading = ref(false)
 
-watch(() => props.modelValue, async (val) => {
+watch(() => props.modelValue, async val => {
   if (val && props.item) {
     progressStatus.value = props.item.processing_status
     progressPercent.value = props.item.completion_percent
@@ -73,7 +73,7 @@ const submitProgress = async () => {
 }
 </script>
 
-<!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue-->
+<!-- copy from /var/www/html/code/quandh-admin/src/components/dialogs/AddEditAddressDialog.vue -->
 <template>
   <VDialog
     :width="$vuetify.display.smAndDown ? 'auto' : 900"

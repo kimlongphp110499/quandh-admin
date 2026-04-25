@@ -23,8 +23,11 @@ const overdueRate = (item: RankItem) =>
   item.total > 0 ? Math.round((item.overdue / item.total) * 100) : 0
 
 const progressColor = (rate: number) => {
-  if (rate >= 60) return 'error'
-  if (rate >= 30) return 'warning'
+  if (rate >= 60)
+    return 'error'
+  if (rate >= 30)
+    return 'warning'
+
   return 'info'
 }
 
@@ -35,7 +38,11 @@ const avatarColors = ['primary', 'success', 'error', 'warning', 'info', 'seconda
   <VCard>
     <VCardItem :title="title">
       <template #append>
-        <VChip color="error" size="small" variant="tonal">
+        <VChip
+          color="error"
+          size="small"
+          variant="tonal"
+        >
           Top quá hạn
         </VChip>
       </template>
@@ -46,7 +53,10 @@ const avatarColors = ['primary', 'success', 'error', 'warning', 'info', 'seconda
         v-if="loading"
         class="d-flex justify-center align-center py-8"
       >
-        <VProgressCircular indeterminate color="primary" />
+        <VProgressCircular
+          indeterminate
+          color="primary"
+        />
       </div>
 
       <div

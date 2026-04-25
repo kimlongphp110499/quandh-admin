@@ -6,7 +6,7 @@ import FileAttachmentPanel from '../shared/FileAttachmentPanel.vue'
 import { useMyTaskAssignmentItemStore } from '../../stores/useMyTaskAssignmentItemStore'
 import { normalizeDate } from '@/utils/formatters'
 import { getErrorMessage } from '@/utils/errorMessage'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useAuthStore } from '@/store/modules/auth'
 
 interface Props {

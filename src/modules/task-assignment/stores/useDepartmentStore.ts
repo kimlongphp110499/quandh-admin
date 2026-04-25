@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { type Department, type DepartmentFilters, type DepartmentFormData, type DepartmentStats, departmentApi } from '../services/departmentApi'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { getErrorMessage } from '@/utils/errorMessage'
 
 export const useDepartmentStore = defineStore('department', () => {

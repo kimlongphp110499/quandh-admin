@@ -6,11 +6,10 @@ import { useAbility } from '@casl/vue'
 // eslint-disable-next-line no-restricted-imports
 import VueApexCharts from 'vue3-apexcharts'
 
-// eslint-disable-next-line import/no-unresolved
 import { useAuthStore } from '@/store/modules/auth'
-// eslint-disable-next-line import/no-unresolved
+
 import { useUserStore } from '@/store/modules/user'
-// eslint-disable-next-line import/no-unresolved
+
 import { useOrganizationStore } from '@/modules/core/stores/useOrganizationStore'
 
 const { can } = useAbility()
@@ -171,9 +170,18 @@ const quickNavItems = computed(() => {
     <VCol cols="12">
       <VCard>
         <VCardText class="text-center py-12">
-          <VIcon icon="tabler-lock" size="52" color="warning" class="mb-4" />
-          <div class="text-h6 mb-2">Bạn chưa có quyền xem thống kê</div>
-          <p class="text-medium-emphasis">Liên hệ quản trị viên để được cấp quyền truy cập phù hợp.</p>
+          <VIcon
+            icon="tabler-lock"
+            size="52"
+            color="warning"
+            class="mb-4"
+          />
+          <div class="text-h6 mb-2">
+            Bạn chưa có quyền xem thống kê
+          </div>
+          <p class="text-medium-emphasis">
+            Liên hệ quản trị viên để được cấp quyền truy cập phù hợp.
+          </p>
         </VCardText>
       </VCard>
     </VCol>
@@ -182,29 +190,73 @@ const quickNavItems = computed(() => {
   <template v-if="hasAnyPermission">
     <!-- ── Stat cards ──────────────────────────────────────────────────────── -->
     <VRow>
-      <VCol v-for="card in statCards" :key="card.title" cols="12" sm="6" :lg="statCards.length >= 4 ? 3 : 6">
+      <VCol
+        v-for="card in statCards"
+        :key="card.title"
+        cols="12"
+        sm="6"
+        :lg="statCards.length >= 4 ? 3 : 6"
+      >
         <VCard class="h-100">
           <VCardText class="pb-2">
             <div class="d-flex align-center justify-space-between mb-4">
               <span class="text-body-1 font-weight-medium">{{ card.title }}</span>
-              <VAvatar :color="card.color" variant="tonal" size="40" rounded>
-                <VIcon :icon="card.icon" size="22" />
+              <VAvatar
+                :color="card.color"
+                variant="tonal"
+                size="40"
+                rounded
+              >
+                <VIcon
+                  :icon="card.icon"
+                  size="22"
+                />
               </VAvatar>
             </div>
-            <div v-if="isLoadingStats" class="d-flex align-center" style="height:48px">
-              <VProgressCircular indeterminate size="24" width="2" :color="card.color" />
+            <div
+              v-if="isLoadingStats"
+              class="d-flex align-center"
+              style="block-size: 48px;"
+            >
+              <VProgressCircular
+                indeterminate
+                size="24"
+                width="2"
+                :color="card.color"
+              />
             </div>
-            <div v-else class="d-flex flex-wrap gap-x-6 gap-y-2">
-              <div v-for="stat in card.stats" :key="stat.label">
-                <div class="text-h5 font-weight-bold" :class="`text-${stat.color}`">{{ stat.value }}</div>
-                <div class="text-caption text-medium-emphasis">{{ stat.label }}</div>
+            <div
+              v-else
+              class="d-flex flex-wrap gap-x-6 gap-y-2"
+            >
+              <div
+                v-for="stat in card.stats"
+                :key="stat.label"
+              >
+                <div
+                  class="text-h5 font-weight-bold"
+                  :class="`text-${stat.color}`"
+                >
+                  {{ stat.value }}
+                </div>
+                <div class="text-caption text-medium-emphasis">
+                  {{ stat.label }}
+                </div>
               </div>
             </div>
           </VCardText>
           <VCardActions class="pt-0 px-4 pb-3">
-            <RouterLink :to="card.to as any" class="text-caption" style="text-decoration:none">
+            <RouterLink
+              :to="card.to as any"
+              class="text-caption"
+              style="text-decoration: none;"
+            >
               <span :class="`text-${card.color}`">Xem chi tiết</span>
-              <VIcon icon="tabler-arrow-right" size="14" :class="`text-${card.color} ms-1`" />
+              <VIcon
+                icon="tabler-arrow-right"
+                size="14"
+                :class="`text-${card.color} ms-1`"
+              />
             </RouterLink>
           </VCardActions>
         </VCard>
@@ -213,42 +265,104 @@ const quickNavItems = computed(() => {
 
     <!-- ── Charts row ──────────────────────────────────────────────────────── -->
     <VRow class="mt-2">
-      <VCol v-if="canSeeUsers" cols="12" md="6" lg="6">
+      <VCol
+        v-if="canSeeUsers"
+        cols="12"
+        md="6"
+        lg="6"
+      >
         <VCard class="h-100">
           <VCardTitle class="pa-4 pb-0 text-body-1 font-weight-semibold">
-            <VIcon icon="tabler-users" size="18" color="primary" class="me-2" />
+            <VIcon
+              icon="tabler-users"
+              size="18"
+              color="primary"
+              class="me-2"
+            />
             Trạng thái người dùng
           </VCardTitle>
           <VCardText>
             <template v-if="!isLoadingStats && userStats && userStats.total > 0">
-              <VueApexCharts type="donut" height="240" :options="userChartOptions" :series="userChartSeries" />
+              <VueApexCharts
+                type="donut"
+                height="240"
+                :options="userChartOptions"
+                :series="userChartSeries"
+              />
             </template>
-            <div v-else-if="isLoadingStats" class="d-flex justify-center align-center" style="height:240px">
-              <VProgressCircular indeterminate color="primary" size="36" />
+            <div
+              v-else-if="isLoadingStats"
+              class="d-flex justify-center align-center"
+              style="block-size: 240px;"
+            >
+              <VProgressCircular
+                indeterminate
+                color="primary"
+                size="36"
+              />
             </div>
-            <div v-else class="d-flex flex-column align-center justify-center text-disabled" style="height:240px">
-              <VIcon icon="tabler-chart-donut-off" size="40" class="mb-2" />
+            <div
+              v-else
+              class="d-flex flex-column align-center justify-center text-disabled"
+              style="block-size: 240px;"
+            >
+              <VIcon
+                icon="tabler-chart-donut-off"
+                size="40"
+                class="mb-2"
+              />
               Chưa có dữ liệu
             </div>
           </VCardText>
         </VCard>
       </VCol>
 
-      <VCol v-if="canSeeOrgs" cols="12" md="6" lg="6">
+      <VCol
+        v-if="canSeeOrgs"
+        cols="12"
+        md="6"
+        lg="6"
+      >
         <VCard class="h-100">
           <VCardTitle class="pa-4 pb-0 text-body-1 font-weight-semibold">
-            <VIcon icon="tabler-building" size="18" color="info" class="me-2" />
+            <VIcon
+              icon="tabler-building"
+              size="18"
+              color="info"
+              class="me-2"
+            />
             Trạng thái tổ chức
           </VCardTitle>
           <VCardText>
             <template v-if="!isLoadingStats && orgStats && orgStats.total > 0">
-              <VueApexCharts type="donut" height="240" :options="orgChartOptions" :series="orgChartSeries" />
+              <VueApexCharts
+                type="donut"
+                height="240"
+                :options="orgChartOptions"
+                :series="orgChartSeries"
+              />
             </template>
-            <div v-else-if="isLoadingStats" class="d-flex justify-center align-center" style="height:240px">
-              <VProgressCircular indeterminate color="info" size="36" />
+            <div
+              v-else-if="isLoadingStats"
+              class="d-flex justify-center align-center"
+              style="block-size: 240px;"
+            >
+              <VProgressCircular
+                indeterminate
+                color="info"
+                size="36"
+              />
             </div>
-            <div v-else class="d-flex flex-column align-center justify-center text-disabled" style="height:240px">
-              <VIcon icon="tabler-chart-donut-off" size="40" class="mb-2" />
+            <div
+              v-else
+              class="d-flex flex-column align-center justify-center text-disabled"
+              style="block-size: 240px;"
+            >
+              <VIcon
+                icon="tabler-chart-donut-off"
+                size="40"
+                class="mb-2"
+              />
               Chưa có dữ liệu
             </div>
           </VCardText>
@@ -257,21 +371,37 @@ const quickNavItems = computed(() => {
     </VRow>
 
     <!-- ── Summary table ───────────────────────────────────────────────────── -->
-    <VRow v-if="canSeeUsers || canSeeOrgs" class="mt-2">
+    <VRow
+      v-if="canSeeUsers || canSeeOrgs"
+      class="mt-2"
+    >
       <VCol cols="12">
         <VCard>
           <VCardTitle class="pa-4 pb-2 text-body-1 font-weight-semibold">
-            <VIcon icon="tabler-table" size="18" class="me-2" color="primary" />
+            <VIcon
+              icon="tabler-table"
+              size="18"
+              class="me-2"
+              color="primary"
+            />
             Bảng tổng hợp
           </VCardTitle>
           <VTable>
             <thead>
               <tr>
                 <th>Danh mục</th>
-                <th class="text-center">Tổng</th>
-                <th class="text-center">Hoạt động</th>
-                <th class="text-center">Ngừng</th>
-                <th class="text-center">Tỷ lệ hoạt động</th>
+                <th class="text-center">
+                  Tổng
+                </th>
+                <th class="text-center">
+                  Hoạt động
+                </th>
+                <th class="text-center">
+                  Ngừng
+                </th>
+                <th class="text-center">
+                  Tỷ lệ hoạt động
+                </th>
                 <th />
               </tr>
             </thead>
@@ -279,53 +409,125 @@ const quickNavItems = computed(() => {
               <tr v-if="canSeeUsers">
                 <td>
                   <div class="d-flex align-center gap-2">
-                    <VAvatar color="primary" variant="tonal" size="28" rounded>
-                      <VIcon icon="tabler-users" size="16" />
+                    <VAvatar
+                      color="primary"
+                      variant="tonal"
+                      size="28"
+                      rounded
+                    >
+                      <VIcon
+                        icon="tabler-users"
+                        size="16"
+                      />
                     </VAvatar>
                     Người dùng
                   </div>
                 </td>
-                <td class="text-center font-weight-bold">{{ userStats?.total ?? '—' }}</td>
-                <td class="text-center"><VChip color="success" size="small" variant="tonal">{{ userStats?.active ?? '—' }}</VChip></td>
-                <td class="text-center"><VChip color="warning" size="small" variant="tonal">{{ userStats?.inactive ?? '—' }}</VChip></td>
+                <td class="text-center font-weight-bold">
+                  {{ userStats?.total ?? '—' }}
+                </td>
+                <td class="text-center">
+                  <VChip
+                    color="success"
+                    size="small"
+                    variant="tonal"
+                  >
+                    {{ userStats?.active ?? '—' }}
+                  </VChip>
+                </td>
+                <td class="text-center">
+                  <VChip
+                    color="warning"
+                    size="small"
+                    variant="tonal"
+                  >
+                    {{ userStats?.inactive ?? '—' }}
+                  </VChip>
+                </td>
                 <td class="text-center">
                   <VProgressLinear
                     :model-value="userStats?.total ? Math.round((userStats.active / userStats.total) * 100) : 0"
-                    color="success" height="8" rounded bg-color="success" bg-opacity="0.12"
-                    style="max-width:120px;margin:auto"
+                    color="success"
+                    height="8"
+                    rounded
+                    bg-color="success"
+                    bg-opacity="0.12"
+                    style="margin: auto;max-inline-size: 120px;"
                   />
                   <span class="text-caption text-medium-emphasis">
                     {{ userStats?.total ? Math.round((userStats.active / userStats.total) * 100) : 0 }}%
                   </span>
                 </td>
                 <td class="text-end pe-4">
-                  <VBtn :to="{ name: 'system-users' }" size="small" variant="tonal" color="primary" icon="tabler-arrow-right" />
+                  <VBtn
+                    :to="{ name: 'system-users' }"
+                    size="small"
+                    variant="tonal"
+                    color="primary"
+                    icon="tabler-arrow-right"
+                  />
                 </td>
               </tr>
               <tr v-if="canSeeOrgs">
                 <td>
                   <div class="d-flex align-center gap-2">
-                    <VAvatar color="info" variant="tonal" size="28" rounded>
-                      <VIcon icon="tabler-building" size="16" />
+                    <VAvatar
+                      color="info"
+                      variant="tonal"
+                      size="28"
+                      rounded
+                    >
+                      <VIcon
+                        icon="tabler-building"
+                        size="16"
+                      />
                     </VAvatar>
                     Tổ chức
                   </div>
                 </td>
-                <td class="text-center font-weight-bold">{{ orgStats?.total ?? '—' }}</td>
-                <td class="text-center"><VChip color="success" size="small" variant="tonal">{{ orgStats?.active ?? '—' }}</VChip></td>
-                <td class="text-center"><VChip color="warning" size="small" variant="tonal">{{ orgStats?.inactive ?? '—' }}</VChip></td>
+                <td class="text-center font-weight-bold">
+                  {{ orgStats?.total ?? '—' }}
+                </td>
+                <td class="text-center">
+                  <VChip
+                    color="success"
+                    size="small"
+                    variant="tonal"
+                  >
+                    {{ orgStats?.active ?? '—' }}
+                  </VChip>
+                </td>
+                <td class="text-center">
+                  <VChip
+                    color="warning"
+                    size="small"
+                    variant="tonal"
+                  >
+                    {{ orgStats?.inactive ?? '—' }}
+                  </VChip>
+                </td>
                 <td class="text-center">
                   <VProgressLinear
                     :model-value="orgStats?.total ? Math.round((orgStats.active / orgStats.total) * 100) : 0"
-                    color="info" height="8" rounded bg-color="info" bg-opacity="0.12"
-                    style="max-width:120px;margin:auto"
+                    color="info"
+                    height="8"
+                    rounded
+                    bg-color="info"
+                    bg-opacity="0.12"
+                    style="margin: auto;max-inline-size: 120px;"
                   />
                   <span class="text-caption text-medium-emphasis">
                     {{ orgStats?.total ? Math.round((orgStats.active / orgStats.total) * 100) : 0 }}%
                   </span>
                 </td>
                 <td class="text-end pe-4">
-                  <VBtn :to="{ name: 'system-organizations' }" size="small" variant="tonal" color="info" icon="tabler-arrow-right" />
+                  <VBtn
+                    :to="{ name: 'system-organizations' }"
+                    size="small"
+                    variant="tonal"
+                    color="info"
+                    icon="tabler-arrow-right"
+                  />
                 </td>
               </tr>
             </tbody>

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { getErrorMessage } from '@/utils/errorMessage'
 import { computed, onMounted, ref, watch } from 'vue'
-
 import UserFormDrawer from '../../../components/UserFormDrawer.vue'
+import { useUserStore } from '../../../stores/useUserStore'
+import type { User } from '../../../services/userApi'
+import { USER_STATUS_OPTIONS } from '../../../utils/userAdapters'
+import { USER_TABLE_HEADERS } from '../../../configs/userOptions'
+import { getErrorMessage } from '@/utils/errorMessage'
+
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
 import AppPagination from '@/components/AppPagination.vue'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-import { useUserStore } from '../../../stores/useUserStore'
 import { useAuthStore } from '@/store/modules/auth'
 import AppUserDateInfo from '@/components/AppUserDateInfo.vue'
-import type { User } from '../../../services/userApi'
-import { USER_STATUS_OPTIONS } from '../../../utils/userAdapters'
-import { USER_TABLE_HEADERS } from '../../../configs/userOptions'
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
@@ -52,6 +52,7 @@ const headers = USER_TABLE_HEADERS
 
 const avatarColor = (id: number) => {
   const colors = ['primary', 'info', 'success', 'warning', 'error', 'secondary']
+
   return colors[id % colors.length]
 }
 
@@ -65,7 +66,9 @@ const getUserInitials = (name: string) => {
 }
 
 const statusLabel = (status: string) => {
-  if (status === 'active') return 'Hoạt động'
+  if (status === 'active')
+    return 'Hoạt động'
+
   return 'Không hoạt động'
 }
 
@@ -152,7 +155,8 @@ const handleDelete = (user: User) => {
 
 // Bulk actions
 const handleBulkStatus = (status: 'active' | 'inactive') => {
-  if (!selectedIds.value.length) return
+  if (!selectedIds.value.length)
+    return
 
   const label = status === 'active' ? 'hoạt động' : 'không hoạt động'
 
@@ -174,7 +178,8 @@ const handleBulkStatus = (status: 'active' | 'inactive') => {
 }
 
 const handleBulkDelete = () => {
-  if (!selectedIds.value.length) return
+  if (!selectedIds.value.length)
+    return
 
   showConfirm(
     'Xóa hàng loạt',
@@ -214,7 +219,8 @@ const handleImportClick = () => {
 
 const handleImportFile = async (event: Event) => {
   const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) return
+  if (!file)
+    return
 
   try {
     await userStore.importItems(file)
@@ -233,7 +239,8 @@ const handleImportFile = async (event: Event) => {
 const statusToggleId = ref<number | null>(null)
 
 const handleToggleStatus = (user: User) => {
-  if (user.id === authStore.user?.id) return
+  if (user.id === authStore.user?.id)
+    return
 
   const newStatus = user.status === 'active' ? 'inactive' : 'active'
 
@@ -477,7 +484,7 @@ onMounted(async () => {
 
         <!-- Created at -->
         <template #item.created_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.created_by"
               :date="item.created_at"
@@ -487,7 +494,7 @@ onMounted(async () => {
 
         <!-- Updated at -->
         <template #item.updated_at="{ item }">
-          <div style="max-width: 160px; overflow: hidden;">
+          <div style=" overflow: hidden;max-inline-size: 160px;">
             <AppUserDateInfo
               :user="item.updated_by"
               :date="item.updated_at"
@@ -568,9 +575,3 @@ onMounted(async () => {
     />
   </div>
 </template>
-
-<style scoped>
-:deep(.v-data-table__tr) {
-  height: 64px;
-}
-</style>

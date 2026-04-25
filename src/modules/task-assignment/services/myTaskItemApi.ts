@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/extensions, import/no-unresolved
 import apiClient, { type ApiResponse } from '@/api/client'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { normalizeDate } from '@/utils/formatters'
 
 export type MyTaskStatus = 'todo' | 'in_progress' | 'done' | 'overdue' | 'paused' | 'cancelled'
