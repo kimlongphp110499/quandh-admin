@@ -34,15 +34,15 @@ declare module 'vue-router/auto-routes' {
     'system-settings': RouteRecordInfo<'system-settings', '/system/settings', Record<never, never>, Record<never, never>>,
     'system-settings-notification': RouteRecordInfo<'system-settings-notification', '/system/settings-notification', Record<never, never>, Record<never, never>>,
     'system-users': RouteRecordInfo<'system-users', '/system/users', Record<never, never>, Record<never, never>>,
+    'task-assignment-dashboard': RouteRecordInfo<'task-assignment-dashboard', '/task-assignment/dashboard', Record<never, never>, Record<never, never>>,
     'task-assignment-departments': RouteRecordInfo<'task-assignment-departments', '/task-assignment/departments', Record<never, never>, Record<never, never>>,
     'task-assignment-documents-parent': RouteRecordInfo<'task-assignment-documents-parent', '/task-assignment/documents', Record<never, never>, Record<never, never>>,
     'task-assignment-documents': RouteRecordInfo<'task-assignment-documents', '/task-assignment/documents', Record<never, never>, Record<never, never>>,
     'task-assignment-documents-id': RouteRecordInfo<'task-assignment-documents-id', '/task-assignment/documents/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'task-assignment-item-types': RouteRecordInfo<'task-assignment-item-types', '/task-assignment/item-types', Record<never, never>, Record<never, never>>,
     'task-assignment-items': RouteRecordInfo<'task-assignment-items', '/task-assignment/items', Record<never, never>, Record<never, never>>,
+    'task-assignment-items-id': RouteRecordInfo<'task-assignment-items-id', '/task-assignment/items/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'task-assignment-my-tasks': RouteRecordInfo<'task-assignment-my-tasks', '/task-assignment/my-tasks', Record<never, never>, Record<never, never>>,
     'task-assignment-types': RouteRecordInfo<'task-assignment-types', '/task-assignment/types', Record<never, never>, Record<never, never>>,
-    'task-assignment-dashboard': RouteRecordInfo<'task-assignment-dashboard', '/task-assignment/dashboard', Record<never, never>, Record<never, never>>,
-
   }
 }
