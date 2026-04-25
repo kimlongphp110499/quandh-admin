@@ -1,11 +1,12 @@
 import axios, { type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useCookie } from '@/@core/utils/cookie'
+
 // Global loading store (increment/decrement counter on requests)
 // Use a lazy import inside interceptors to avoid circular startup issues
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 // Import global loading store
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useGlobalLoadingStore } from '@/store/modules/global-loading'
 
 // Base API URL - cấu hình theo environment
@@ -68,7 +69,6 @@ apiClient.interceptors.request.use(
 // Response Interceptor - xử lý lỗi tập trung
 apiClient.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-
     // decrement global loading counter
     try {
       useGlobalLoadingStore().endRequest()

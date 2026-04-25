@@ -192,6 +192,7 @@ let t = (s: string) => s
 try {
   const i18n = useI18n({ useScope: 'global' })
   ({ locale } = i18n)
+
   if (i18n && typeof i18n.t === 'function')
     t = i18n.t as any
 }
@@ -217,6 +218,7 @@ catch (e) {
 const isActiveLangRTL = computed(() => {
   try {
     const lang = themeConfig.app.i18n.langConfig.find(l => l.i18nLang === locale.value)
+
     return lang?.isRTL ?? false
   }
   catch {
@@ -379,7 +381,7 @@ const resetCustomizer = async () => {
         :options="{ wheelPropagation: false }"
       >
         <!-- SECTION Theming -->
-          <CustomizerSection
+        <CustomizerSection
           :title="t('Customizer.theme')"
           :divider="false"
         >
@@ -506,7 +508,7 @@ const resetCustomizer = async () => {
           </div>
 
           <!-- 👉 Semi Dark -->
-            <div
+          <div
             class="align-center justify-space-between"
             :class="vuetifyTheme.global.name.value === 'light' && configStore.appContentLayoutNav === AppContentLayoutNav.Vertical ? 'd-flex' : 'd-none'"
           >

@@ -43,7 +43,7 @@ const endItem = computed(() => Math.min(props.page * props.limit, props.total))
       />
       <span class="text-disabled mb-0">
         trong {{ total }} kết quả
-          ({{ startItem }}–{{ endItem }})
+        ({{ startItem }}–{{ endItem }})
       </span>
     </div>
 
@@ -52,7 +52,7 @@ const endItem = computed(() => Math.min(props.page * props.limit, props.total))
       :model-value="page"
       :length="totalPages"
       :total-visible="5"
-      density="compact"
+      color="primary"
       :disabled="loading"
       show-first-last-page
       first-icon="tabler-chevrons-left"

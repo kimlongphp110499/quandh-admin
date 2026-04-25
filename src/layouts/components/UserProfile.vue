@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import avatar1 from '@images/avatars/avatar-1.png'
-// eslint-disable-next-line import/extensions, import/no-unresolved
+
 import { useAuthStore } from '@/store/modules/auth'
 
 const authStore = useAuthStore()

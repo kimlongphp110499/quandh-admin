@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ActivityLogList from '@/views/modules/ActivityLog/ActivityLogList.vue'
+import ActivityLogList from '@/modules/core/views/activitylog/list/index.vue'
 
 definePage({
   meta: {

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/no-unresolved
 import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
-// eslint-disable-next-line import/no-unresolved
+
 import misc404 from '@images/pages/404.png'
-// eslint-disable-next-line import/no-unresolved
+
 import miscMaskDark from '@images/pages/misc-mask-dark.png'
-// eslint-disable-next-line import/no-unresolved
+
 import miscMaskLight from '@images/pages/misc-mask-light.png'
 
 const authThemeMask = useGenerateImageVariant(miscMaskLight, miscMaskDark)
@@ -54,5 +53,5 @@ definePage({
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/pages/misc.scss";
+@use "@core/scss/template/pages/misc";
 </style>

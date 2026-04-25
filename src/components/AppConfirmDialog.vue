@@ -44,7 +44,10 @@ const onConfirm = () => {
     persistent
     @update:model-value="val => emit('update:modelValue', val)"
   >
-    <VCard class="text-center px-10 py-8" rounded="lg">
+    <VCard
+      class="text-center px-10 py-8"
+      rounded="lg"
+    >
       <VCardText>
         <VBtn
           icon

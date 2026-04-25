@@ -30,6 +30,7 @@ declare module 'vue' {
     AppSelect: typeof import('./src/@core/components/app-form-elements/AppSelect.vue')['default']
     AppSnackbar: typeof import('./src/components/AppSnackbar.vue')['default']
     AppStepper: typeof import('./src/@core/components/AppStepper.vue')['default']
+    AppSwitchOrgDialog: typeof import('./src/components/AppSwitchOrgDialog.vue')['default']
     AppSystemPageHeader: typeof import('./src/components/AppSystemPageHeader.vue')['default']
     AppTextarea: typeof import('./src/@core/components/app-form-elements/AppTextarea.vue')['default']
     AppTextField: typeof import('./src/@core/components/app-form-elements/AppTextField.vue')['default']

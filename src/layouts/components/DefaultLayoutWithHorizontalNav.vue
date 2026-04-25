@@ -12,7 +12,6 @@ import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
 import NavBarI18n from '@core/components/I18n.vue'
 import { HorizontalNavLayout } from '@layouts'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { useSettingStore } from '@/store/modules/setting'
 import { useLayoutConfigStore } from '@layouts/stores/config'
 
@@ -35,7 +34,7 @@ const appTitle = computed(() => settingStore.settings.admin_page?.admin_logo_tit
           v-if="logoUrl"
           :src="logoUrl"
           :alt="appTitle"
-          style="block-size:28px;inline-size:auto;object-fit:contain;"
+          style="block-size: 28px;inline-size: auto;object-fit: contain;"
         >
 
         <h1 class="app-title font-weight-bold leading-normal text-xl text-capitalize">

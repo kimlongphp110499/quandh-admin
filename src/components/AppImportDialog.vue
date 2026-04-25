@@ -9,16 +9,22 @@ export interface ImportError {
 interface Props {
   modelValue: boolean
   title?: string
+
   /** Mô tả ngắn hiển thị bên dưới tiêu đề */
   description?: string
+
   /** Danh sách định dạng file chấp nhận, hiển thị trong hint */
   acceptFormats?: string
+
   /** Thông tin các cột chuẩn hiển thị trong hint */
   columnHint?: string
+
   /** Có nút "Tải file mẫu" không */
   hasTemplate?: boolean
+
   /** Đang tải file mẫu */
   downloadingTemplate?: boolean
+
   /** Đang import */
   loading?: boolean
 
@@ -82,6 +88,7 @@ const handleFileChange = (event: Event) => {
 
 const handleDrop = (event: DragEvent) => {
   isDragging.value = false
+
   const file = event.dataTransfer?.files?.[0]
   if (!file)
     return
@@ -269,10 +276,10 @@ const handleDownloadTemplate = () => {
 }
 
 .import-error-list {
-  padding-inline-start: 16px;
-  margin: 0;
   display: flex;
   flex-direction: column;
+  margin: 0;
   gap: 2px;
+  padding-inline-start: 16px;
 }
 </style>

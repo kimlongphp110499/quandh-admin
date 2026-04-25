@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import navItems from '@/navigation/vertical'
-import { themeConfig } from '@themeConfig'
-import { layoutConfig } from '@themeConfig'
+import { layoutConfig, themeConfig } from '@themeConfig'
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
@@ -17,7 +16,6 @@ import NavBarI18n from '@core/components/I18n.vue'
 import { VerticalNavLayout } from '@layouts'
 import { useLayoutConfigStore } from '@layouts/stores/config'
 
-// eslint-disable-next-line import/extensions
 import { useSettingStore } from '@/store/modules/setting'
 
 const settingStore = useSettingStore()
@@ -39,11 +37,11 @@ const appTitle = computed(() => settingStore.settings.admin_page?.admin_logo_tit
           v-if="logoUrl"
           :src="logoUrl"
           :alt="appTitle"
-          style="block-size:28px;inline-size:auto;object-fit:contain;"
+          style="block-size: 28px;inline-size: auto;object-fit: contain;"
         >
         <span
           v-else
-          style="color:rgb(var(--v-global-theme-primary));line-height:0;"
+          style="color: rgb(var(--v-global-theme-primary));line-height: 0;"
         >
           <VIcon
             icon="tabler-building-community"

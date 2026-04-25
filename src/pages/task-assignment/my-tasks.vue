@@ -1,6 +1,5 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/no-unresolved
-import MyTasksList from '@/views/modules/TaskAssignment/MyTasksList.vue'
+import MyTasksList from '@/modules/task-assignment/views/my-task/list/index.vue'
 </script>
 
 <template>

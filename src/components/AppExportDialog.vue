@@ -10,6 +10,7 @@ interface Props {
   modelValue: boolean
   title?: string
   loading?: boolean
+
   /** Các lựa chọn phạm vi xuất, mặc định: dữ liệu đang lọc + toàn bộ */
   scopeOptions?: ExportScope[]
 }

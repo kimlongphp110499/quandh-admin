@@ -59,5 +59,5 @@ const goHome = () => {
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/pages/misc.scss";
+@use "@core/scss/template/pages/misc";
 </style>

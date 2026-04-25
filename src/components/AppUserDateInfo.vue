@@ -4,14 +4,15 @@ import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { getUserInitials } from '@/utils/formatters'
 
-dayjs.extend(customParseFormat)
-
 const props = defineProps<{
   user?: string | null
   date?: string | null
+
   /** Dayjs format string. Mặc định: 'DD/MM/YYYY HH:mm:ss' */
   format?: string
 }>()
+
+dayjs.extend(customParseFormat)
 
 /**
  * Chuẩn hoá chuỗi ngày từ backend trước khi parse.
@@ -41,6 +42,7 @@ const formattedDate = computed(() => {
   const d = parseBackendDate(props.date)
   if (!d.isValid())
     return props.date
+
   return d.format(props.format || 'DD/MM/YYYY HH:mm:ss')
 })
 </script>

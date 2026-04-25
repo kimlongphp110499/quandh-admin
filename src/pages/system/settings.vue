@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SettingSystem from '@/views/modules/Setting/SettingSystem.vue'
+import SettingSystem from '@/modules/core/views/setting/general.vue'
 
 definePage({
   meta: {

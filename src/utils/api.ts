@@ -6,7 +6,7 @@ export const $api = ofetch.create({
     const accessToken = useCookie('accessToken').value
     if (accessToken) {
       options.headers.append('Authorization', `Bearer ${accessToken}`)
-      options.headers.append('X-Organization-Id', "1")
+      options.headers.append('X-Organization-Id', '1')
     }
   },
 })

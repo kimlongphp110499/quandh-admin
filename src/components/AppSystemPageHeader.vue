@@ -20,10 +20,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
-
-  // Do not default numeric props (total/active/inactive/totalGroup) to 0
-  // so we can detect whether the parent passed them and only render
-  // the cards when a value is provided.
   totalLabel: 'Tổng',
   activeLabel: 'Hoạt động',
   inactiveLabel: 'Không hoạt động',
@@ -39,7 +35,13 @@ const emit = defineEmits<{
   'settings': []
 }>()
 
-// Count how many cards will be rendered
+interface StatItem {
+  label: string
+  value: number
+  icon: string
+  color: string
+}
+
 const cardCount = computed(() => {
   let count = 0
   if (props.total !== undefined && props.total !== null)
@@ -54,7 +56,6 @@ const cardCount = computed(() => {
   return count
 })
 
-// Compute column breakpoints based on card count
 const colProps = computed(() => {
   if (cardCount.value === 1)
     return { cols: '12', sm: '6' }
@@ -65,151 +66,78 @@ const colProps = computed(() => {
 
   return { cols: '12', sm: '6', md: '3' }
 })
+
+const widgetData = computed<StatItem[]>(() => {
+  const items: StatItem[] = []
+  if (props.total !== undefined && props.total !== null)
+    items.push({ label: props.totalLabel, value: props.total, icon: props.totalIcon, color: 'primary' })
+  if (props.active !== undefined && props.active !== null)
+    items.push({ label: props.activeLabel, value: props.active, icon: props.activeIcon, color: 'success' })
+  if (props.totalGroup !== undefined && props.totalGroup !== null)
+    items.push({ label: props.totalGroupLabel, value: props.totalGroup, icon: props.totalGroupIcon, color: 'warning' })
+  if (props.inactive !== undefined && props.inactive !== null)
+    items.push({ label: props.inactiveLabel, value: props.inactive, icon: props.inactiveIcon, color: 'error' })
+
+  return items
+})
 </script>
 
 <template>
-  <VRow class="mb-6">
-    <!-- Total Card -->
-    <VCol
-      v-if="total !== undefined && total !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ totalLabel }}
+  <VCard class="mb-6">
+    <!-- 👉 Widgets -->
+    <VCardText>
+      <VRow>
+        <template
+          v-for="(data, id) in widgetData"
+          :key="id"
+        >
+          <VCol
+            v-bind="colProps"
+            class="px-6"
+          >
+            <div
+              class="d-flex justify-space-between"
+              :class="$vuetify.display.xs
+                ? id !== widgetData.length - 1 ? 'border-b pb-4' : ''
+                : $vuetify.display.sm
+                  ? id < (widgetData.length / 2) ? 'border-b pb-4' : ''
+                  : ''"
+            >
+              <div class="d-flex flex-column">
+                <h4 class="text-h4">
+                  {{ data.value }}
+                </h4>
+
+                <div class="text-body-1">
+                  {{ data.label }}
+                </div>
               </div>
-              <h4 class="text-h4">
-                {{ total }}
-              </h4>
-              <div
-                v-if="title"
-                class="text-sm text-medium-emphasis"
+
+              <VAvatar
+                :color="data.color"
+                variant="tonal"
+                rounded
+                size="42"
               >
-                Tổng số {{ title.toLowerCase() }}
-              </div>
+                <VIcon
+                  :icon="data.icon"
+                  size="26"
+                  class="text-high-emphasis"
+                />
+              </VAvatar>
             </div>
-            <VAvatar
-              color="primary"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="totalIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
+          </VCol>
 
-    <!-- Active Card -->
-    <VCol
-      v-if="active !== undefined && active !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ activeLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ active }}
-              </h4>
-              <div class="text-sm text-medium-emphasis">
-                Đang hoạt động
-              </div>
-            </div>
-            <VAvatar
-              color="success"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="activeIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <!-- Group Card -->
-    <VCol
-      v-if="totalGroup !== undefined && totalGroup !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ totalGroupLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ totalGroup }}
-              </h4>
-              <div class="text-sm text-medium-emphasis">
-                Tổng số nhóm
-              </div>
-            </div>
-            <VAvatar
-              color="warning"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="totalGroupIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <!-- Inactive Card -->
-    <VCol
-      v-if="inactive !== undefined && inactive !== null"
-      v-bind="colProps"
-    >
-      <VCard>
-        <VCardText>
-          <div class="d-flex justify-space-between">
-            <div class="d-flex flex-column gap-y-1">
-              <div class="text-body-1 text-high-emphasis">
-                {{ inactiveLabel }}
-              </div>
-              <h4 class="text-h4">
-                {{ inactive }}
-              </h4>
-              <div class="text-sm text-medium-emphasis">
-                Không hoạt động
-              </div>
-            </div>
-            <VAvatar
-              color="error"
-              variant="tonal"
-              rounded
-              size="42"
-            >
-              <VIcon
-                :icon="inactiveIcon"
-                size="26"
-              />
-            </VAvatar>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-  </VRow>
+          <VDivider
+            v-if="$vuetify.display.mdAndUp ? id !== widgetData.length - 1
+              : $vuetify.display.smAndUp ? id % 2 === 0
+                : false"
+            vertical
+            inset
+            length="60"
+          />
+        </template>
+      </VRow>
+    </VCardText>
+  </VCard>
 </template>

@@ -1,13 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
-// eslint-disable-next-line import/extensions, import/no-unresolved
 import { authApi } from '@/api/modules'
 
-// eslint-disable-next-line import/extensions, import/no-unresolved
 import { useCookie } from '@/@core/utils/cookie'
 
-// eslint-disable-next-line import/extensions, import/no-unresolved
 import { type Rule, ability } from '@/plugins/casl/ability'
 
 export interface Organization {
@@ -71,6 +68,7 @@ export const useAuthStore = defineStore('auth', () => {
         currentOrganizationId.value = orgId
 
         const orgName = orgs.find((o: Organization) => o.id === orgId)?.name ?? null
+
         currentOrganizationName.value = orgName
 
         useCookie('accessToken').value = accessToken
@@ -195,6 +193,7 @@ export const useAuthStore = defineStore('auth', () => {
           ?? data.current_organization?.name
           ?? data.organization?.name
           ?? null
+
         if (switchedOrgName) {
           currentOrganizationName.value = switchedOrgName
           localStorage.setItem('currentOrganizationName', switchedOrgName)

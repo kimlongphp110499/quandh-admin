@@ -23,6 +23,7 @@ const customPrimaryColor = ref('#663131')
 
 // 👉 Mode
 const theme = ref('light')
+
 const themeMode = computed(() => {
   return [
     {
@@ -40,6 +41,7 @@ const themeMode = computed(() => {
 
 // 👉 Skin
 const skin = ref('default')
+
 const themeSkin = computed(() => {
   return [
     {
@@ -55,6 +57,7 @@ const themeSkin = computed(() => {
 
 // 👉 Layout — sync với configStore.appContentLayoutNav
 const layout = ref(configStore.appContentLayoutNav)
+
 const layouts = computed(() => {
   return [
     {
@@ -72,6 +75,7 @@ const layouts = computed(() => {
 
 // 👉 Direction
 const direction = ref('ltr')
+
 const directionOptions = computed(() => {
   return [
     {
@@ -105,21 +109,21 @@ const resetCustomizer = async () => {
 
 watch(
   () => theme.value,
-  (newTheme) => {
+  newTheme => {
     vuetifyTheme.global.name.value = newTheme === 'dark' ? 'dark' : 'light'
   },
 )
 
 watch(
   () => direction.value,
-  (newDirection) => {
+  newDirection => {
     document.documentElement.dir = newDirection
   },
 )
 
 watch(
   () => layout.value,
-  (newLayout) => {
+  newLayout => {
     configStore.appContentLayoutNav = newLayout === 'horizontal'
       ? AppContentLayoutNav.Horizontal
       : AppContentLayoutNav.Vertical
@@ -133,7 +137,7 @@ watch(
     <VBtn
       icon
       class="app-customizer-toggler"
-      style="position: fixed; z-index: 1001; right: 0; top: 20%;"
+      style="position: fixed; z-index: 1001; inset-block-start: 20%; inset-inline-end: 0;"
       @click="isNavDrawerOpen = true"
     >
       <VIcon
@@ -157,8 +161,12 @@ watch(
       <!-- Header -->
       <div class="d-flex align-center justify-space-between pa-6">
         <div>
-          <h6 class="text-h6">Theme Customizer</h6>
-          <p class="text-body-2 mb-0">Customize & Preview in Real Time</p>
+          <h6 class="text-h6">
+            Theme Customizer
+          </h6>
+          <p class="text-body-2 mb-0">
+            Customize & Preview in Real Time
+          </p>
         </div>
 
         <div class="d-flex align-center gap-1">
@@ -185,26 +193,31 @@ watch(
       <VDivider />
 
       <!-- Content -->
-      <div class="pa-6 overflow-y-auto" style="max-height: calc(100vh - 120px);">
+      <div
+        class="pa-6 overflow-y-auto"
+        style="max-block-size: calc(100vh - 120px);"
+      >
         <!-- Primary Color -->
         <div class="mb-6">
-          <h6 class="text-h6 mb-3">Primary Color</h6>
+          <h6 class="text-h6 mb-3">
+            Primary Color
+          </h6>
           <div class="d-flex gap-2 flex-wrap">
             <div
               v-for="color in colors"
               :key="color.main"
               class="cursor-pointer"
               style="
-                width: 50px;
-                height: 50px;
-                border-radius: 4px;
                 border: 2px solid;
                 border-color: rgba(var(--v-border-color), var(--v-border-opacity));
-              "
+                border-radius: 4px;
+                block-size: 50px;
+                inline-size: 50px;
+"
               :style="{
                 'border-color': vuetifyTheme.current.value.colors.primary === color.main ? color.main : 'rgba(var(--v-border-color), var(--v-border-opacity))',
                 'border-width': vuetifyTheme.current.value.colors.primary === color.main ? '3px' : '2px',
-                backgroundColor: color.main,
+                'backgroundColor': color.main,
               }"
               @click="setPrimaryColor(color)"
             />
@@ -220,7 +233,9 @@ watch(
 
         <!-- Theme Mode -->
         <div class="mb-6">
-          <h6 class="text-h6 mb-3">Theme</h6>
+          <h6 class="text-h6 mb-3">
+            Theme
+          </h6>
           <div class="d-flex gap-2">
             <VBtn
               v-for="mode in themeMode"
@@ -230,7 +245,10 @@ watch(
               :color="theme === mode.value ? 'primary' : 'default'"
               @click="theme = mode.value"
             >
-              <VIcon :icon="mode.icon" class="me-2" />
+              <VIcon
+                :icon="mode.icon"
+                class="me-2"
+              />
               {{ mode.label }}
             </VBtn>
           </div>
@@ -238,7 +256,9 @@ watch(
 
         <!-- Skin -->
         <div class="mb-6">
-          <h6 class="text-h6 mb-3">Skins</h6>
+          <h6 class="text-h6 mb-3">
+            Skins
+          </h6>
           <div class="d-flex gap-2">
             <VBtn
               v-for="s in themeSkin"
@@ -255,7 +275,9 @@ watch(
 
         <!-- Layout -->
         <div class="mb-6">
-          <h6 class="text-h6 mb-3">Layout</h6>
+          <h6 class="text-h6 mb-3">
+            Layout
+          </h6>
           <div class="d-flex gap-2">
             <VBtn
               v-for="l in layouts"
@@ -265,7 +287,10 @@ watch(
               :color="layout === l.value ? 'primary' : 'default'"
               @click="layout = l.value"
             >
-              <VIcon :icon="l.icon" class="me-2" />
+              <VIcon
+                :icon="l.icon"
+                class="me-2"
+              />
               {{ l.label }}
             </VBtn>
           </div>
@@ -273,7 +298,9 @@ watch(
 
         <!-- Direction -->
         <div class="mb-6">
-          <h6 class="text-h6 mb-3">Direction</h6>
+          <h6 class="text-h6 mb-3">
+            Direction
+          </h6>
           <div class="d-flex gap-2">
             <VBtn
               v-for="dir in directionOptions"
@@ -283,7 +310,10 @@ watch(
               :color="direction === dir.value ? 'primary' : 'default'"
               @click="direction = dir.value"
             >
-              <VIcon :icon="dir.icon" class="me-2" />
+              <VIcon
+                :icon="dir.icon"
+                class="me-2"
+              />
               {{ dir.label }}
             </VBtn>
           </div>
