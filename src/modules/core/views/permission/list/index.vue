@@ -1,37 +1,35 @@
 <script setup lang="ts">
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { getErrorMessage } from '@/utils/errorMessage'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import PermissionFormDrawer from '../../../components/PermissionFormDrawer.vue'
 import AppFilterBar from '@/components/AppFilterBar.vue'
 import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
 import AppSnackbar from '@/components/AppSnackbar.vue'
-import { type Permission, permissionApi } from '../../../services/permissionApi'
-import { type Role, roleApi } from '@/api/modules/role'
+import { type Permission } from '../../../services/permissionApi'
 import { usePermissionStore } from '../../../stores/usePermissionStore'
 import AppSystemPageHeader from '@/components/AppSystemPageHeader.vue'
-import {
-  flattenPermissionIds,
-  filterPermissionTree,
-  buildPermissionExtraData,
-  enrichPermissionTree,
-} from '../../../utils/permissionAdapter'
+import { filterPermissionTree } from '../../../utils/permissionAdapter'
 
 const permissionStore = usePermissionStore()
 
 const isFormDrawerVisible = ref(false)
 const editingPermission = ref<Permission | null>(null)
 const importFileInput = ref<HTMLInputElement>()
-const selectedIds = ref<number[]>([])
+const selectedIds = ref<Set<number>>(new Set())
 
 const searchQuery = ref('')
 const debouncedSearchQuery = ref('')
 const snackbar = ref({ show: false, message: '', color: 'success' })
 const confirmDialog = ref({ show: false, title: '', message: '', onConfirm: () => {} })
 const expandedGroups = ref<Set<number>>(new Set())
-const createdAtByPermissionId = ref<Record<number, string>>({})
-const rolesByPermissionId = ref<Record<number, { id: number; name: string }[]>>({})
+const isReloading = ref(false)
+
+// Mở tất cả group khi tree load lần đầu (chỉ thêm, không đóng group user đã mở)
+watchEffect(() => {
+  permissionStore.permissionTree.forEach(g => expandedGroups.value.add(g.id))
+})
 
 // Debounce search query
 const debouncedSearch = useDebounceFn((query: string) => {
@@ -44,56 +42,17 @@ watch(() => searchQuery.value, newVal => {
 
 const hasActiveFilters = computed(() => !!debouncedSearchQuery.value)
 
-const fetchAllRoles = async () => {
-  const all: Role[] = []
-  let page = 1
-  let lastPage = 1
-  const limit = 100
-
-  do {
-    const response = await roleApi.list({ page, limit, sort_by: 'id', sort_order: 'asc' })
-    if (!response.data.success)
-      break
-
-    all.push(...(response.data.data || []))
-    lastPage = response.data.meta?.last_page ?? 1
-    page += 1
-  } while (page <= lastPage)
-
-  return all
-}
-
-const fetchPermissionDetails = async () => {
-  const ids = Array.from(new Set(flattenPermissionIds(permissionStore.permissionTree)))
-
-  const responses = await Promise.all(ids.map(async id => {
-    try {
-      const response = await permissionApi.show(id)
-
-      return response.data.success ? response.data.data : null
-    }
-    catch {
-      return null
-    }
-  }))
-
-  return responses.filter((item): item is Permission => !!item)
-}
-
-const hydratePermissionExtraData = async () => {
-  const [permissions, roles] = await Promise.all([fetchPermissionDetails(), fetchAllRoles()])
-  const extraData = buildPermissionExtraData(permissions, roles)
-
-  createdAtByPermissionId.value = extraData.createdAtByPermissionId
-  rolesByPermissionId.value = extraData.rolesByPermissionId
-}
-
 const reloadData = async () => {
-  await Promise.all([
-    permissionStore.fetchStats(),
-    permissionStore.fetchTree(),
-  ])
-  await hydratePermissionExtraData()
+  isReloading.value = true
+  try {
+    await Promise.all([
+      permissionStore.fetchStats(),
+      permissionStore.fetchTree(),
+    ])
+  }
+  finally {
+    isReloading.value = false
+  }
 }
 
 const showToast = (message: string, color: 'success' | 'error') => {
@@ -104,15 +63,8 @@ const showConfirm = (title: string, message: string, onConfirm: () => void) => {
   confirmDialog.value = { show: true, title, message, onConfirm }
 }
 
-const filteredTree = computed(() =>
-  filterPermissionTree(permissionStore.permissionTree, debouncedSearchQuery.value),
-)
-
 const displayedTree = computed(() =>
-  enrichPermissionTree(filteredTree.value, {
-    createdAtByPermissionId: createdAtByPermissionId.value,
-    rolesByPermissionId: rolesByPermissionId.value,
-  }),
+  filterPermissionTree(permissionStore.permissionTree, debouncedSearchQuery.value),
 )
 
 // Cache all child IDs for select all checkbox (avoid recalculating on every render)
@@ -121,15 +73,22 @@ const allChildIds = computed(() => {
 })
 
 const isAllSelected = computed(() => {
-  return selectedIds.value.length > 0 && selectedIds.value.length === allChildIds.value.length
+  return selectedIds.value.size > 0 && selectedIds.value.size === allChildIds.value.length
 })
 
 const isIndeterminate = computed(() => {
-  return selectedIds.value.length > 0 && selectedIds.value.length < allChildIds.value.length
+  return selectedIds.value.size > 0 && selectedIds.value.size < allChildIds.value.length
 })
 
 const toggleSelectAll = (val: boolean | null) => {
-  selectedIds.value = val ? [...allChildIds.value] : []
+  selectedIds.value = val ? new Set(allChildIds.value) : new Set()
+}
+
+const toggleSelected = (id: number, checked: boolean) => {
+  const next = new Set(selectedIds.value)
+
+  checked ? next.add(id) : next.delete(id)
+  selectedIds.value = next
 }
 
 const toggleGroupExpanded = (groupId: number) => {
@@ -161,7 +120,8 @@ const handleDelete = (permission: Permission) => {
     async () => {
       try {
         await permissionStore.deletePermission(permission.id)
-        selectedIds.value = selectedIds.value.filter(id => id !== permission.id)
+        selectedIds.value.delete(permission.id)
+        selectedIds.value = new Set(selectedIds.value)
         showToast('Xóa quyền thành công!', 'success')
         await reloadData()
       }
@@ -181,8 +141,8 @@ const handleBulkDelete = () => {
     `Bạn có chắc muốn xóa ${selectedIds.value.length} quyền đã chọn?`,
     async () => {
       try {
-        await permissionStore.bulkDelete(selectedIds.value)
-        selectedIds.value = []
+        await permissionStore.bulkDelete([...selectedIds.value])
+        selectedIds.value = new Set()
         showToast('Xóa hàng loạt thành công!', 'success')
         await reloadData()
       }
@@ -268,14 +228,14 @@ onMounted(async () => {
 
       <template #actions>
         <VBtn
-          v-if="selectedIds.length > 0"
+          v-if="selectedIds.size > 0"
           variant="tonal"
           color="error"
           prepend-icon="tabler-trash"
           @click="handleBulkDelete"
         >
           <span class="d-none d-sm-inline">Xóa</span>
-          ({{ selectedIds.length }})
+          ({{ selectedIds.size }})
         </VBtn>
 
         <VBtn
@@ -311,7 +271,7 @@ onMounted(async () => {
 
       <!-- Grouped Permission Table (default slot) -->
       <div
-        v-if="displayedTree.length === 0"
+        v-if="displayedTree.length === 0 && !isReloading"
         class="text-center py-12"
       >
         <VIcon
@@ -325,10 +285,19 @@ onMounted(async () => {
         </div>
       </div>
 
+      <VProgressLinear
+        v-if="isReloading"
+        indeterminate
+        color="primary"
+        height="3"
+        class="mb-0"
+      />
+
       <VTable
-        v-else
+        v-if="!isReloading || displayedTree.length > 0"
         fixed-header
         class="permission-table"
+        :style="isReloading ? 'opacity: 0.6' : ''"
       >
         <thead>
           <tr>
@@ -343,12 +312,6 @@ onMounted(async () => {
               />
             </th>
             <th>TÊN QUYỀN HẠN</th>
-            <th style="width: 220px;">
-              THUỘC VAI TRÒ
-            </th>
-            <th style="width: 160px; min-width: 160px;">
-              NGÀY TẠO
-            </th>
             <th style="width: 130px; min-width: 130px; text-align: left;">
               HÀNH ĐỘNG
             </th>
@@ -373,7 +336,7 @@ onMounted(async () => {
                 />
               </td>
               <td
-                colspan="4"
+                colspan="2"
                 class="group-content-cell"
               >
                 <div class="d-flex align-center gap-3">
@@ -443,10 +406,10 @@ onMounted(async () => {
                 </td>
                 <td>
                   <VCheckbox
-                    v-model="selectedIds"
-                    :value="perm.id"
+                    :model-value="selectedIds.has(perm.id)"
                     hide-details
                     density="compact"
+                    @update:model-value="(v) => toggleSelected(perm.id, !!v)"
                   />
                 </td>
                 <td>
@@ -457,40 +420,17 @@ onMounted(async () => {
                       color="disabled"
                     />
                     <div>
-                      <div class="text-sm font-weight-medium">
-                        {{ perm.name }}
+                      <div class="text-base font-weight-medium text-high-emphasis">
+                        {{ perm.description }}
                       </div>
                       <div
                         v-if="perm.description"
-                        class="text-xs text-disabled"
+                        class="text-sm font-weight-medium"
                       >
-                        {{ perm.description }}
+                        {{ perm.name }}
                       </div>
                     </div>
                   </div>
-                </td>
-                <td>
-                  <div
-                    v-if="perm.roles && perm.roles.length"
-                    class="d-flex flex-wrap gap-1 py-1"
-                  >
-                    <VChip
-                      v-for="role in perm.roles"
-                      :key="role.id"
-                      size="x-small"
-                      color="primary"
-                      variant="tonal"
-                    >
-                      {{ role.name }}
-                    </VChip>
-                  </div>
-                  <span
-                    v-else
-                    class="text-xs text-disabled"
-                  >—</span>
-                </td>
-                <td class="text-sm text-medium-emphasis">
-                  {{ perm.created_at }}
                 </td>
                 <td class="text-no-wrap">
                   <div class="d-flex align-center gap-1">
@@ -532,7 +472,7 @@ onMounted(async () => {
               :key="`${group.id}-empty`"
             >
               <td
-                colspan="6"
+                colspan="4"
                 class="text-center text-xs text-disabled py-3"
               >
                 Nhóm chưa có quyền nào

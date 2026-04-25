@@ -1,15 +1,15 @@
 export default [
   {
-    title: 'Bảng điều khiển',
-    to: { name: 'dashboard' },
-    icon: { icon: 'tabler-layout-dashboard' },
-    action: 'index',
-    subject: 'Dashboard',
-  },
-  {
     title: 'Quản lý hệ thống',
     icon: { icon: 'tabler-calendar-event' },
     children: [
+      {
+        title: 'Tổng quan',
+        to: { name: 'dashboard' },
+        icon: { icon: 'tabler-layout-dashboard' },
+        action: 'index',
+        subject: 'Dashboard',
+      },
       {
         title: 'Tổ chức',
         to: { name: 'system-organizations' },
@@ -78,11 +78,40 @@ export default [
     icon: { icon: 'tabler-checklist' },
     children: [
       {
-        title: 'Phòng ban',
-        to: { name: 'task-assignment-departments' },
-        icon: { icon: 'tabler-building-warehouse' },
+        title: 'Tổng quan',
+        to: { name: 'task-assignment-dashboard' },
+        icon: { icon: 'tabler-layout-dashboard' },
         action: 'index',
-        subject: 'TaskAssignmentDepartments',
+        subject: 'Dashboard',
+      },
+      {
+        title: 'Công việc của tôi',
+        to: { name: 'task-assignment-my-tasks' },
+        icon: { icon: 'tabler-user-check' },
+        action: 'index',
+        subject: 'TaskAssignmentItems',
+      },
+      {
+        title: 'Văn bản giao việc',
+        to: { name: 'task-assignment-documents' },
+        icon: { icon: 'tabler-file-text' },
+        action: 'index',
+        subject: 'TaskAssignmentDocuments',
+      },
+      {
+        title: 'Danh sách công việc',
+        to: { name: 'task-assignment-items' },
+        icon: { icon: 'tabler-checklist' },
+        action: 'index',
+        subject: 'TaskAssignmentItems',
+      },
+
+      {
+        title: 'Loại văn bản',
+        to: { name: 'task-assignment-types' },
+        icon: { icon: 'tabler-file-description' },
+        action: 'index',
+        subject: 'TaskAssignmentTypes',
       },
       {
         title: 'Loại công việc',
@@ -92,11 +121,11 @@ export default [
         subject: 'TaskAssignmentItemTypes',
       },
       {
-        title: 'Loại văn bản',
-        to: { name: 'task-assignment-types' },
-        icon: { icon: 'tabler-file-description' },
+        title: 'Phòng ban',
+        to: { name: 'task-assignment-departments' },
+        icon: { icon: 'tabler-building-warehouse' },
         action: 'index',
-        subject: 'TaskAssignmentTypes',
+        subject: 'TaskAssignmentDepartments',
       },
     ],
   },

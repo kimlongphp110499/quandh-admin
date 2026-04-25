@@ -44,7 +44,7 @@ watch(() => props.modelValue, async val => {
     progressPercent.value = props.item.completion_percent
     progressPriority.value = props.item.priority ?? ''
     completedAt.value = props.item.completed_at
-      ? dayjs(props.item.completed_at, ['DD/MM/YYYY HH:mm:ss ', 'HH:mm:ss DD/MM/YYYY']).format('DD/MM/YYYY')
+      ? dayjs(props.item.completed_at, ['DD/MM/YYYY HH:mm:ss ', 'HH:mm:ss DD/MM/YYYY']).format('DD/MM/YYYY HH:mm:ss')
       : ''
     progressNote.value = ''
     activeTab.value = 'form'

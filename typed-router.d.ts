@@ -42,5 +42,7 @@ declare module 'vue-router/auto-routes' {
     'task-assignment-items': RouteRecordInfo<'task-assignment-items', '/task-assignment/items', Record<never, never>, Record<never, never>>,
     'task-assignment-my-tasks': RouteRecordInfo<'task-assignment-my-tasks', '/task-assignment/my-tasks', Record<never, never>, Record<never, never>>,
     'task-assignment-types': RouteRecordInfo<'task-assignment-types', '/task-assignment/types', Record<never, never>, Record<never, never>>,
+    'task-assignment-dashboard': RouteRecordInfo<'task-assignment-dashboard', '/task-assignment/dashboard', Record<never, never>, Record<never, never>>,
+
   }
 }

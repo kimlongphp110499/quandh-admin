@@ -1,56 +1,59 @@
 <!-- eslint-disable import/extensions, import/no-unresolved -->
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/store/modules/auth'
+import { usePermissionStore } from '@/modules/core/stores/usePermissionStore'
+import type { Permission } from '@/modules/core/services/permissionApi'
 
 const authStore = useAuthStore()
+const permissionStore = usePermissionStore()
 
 const userRoles = computed(() => authStore.userRoles)
-const userPermissions = computed(() => authStore.userPermissions)
+const userPermissions = computed<string[]>(() => authStore.userPermissions)
 
-const groupedPermissions = computed(() => {
-  const groups: Record<string, string[]> = {}
-  userPermissions.value.forEach((perm: string) => {
-    const [module] = perm.split('.')
-    if (!groups[module]) groups[module] = []
-    groups[module].push(perm)
-  })
-  return Object.entries(groups).sort((a, b) => a[0].localeCompare(b[0]))
+// Map tên permission → object từ tree (dùng description làm label hiển thị)
+const permissionByName = computed(() => {
+  const map = new Map<string, Permission>()
+  const walk = (nodes: Permission[]) => {
+    nodes.forEach(node => {
+      map.set(node.name, node)
+      if (node.children?.length)
+        walk(node.children)
+    })
+  }
+  walk(permissionStore.permissionTree)
+  return map
 })
 
-function getModuleName(module: string): string {
-  const names: Record<string, string> = {
-    'users': 'Người dùng',
-    'roles': 'Vai trò',
-    'permissions': 'Quyền hạn',
-    'organizations': 'Tổ chức',
-    'posts': 'Bài viết',
-    'settings': 'Cài đặt',
-    'log-activities': 'Nhật ký',
-    'document-fields': 'Lĩnh vực',
-    'document-types': 'Loại văn bản',
-    'document-signers': 'Người ký',
-    'documents': 'Văn bản',
-    'issuing-agencies': 'Cơ quan ban hành',
-    'issuing-levels': 'Cơ quan ban hành',
-  }
-  return names[module] || module
-}
+// Nhóm theo group cha (parent) từ tree, fallback về split('.') nếu không có trong tree
+const groupedPermissions = computed(() => {
+  const groups = new Map<string, { label: string; perms: { name: string; label: string }[] }>()
 
-function getActionName(action: string): string {
-  const names: Record<string, string> = {
-    stats: 'Xem thống kê',
-    index: 'Xem danh sách',
-    show: 'Xem chi tiết',
-    store: 'Tạo mới',
-    create: 'Tạo mới',
-    update: 'Cập nhật',
-    destroy: 'Xóa',
-    delete: 'Xóa',
-    read: 'Đọc',
-    manage: 'Quản lý',
-  }
-  return names[action] || action
-}
+  userPermissions.value.forEach((permName: string) => {
+    const node = permissionByName.value.get(permName)
+    const parent = node?.parent_id
+      ? permissionStore.permissionTree.find(g => g.id === node.parent_id)
+      : null
+
+    const groupKey = parent?.name ?? permName.split('.')[0] ?? permName
+    const groupLabel = parent?.description ?? groupKey
+
+    if (!groups.has(groupKey))
+      groups.set(groupKey, { label: groupLabel, perms: [] })
+
+    groups.get(groupKey)!.perms.push({
+      name: permName,
+      label: node?.description ?? permName,
+    })
+  })
+
+  return [...groups.entries()].sort((a, b) => a[1].label.localeCompare(b[1].label))
+})
+
+onMounted(() => {
+  if (!permissionStore.permissionTree.length)
+    permissionStore.fetchTree()
+})
 </script>
 
 <template>
@@ -108,8 +111,8 @@ function getActionName(action: string): string {
             class="d-flex flex-column gap-5"
           >
             <div
-              v-for="[module, perms] in groupedPermissions"
-              :key="module"
+              v-for="[groupKey, group] in groupedPermissions"
+              :key="groupKey"
             >
               <div class="d-flex align-center gap-2 mb-3">
                 <VAvatar
@@ -124,25 +127,25 @@ function getActionName(action: string): string {
                   />
                 </VAvatar>
                 <span class="text-body-1 font-weight-semibold">
-                  {{ getModuleName(module) }}
+                  {{ group.label }}
                 </span>
                 <VChip
                   size="x-small"
                   color="primary"
                   variant="tonal"
                 >
-                  {{ perms.length }}
+                  {{ group.perms.length }}
                 </VChip>
               </div>
               <div class="d-flex gap-2 flex-wrap ms-10">
                 <VChip
-                  v-for="perm in perms"
-                  :key="perm"
+                  v-for="perm in group.perms"
+                  :key="perm.name"
                   size="small"
                   variant="tonal"
                   color="secondary"
                 >
-                  {{ getActionName(perm.split('.')[1] || perm) }}
+                  {{ perm.label }}
                 </VChip>
               </div>
             </div>

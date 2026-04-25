@@ -145,6 +145,31 @@ export interface TaskAssignmentItemReportFormData {
   files?: File[]
 }
 
+export interface StatsByDepartmentItem {
+  department_id: number | null
+  department_name: string | null
+  total: number
+  in_progress: number
+  done: number
+  overdue: number
+}
+
+export interface StatsByUserItem {
+  user_id: number
+  user_name: string
+  total: number
+  done: number
+  overdue: number
+}
+
+
+export interface StatsByTimeItem {
+  period: string
+  total: number
+  done: number
+  overdue: number
+}
+
 export const taskAssignmentItemApi = {
   list(filters?: TaskAssignmentItemFilters) {
     return apiClient.get<ApiResponse<TaskAssignmentItem[]>>('/task-assignment-items', { params: filters })
@@ -207,6 +232,18 @@ export const taskAssignmentItemApi = {
     return apiClient.post<ApiResponse>('/task-assignment-items/import', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
+  },
+
+  statsByDepartment(filters?: TaskAssignmentItemFilters) {
+    return apiClient.get<ApiResponse<StatsByDepartmentItem[]>>('/task-assignment-items/stats-by-department', { params: filters })
+  },
+
+  statsByUser(filters?: TaskAssignmentItemFilters) {
+    return apiClient.get<ApiResponse<StatsByUserItem[]>>('/task-assignment-items/stats-by-user', { params: filters })
+  },
+
+  statsByTime(filters?: TaskAssignmentItemFilters & { group_by?: 'week' | 'month' | 'quarter' }) {
+    return apiClient.get<ApiResponse<StatsByTimeItem[]>>('/task-assignment-items/stats-by-time', { params: filters })
   },
 
   overdue(filters?: TaskAssignmentItemFilters) {

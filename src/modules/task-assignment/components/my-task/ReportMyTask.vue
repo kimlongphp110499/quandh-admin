@@ -61,7 +61,7 @@ const cancel = () => {
 const refreshReports = async (itemId: number) => {
   reportLoading.value = true
   try {
-    reportList.value = await store.getReports(itemId)
+    reportList.value = await store.getReports(itemId, { only_mine: true })
   }
   finally {
     reportLoading.value = false

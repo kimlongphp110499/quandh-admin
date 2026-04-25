@@ -97,9 +97,9 @@ export const useMyTaskAssignmentItemStore = defineStore('myTaskAssignmentItem', 
     }
   }
 
-  async function getReports(id: number): Promise<MyTaskReport[]> {
+  async function getReports(id: number, params?: { only_mine?: boolean }): Promise<MyTaskReport[]> {
     try {
-      const response = await myTaskAssignmentItemApi.getReports(id)
+      const response = await myTaskAssignmentItemApi.getReports(id, params)
       if (response.data.success)
         return response.data.data || []
 

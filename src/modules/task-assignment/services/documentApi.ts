@@ -36,6 +36,22 @@ export interface DocumentStats {
   issued: number
 }
 
+export interface DocumentStatsPeriodItem {
+  label: string
+  year: number
+  period: number
+  total: number
+  draft: number
+  issued: number
+}
+
+export interface DocumentStatsPeriodFilters {
+  group_by: 'month' | 'quarter' | 'year'
+  year?: number
+  status?: 'draft' | 'issued'
+  task_assignment_type_id?: number
+}
+
 export interface DocumentFilters {
   page?: number
   limit?: number
@@ -87,6 +103,10 @@ export const documentApi = {
 
   stats() {
     return apiClient.get<ApiResponse<DocumentStats>>('/task-assignment-documents/stats')
+  },
+
+  statsPeriod(filters: DocumentStatsPeriodFilters) {
+    return apiClient.get<ApiResponse<DocumentStatsPeriodItem[]>>('/task-assignment-documents/stats/period', { params: filters })
   },
 
   bulkDelete(ids: number[]) {

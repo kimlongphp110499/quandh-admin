@@ -1,6 +1,8 @@
 <!-- eslint-disable import/no-unresolved -->
 <!-- eslint-disable import/extensions -->
 <script setup lang="ts">
+import AppConfirmDialog from '@/components/AppConfirmDialog.vue'
+
 export interface AttachmentItem {
   id: number
   file_name?: string
@@ -70,11 +72,20 @@ const getFileIcon = (mimeType?: string, fileName?: string) => {
 
 const isMarkedForRemoval = (id: number) => props.removeAttachmentIds.includes(id)
 
+const confirmDialog = ref({ show: false, att: null as AttachmentItem | null })
+
 const handleRemoveExisting = (att: AttachmentItem) => {
+  confirmDialog.value = { show: true, att }
+}
+
+const onConfirmRemove = () => {
+  const att = confirmDialog.value.att
+  if (!att) return
   if (props.deleteMode === 'mark')
     emit('mark-remove', att.id)
   else
     emit('remove-existing', att)
+  confirmDialog.value = { show: false, att: null }
 }
 
 defineExpose({ openFilePicker })
@@ -218,4 +229,11 @@ defineExpose({ openFilePicker })
     <!-- Slot cho nút Thêm file / Tải lên -->
     <slot name="actions" :open-file-picker="openFilePicker" />
   </div>
+
+  <AppConfirmDialog
+    v-model="confirmDialog.show"
+    title="Xác nhận xóa"
+    :message="`Bạn có chắc muốn xóa tệp &quot;${confirmDialog.att?.file_name || confirmDialog.att?.name}&quot;?`"
+    @confirm="onConfirmRemove"
+  />
 </template>

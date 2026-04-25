@@ -21,6 +21,7 @@ interface Props {
   isDrawerOpen: boolean
   item?: Item | null
   viewOnly?: boolean
+  documentId?: number | null
 }
 
 interface Emit {
@@ -214,6 +215,9 @@ const isDocumentIssued = computed(() => props.item?.document?.status === 'issued
 
 const isReadonly = computed(() => isDocumentIssued.value || !!props.viewOnly)
 
+// Field văn bản giao việc bị lock khi đã được truyền documentId từ ngoài
+const isDocumentFieldReadonly = computed(() => isReadonly.value || props.documentId != null)
+
 const drawerTitle = computed(() => {
   if (!isEditMode.value)
     return 'Thêm công việc mới'
@@ -256,6 +260,15 @@ const removeDepartment = (index: number) => {
   formData.value.department_ids.splice(index, 1)
 }
 
+const departmentDuplicateRule = (index: number) => (val: any) => {
+  if (!val)
+    return true
+  const isDuplicate = formData.value.department_ids.some(
+    (d, i) => i !== index && d.department_id === val,
+  )
+  return !isDuplicate || 'Phòng ban này đã được thêm'
+}
+
 // --- Người dùng ---
 const addUserAssignment = () => {
   formData.value.user_assignments.push({
@@ -285,6 +298,9 @@ const closeDrawer = () => {
 watch(() => props.isDrawerOpen, val => {
   if (val) {
     formData.value = buildInitialForm()
+    // Nếu được truyền documentId từ ngoài, gán cứng vào form
+    if (props.documentId != null)
+      formData.value.task_assignment_document_id = props.documentId
     loadDocumentOptions(true)
     loadItemTypeOptions(true)
     loadDepartmentOptions()
@@ -410,8 +426,8 @@ const onSubmit = async () => {
                   :items="documentOptions"
                   item-title="title"
                   item-value="value"
-                  clearable
-                  :readonly="isReadonly"
+                  :clearable="!isDocumentFieldReadonly"
+                  :readonly="isDocumentFieldReadonly"
                   :rules="[requiredRule, serverErrorRule('task_assignment_document_id')]"
                 >
                   <template #append-item>
@@ -624,6 +640,7 @@ const onSubmit = async () => {
                         item-value="value"
                         clearable
                         :readonly="isReadonly"
+                        :rules="[departmentDuplicateRule(index)]"
                       />
                     </VCol>
                     <VCol cols="12">

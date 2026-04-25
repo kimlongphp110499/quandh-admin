@@ -27,7 +27,6 @@ interface Props {
   reports: ReportItem[]
   isLoading?: boolean
   canEdit?: boolean
-  currentUserId?: number
 }
 
 interface Emits {
@@ -103,7 +102,7 @@ const toAttachmentItems = (atts?: ReportAttachment[]): AttachmentItem[] =>
             </div>
 
             <VTooltip
-              v-if="canEdit && props.currentUserId && report.reporter_user_id === props.currentUserId"
+              v-if="canEdit"
               text="Chỉnh sửa báo cáo"
             >
               <template #activator="{ props: tooltipProps }">

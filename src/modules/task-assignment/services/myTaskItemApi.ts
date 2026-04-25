@@ -156,8 +156,8 @@ export const myTaskAssignmentItemApi = {
   },
 
   /** Lấy danh sách báo cáo của công việc */
-  getReports(id: number) {
-    return apiClient.get<ApiResponse<MyTaskReport[]>>(`/task-assignment-items/${id}/reports`)
+  getReports(id: number, params?: { only_mine?: boolean }) {
+    return apiClient.get<ApiResponse<MyTaskReport[]>>(`/task-assignment-items/${id}/reports`, { params })
   },
 
   /** Nộp báo cáo mới */

@@ -304,7 +304,7 @@ watch(() => props.isDrawerOpen, async val => {
                       v-for="perm in filteredPermissions"
                       :key="perm.id"
                       class="d-flex align-center rounded"
-                      :class="{ 'bg-surface-variant rounded': perm.depth === 0 }"
+                      :class="perm.depth === 0 ? 'font-weight-semibold rounded group-header-row' : ''"
                       :style="{ paddingLeft: `${perm.depth * 16 + 8}px` }"
                     >
                       <VCheckbox
@@ -324,13 +324,13 @@ watch(() => props.isDrawerOpen, async val => {
                       />
                       <div class="py-1">
                         <div>
-                          {{ perm.name }}
+                          {{ perm.description }}
                         </div>
                         <div
                           v-if="perm.description"
                           class=""
                         >
-                          {{ perm.description }}
+                          {{ perm.name }}
                         </div>
                       </div>
                     </div>
@@ -368,3 +368,9 @@ watch(() => props.isDrawerOpen, async val => {
     :color="snackbar.color"
   />
 </template>
+
+<style scoped>
+.group-header-row {
+  background-color: rgb(var(--v-theme-primary), 0.12);
+}
+</style>

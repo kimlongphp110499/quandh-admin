@@ -307,8 +307,10 @@ const statusOptions = [
 const isDeletingItem = ref<number | null>(null)
 
 const confirmDeleteItem = (item: Item) => {
-  if (isIssued.value)
-    return
+  if (isIssued.value) {
+      showToast('Công việc đã được ban hành không thể xoá', 'success')
+      return
+  }
 
   showConfirm('Xóa công việc', `Bạn có chắc muốn xóa công việc "${item.name}"?`, async () => {
     isDeletingItem.value = item.id
@@ -329,8 +331,10 @@ const itemDrawerOpen = ref(false)
 const editingItem = ref<Item | null>(null)
 
 const openAddItemDrawer = () => {
-  if (isIssued.value)
-    return
+  if (isIssued.value) {
+      showToast('Văn bản đã được ban hành không thể thêm mới công việc', 'success')
+      return
+  }
 
   editingItem.value = {
     task_assignment_document_id: documentId.value,
@@ -500,7 +504,7 @@ onMounted(async () => {
       <AppFilterBar :show-filters="false">
         <template #actions>
            <!-- Add -->
-          <VBtn @click="openAddItemDrawer">
+          <VBtn @click="openAddItemDrawer" :disabled="isIssued">
             <VIcon icon="tabler-plus" />
             <span class="d-none d-sm-inline ms-1">Thêm mới</span>
           </VBtn>
@@ -627,6 +631,7 @@ onMounted(async () => {
     <ItemFormDrawer
       v-model:is-drawer-open="itemDrawerOpen"
       :item="editingItem as any"
+      :document-id="documentId"
       @submit="handleItemSubmit"
     />
 

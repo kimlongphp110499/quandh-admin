@@ -1,15 +1,15 @@
 export default [
   {
-    title: 'Bảng điều khiển',
-    to: { name: 'dashboard' },
-    icon: { icon: 'tabler-layout-dashboard' },
-    action: 'index',
-    subject: 'Dashboard',
-  },
-  {
     title: 'Quản lý hệ thống',
     icon: { icon: 'tabler-calendar-event' },
     children: [
+      {
+        title: 'Tổng quan',
+        to: { name: 'dashboard' },
+        icon: { icon: 'tabler-layout-dashboard' },
+        action: 'index',
+        subject: 'Dashboard',
+      },
       {
         title: 'Tổ chức',
         to: { name: 'system-organizations' },
@@ -77,6 +77,13 @@ export default [
     title: 'Phân công công việc',
     icon: { icon: 'tabler-checklist' },
     children: [
+      {
+        title: 'Tổng quan',
+        to: { name: 'task-assignment-dashboard' },
+        icon: { icon: 'tabler-layout-dashboard' },
+        action: 'index',
+        subject: 'Dashboard',
+      },
       {
         title: 'Công việc của tôi',
         to: { name: 'task-assignment-my-tasks' },

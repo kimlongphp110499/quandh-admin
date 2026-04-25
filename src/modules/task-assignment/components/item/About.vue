@@ -103,12 +103,19 @@ const formatDate = (dateStr?: string | null) => {
           </h6>
         </VListItem>
 
+        <VListItem v-if="props.item.completed_at">
+          <h6 class="text-h6">
+            Ngày hoàn thành:
+            <span class="text-body-1 d-inline-block">{{ formatDate(props.item.completed_at) }}</span>
+          </h6>
+        </VListItem>
+
         <VListItem v-if="props.item.document">
           <h6 class="text-h6">
             Văn bản giao việc:
             <RouterLink
               :to="{ name: 'task-assignment-documents-id', params: { id: props.item.document.id } }"
-              class="text-body-1 d-inline-block text-link"
+              class="text-body-1 d-inline-block"
             >
               {{ props.item.document.name }}
             </RouterLink>
