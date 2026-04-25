@@ -89,7 +89,7 @@ export default [
         to: { name: 'task-assignment-my-tasks' },
         icon: { icon: 'tabler-user-check' },
         action: 'index',
-        subject: 'TaskAssignmentItems',
+        subject: 'TaskAssignmentMyTasks',
       },
       {
         title: 'Văn bản giao việc',

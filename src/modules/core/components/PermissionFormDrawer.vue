@@ -43,13 +43,13 @@ const formData = ref({
 })
 
 const parentOptions = computed(() => {
-  const flat: { title: string; value: number | null }[] = [{ title: '-- Không có (quyền gốc) --', value: null }]
+  const flat: { title: string; value: number | null }[] = [{ title: 'Không có quyền cha', value: null }]
 
   const walk = (nodes: typeof permissionStore.permissionTree, depth = 0) => {
     for (const node of nodes) {
       if (node.id !== props.permission?.id) {
         flat.push({
-          title: `${'　'.repeat(depth)}${node.name}`,
+          title: `${'　'.repeat(depth)}${node.description}`,
           value: node.id,
         })
         if (node.children?.length)
